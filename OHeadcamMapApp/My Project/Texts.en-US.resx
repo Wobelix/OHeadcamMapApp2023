@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>The App is developed by Michael Moeller, Denmark. The app contains and uses different tools that can be downloaded else where. Contact : webmaster@ballerup-ok.dk</value>
+  </data>
+  <data name="AdjLengthToBig" xml:space="preserve">
+    <value>The length cannot be longer than the preparation of map and video which is:</value>
+  </data>
+  <data name="AdjPlayerTitle" xml:space="preserve">
+    <value>Adjustment player</value>
+  </data>
+  <data name="AdjVidStatusNoVideo" xml:space="preserve">
+    <value>Create a video to adjust or type a GPS difference</value>
+  </data>
+  <data name="btnInterrupt" xml:space="preserve">
+    <value>Cancel run</value>
+  </data>
+  <data name="btnMakeVideo" xml:space="preserve">
+    <value>Make video</value>
+  </data>
+  <data name="btnPrepare" xml:space="preserve">
+    <value>Run Prepare Steps</value>
+  </data>
+  <data name="Deshake1" xml:space="preserve">
+    <value>Deshake Step 1: Analysis...</value>
+  </data>
+  <data name="Deshake2" xml:space="preserve">
+    <value>Deshake Step 2: Generate video :</value>
+  </data>
+  <data name="Deshake3" xml:space="preserve">
+    <value>Done: Video stabilized</value>
+  </data>
+  <data name="ErrDeshakemissing" xml:space="preserve">
+    <value>Deshake video file missing (from step 2) :</value>
+  </data>
+  <data name="ErrFailRunning" xml:space="preserve">
+    <value>ERROR, done with all steps</value>
+  </data>
+  <data name="ErrFailVideo1" xml:space="preserve">
+    <value>Failed to prepare video</value>
+  </data>
+  <data name="ErrFailVideoOut" xml:space="preserve">
+    <value>Output video failed</value>
+  </data>
+  <data name="ErrInpVideoSpace" xml:space="preserve">
+    <value>The program does not support spaces in file names or paths in input files, please correct and try again: </value>
+  </data>
+  <data name="ErrJoinedmissing" xml:space="preserve">
+    <value>Merged video file missing (step 1) :</value>
+  </data>
+  <data name="ErrNoFile" xml:space="preserve">
+    <value>The file does not exist:</value>
+  </data>
+  <data name="ErrNoFolder" xml:space="preserve">
+    <value>The folder does not exist</value>
+  </data>
+  <data name="ErrNoMapfiles" xml:space="preserve">
+    <value>Error: No map files generated, perhaps due to file errors in QR files, try specifying new files</value>
+  </data>
+  <data name="ErrNoMapfolder" xml:space="preserve">
+    <value>No map folder (temp2) at map generation</value>
+  </data>
+  <data name="ErrNoOutpFile" xml:space="preserve">
+    <value>Missing output filename</value>
+  </data>
+  <data name="ErrNotNumeric" xml:space="preserve">
+    <value>The value in the field is not a number</value>
+  </data>
+  <data name="ErrQRImg" xml:space="preserve">
+    <value>QR Image Error: </value>
+  </data>
+  <data name="ErrStepsNotReady" xml:space="preserve">
+    <value>Both video and map must be prepared (with green marking)</value>
+  </data>
+  <data name="ErrTrackMapImage" xml:space="preserve">
+    <value>Error when preparing image from tracking video</value>
+  </data>
+  <data name="ErrXML" xml:space="preserve">
+    <value>XML file Error: </value>
+  </data>
+  <data name="Filter1" xml:space="preserve">
+    <value>Generate video with filter</value>
+  </data>
+  <data name="Filter2" xml:space="preserve">
+    <value>Done: Video generated</value>
+  </data>
+  <data name="GPXFixed" xml:space="preserve">
+    <value>The .gpx file is fixed</value>
+  </data>
+  <data name="GPXFixInfo" xml:space="preserve">
+    <value>This function removes empty code in .gpx files from Apple Watch so that it works in Quickroute.</value>
+  </data>
+  <data name="HDChanged" xml:space="preserve">
+    <value>The size of the map overlays must be adjusted again when this is changed.
+The output video uses the same format as the input video if no selection is made, e.g., 2.7K or 4K.
+If selected, the output video will be 1920x1080.</value>
+  </data>
+  <data name="InfoFilenameMusic" xml:space="preserve">
+    <value>You have changed the output file and have chosen music, remember to change the music video file name</value>
+  </data>
+  <data name="LogCopyFile" xml:space="preserve">
+    <value>The file is prepared</value>
+  </data>
+  <data name="LogStartProcess" xml:space="preserve">
+    <value>Runs background task: </value>
+  </data>
+  <data name="Makeblack1" xml:space="preserve">
+    <value>Runs black background...</value>
+  </data>
+  <data name="Makeblack2" xml:space="preserve">
+    <value>Done: Black background</value>
+  </data>
+  <data name="MapFlipActive" xml:space="preserve">
+    <value>Map 2 is active</value>
+  </data>
+  <data name="MapFlipInfo" xml:space="preserve">
+    <value>The Map Flip function works by first adjusting the end of the video for part 1. Then, in the adjustment window, you can set the start time for the video of part 2, so it follows immediately after the end of part 1. 
+It is essential that you have the complete video for the entire course and have created a set of Quickroute files (both XML and image) for each part.
+You can trim the GPS track in the Quickroute files within Quickroute so that they only contain GPS data for part 1 and part 2, respectively. 
+Remember to generate separate output video files for map 1 and map 2 (Make Video button). 
+You can switch between map 1 and 2. Map 1 is the default map, if map 2 is active the Map Flip box will be green. The output file for Map 2 will start at the map flip start time.</value>
+  </data>
+  <data name="MapFlipSaveWarn" xml:space="preserve">
+    <value>Map Flip - map 2 - is active.
+Remember to change filename.
+Press Cancel to change filename</value>
+  </data>
+  <data name="NoInputFiles" xml:space="preserve">
+    <value>No input files is choosen</value>
+  </data>
+  <data name="NoPlayerFile" xml:space="preserve">
+    <value>The file cannot be found:</value>
+  </data>
+  <data name="QDoOutputAgain" xml:space="preserve">
+    <value>It looks like the video has already been created, but if you have chosen to add music afterwards you will need to run "Generate video" again and then press No below. 
+Do you want to remake both Output video and Music video (answer: Yes) or only Music video (answer: No)?</value>
+  </data>
+  <data name="QQuitProcess" xml:space="preserve">
+    <value>Do you want to cancel the process?</value>
+  </data>
+  <data name="QReset" xml:space="preserve">
+    <value>Do you want to reset all fields beside map settings</value>
+  </data>
+  <data name="QResetCaption" xml:space="preserve">
+    <value>Reset fields</value>
+  </data>
+  <data name="Status1" xml:space="preserve">
+    <value>Writing in .ini file:</value>
+  </data>
+  <data name="Status2" xml:space="preserve">
+    <value>Runs merging of videos for:</value>
+  </data>
+  <data name="Status3" xml:space="preserve">
+    <value>Preparing deshake of video</value>
+  </data>
+  <data name="Status4" xml:space="preserve">
+    <value>Runs combine maps and video</value>
+  </data>
+  <data name="Status5" xml:space="preserve">
+    <value>Runs prepare video</value>
+  </data>
+  <data name="Status6" xml:space="preserve">
+    <value>DONE </value>
+  </data>
+  <data name="StatusAdjVidFinish" xml:space="preserve">
+    <value>Adjustment video is ready</value>
+  </data>
+  <data name="StatusAdjVidStart" xml:space="preserve">
+    <value>Adjustment video is being prepared...</value>
+  </data>
+  <data name="StatusAudio1" xml:space="preserve">
+    <value>Preparing video:</value>
+  </data>
+  <data name="StatusCombine2" xml:space="preserve">
+    <value>Done: Map prepared</value>
+  </data>
+  <data name="StatusMakeMapImgs" xml:space="preserve">
+    <value>Preparing map part...</value>
+  </data>
+  <data name="StatusMusicVidFinish" xml:space="preserve">
+    <value>Video with music prepared</value>
+  </data>
+  <data name="StatusMusicVidStart" xml:space="preserve">
+    <value>Video with music is being prepared...</value>
+  </data>
+  <data name="StatusOutReady" xml:space="preserve">
+    <value>The output file is created</value>
+  </data>
+  <data name="StatusTimeLeft" xml:space="preserve">
+    <value>Time remaining: </value>
+  </data>
+  <data name="StatusVideo1Ready" xml:space="preserve">
+    <value>The video is ready</value>
+  </data>
+  <data name="Status_copyfile" xml:space="preserve">
+    <value>Video is being prepared...</value>
+  </data>
+</root>

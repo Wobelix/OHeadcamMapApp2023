@@ -1,0 +1,3198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="OpenFileDialogVideo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="OpenFileDialogVideo.Filter" xml:space="preserve">
+    <value>Video filer|*.mp4;*.avi;*.mov</value>
+  </data>
+  <data name="OpenFileDialogVideo.Title" xml:space="preserve">
+    <value>De valgte filer sorteres alfabetisk</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AddVideofile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="AddVideofile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 107</value>
+  </data>
+  <data name="AddVideofile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AddVideofile.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="AddVideofile.Text" xml:space="preserve">
+    <value>Tilføj video</value>
+  </data>
+  <data name="&gt;&gt;AddVideofile.Name" xml:space="preserve">
+    <value>AddVideofile</value>
+  </data>
+  <data name="&gt;&gt;AddVideofile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddVideofile.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;AddVideofile.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="btnOutputFile.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="btnOutputFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnOutputFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 59</value>
+  </data>
+  <data name="btnOutputFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 25</value>
+  </data>
+  <data name="btnOutputFile.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="btnOutputFile.Text" xml:space="preserve">
+    <value>Vælg placering...</value>
+  </data>
+  <data name="&gt;&gt;btnOutputFile.Name" xml:space="preserve">
+    <value>btnOutputFile</value>
+  </data>
+  <data name="&gt;&gt;btnOutputFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnOutputFile.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;btnOutputFile.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 41</value>
+  </data>
+  <data name="Label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 16</value>
+  </data>
+  <data name="Label7.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="Label7.Text" xml:space="preserve">
+    <value>Angiv output video (MP4)</value>
+  </data>
+  <data name="&gt;&gt;Label7.Name" xml:space="preserve">
+    <value>Label7</value>
+  </data>
+  <data name="&gt;&gt;Label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label7.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="btnQRxml.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnQRxml.Location" type="System.Drawing.Point, System.Drawing">
+    <value>233, 141</value>
+  </data>
+  <data name="btnQRxml.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnQRxml.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="btnQRxml.Text" xml:space="preserve">
+    <value>Vælg fil</value>
+  </data>
+  <data name="&gt;&gt;btnQRxml.Name" xml:space="preserve">
+    <value>btnQRxml</value>
+  </data>
+  <data name="&gt;&gt;btnQRxml.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnQRxml.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;btnQRxml.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="btnQRimg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnQRimg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>233, 97</value>
+  </data>
+  <data name="btnQRimg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnQRimg.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="btnQRimg.Text" xml:space="preserve">
+    <value>Vælg fil</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg.Name" xml:space="preserve">
+    <value>btnQRimg</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btnGpxf.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnGpxf.Location" type="System.Drawing.Point, System.Drawing">
+    <value>233, 50</value>
+  </data>
+  <data name="btnGpxf.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnGpxf.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="btnGpxf.Text" xml:space="preserve">
+    <value>Vælg fil</value>
+  </data>
+  <data name="btnGpxf.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;btnGpxf.Name" xml:space="preserve">
+    <value>btnGpxf</value>
+  </data>
+  <data name="&gt;&gt;btnGpxf.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnGpxf.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;btnGpxf.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 125</value>
+  </data>
+  <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 13</value>
+  </data>
+  <data name="Label4.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="Label4.Text" xml:space="preserve">
+    <value>Løbsdata (.xml fra Quickroute)</value>
+  </data>
+  <data name="&gt;&gt;Label4.Name" xml:space="preserve">
+    <value>Label4</value>
+  </data>
+  <data name="&gt;&gt;Label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label4.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 81</value>
+  </data>
+  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 13</value>
+  </data>
+  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="Label3.Text" xml:space="preserve">
+    <value>Løbskort(.jpg  fra Quickroute)</value>
+  </data>
+  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
+    <value>Label3</value>
+  </data>
+  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 31</value>
+  </data>
+  <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 13</value>
+  </data>
+  <data name="Label2.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="Label2.Text" xml:space="preserve">
+    <value>Løbstracking( .GPX fra Quickroute)</value>
+  </data>
+  <data name="Label2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Label2.Name" xml:space="preserve">
+    <value>Label2</value>
+  </data>
+  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 85</value>
+  </data>
+  <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 13</value>
+  </data>
+  <data name="Label1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="Label1.Text" xml:space="preserve">
+    <value>Importèr videofiler i rækkefølge</value>
+  </data>
+  <data name="&gt;&gt;Label1.Name" xml:space="preserve">
+    <value>Label1</value>
+  </data>
+  <data name="&gt;&gt;Label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <metadata name="OpenFileDialoggpx.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>184, 17</value>
+  </metadata>
+  <data name="OpenFileDialoggpx.Filter" xml:space="preserve">
+    <value>GPX filer|*.gpx;*.tcx</value>
+  </data>
+  <metadata name="OpenFileDialogqrimg.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>340, 17</value>
+  </metadata>
+  <data name="OpenFileDialogqrimg.Filter" xml:space="preserve">
+    <value>Quickroute billede|*.jpg</value>
+  </data>
+  <metadata name="OpenFileDialogxml.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>508, 17</value>
+  </metadata>
+  <data name="OpenFileDialogxml.Filter" xml:space="preserve">
+    <value>Quickroute route(XML)|*.xml</value>
+  </data>
+  <metadata name="SaveFileDialogOutput.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>648, 16</value>
+  </metadata>
+  <data name="SaveFileDialogOutput.Filter" xml:space="preserve">
+    <value>Video filer|*.mp4;*.avi</value>
+  </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>818, 16</value>
+  </metadata>
+  <data name="numVideoTempo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="numVideoTempo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>326, 85</value>
+  </data>
+  <data name="numVideoTempo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 22</value>
+  </data>
+  <data name="numVideoTempo.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="numVideoTempo.ToolTip" xml:space="preserve">
+    <value>Hurtig &gt; 1, slowmotion &lt; 1</value>
+  </data>
+  <data name="&gt;&gt;numVideoTempo.Name" xml:space="preserve">
+    <value>numVideoTempo</value>
+  </data>
+  <data name="&gt;&gt;numVideoTempo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numVideoTempo.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;numVideoTempo.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label13.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9pt</value>
+  </data>
+  <data name="Label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 87</value>
+  </data>
+  <data name="Label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 15</value>
+  </data>
+  <data name="Label13.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="Label13.Text" xml:space="preserve">
+    <value> GPS +/- (sek):</value>
+  </data>
+  <data name="Label13.ToolTip" xml:space="preserve">
+    <value>Avendes kun i sidste trin, så man kan justere 
+det med nedsat videolængde
+</value>
+  </data>
+  <data name="&gt;&gt;Label13.Name" xml:space="preserve">
+    <value>Label13</value>
+  </data>
+  <data name="&gt;&gt;Label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label13.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label13.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="cbXDeshake.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbXDeshake.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="cbXDeshake.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbXDeshake.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="cbXDeshake.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 20</value>
+  </data>
+  <data name="cbXDeshake.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="cbXDeshake.Text" xml:space="preserve">
+    <value>Aktiver ekstrabehandling (valgfri)</value>
+  </data>
+  <data name="cbXDeshake.ToolTip" xml:space="preserve">
+    <value>Danner en ny videofil der hedder Deshake.mp4,, i den angivne mappe i indstillinger</value>
+  </data>
+  <data name="&gt;&gt;cbXDeshake.Name" xml:space="preserve">
+    <value>cbXDeshake</value>
+  </data>
+  <data name="&gt;&gt;cbXDeshake.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbXDeshake.Parent" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;cbXDeshake.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cbXJoin.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbXJoin.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="cbXJoin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbXJoin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
+  </data>
+  <data name="cbXJoin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 20</value>
+  </data>
+  <data name="cbXJoin.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="cbXJoin.Text" xml:space="preserve">
+    <value>Saml videoer til en video</value>
+  </data>
+  <data name="cbXJoin.ToolTip" xml:space="preserve">
+    <value>Danner en videofil i App mappen der hedder "joined.mp4", anvendes til deshake trin</value>
+  </data>
+  <data name="&gt;&gt;cbXJoin.Name" xml:space="preserve">
+    <value>cbXJoin</value>
+  </data>
+  <data name="&gt;&gt;cbXJoin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbXJoin.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;cbXJoin.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="Label15.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>628, 107</value>
+  </data>
+  <data name="Label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 26</value>
+  </data>
+  <data name="Label15.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="Label15.Text" xml:space="preserve">
+    <value>Lav kort testversion</value>
+  </data>
+  <data name="Label15.ToolTip" xml:space="preserve">
+    <value>Anvendes i alle trin</value>
+  </data>
+  <data name="&gt;&gt;Label15.Name" xml:space="preserve">
+    <value>Label15</value>
+  </data>
+  <data name="&gt;&gt;Label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label15.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;Label15.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btnPrepareInput.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="btnPrepareInput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPrepareInput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>631, 26</value>
+  </data>
+  <data name="btnPrepareInput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 51</value>
+  </data>
+  <data name="btnPrepareInput.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="btnPrepareInput.Text" xml:space="preserve">
+    <value>Kør klargøringstrin</value>
+  </data>
+  <data name="btnPrepareInput.ToolTip" xml:space="preserve">
+    <value>Running the selected steps to prepare the input sources</value>
+  </data>
+  <data name="&gt;&gt;btnPrepareInput.Name" xml:space="preserve">
+    <value>btnPrepareInput</value>
+  </data>
+  <data name="&gt;&gt;btnPrepareInput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPrepareInput.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;btnPrepareInput.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btnAddMusic.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="btnAddMusic.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnAddMusic.Location" type="System.Drawing.Point, System.Drawing">
+    <value>631, 77</value>
+  </data>
+  <data name="btnAddMusic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 23</value>
+  </data>
+  <data name="btnAddMusic.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="btnAddMusic.Text" xml:space="preserve">
+    <value>Tilføj musik </value>
+  </data>
+  <data name="btnAddMusic.ToolTip" xml:space="preserve">
+    <value>Tilføj musik til output videoen
+i en separat fil - Generer video skal køres igen</value>
+  </data>
+  <data name="&gt;&gt;btnAddMusic.Name" xml:space="preserve">
+    <value>btnAddMusic</value>
+  </data>
+  <data name="&gt;&gt;btnAddMusic.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddMusic.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;btnAddMusic.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnMapSetting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnMapSetting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 123</value>
+  </data>
+  <data name="btnMapSetting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 42</value>
+  </data>
+  <data name="btnMapSetting.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="btnMapSetting.Text" xml:space="preserve">
+    <value>Kort- indstillinger</value>
+  </data>
+  <data name="btnMapSetting.ToolTip" xml:space="preserve">
+    <value>Vælg og placer trackingkort mv.</value>
+  </data>
+  <data name="btnMapSetting.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;btnMapSetting.Name" xml:space="preserve">
+    <value>btnMapSetting</value>
+  </data>
+  <data name="&gt;&gt;btnMapSetting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMapSetting.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;btnMapSetting.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="btnMakeAdjVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnMakeAdjVideo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 41</value>
+  </data>
+  <data name="btnMakeAdjVideo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 45</value>
+  </data>
+  <data name="btnMakeAdjVideo.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="btnMakeAdjVideo.Text" xml:space="preserve">
+    <value>Juster timing</value>
+  </data>
+  <data name="btnMakeAdjVideo.ToolTip" xml:space="preserve">
+    <value>Synkroniser tracking med video</value>
+  </data>
+  <data name="&gt;&gt;btnMakeAdjVideo.Name" xml:space="preserve">
+    <value>btnMakeAdjVideo</value>
+  </data>
+  <data name="&gt;&gt;btnMakeAdjVideo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMakeAdjVideo.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;btnMakeAdjVideo.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="Button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 86</value>
+  </data>
+  <data name="Button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 29</value>
+  </data>
+  <data name="Button1.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="Button1.Text" xml:space="preserve">
+    <value>Indstil billede</value>
+  </data>
+  <data name="Button1.ToolTip" xml:space="preserve">
+    <value>Adjust sharpness, brightness, contrast and rotation of your video</value>
+  </data>
+  <data name="&gt;&gt;Button1.Name" xml:space="preserve">
+    <value>Button1</value>
+  </data>
+  <data name="&gt;&gt;Button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Button1.Parent" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;Button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rb_deshake.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rb_deshake.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="rb_deshake.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rb_deshake.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 41</value>
+  </data>
+  <data name="rb_deshake.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 20</value>
+  </data>
+  <data name="rb_deshake.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="rb_deshake.Text" xml:space="preserve">
+    <value>Fjern rystelser (tager tid)</value>
+  </data>
+  <data name="&gt;&gt;rb_deshake.Name" xml:space="preserve">
+    <value>rb_deshake</value>
+  </data>
+  <data name="&gt;&gt;rb_deshake.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rb_deshake.Parent" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;rb_deshake.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="RB_onlyfilter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RB_onlyfilter.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="RB_onlyfilter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="RB_onlyfilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 67</value>
+  </data>
+  <data name="RB_onlyfilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 20</value>
+  </data>
+  <data name="RB_onlyfilter.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="RB_onlyfilter.Text" xml:space="preserve">
+    <value>Billedeforbedring (filter)</value>
+  </data>
+  <data name="&gt;&gt;RB_onlyfilter.Name" xml:space="preserve">
+    <value>RB_onlyfilter</value>
+  </data>
+  <data name="&gt;&gt;RB_onlyfilter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RB_onlyfilter.Parent" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;RB_onlyfilter.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GroupBox7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>326, 21</value>
+  </data>
+  <data name="GroupBox7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 128</value>
+  </data>
+  <data name="GroupBox7.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="GroupBox7.Text" xml:space="preserve">
+    <value>Ekstrabehandling af video</value>
+  </data>
+  <data name="GroupBox7.ToolTip" xml:space="preserve">
+    <value>Makes a new video called Deshaked.mp4, in the folder specified in Settings</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.Name" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="btnMapFlip.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnMapFlip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 113</value>
+  </data>
+  <data name="btnMapFlip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnMapFlip.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="btnMapFlip.Text" xml:space="preserve">
+    <value>Skift kort</value>
+  </data>
+  <data name="btnMapFlip.ToolTip" xml:space="preserve">
+    <value>Switch between map 1 and 2, if map 2 is active the box is green</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlip.Name" xml:space="preserve">
+    <value>btnMapFlip</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlip.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlip.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txtPrepareLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>631, 131</value>
+  </data>
+  <data name="txtPrepareLength.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtPrepareLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 21</value>
+  </data>
+  <data name="txtPrepareLength.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <metadata name="ToolTip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>917, 16</value>
+  </metadata>
+  <data name="txtPrepareLength.ToolTip" xml:space="preserve">
+    <value>Forkorter videoen</value>
+  </data>
+  <data name="txtPrepareLength.ToolTip1" xml:space="preserve">
+    <value>Cut the prepared video from start to the specified time</value>
+  </data>
+  <data name="&gt;&gt;txtPrepareLength.Name" xml:space="preserve">
+    <value>txtPrepareLength</value>
+  </data>
+  <data name="&gt;&gt;txtPrepareLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtPrepareLength.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;txtPrepareLength.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cbXMakeframes.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbXMakeframes.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="cbXMakeframes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbXMakeframes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 107</value>
+  </data>
+  <data name="cbXMakeframes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 20</value>
+  </data>
+  <data name="cbXMakeframes.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="cbXMakeframes.Text" xml:space="preserve">
+    <value>Klargør kort </value>
+  </data>
+  <data name="cbXMakeframes.ToolTip" xml:space="preserve">
+    <value>Danner quickroute-data som kort m.m. på sort baggrund, 
+billeder(1 pr sek) ligger i App-mappen "temp2", længden er enten længde på sort baggrund eller Deshaked.mp4</value>
+  </data>
+  <data name="cbXMakeframes.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;cbXMakeframes.Name" xml:space="preserve">
+    <value>cbXMakeframes</value>
+  </data>
+  <data name="&gt;&gt;cbXMakeframes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbXMakeframes.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;cbXMakeframes.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="txtOutputLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>326, 152</value>
+  </data>
+  <data name="txtOutputLength.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtOutputLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 21</value>
+  </data>
+  <data name="txtOutputLength.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="txtOutputLength.ToolTip" xml:space="preserve">
+    <value>Stopper video og kortgenerering ved den angivne tid</value>
+  </data>
+  <data name="txtOutputLength.ToolTip1" xml:space="preserve">
+    <value>The video will be shortened from the back to the length of time you specify</value>
+  </data>
+  <data name="&gt;&gt;txtOutputLength.Name" xml:space="preserve">
+    <value>txtOutputLength</value>
+  </data>
+  <data name="&gt;&gt;txtOutputLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtOutputLength.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;txtOutputLength.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="chbNoAudio.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chbNoAudio.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="chbNoAudio.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chbNoAudio.Location" type="System.Drawing.Point, System.Drawing">
+    <value>631, 25</value>
+  </data>
+  <data name="chbNoAudio.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 20</value>
+  </data>
+  <data name="chbNoAudio.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="chbNoAudio.Text" xml:space="preserve">
+    <value>Fjern lyd i video</value>
+  </data>
+  <data name="chbNoAudio.ToolTip" xml:space="preserve">
+    <value>Fjerner lyden fra input videoer</value>
+  </data>
+  <data name="&gt;&gt;chbNoAudio.Name" xml:space="preserve">
+    <value>chbNoAudio</value>
+  </data>
+  <data name="&gt;&gt;chbNoAudio.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chbNoAudio.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;chbNoAudio.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="txtInpCutfromStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>326, 41</value>
+  </data>
+  <data name="txtInpCutfromStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 22</value>
+  </data>
+  <data name="txtInpCutfromStart.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="txtInpCutfromStart.ToolTip" xml:space="preserve">
+    <value>Sæt starttid i den originale video (fx ved  kortvend)</value>
+  </data>
+  <data name="txtInpCutfromStart.ToolTip1" xml:space="preserve">
+    <value>Sæt starttid i den originale video (fx ved  kortvend)</value>
+  </data>
+  <data name="&gt;&gt;txtInpCutfromStart.Name" xml:space="preserve">
+    <value>txtInpCutfromStart</value>
+  </data>
+  <data name="&gt;&gt;txtInpCutfromStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtInpCutfromStart.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;txtInpCutfromStart.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="LblGPSDiff.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LblGPSDiff.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="LblGPSDiff.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LblGPSDiff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 87</value>
+  </data>
+  <data name="LblGPSDiff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>14, 16</value>
+  </data>
+  <data name="LblGPSDiff.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="LblGPSDiff.ToolTip" xml:space="preserve">
+    <value>Avendes kun i sidste trin, så man kan justere 
+det med nedsat videolængde
+</value>
+  </data>
+  <data name="&gt;&gt;LblGPSDiff.Name" xml:space="preserve">
+    <value>LblGPSDiff</value>
+  </data>
+  <data name="&gt;&gt;LblGPSDiff.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LblGPSDiff.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;LblGPSDiff.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="txtQRImage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 41</value>
+  </data>
+  <data name="txtQRImage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 20</value>
+  </data>
+  <data name="txtQRImage2.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="txtQRImage2.ToolTip" xml:space="preserve">
+    <value>Eksporteret billede fra Quicroute(husk at gøre vejvalg gennemsigt, ellers kommer det med)</value>
+  </data>
+  <data name="txtQRImage2.ToolTip1" xml:space="preserve">
+    <value>Eksporteret billede fra Quicroute(husk at gøre vejvalg gennemsigt, ellers kommer det med)</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage2.Name" xml:space="preserve">
+    <value>txtQRImage2</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage2.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="txtXMLfile2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 86</value>
+  </data>
+  <data name="txtXMLfile2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 20</value>
+  </data>
+  <data name="txtXMLfile2.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="txtXMLfile2.ToolTip" xml:space="preserve">
+    <value>Oprettes via Quickroute: Export-&gt;Route data...(tilføj markering af Lap time og  Lap number</value>
+  </data>
+  <data name="txtXMLfile2.ToolTip1" xml:space="preserve">
+    <value>Oprettes via Quickroute: Export-&gt;Route data...(tilføj markering af Lap time og  Lap number</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile2.Name" xml:space="preserve">
+    <value>txtXMLfile2</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile2.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile2.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="txtXMLfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 141</value>
+  </data>
+  <data name="txtXMLfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 20</value>
+  </data>
+  <data name="txtXMLfile.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="txtXMLfile.ToolTip" xml:space="preserve">
+    <value>Oprettes via Quickroute: Export-&gt;Route data...(tilføj markering af Lap time og  Lap number</value>
+  </data>
+  <data name="txtXMLfile.ToolTip1" xml:space="preserve">
+    <value>Oprettes via Quickroute: Export-&gt;Route data...(tilføj markering af Lap time og  Lap number</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile.Name" xml:space="preserve">
+    <value>txtXMLfile</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;txtXMLfile.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="txtGpxFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 52</value>
+  </data>
+  <data name="txtGpxFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 20</value>
+  </data>
+  <data name="txtGpxFile.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="txtGpxFile.ToolTip" xml:space="preserve">
+    <value>GPX fil fra ur/telefon eller Quickroute</value>
+  </data>
+  <data name="txtGpxFile.ToolTip1" xml:space="preserve">
+    <value>GPX fil fra ur/telefon eller Quickroute</value>
+  </data>
+  <data name="txtGpxFile.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;txtGpxFile.Name" xml:space="preserve">
+    <value>txtGpxFile</value>
+  </data>
+  <data name="&gt;&gt;txtGpxFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtGpxFile.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;txtGpxFile.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="txtQRImage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 97</value>
+  </data>
+  <data name="txtQRImage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 20</value>
+  </data>
+  <data name="txtQRImage.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="txtQRImage.ToolTip" xml:space="preserve">
+    <value>Eksporteret billede fra Quicroute(husk at gøre vejvalg gennemsigt, ellers kommer det med)</value>
+  </data>
+  <data name="txtQRImage.ToolTip1" xml:space="preserve">
+    <value>Eksporteret billede fra Quicroute(husk at gøre vejvalg gennemsigt, ellers kommer det med)</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage.Name" xml:space="preserve">
+    <value>txtQRImage</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;txtQRImage.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="txtVideolist.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 107</value>
+  </data>
+  <data name="txtVideolist.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtVideolist.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="txtVideolist.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 77</value>
+  </data>
+  <data name="txtVideolist.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="txtVideolist.ToolTip" xml:space="preserve">
+    <value>Videoer fra kamera, de samles til 1 video i rækkefølgen</value>
+  </data>
+  <data name="txtVideolist.ToolTip1" xml:space="preserve">
+    <value>Videoer fra kamera, de samles til 1 video i rækkefølgen</value>
+  </data>
+  <data name="txtVideolist.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;txtVideolist.Name" xml:space="preserve">
+    <value>txtVideolist</value>
+  </data>
+  <data name="&gt;&gt;txtVideolist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtVideolist.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtVideolist.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="btnReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 563</value>
+  </data>
+  <data name="btnReset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnReset.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="btnReset.Text" xml:space="preserve">
+    <value>Nulstil</value>
+  </data>
+  <data name="&gt;&gt;btnReset.Name" xml:space="preserve">
+    <value>btnReset</value>
+  </data>
+  <data name="&gt;&gt;btnReset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnReset.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnReset.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnClearVideolist.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnClearVideolist.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 137</value>
+  </data>
+  <data name="btnClearVideolist.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnClearVideolist.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="btnClearVideolist.Text" xml:space="preserve">
+    <value>Ryd liste</value>
+  </data>
+  <data name="&gt;&gt;btnClearVideolist.Name" xml:space="preserve">
+    <value>btnClearVideolist</value>
+  </data>
+  <data name="&gt;&gt;btnClearVideolist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnClearVideolist.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnClearVideolist.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1016, 16</value>
+  </metadata>
+  <data name="IndstillingerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 20</value>
+  </data>
+  <data name="IndstillingerToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Indstillinger</value>
+  </data>
+  <data name="DanskToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="DanskToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dansk</value>
+  </data>
+  <data name="EnglishToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="EnglishToolStripMenuItem.Text" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="ChineseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="ChineseToolStripMenuItem.Text" xml:space="preserve">
+    <value>Chinese</value>
+  </data>
+  <data name="LanguageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 20</value>
+  </data>
+  <data name="LanguageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ViKørselslogToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 20</value>
+  </data>
+  <data name="ViKørselslogToolStripMenuItem.Text" xml:space="preserve">
+    <value>Logfiler</value>
+  </data>
+  <data name="SideOmSideVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="SideOmSideVideoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Side om side video</value>
+  </data>
+  <data name="VideoafspillerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="VideoafspillerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Videoafspiller</value>
+  </data>
+  <data name="BrugTrackingvideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="BrugTrackingvideoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Brug trackingvideo</value>
+  </data>
+  <data name="FFPlayTestafspillerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="FFPlayTestafspillerToolStripMenuItem.Text" xml:space="preserve">
+    <value>FFPlay testafspiller</value>
+  </data>
+  <data name="ChangeFPSScriptToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="ChangeFPSScriptToolStripMenuItem.Text" xml:space="preserve">
+    <value>Change FPS script</value>
+  </data>
+  <data name="FixApplegpxFilToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="FixApplegpxFilToolStripMenuItem.Text" xml:space="preserve">
+    <value>Fix Apple .gpx fil</value>
+  </data>
+  <data name="ToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 20</value>
+  </data>
+  <data name="ToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Værktøjer</value>
+  </data>
+  <data name="OmToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 22</value>
+  </data>
+  <data name="OmToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="HjælpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 22</value>
+  </data>
+  <data name="HjælpToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hjælp</value>
+  </data>
+  <data name="OmToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 20</value>
+  </data>
+  <data name="OmToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hjælp</value>
+  </data>
+  <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1259, 24</value>
+  </data>
+  <data name="MenuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="MenuStrip1.Text" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Name" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="btnPostProcess.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="btnPostProcess.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnPostProcess.Location" type="System.Drawing.Point, System.Drawing">
+    <value>662, 512</value>
+  </data>
+  <data name="btnPostProcess.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 53</value>
+  </data>
+  <data name="btnPostProcess.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="btnPostProcess.Text" xml:space="preserve">
+    <value>Video redigering...</value>
+  </data>
+  <data name="&gt;&gt;btnPostProcess.Name" xml:space="preserve">
+    <value>btnPostProcess</value>
+  </data>
+  <data name="&gt;&gt;btnPostProcess.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPostProcess.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;btnPostProcess.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="IconStatusPrepare.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="IconStatusPrepare.Location" type="System.Drawing.Point, System.Drawing">
+    <value>767, 26</value>
+  </data>
+  <data name="IconStatusPrepare.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 56</value>
+  </data>
+  <data name="IconStatusPrepare.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;IconStatusPrepare.Name" xml:space="preserve">
+    <value>IconStatusPrepare</value>
+  </data>
+  <data name="&gt;&gt;IconStatusPrepare.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IconStatusPrepare.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;IconStatusPrepare.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>709, 133</value>
+  </data>
+  <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 16</value>
+  </data>
+  <data name="Label6.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="Label6.Text" xml:space="preserve">
+    <value>(sek/t:mm:ss)</value>
+  </data>
+  <data name="&gt;&gt;Label6.Name" xml:space="preserve">
+    <value>Label6</value>
+  </data>
+  <data name="&gt;&gt;Label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label6.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="PictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
+  <data name="PictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="PictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Name" xml:space="preserve">
+    <value>PictureBox1</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblMapLength.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMapLength.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="lblMapLength.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblMapLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 126</value>
+  </data>
+  <data name="lblMapLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 16</value>
+  </data>
+  <data name="lblMapLength.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="lblMapLength.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.Name" xml:space="preserve">
+    <value>lblMapLength</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lblVideoInLength.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblVideoInLength.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="lblVideoInLength.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblVideoInLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 60</value>
+  </data>
+  <data name="lblVideoInLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 16</value>
+  </data>
+  <data name="lblVideoInLength.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;lblVideoInLength.Name" xml:space="preserve">
+    <value>lblVideoInLength</value>
+  </data>
+  <data name="&gt;&gt;lblVideoInLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblVideoInLength.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblVideoInLength.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="iconStatusVideoIn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="iconStatusVideoIn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 37</value>
+  </data>
+  <data name="iconStatusVideoIn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 50</value>
+  </data>
+  <data name="iconStatusVideoIn.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="iconStatusVideoIn.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;iconStatusVideoIn.Name" xml:space="preserve">
+    <value>iconStatusVideoIn</value>
+  </data>
+  <data name="&gt;&gt;iconStatusVideoIn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;iconStatusVideoIn.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;iconStatusVideoIn.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="IconStatusMakeMap.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="IconStatusMakeMap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 107</value>
+  </data>
+  <data name="IconStatusMakeMap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 50</value>
+  </data>
+  <data name="IconStatusMakeMap.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;IconStatusMakeMap.Name" xml:space="preserve">
+    <value>IconStatusMakeMap</value>
+  </data>
+  <data name="&gt;&gt;IconStatusMakeMap.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IconStatusMakeMap.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;IconStatusMakeMap.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>258, 100</value>
+  </data>
+  <data name="Label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 36</value>
+  </data>
+  <data name="Label21.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="Label21.Text" xml:space="preserve">
+    <value>       </value>
+  </data>
+  <data name="&gt;&gt;Label21.Name" xml:space="preserve">
+    <value>Label21</value>
+  </data>
+  <data name="&gt;&gt;Label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label21.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;Label21.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="GroupBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="GroupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 31</value>
+  </data>
+  <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>837, 165</value>
+  </data>
+  <data name="GroupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="GroupBox1.Text" xml:space="preserve">
+    <value>       Klargør video</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Name" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Label20.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label20.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label20.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 12</value>
+  </data>
+  <data name="Label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 16</value>
+  </data>
+  <data name="Label20.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="&gt;&gt;Label20.Name" xml:space="preserve">
+    <value>Label20</value>
+  </data>
+  <data name="&gt;&gt;Label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label20.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;Label20.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Button2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 88</value>
+  </data>
+  <data name="Button2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 25</value>
+  </data>
+  <data name="Button2.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="Button2.Text" xml:space="preserve">
+    <value>Åbn i stifinder</value>
+  </data>
+  <data name="&gt;&gt;Button2.Name" xml:space="preserve">
+    <value>Button2</value>
+  </data>
+  <data name="&gt;&gt;Button2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Button2.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;Button2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnMakeMapN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnMakeMapN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 47</value>
+  </data>
+  <data name="btnMakeMapN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 27</value>
+  </data>
+  <data name="btnMakeMapN.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="btnMakeMapN.Text" xml:space="preserve">
+    <value>Klargør kun kort</value>
+  </data>
+  <data name="btnMakeMapN.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;btnMakeMapN.Name" xml:space="preserve">
+    <value>btnMakeMapN</value>
+  </data>
+  <data name="&gt;&gt;btnMakeMapN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMakeMapN.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;btnMakeMapN.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cbOnlyVideo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbOnlyVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbOnlyVideo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 25</value>
+  </data>
+  <data name="cbOnlyVideo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 20</value>
+  </data>
+  <data name="cbOnlyVideo.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="cbOnlyVideo.Text" xml:space="preserve">
+    <value>Kun video</value>
+  </data>
+  <data name="cbOnlyVideo.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;cbOnlyVideo.Name" xml:space="preserve">
+    <value>cbOnlyVideo</value>
+  </data>
+  <data name="&gt;&gt;cbOnlyVideo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbOnlyVideo.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;cbOnlyVideo.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="PictureBox3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PictureBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PictureBox3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="PictureBox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
+  <data name="PictureBox3.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="PictureBox3.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;PictureBox3.Name" xml:space="preserve">
+    <value>PictureBox3</value>
+  </data>
+  <data name="&gt;&gt;PictureBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PictureBox3.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;PictureBox3.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btnRunMakeVideo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="btnRunMakeVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnRunMakeVideo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>631, 25</value>
+  </data>
+  <data name="btnRunMakeVideo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 49</value>
+  </data>
+  <data name="btnRunMakeVideo.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="btnRunMakeVideo.Text" xml:space="preserve">
+    <value>Generer video</value>
+  </data>
+  <data name="&gt;&gt;btnRunMakeVideo.Name" xml:space="preserve">
+    <value>btnRunMakeVideo</value>
+  </data>
+  <data name="&gt;&gt;btnRunMakeVideo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRunMakeVideo.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;btnRunMakeVideo.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblOutputVideoLength.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblOutputVideoLength.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="lblOutputVideoLength.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblOutputVideoLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 85</value>
+  </data>
+  <data name="lblOutputVideoLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 16</value>
+  </data>
+  <data name="lblOutputVideoLength.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="&gt;&gt;lblOutputVideoLength.Name" xml:space="preserve">
+    <value>lblOutputVideoLength</value>
+  </data>
+  <data name="&gt;&gt;lblOutputVideoLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblOutputVideoLength.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;lblOutputVideoLength.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="IconStatusOutput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="IconStatusOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>767, 24</value>
+  </data>
+  <data name="IconStatusOutput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 50</value>
+  </data>
+  <data name="IconStatusOutput.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;IconStatusOutput.Name" xml:space="preserve">
+    <value>IconStatusOutput</value>
+  </data>
+  <data name="&gt;&gt;IconStatusOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IconStatusOutput.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;IconStatusOutput.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="txtOutFilename.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 60</value>
+  </data>
+  <data name="txtOutFilename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="txtOutFilename.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;txtOutFilename.Name" xml:space="preserve">
+    <value>txtOutFilename</value>
+  </data>
+  <data name="&gt;&gt;txtOutFilename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtOutFilename.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;txtOutFilename.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="GroupBox6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="GroupBox6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 387</value>
+  </data>
+  <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>837, 119</value>
+  </data>
+  <data name="GroupBox6.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="GroupBox6.Text" xml:space="preserve">
+    <value>       Generèr video</value>
+  </data>
+  <data name="&gt;&gt;GroupBox6.Name" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;GroupBox6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox6.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;GroupBox6.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label22.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 133</value>
+  </data>
+  <data name="Label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 16</value>
+  </data>
+  <data name="Label22.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="Label22.Text" xml:space="preserve">
+    <value>(Blankt felt=fuld længde)</value>
+  </data>
+  <data name="&gt;&gt;Label22.Name" xml:space="preserve">
+    <value>Label22</value>
+  </data>
+  <data name="&gt;&gt;Label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label22.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label22.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label14.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>400, 155</value>
+  </data>
+  <data name="Label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 16</value>
+  </data>
+  <data name="Label14.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="Label14.Text" xml:space="preserve">
+    <value>(sek/t:mm:ss)</value>
+  </data>
+  <data name="&gt;&gt;Label14.Name" xml:space="preserve">
+    <value>Label14</value>
+  </data>
+  <data name="&gt;&gt;Label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label14.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label14.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label12.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>400, 44</value>
+  </data>
+  <data name="Label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="Label12.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="Label12.Text" xml:space="preserve">
+    <value>(sek)</value>
+  </data>
+  <data name="&gt;&gt;Label12.Name" xml:space="preserve">
+    <value>Label12</value>
+  </data>
+  <data name="&gt;&gt;Label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label12.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label10.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>127, 126</value>
+  </data>
+  <data name="Label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 39</value>
+  </data>
+  <data name="Label10.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;Label10.Name" xml:space="preserve">
+    <value>Label10</value>
+  </data>
+  <data name="&gt;&gt;Label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label10.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label10.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>127, 47</value>
+  </data>
+  <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 39</value>
+  </data>
+  <data name="Label9.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;Label9.Name" xml:space="preserve">
+    <value>Label9</value>
+  </data>
+  <data name="&gt;&gt;Label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label9.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 117</value>
+  </data>
+  <data name="Label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 16</value>
+  </data>
+  <data name="Label5.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="Label5.Text" xml:space="preserve">
+    <value>Videolængde</value>
+  </data>
+  <data name="&gt;&gt;Label5.Name" xml:space="preserve">
+    <value>Label5</value>
+  </data>
+  <data name="&gt;&gt;Label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label5.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label16.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 66</value>
+  </data>
+  <data name="Label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 16</value>
+  </data>
+  <data name="Label16.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="Label16.Text" xml:space="preserve">
+    <value>Videotempo</value>
+  </data>
+  <data name="&gt;&gt;Label16.Name" xml:space="preserve">
+    <value>Label16</value>
+  </data>
+  <data name="&gt;&gt;Label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label16.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label16.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="PictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PictureBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PictureBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="PictureBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
+  <data name="PictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="PictureBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="&gt;&gt;PictureBox2.Name" xml:space="preserve">
+    <value>PictureBox2</value>
+  </data>
+  <data name="&gt;&gt;PictureBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PictureBox2.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;PictureBox2.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="Label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="Label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 22</value>
+  </data>
+  <data name="Label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 16</value>
+  </data>
+  <data name="Label8.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="Label8.Text" xml:space="preserve">
+    <value>Klip fra videostart</value>
+  </data>
+  <data name="&gt;&gt;Label8.Name" xml:space="preserve">
+    <value>Label8</value>
+  </data>
+  <data name="&gt;&gt;Label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label8.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="GroupBox9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="GroupBox9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 202</value>
+  </data>
+  <data name="GroupBox9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>837, 179</value>
+  </data>
+  <data name="GroupBox9.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="GroupBox9.Text" xml:space="preserve">
+    <value>       Indstillinger</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.Name" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GroupBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>342, 36</value>
+  </data>
+  <data name="GroupBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>892, 578</value>
+  </data>
+  <data name="GroupBox4.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.Name" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>753, 55</value>
+  </metadata>
+  <data name="Statusbar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 17</value>
+  </data>
+  <data name="StatusProgressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 16</value>
+  </data>
+  <data name="StatusProgressBar1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="StatusBarProgressText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 17</value>
+  </data>
+  <data name="StatusRemaining.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 17</value>
+  </data>
+  <data name="StatusRemaining.Text" xml:space="preserve">
+    <value>_</value>
+  </data>
+  <data name="ToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 17</value>
+  </data>
+  <data name="ToolStripStatusLabel1.Text" xml:space="preserve">
+    <value>ToolStripStatusLabel1</value>
+  </data>
+  <data name="ToolStripStatusLabel1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="StatusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 617</value>
+  </data>
+  <data name="StatusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1259, 22</value>
+  </data>
+  <data name="StatusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="StatusStrip1.Text" xml:space="preserve">
+    <value>StatusStrip1</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Name" xml:space="preserve">
+    <value>StatusStrip1</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="chkMapFlipOnOff.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkMapFlipOnOff.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkMapFlipOnOff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 167</value>
+  </data>
+  <data name="chkMapFlipOnOff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 17</value>
+  </data>
+  <data name="chkMapFlipOnOff.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="chkMapFlipOnOff.Text" xml:space="preserve">
+    <value>Kortvend</value>
+  </data>
+  <data name="&gt;&gt;chkMapFlipOnOff.Name" xml:space="preserve">
+    <value>chkMapFlipOnOff</value>
+  </data>
+  <data name="&gt;&gt;chkMapFlipOnOff.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkMapFlipOnOff.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;chkMapFlipOnOff.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnMapFlipinfo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Roboto Black, 9.75pt, style=Bold</value>
+  </data>
+  <data name="btnMapFlipinfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnMapFlipinfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 8</value>
+  </data>
+  <data name="btnMapFlipinfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 27</value>
+  </data>
+  <data name="btnMapFlipinfo.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="btnMapFlipinfo.Text" xml:space="preserve">
+    <value>i</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlipinfo.Name" xml:space="preserve">
+    <value>btnMapFlipinfo</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlipinfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlipinfo.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;btnMapFlipinfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblMapFlipGPXd.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMapFlipGPXd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblMapFlipGPXd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 113</value>
+  </data>
+  <data name="lblMapFlipGPXd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="lblMapFlipGPXd.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="lblMapFlipGPXd.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipGPXd.Name" xml:space="preserve">
+    <value>lblMapFlipGPXd</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipGPXd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipGPXd.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipGPXd.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblMapFlipStarttime.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMapFlipStarttime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblMapFlipStarttime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>58, 113</value>
+  </data>
+  <data name="lblMapFlipStarttime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 13</value>
+  </data>
+  <data name="lblMapFlipStarttime.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipStarttime.Name" xml:space="preserve">
+    <value>lblMapFlipStarttime</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipStarttime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipStarttime.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipStarttime.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Label19.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>107, 113</value>
+  </data>
+  <data name="Label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 13</value>
+  </data>
+  <data name="Label19.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="Label19.Text" xml:space="preserve">
+    <value>GPS +/-:</value>
+  </data>
+  <data name="&gt;&gt;Label19.Name" xml:space="preserve">
+    <value>Label19</value>
+  </data>
+  <data name="&gt;&gt;Label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label19.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;Label19.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label18.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label18.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 113</value>
+  </data>
+  <data name="Label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 13</value>
+  </data>
+  <data name="Label18.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="Label18.Text" xml:space="preserve">
+    <value>Start tid :</value>
+  </data>
+  <data name="&gt;&gt;Label18.Name" xml:space="preserve">
+    <value>Label18</value>
+  </data>
+  <data name="&gt;&gt;Label18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label18.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;Label18.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Label17.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="Label17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 13</value>
+  </data>
+  <data name="Label17.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="Label17.Text" xml:space="preserve">
+    <value>Løbskort 2 (.jpg  fra Quickroute)</value>
+  </data>
+  <data name="&gt;&gt;Label17.Name" xml:space="preserve">
+    <value>Label17</value>
+  </data>
+  <data name="&gt;&gt;Label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label17.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;Label17.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 70</value>
+  </data>
+  <data name="Label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 13</value>
+  </data>
+  <data name="Label11.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="Label11.Text" xml:space="preserve">
+    <value>Løbsdata 2 (.xml fra Quickroute)</value>
+  </data>
+  <data name="&gt;&gt;Label11.Name" xml:space="preserve">
+    <value>Label11</value>
+  </data>
+  <data name="&gt;&gt;Label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label11.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;Label11.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="btnQRimg2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnQRimg2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>227, 41</value>
+  </data>
+  <data name="btnQRimg2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnQRimg2.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="btnQRimg2.Text" xml:space="preserve">
+    <value>Vælg fil</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg2.Name" xml:space="preserve">
+    <value>btnQRimg2</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg2.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;btnQRimg2.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="btnQRXML2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnQRXML2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 83</value>
+  </data>
+  <data name="btnQRXML2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnQRXML2.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="btnQRXML2.Text" xml:space="preserve">
+    <value>Vælg fil</value>
+  </data>
+  <data name="&gt;&gt;btnQRXML2.Name" xml:space="preserve">
+    <value>btnQRXML2</value>
+  </data>
+  <data name="&gt;&gt;btnQRXML2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnQRXML2.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;btnQRXML2.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 182</value>
+  </data>
+  <data name="grpMapFlip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 151</value>
+  </data>
+  <data name="grpMapFlip.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="grpMapFlip.Text" xml:space="preserve">
+    <value>Kort 2</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.Name" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GroupBox10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 218</value>
+  </data>
+  <data name="GroupBox10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>322, 339</value>
+  </data>
+  <data name="GroupBox10.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="GroupBox10.Text" xml:space="preserve">
+    <value>Importér kort og løbsdata </value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Name" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblTrackVideoInUse.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9pt, style=Bold</value>
+  </data>
+  <data name="lblTrackVideoInUse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblTrackVideoInUse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 184</value>
+  </data>
+  <data name="lblTrackVideoInUse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 35</value>
+  </data>
+  <data name="lblTrackVideoInUse.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="lblTrackVideoInUse.Text" xml:space="preserve">
+    <value>BEMÆRK: Der er valgt trackingvideo</value>
+  </data>
+  <data name="lblTrackVideoInUse.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;lblTrackVideoInUse.Name" xml:space="preserve">
+    <value>lblTrackVideoInUse</value>
+  </data>
+  <data name="&gt;&gt;lblTrackVideoInUse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTrackVideoInUse.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblTrackVideoInUse.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="TimerRGCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>622, 55</value>
+  </metadata>
+  <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>870, 55</value>
+  </metadata>
+  <metadata name="TimerStatusRemaining.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>959, 55</value>
+  </metadata>
+  <metadata name="TimerMapStatus.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1133, 55</value>
+  </metadata>
+  <data name="btnTestWriteVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnTestWriteVideo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 53</value>
+  </data>
+  <data name="btnTestWriteVideo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 23</value>
+  </data>
+  <data name="btnTestWriteVideo.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="btnTestWriteVideo.Text" xml:space="preserve">
+    <value>TestImgVideo</value>
+  </data>
+  <data name="&gt;&gt;btnTestWriteVideo.Name" xml:space="preserve">
+    <value>btnTestWriteVideo</value>
+  </data>
+  <data name="&gt;&gt;btnTestWriteVideo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnTestWriteVideo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnTestWriteVideo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>68</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1259, 639</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Headcam Orienteering</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialogVideo.Name" xml:space="preserve">
+    <value>OpenFileDialogVideo</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialogVideo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialoggpx.Name" xml:space="preserve">
+    <value>OpenFileDialoggpx</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialoggpx.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialogqrimg.Name" xml:space="preserve">
+    <value>OpenFileDialogqrimg</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialogqrimg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialogxml.Name" xml:space="preserve">
+    <value>OpenFileDialogxml</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialogxml.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaveFileDialogOutput.Name" xml:space="preserve">
+    <value>SaveFileDialogOutput</value>
+  </data>
+  <data name="&gt;&gt;SaveFileDialogOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolTip1.Name" xml:space="preserve">
+    <value>ToolTip1</value>
+  </data>
+  <data name="&gt;&gt;ToolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IndstillingerToolStripMenuItem1.Name" xml:space="preserve">
+    <value>IndstillingerToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;IndstillingerToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LanguageToolStripMenuItem.Name" xml:space="preserve">
+    <value>LanguageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;LanguageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DanskToolStripMenuItem.Name" xml:space="preserve">
+    <value>DanskToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;DanskToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EnglishToolStripMenuItem.Name" xml:space="preserve">
+    <value>EnglishToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;EnglishToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChineseToolStripMenuItem.Name" xml:space="preserve">
+    <value>ChineseToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ChineseToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ViKørselslogToolStripMenuItem.Name" xml:space="preserve">
+    <value>ViKørselslogToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ViKørselslogToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem1.Name" xml:space="preserve">
+    <value>ToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SideOmSideVideoToolStripMenuItem.Name" xml:space="preserve">
+    <value>SideOmSideVideoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;SideOmSideVideoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;VideoafspillerToolStripMenuItem.Name" xml:space="preserve">
+    <value>VideoafspillerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;VideoafspillerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BrugTrackingvideoToolStripMenuItem.Name" xml:space="preserve">
+    <value>BrugTrackingvideoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;BrugTrackingvideoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FFPlayTestafspillerToolStripMenuItem.Name" xml:space="preserve">
+    <value>FFPlayTestafspillerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;FFPlayTestafspillerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChangeFPSScriptToolStripMenuItem.Name" xml:space="preserve">
+    <value>ChangeFPSScriptToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ChangeFPSScriptToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FixApplegpxFilToolStripMenuItem.Name" xml:space="preserve">
+    <value>FixApplegpxFilToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;FixApplegpxFilToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OmToolStripMenuItem.Name" xml:space="preserve">
+    <value>OmToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;OmToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OmToolStripMenuItem1.Name" xml:space="preserve">
+    <value>OmToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;OmToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HjælpToolStripMenuItem.Name" xml:space="preserve">
+    <value>HjælpToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;HjælpToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Statusbar.Name" xml:space="preserve">
+    <value>Statusbar</value>
+  </data>
+  <data name="&gt;&gt;Statusbar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatusProgressBar1.Name" xml:space="preserve">
+    <value>StatusProgressBar1</value>
+  </data>
+  <data name="&gt;&gt;StatusProgressBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatusBarProgressText.Name" xml:space="preserve">
+    <value>StatusBarProgressText</value>
+  </data>
+  <data name="&gt;&gt;StatusBarProgressText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatusRemaining.Name" xml:space="preserve">
+    <value>StatusRemaining</value>
+  </data>
+  <data name="&gt;&gt;StatusRemaining.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel1.Name" xml:space="preserve">
+    <value>ToolStripStatusLabel1</value>
+  </data>
+  <data name="&gt;&gt;ToolStripStatusLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolTip2.Name" xml:space="preserve">
+    <value>ToolTip2</value>
+  </data>
+  <data name="&gt;&gt;ToolTip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimerRGCheck.Name" xml:space="preserve">
+    <value>TimerRGCheck</value>
+  </data>
+  <data name="&gt;&gt;TimerRGCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Timer2.Name" xml:space="preserve">
+    <value>Timer2</value>
+  </data>
+  <data name="&gt;&gt;Timer2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimerStatusRemaining.Name" xml:space="preserve">
+    <value>TimerStatusRemaining</value>
+  </data>
+  <data name="&gt;&gt;TimerStatusRemaining.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimerMapStatus.Name" xml:space="preserve">
+    <value>TimerMapStatus</value>
+  </data>
+  <data name="&gt;&gt;TimerMapStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

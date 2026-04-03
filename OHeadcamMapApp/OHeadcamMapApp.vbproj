@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B3F6572-4B47-4561-9F51-11150813A06B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>OHeadcamMapApp.My.MyApplication</StartupObject>
+    <RootNamespace>OHeadcamMapApp</RootNamespace>
+    <AssemblyName>Headcam Orienteering</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\Users\mmo21\Documents\VSInstallation\2023V64\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>http://wobelix.dk/blog/headcam-orienteering/</SupportUrl>
+    <ErrorReportUrl>http://wobelix.dk/blog/headcam-orienteering/</ErrorReportUrl>
+    <ProductName>Headcam Orienteering</ProductName>
+    <PublisherName>Michael Møller</PublisherName>
+    <SuiteName>Headcam</SuiteName>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\Debug\</OutputPath>
+    <DocumentationFile>Headcam Orienteering.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\Release2023V5\</OutputPath>
+    <DocumentationFile>Headcam Orienteering.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>Off</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Text</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Headcam_Orienteering_Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>4FA0CC02A35BF2CA13F0219AEEB559FF9C7B1F6B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>OHeadcamMapApp_4_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>HeadcamKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Label="MultilingualAppToolkit">
+    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
+    <MultilingualFallbackLanguage>da</MultilingualFallbackLanguage>
+    <TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
+    <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LibVLCSharp, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibVLCSharp.3.7.0\lib\net471\LibVLCSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LibVLCSharp.WinForms, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibVLCSharp.WinForms.3.7.0\lib\net40\LibVLCSharp.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clsMapImages.vb" />
+    <Compile Include="clsPicBKeepAspectResize.vb" />
+    <Compile Include="clsPictureBoxMoveResize.vb" />
+    <Compile Include="clsQRRoutePoints.vb" />
+    <Compile Include="clsQRXMLReader.vb" />
+    <Compile Include="clsTimeRemaining.vb" />
+    <Compile Include="clsVideoImageGenerator.vb" />
+    <Compile Include="frmPostOverlay.Designer.vb">
+      <DependentUpon>frmPostOverlay.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPostOverlay.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPostFileProps.Designer.vb">
+      <DependentUpon>frmPostFileProps.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPostFileProps.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPostProcess.Designer.vb">
+      <DependentUpon>frmPostProcess.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPostProcess.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddAudioform.Designer.vb">
+      <DependentUpon>frmAddAudioform.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddAudioform.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdjustmentPlayerNew - Copy.Designer.vb">
+      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdjustmentPlayerNew - Copy.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdjustmentPlayerNew.Designer.vb">
+      <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdjustmentPlayerNew.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdjustmentPlayer.Designer.vb">
+      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdjustmentPlayer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clsFFMPegProbe.vb" />
+    <Compile Include="clsExtra.vb" />
+    <Compile Include="clsRunProcess.vb" />
+    <Compile Include="clsInifile.vb" />
+    <Compile Include="frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clsTxtFiles.vb" />
+    <Compile Include="frmMapOverlayForm.Designer.vb">
+      <DependentUpon>frmMapOverlayForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMapOverlayForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMapSettings.Designer.vb">
+      <DependentUpon>frmMapSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMapSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPlayer.Designer.vb">
+      <DependentUpon>frmPlayer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPlayer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScriptMultiFFMpeg.Designer.vb">
+      <DependentUpon>frmScriptMultiFFMpeg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmScriptMultiFFMpeg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSideBySide.Designer.vb">
+      <DependentUpon>frmSideBySide.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSideBySide.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUseMapVideo.Designer.vb">
+      <DependentUpon>frmUseMapVideo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUseMapVideo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowLogForm.Designer.vb">
+      <DependentUpon>frmShowLogForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmShowLogForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettingsForm.Designer.vb">
+      <DependentUpon>frmSettingsForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSettingsForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVideoImageAdjust.Designer.vb">
+      <DependentUpon>frmVideoImageAdjust.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmVideoImageAdjust.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVLC.Designer.vb">
+      <DependentUpon>frmVLC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmVLC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ffplay.Designer.vb">
+      <DependentUpon>ffplay.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ffplay.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="My Project\Texts.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Texts.en-US.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Texts.zh.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.zh.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmAbout.en-US.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAbout.en.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddAudioform.en-US.resx">
+      <DependentUpon>frmAddAudioform.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddAudioform.en.resx">
+      <DependentUpon>frmAddAudioform.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddAudioform.resx">
+      <DependentUpon>frmAddAudioform.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew - Copy.en-US.resx">
+      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew - Copy.en.resx">
+      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew - Copy.resx">
+      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew.en-US.resx">
+      <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew.en.resx">
+      <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew.resx">
+      <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayer.en-US.resx">
+      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayer.en.resx">
+      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayer.resx">
+      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ffplay.en.resx">
+      <DependentUpon>ffplay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ffplay.resx">
+      <DependentUpon>ffplay.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdjustmentPlayerNew.zh.resx">
+      <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapOverlayForm.en-US.resx">
+      <DependentUpon>frmMapOverlayForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapOverlayForm.en.resx">
+      <DependentUpon>frmMapOverlayForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapOverlayForm.resx">
+      <DependentUpon>frmMapOverlayForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapSettings.en-US.resx">
+      <DependentUpon>frmMapSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapSettings.resx">
+      <DependentUpon>frmMapSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlayer.en.resx">
+      <DependentUpon>frmPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlayer.resx">
+      <DependentUpon>frmPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostFileProps.en-US.resx">
+      <DependentUpon>frmPostFileProps.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostOverlay.en-US.resx">
+      <DependentUpon>frmPostOverlay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostOverlay.resx">
+      <DependentUpon>frmPostOverlay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostFileProps.resx">
+      <DependentUpon>frmPostFileProps.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostProcess.en-US.resx">
+      <DependentUpon>frmPostProcess.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostProcess.resx">
+      <DependentUpon>frmPostProcess.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScriptMultiFFMpeg.resx">
+      <DependentUpon>frmScriptMultiFFMpeg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSideBySide.en.resx">
+      <DependentUpon>frmSideBySide.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSideBySide.resx">
+      <DependentUpon>frmSideBySide.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUseMapVideo.en.resx">
+      <DependentUpon>frmUseMapVideo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUseMapVideo.resx">
+      <DependentUpon>frmUseMapVideo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVideoImageAdjust.en-US.resx">
+      <DependentUpon>frmVideoImageAdjust.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVideoImageAdjust.resx">
+      <DependentUpon>frmVideoImageAdjust.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVLC.resx">
+      <DependentUpon>frmVLC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.da-DK.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.da.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.lkt.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.uk.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.en.resx" />
+    <EmbeddedResource Include="My Project\Texts.en.resx" />
+    <EmbeddedResource Include="frmSettingsForm.en.resx">
+      <DependentUpon>frmSettingsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowLogForm.en-US.resx">
+      <DependentUpon>frmShowLogForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowLogForm.en.resx">
+      <DependentUpon>frmShowLogForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowLogForm.resx">
+      <DependentUpon>frmShowLogForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSettingsForm.en-US.resx">
+      <DependentUpon>frmSettingsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSettingsForm.resx">
+      <DependentUpon>frmSettingsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSettingsForm.zh.resx">
+      <DependentUpon>frmSettingsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en-US.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.zh.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Texts.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.en-US.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Texts.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Texts.zh.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.zh.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Headcam_Orienteering_Icon.ico" />
+    <Content Include="layout_default\font.gdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\layout.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\panel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\pink1080x720.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\sort1080x720.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\font.gdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\layout.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\font.gdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\layout.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="Ffmpegparallel.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="HeadcamKey.snk" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="OHeadcamMapApp_3_TemporaryKey.pfx" />
+    <None Include="OHeadcamMapApp_4_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Resources\icons8-ok-48.png" />
+    <None Include="Resources\icons8-cross-mark-button-48.png" />
+    <None Include="Resources\Waitimg.bmp" />
+    <None Include="Resources\loading-waiting.gif" />
+    <None Include="Resources\novideo.png" />
+    <None Include="Resources\noimage.png" />
+    <None Include="Resources\4.png" />
+    <None Include="Resources\loadgif5050.gif" />
+    <None Include="Resources\vid_img1920x1080.png" />
+    <None Include="Resources\routeimg.jpg" />
+    <None Include="Resources\panelimg.jpg" />
+    <None Include="Resources\graphimg.jpg" />
+    <None Include="Resources\legmapimg.jpg" />
+    <None Include="Resources\vlcsnap-2023-01-25-15h59m23s947.png" />
+    <None Include="Resources\x-mark-3-48.ico" />
+    <None Include="Resources\x-mark-3-48.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\2.png" />
+    <None Include="Resources\3.png" />
+    <None Include="Resources\sort1080x720.jpg" />
+    <None Include="Resources\pink1080x720.jpg" />
+    <Content Include="mainformdesignerbackup.txt" />
+    <Content Include="ohead22.ico" />
+    <None Include="Resources\mainicon.ico" />
+    <None Include="Resources\ohead22.ico" />
+    <None Include="Resources\ohead22.png" />
+    <None Include="Resources\Headcam_Orienteering_Icon.ico" />
+    <Content Include="RGmapvideo.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <AdditionalFiles Include="plugins64\Deshaker_64.vdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <None Include="OHeadcamMapApp_1_TemporaryKey.pfx" />
+    <None Include="OHeadcamMapApp_2_TemporaryKey.pfx" />
+    <None Include="OHeadcamMapApp_TemporaryKey.pfx" />
+    <None Include="Roboto-Black.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-BlackItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-BoldItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-Italic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-LightItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-Medium.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-MediumItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-Thin.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Roboto-ThinItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="layout_default\dot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\grandmask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\grandmask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\graphbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\graphbg_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\graph_mask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\graph_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\legmap_mask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\legmap_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\map_mask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\map_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\panel_nohr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_default\runner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\coursemap_mask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\coursemap_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\dot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\grandmask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\grandmask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\graphbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\graph_mask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\graph_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\legmap_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\map_mask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\map_mask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\panel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_example\runner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\dot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\grandmask_480.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\grandmask_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\graphbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\panel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="layout_oldschool\runner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffplay.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffprobe.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="My Project\readme.txt" />
+    <Content Include="My Project\template.vcf" />
+    <Content Include="RGmapvideo.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="template.vcf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.NetCore.CoreRuntime.7.0.x64">
+      <Visible>False</Visible>
+      <ProductName>.NET Runtime 7.0.7 %28x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="temp1\" />
+    <Folder Include="temp2\" />
+    <Folder Include="temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="MultilingualResources\OHeadcamMapApp.en.xlf" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />
+  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" Label="MultilingualAppToolkit">
+    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
+  </Target>
+  <Import Project="..\packages\VideoLAN.LibVLC.Windows.3.0.18\build\VideoLAN.LibVLC.Windows.targets" Condition="Exists('..\packages\VideoLAN.LibVLC.Windows.3.0.18\build\VideoLAN.LibVLC.Windows.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\VideoLAN.LibVLC.Windows.3.0.18\build\VideoLAN.LibVLC.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VideoLAN.LibVLC.Windows.3.0.18\build\VideoLAN.LibVLC.Windows.targets'))" />
+  </Target>
+</Project>

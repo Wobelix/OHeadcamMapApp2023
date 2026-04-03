@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>xxxx</value>
+  </data>
+  <data name="AdjLengthToBig" xml:space="preserve">
+    <value>Længden kan ikke være længere end klargøring af kort og video som er: </value>
+  </data>
+  <data name="AdjPlayerTitle" xml:space="preserve">
+    <value>Justeringsafspiller</value>
+  </data>
+  <data name="AdjVidStatusNoVideo" xml:space="preserve">
+    <value>Dan en video for at justere eller tast en GPS forskel</value>
+  </data>
+  <data name="btnInterrupt" xml:space="preserve">
+    <value>Afbryd</value>
+  </data>
+  <data name="btnMakeVideo" xml:space="preserve">
+    <value>Generer video</value>
+  </data>
+  <data name="btnPrepare" xml:space="preserve">
+    <value>Kør klargøringstrin</value>
+  </data>
+  <data name="Deshake1" xml:space="preserve">
+    <value>Deshake Step 1: Analyse...</value>
+  </data>
+  <data name="Deshake2" xml:space="preserve">
+    <value>Deshake Step 2: Generer video :</value>
+  </data>
+  <data name="Deshake3" xml:space="preserve">
+    <value>Færdig: Video stabiliseret</value>
+  </data>
+  <data name="ErrDeshakemissing" xml:space="preserve">
+    <value>Deshake videofil mangler(fra trin 2) : </value>
+  </data>
+  <data name="ErrFailRunning" xml:space="preserve">
+    <value>FEJL, færdig med alle trin</value>
+  </data>
+  <data name="ErrFailVideo1" xml:space="preserve">
+    <value>Klargøring af video er fejlet</value>
+  </data>
+  <data name="ErrFailVideoOut" xml:space="preserve">
+    <value>Outputvideo er fejlet</value>
+  </data>
+  <data name="ErrInpVideoSpace" xml:space="preserve">
+    <value>Desværre kan der ikke håndteres mellemrum i sti eller filnavn i inputfiler, ret venligst inden du prøver igen: </value>
+  </data>
+  <data name="ErrJoinedmissing" xml:space="preserve">
+    <value>Samlet videofil mangler(trin 1) : </value>
+  </data>
+  <data name="ErrNoFile" xml:space="preserve">
+    <value>Filen eksisterer ikke: </value>
+  </data>
+  <data name="ErrNoFolder" xml:space="preserve">
+    <value>Mappen findes ikke</value>
+  </data>
+  <data name="ErrNoMapfiles" xml:space="preserve">
+    <value>Fejl: Ingen kortfiler genereret, måske pga filfejl i QR filer prøv at angive nye filer</value>
+  </data>
+  <data name="ErrNoMapfolder" xml:space="preserve">
+    <value>Ingen kortmappe (temp2) ved kortgenerering</value>
+  </data>
+  <data name="ErrNoOutpFile" xml:space="preserve">
+    <value>Mangler output filnavn</value>
+  </data>
+  <data name="ErrNotNumeric" xml:space="preserve">
+    <value>Værdien i feltet er ikke et tal</value>
+  </data>
+  <data name="ErrQRImg" xml:space="preserve">
+    <value>Fejl ved QR billede: </value>
+  </data>
+  <data name="ErrStepsNotReady" xml:space="preserve">
+    <value>Både video og kort skal være klargjort(med grøn markering). Fortsæt alligevel?</value>
+  </data>
+  <data name="ErrTrackMapImage" xml:space="preserve">
+    <value>Fejl ved klargøring af billede fra kortvideo</value>
+  </data>
+  <data name="ErrXML" xml:space="preserve">
+    <value>Fejl ved XML: </value>
+  </data>
+  <data name="Filter1" xml:space="preserve">
+    <value>Generer video med filter</value>
+  </data>
+  <data name="Filter2" xml:space="preserve">
+    <value>Færdig: Video genereret</value>
+  </data>
+  <data name="GPXFixed" xml:space="preserve">
+    <value>gpx filen er fixet</value>
+  </data>
+  <data name="GPXFixInfo" xml:space="preserve">
+    <value>Denne funktion fjerne tom kode i .gpx filer fra Apple Watch så den virker i Quickroute</value>
+  </data>
+  <data name="HDChanged" xml:space="preserve">
+    <value>Kortoverlæggenes størrelse skal justeres igen, når dette ændres.
+Outputvideoen anvender samme format som inputvideoen hvis der ikke markeres, fx 2.7K eller 4K.
+Ved markering er outputvideoen 1920x1080.
+
+</value>
+  </data>
+  <data name="InfoFilenameMusic" xml:space="preserve">
+    <value>Du har ændret output fil og har tilvalgt musik, husk at ændre musikvideo filnavn</value>
+  </data>
+  <data name="LogCopyFile" xml:space="preserve">
+    <value>Filen er klargjort</value>
+  </data>
+  <data name="LogStartProcess" xml:space="preserve">
+    <value>Kører baggrundsjob: </value>
+  </data>
+  <data name="Makeblack1" xml:space="preserve">
+    <value>Afvikler sort baggrund...</value>
+  </data>
+  <data name="Makeblack2" xml:space="preserve">
+    <value>Færdig: Sort baggrund</value>
+  </data>
+  <data name="MapFlipActive" xml:space="preserve">
+    <value>Kort 2 er aktivt</value>
+  </data>
+  <data name="MapFlipInfo" xml:space="preserve">
+    <value>Kortvend-funktionen fungerer ved, at du først justerer slutningen af videoen for kort 1. Derefter kan du i justeringsvinduet fastsætte starttiden for videoen for kort 2, så den følger umiddelbart efter slutningen af kort 1. 
+Det er en forudsætning, at du har den fulde video for hele banen og har oprettet et sæt af Quickroute-filer (både XML og billede) for hver del. 
+Du kan klippe i GPS-sporet i Quickroute-filerne i Quickroute, så de kun indeholder GPS-data for henholdsvis del 1 og del 2. 
+Husk at generere separate outputfiler for del 1 og del 2, så du har en outputvideofil for hver del. 
+Du kan se hvilket kort der er aktivt ved at Kortvend-boksen er grøn når kort 2 er aktiv. Outputvideoen for kort 2 vil starte ved starttiden for kortvend.</value>
+  </data>
+  <data name="MapFlipSaveWarn" xml:space="preserve">
+    <value>Kortvend- kort 2 er aktiv
+Husk at skifte filnavn så du ikke overskriver del 1. 
+Tryk Annuler for at ændre filnavn</value>
+  </data>
+  <data name="NoInputFiles" xml:space="preserve">
+    <value>Der er ikke valgt videofiler</value>
+  </data>
+  <data name="NoPlayerFile" xml:space="preserve">
+    <value>Filen kan ikke findes: </value>
+  </data>
+  <data name="PostStatusImgVideo" xml:space="preserve">
+    <value>Genererer billedevideo...</value>
+  </data>
+  <data name="QDoOutputAgain" xml:space="preserve">
+    <value>Det ser ud som om at videoen allerede er dannet, men hvis du har valgt at tilføje musik efterfølgende vil du skulle køre "Generer video" igen, og tryk så Nej herunder. 
+Vil du genkøre både outputvideo og musikvideo(svar: Ja) eller kun Musikvideo(svar: Nej)?</value>
+  </data>
+  <data name="QQuitProcess" xml:space="preserve">
+    <value>Vil du afbryde kørslen?</value>
+  </data>
+  <data name="QReset" xml:space="preserve">
+    <value>Vil du nulstille alle felter på nær kortindstillinger?</value>
+  </data>
+  <data name="QResetCaption" xml:space="preserve">
+    <value>Nulstil felter</value>
+  </data>
+  <data name="Status1" xml:space="preserve">
+    <value>Skriver i inifil: </value>
+  </data>
+  <data name="Status2" xml:space="preserve">
+    <value>Afvikler samling af videoer til: </value>
+  </data>
+  <data name="Status3" xml:space="preserve">
+    <value>Afvikler fjern rystelser</value>
+  </data>
+  <data name="Status4" xml:space="preserve">
+    <value>Afvikler kombiner kort og video</value>
+  </data>
+  <data name="Status5" xml:space="preserve">
+    <value>Afvikler generer video...</value>
+  </data>
+  <data name="Status6" xml:space="preserve">
+    <value>FÆRDIG</value>
+  </data>
+  <data name="StatusAdjVidFinish" xml:space="preserve">
+    <value>Justeringsvideo er klar</value>
+  </data>
+  <data name="StatusAdjVidStart" xml:space="preserve">
+    <value>Justeringsvideo klargøres...</value>
+  </data>
+  <data name="StatusAudio1" xml:space="preserve">
+    <value>Genererer video : </value>
+  </data>
+  <data name="StatusAudioReady" xml:space="preserve">
+    <value>Lydfil er klar</value>
+  </data>
+  <data name="StatusCombine2" xml:space="preserve">
+    <value>Færdig: Kort klargjort</value>
+  </data>
+  <data name="StatusMakeMapImgs" xml:space="preserve">
+    <value>Kort forberedes...</value>
+  </data>
+  <data name="StatusMakingAudio" xml:space="preserve">
+    <value>Lydfil klargøres...</value>
+  </data>
+  <data name="StatusMakingVideo" xml:space="preserve">
+    <value>Video klargøres...</value>
+  </data>
+  <data name="StatusMusicVidFinish" xml:space="preserve">
+    <value>Video med musik klargjort</value>
+  </data>
+  <data name="StatusMusicVidStart" xml:space="preserve">
+    <value>Video med musik klargøres...</value>
+  </data>
+  <data name="StatusOutReady" xml:space="preserve">
+    <value>Outputfilen er dannet</value>
+  </data>
+  <data name="StatusTimeLeft" xml:space="preserve">
+    <value>Tid tilbage: </value>
+  </data>
+  <data name="StatusVideo1Ready" xml:space="preserve">
+    <value>Videoen er klargjort</value>
+  </data>
+  <data name="StatusVideoReady" xml:space="preserve">
+    <value>Video er klar</value>
+  </data>
+  <data name="Status_copyfile" xml:space="preserve">
+    <value>Video klargøres...</value>
+  </data>
+</root>

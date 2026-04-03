@@ -1,0 +1,79 @@
+# Visual Studio / .NET
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+*.DotSettings
+
+# Build results
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.log
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Temporary files and folders used by this project
+temp/
+temp1/
+temp2/
+temp3/
+
+# Media and large binary files - track with Git LFS if needed
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.gif
+
+# Database / local data
+*.sdf
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Other
+*.vsix
+*.cache
+*.zip
+*.7z
+
+# Ignore publish output
+publish/
+
+# Ignore package lock files if any
+package-lock.json
+
+# Ignore user-specific Visual Studio files
+*.vcxproj.user
+*.vbproj.user
+*.csproj.user
+
+# Ignore generated resx designer files (if you prefer not tracking)
+# *.Designer.vb
