@@ -5,6 +5,7 @@ Imports System.Threading
 Imports System.Threading.Tasks
 Imports System.Diagnostics
 Imports System.Runtime.InteropServices
+Imports System.Globalization
 
 Public Class clMapsImgsToFiles
     Public MapImg As Bitmap
@@ -16,6 +17,14 @@ Public Class clMapsImgsToFiles
     Public RPList As New List(Of clsQRRoutePoints)
     Public MapObjList As New List(Of clsMapImages)
     Public tasksCompleted As Boolean = False
+    Public LastSmoothRenderElapsed As TimeSpan = TimeSpan.Zero
+    Public LastSmoothZoomEncodeElapsed As TimeSpan = TimeSpan.Zero
+    Public LastSmoothLegEncodeElapsed As TimeSpan = TimeSpan.Zero
+    Public LastSmoothTotalElapsed As TimeSpan = TimeSpan.Zero
+    Public LastSmoothFrameCount As Integer = 0
+    Public LastSmoothBaseMapElapsed As TimeSpan = TimeSpan.Zero
+    Public LastSmoothZoomRenderElapsed As TimeSpan = TimeSpan.Zero
+    Public LastSmoothLegRenderElapsed As TimeSpan = TimeSpan.Zero
     Private legheight, legwidth, zoomwidth, zoomheight As Integer
     Private Shared ImageFileCounter As Integer = 0
     Public Sub New(inRoutePoints As clsQRRoutePoints, inMapImage As Bitmap)
@@ -24,13 +33,55 @@ Public Class clMapsImgsToFiles
 
     End Sub
 
-    ' Stream frames directly into ffmpeg to produce a video file instead of writing many temp files.
-    ' This implementation is single-threaded and writes raw BGR24 frames to ffmpeg stdin.
     Public Sub WriteImgsToVideo(outputFile As String, fps As Integer, Optional StartTime As Integer = 0, Optional Duration As Integer = -1, Optional VideoWidth As Integer = 1920)
-        Dim startIdx As Integer = Math.Max(0, StartTime)
-        Dim count As Integer = RPs.RoutePoints.Count
-        Dim endIdx As Integer = If(Duration < 0, count - 1, Math.Min(startIdx + Duration - 1, count - 1))
+        WriteImgsToVideoInternal(outputFile, 1.0, fps, StartTime, Duration, VideoWidth)
+    End Sub
 
+#Region "Smooth Video Rendering"
+    ' Smooth rendering is driven by time spacing between frames.
+    ' Example: FrameStepSeconds = 0.5 gives one rendered frame every half second and defaults to 2 fps.
+    Public Sub WriteImgsToVideoSmooth(outputFile As String, Optional FrameStepSeconds As Double = 0.5, Optional StartTime As Double = 0, Optional Duration As Double = -1, Optional VideoWidth As Integer = 1920, Optional OutputFps As Double = -1)
+        If FrameStepSeconds <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(FrameStepSeconds))
+        SmoothFrameStepSeconds = FrameStepSeconds
+        Dim resolvedFps As Double = ResolveSmoothOutputFps(FrameStepSeconds, OutputFps)
+        WriteImgsToVideoInternal(outputFile, FrameStepSeconds, resolvedFps, StartTime, Duration, VideoWidth)
+    End Sub
+    Public Function GetSmoothOutputFps(Optional FrameStepSeconds As Double = -1, Optional OutputFps As Double = -1) As Double
+        Dim effectiveFrameStep As Double = If(FrameStepSeconds > 0, FrameStepSeconds, SmoothFrameStepSeconds)
+        If effectiveFrameStep <= 0 Then effectiveFrameStep = 0.5
+        Return ResolveSmoothOutputFps(effectiveFrameStep, OutputFps)
+    End Function
+    Private Function ResolveSmoothOutputFps(frameStepSeconds As Double, outputFps As Double) As Double
+        If outputFps > 0 Then Return outputFps
+        Return 1.0 / frameStepSeconds
+    End Function
+    Private Sub WriteImgsToVideoInternal(outputFile As String, frameStepSeconds As Double, fps As Double, Optional StartTime As Double = 0, Optional Duration As Double = -1, Optional VideoWidth As Integer = 1920)
+        If frameStepSeconds <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(frameStepSeconds))
+        If fps <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(fps))
+
+        LastSmoothRenderElapsed = TimeSpan.Zero
+        LastSmoothZoomEncodeElapsed = TimeSpan.Zero
+        LastSmoothLegEncodeElapsed = TimeSpan.Zero
+        LastSmoothTotalElapsed = TimeSpan.Zero
+        LastSmoothFrameCount = 0
+        LastSmoothBaseMapElapsed = TimeSpan.Zero
+        LastSmoothZoomRenderElapsed = TimeSpan.Zero
+        LastSmoothLegRenderElapsed = TimeSpan.Zero
+
+        Dim totalStopwatch As Stopwatch = Stopwatch.StartNew()
+        Dim renderStopwatch As Stopwatch = New Stopwatch()
+        Dim zoomEncodeStopwatch As Stopwatch = New Stopwatch()
+        Dim legEncodeStopwatch As Stopwatch = New Stopwatch()
+        Dim baseMapStopwatch As Stopwatch = New Stopwatch()
+        Dim zoomRenderStopwatch As Stopwatch = New Stopwatch()
+        Dim legRenderStopwatch As Stopwatch = New Stopwatch()
+
+        Dim count As Integer = RPs.RoutePoints.Count
+        If count = 0 Then Return
+
+        Dim startIdx As Double = Math.Max(0, StartTime)
+        Dim maxTime As Double = count - 1
+        Dim endIdx As Double = If(Duration < 0, maxTime, Math.Min(startIdx + Duration - frameStepSeconds, maxTime))
         If startIdx > endIdx Then Return
 
         Dim mapObj As New clsMapImages(RPs, MapImg)
@@ -38,106 +89,165 @@ Public Class clMapsImgsToFiles
 
         Dim sampleZoom As Bitmap = Nothing
         Dim sampleLeg As Bitmap = Nothing
-        ' Prepare background at start index so ZoomImage/LapImage have a valid TmpMainMap
-        Dim imgmapSample As Bitmap = mapObj.DrawPositionOnBackgroundImage(startIdx)
-        Try
-            If My.Settings.cbShowRoute Then sampleZoom = mapObj.ZoomImage(startIdx)
-            If My.Settings.cbShowLegMAp Then sampleLeg = mapObj.LapImage(startIdx)
-        Finally
-            If imgmapSample IsNot Nothing Then imgmapSample.Dispose()
-        End Try
+        If My.Settings.cbShowRoute Then sampleZoom = mapObj.ZoomImageSmooth(startIdx)
+        If My.Settings.cbShowLegMAp Then sampleLeg = mapObj.LapImageSmooth(startIdx)
 
         Dim zwidth As Integer = If(sampleZoom IsNot Nothing, sampleZoom.Width, 0)
         Dim zheight As Integer = If(sampleZoom IsNot Nothing, sampleZoom.Height, 0)
         Dim lwidth As Integer = If(sampleLeg IsNot Nothing, sampleLeg.Width, 0)
         Dim lheight As Integer = If(sampleLeg IsNot Nothing, sampleLeg.Height, 0)
-
-        ' Keep sampleZoom/sampleLeg alive so we can reuse them for the first frame
-        ' and avoid double-calling DrawPositionOnBackgroundImage for startIdx.
-
-        Dim outW As Integer = lwidth + zwidth
-        Dim outH As Integer = Math.Max(lheight, zheight)
-        If outW <= 0 Or outH <= 0 Then
+        If lwidth + zwidth <= 0 OrElse Math.Max(lheight, zheight) <= 0 Then
             Throw New InvalidOperationException("Calculated output video dimensions are zero. Enable at least one image part.")
         End If
 
-        Dim psi As New ProcessStartInfo()
-        psi.FileName = "ffmpeg"
-        psi.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {outW}x{outH} -framerate {fps} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{outputFile}"""
-        psi.UseShellExecute = False
-        psi.RedirectStandardInput = True
-        psi.RedirectStandardError = True
-        psi.CreateNoWindow = True
+        Dim baseDir As String = Path.GetDirectoryName(outputFile)
+        If String.IsNullOrEmpty(baseDir) Then baseDir = "."
+        Dim baseName As String = Path.GetFileNameWithoutExtension(outputFile)
+        Dim fpsText As String = fps.ToString("0.###", CultureInfo.InvariantCulture)
 
-        Using ff As Process = Process.Start(psi)
-            Dim stderrReader = ff.StandardError
-            Task.Run(Sub()
-                         Try
-                             Dim s As String = stderrReader.ReadToEnd()
-                             ' optional: log s
-                         Catch ex As Exception
-                         End Try
-                     End Sub)
+        Dim zoomProcess As Process = Nothing
+        Dim legProcess As Process = Nothing
+        Dim zoomStdin As Stream = Nothing
+        Dim legStdin As Stream = Nothing
 
-            Dim stdin As Stream = ff.StandardInput.BaseStream
+        Try
+            If sampleZoom IsNot Nothing Then
+                Dim psiZ As New ProcessStartInfo()
+                psiZ.FileName = "ffmpeg"
+                psiZ.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {zwidth}x{zheight} -framerate {fpsText} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{Path.Combine(baseDir, baseName & "_z.mp4")}"""
+                psiZ.UseShellExecute = False
+                psiZ.RedirectStandardInput = True
+                psiZ.RedirectStandardError = True
+                psiZ.CreateNoWindow = True
+                zoomProcess = Process.Start(psiZ)
+                zoomEncodeStopwatch.Start()
+                Dim stderrZ = zoomProcess.StandardError
+                Task.Run(Sub()
+                             Try
+                                 stderrZ.ReadToEnd()
+                             Catch
+                             End Try
+                         End Sub)
+                zoomStdin = zoomProcess.StandardInput.BaseStream
+            End If
 
-            Try
-                Dim usedSampleForFirstFrame As Boolean = False
-                For i As Integer = startIdx To endIdx
-                    Dim imageleg As Bitmap = Nothing
-                    Dim imagezoom As Bitmap = Nothing
+            If sampleLeg IsNot Nothing Then
+                Dim psiL As New ProcessStartInfo()
+                psiL.FileName = "ffmpeg"
+                psiL.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {lwidth}x{lheight} -framerate {fpsText} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{Path.Combine(baseDir, baseName & "_l.mp4")}"""
+                psiL.UseShellExecute = False
+                psiL.RedirectStandardInput = True
+                psiL.RedirectStandardError = True
+                psiL.CreateNoWindow = True
+                legProcess = Process.Start(psiL)
+                legEncodeStopwatch.Start()
+                Dim stderrL = legProcess.StandardError
+                Task.Run(Sub()
+                             Try
+                                 stderrL.ReadToEnd()
+                             Catch
+                             End Try
+                         End Sub)
+                legStdin = legProcess.StandardInput.BaseStream
+            End If
 
-                    If i = startIdx And (sampleZoom IsNot Nothing Or sampleLeg IsNot Nothing) Then
-                        ' Reuse precomputed samples for the first frame to avoid double draw
-                        imageleg = sampleLeg
-                        imagezoom = sampleZoom
-                        usedSampleForFirstFrame = True
-                    Else
-                        ' Ensure background with current position is drawn so ZoomImage/LapImage use correct TmpMainMap
-                        Dim imgmap As Bitmap = mapObj.DrawPositionOnBackgroundImage(i)
-                        Try
-                            If My.Settings.cbShowLegMAp Then imageleg = mapObj.LapImage(i)
-                            If My.Settings.cbShowRoute Then imagezoom = mapObj.ZoomImage(i)
-                        Finally
-                            ' Dispose the temporary background bitmap returned by DrawPositionOnBackgroundImage
-                            ' after Zoom/Lap images have been created to avoid memory leak.
-                            If imgmap IsNot Nothing Then imgmap.Dispose()
-                        End Try
+            If zoomStdin Is Nothing AndAlso legStdin Is Nothing Then Throw New InvalidOperationException("No output images enabled (zoom or leg).")
+
+            Dim frameNo As Integer = 0
+            Dim epsilon As Double = frameStepSeconds / 1000.0
+            renderStopwatch.Start()
+            Do
+                Dim currentTime As Double = startIdx + frameNo * frameStepSeconds
+                If currentTime > endIdx + epsilon Then Exit Do
+
+                Dim imageleg As Bitmap = Nothing
+                Dim imagezoom As Bitmap = Nothing
+                If frameNo = 0 Then
+                    imageleg = sampleLeg
+                    imagezoom = sampleZoom
+                Else
+                    If My.Settings.cbShowLegMAp Then
+                        legRenderStopwatch.Start()
+                        imageleg = mapObj.LapImageSmooth(currentTime)
+                        legRenderStopwatch.Stop()
                     End If
+                    If My.Settings.cbShowRoute Then
+                        zoomRenderStopwatch.Start()
+                        imagezoom = mapObj.ZoomImageSmooth(currentTime)
+                        zoomRenderStopwatch.Stop()
+                    End If
+                End If
 
-                    Using combinedImage As New Bitmap(outW, outH, PixelFormat.Format24bppRgb)
-                        Using g As Graphics = Graphics.FromImage(combinedImage)
-                            g.Clear(Color.Black)
-                            If imageleg IsNot Nothing Then g.DrawImage(imageleg, 0, 0)
-                            If imagezoom IsNot Nothing Then g.DrawImage(imagezoom, lwidth, 0)
-                        End Using
+                If imagezoom IsNot Nothing AndAlso zoomStdin IsNot Nothing Then WriteBitmapFrameToStream(imagezoom, zoomStdin)
+                If imageleg IsNot Nothing AndAlso legStdin IsNot Nothing Then WriteBitmapFrameToStream(imageleg, legStdin)
 
-                        Dim rect As New Rectangle(0, 0, combinedImage.Width, combinedImage.Height)
-                        Dim bd As BitmapData = combinedImage.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb)
-                        Dim stride As Integer = Math.Abs(bd.Stride)
-                        Dim bytes As Integer = stride * combinedImage.Height
-                        Dim buffer(bytes - 1) As Byte
-                        Marshal.Copy(bd.Scan0, buffer, 0, bytes)
-                        combinedImage.UnlockBits(bd)
-
-                        stdin.Write(buffer, 0, buffer.Length)
-                        stdin.Flush()
-                    End Using
-
+                If frameNo > 0 Then
                     If imageleg IsNot Nothing Then imageleg.Dispose()
                     If imagezoom IsNot Nothing Then imagezoom.Dispose()
+                End If
 
-                    Threading.Interlocked.Increment(ImageFileCounter)
-                Next
+                Threading.Interlocked.Increment(ImageFileCounter)
+                frameNo += 1
+            Loop
+            renderStopwatch.Stop()
+            LastSmoothFrameCount = frameNo
 
-                stdin.Close()
-                ff.WaitForExit()
-            Finally
-                ' nothing to cleanup here
+            If zoomStdin IsNot Nothing Then
+                zoomStdin.Close()
+                zoomProcess.WaitForExit()
+                zoomEncodeStopwatch.Stop()
+            End If
+            If legStdin IsNot Nothing Then
+                legStdin.Close()
+                legProcess.WaitForExit()
+                legEncodeStopwatch.Stop()
+            End If
+        Finally
+            If renderStopwatch.IsRunning Then renderStopwatch.Stop()
+            If zoomEncodeStopwatch.IsRunning Then zoomEncodeStopwatch.Stop()
+            If legEncodeStopwatch.IsRunning Then legEncodeStopwatch.Stop()
+            totalStopwatch.Stop()
+            LastSmoothRenderElapsed = renderStopwatch.Elapsed
+            LastSmoothZoomEncodeElapsed = zoomEncodeStopwatch.Elapsed
+            LastSmoothLegEncodeElapsed = legEncodeStopwatch.Elapsed
+            LastSmoothTotalElapsed = totalStopwatch.Elapsed
+            LastSmoothBaseMapElapsed = baseMapStopwatch.Elapsed
+            LastSmoothZoomRenderElapsed = zoomRenderStopwatch.Elapsed
+            LastSmoothLegRenderElapsed = legRenderStopwatch.Elapsed
+            Try
+                If zoomProcess IsNot Nothing AndAlso Not zoomProcess.HasExited Then zoomProcess.Kill()
+            Catch
             End Try
-        End Using
-
+            Try
+                If legProcess IsNot Nothing AndAlso Not legProcess.HasExited Then legProcess.Kill()
+            Catch
+            End Try
+        End Try
     End Sub
+    Private Sub WriteBitmapFrameToStream(sourceImage As Bitmap, targetStream As Stream)
+        Using tmpBmp As New Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat.Format24bppRgb)
+            Using g As Graphics = Graphics.FromImage(tmpBmp)
+                g.Clear(Color.Black)
+                g.DrawImage(sourceImage, 0, 0)
+            End Using
+
+            Dim rect As New Rectangle(0, 0, tmpBmp.Width, tmpBmp.Height)
+            Dim bitmapData As BitmapData = tmpBmp.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb)
+            Dim stride As Integer = Math.Abs(bitmapData.Stride)
+            Dim rowBytes As Integer = tmpBmp.Width * 3
+            Dim buffer(rowBytes * tmpBmp.Height - 1) As Byte
+
+            For row As Integer = 0 To tmpBmp.Height - 1
+                Dim srcPtr As IntPtr = New IntPtr(bitmapData.Scan0.ToInt64() + row * stride)
+                Marshal.Copy(srcPtr, buffer, row * rowBytes, rowBytes)
+            Next
+
+            tmpBmp.UnlockBits(bitmapData)
+            targetStream.Write(buffer, 0, buffer.Length)
+            targetStream.Flush()
+        End Using
+    End Sub
+#End Region
     Public Function GetTotalFiles(Optional StartTime As Integer = 0, Optional Duration As Integer = -1) As Integer
         Dim count As Integer = RPs.RoutePoints.Count
         Dim startIdx As Integer = Math.Max(0, StartTime) ' Ensure start index is within the range '
@@ -406,6 +516,10 @@ Public Class clsMapImages
     Public avgAngle, prevangle, prevRVal, prevfiltered As Double
     Public labelx As Label
     Public MainMapImage, TmpMainMap, ZoomMapImage, LegMapImage, tmpZLImg As Image
+    Private SmoothOverlayMapImage As Bitmap
+    Private LastSmoothOverlayTime As Double = Double.NaN
+    Private SmoothLegBackgroundImage As Bitmap
+    Private SmoothLegBackgroundCacheKey As String = ""
     Public FrameWidth As Integer = 4
     Public FrameColor As Color = Color.IndianRed
     Public QRRoutePoints As clsQRRoutePoints
@@ -420,6 +534,17 @@ Public Class clsMapImages
     Public ZoomWidth, ZoomHeight, LegWidth, LegHeight, ZoomRad, LegRad, LegMargin As Integer
     Public alphaMaskZoom, alphaMaskLeg As Bitmap
     Public FrameFeather As Boolean = False
+
+#Region "Smooth Rendering Configuration"
+    Private SmoothFrameStepSeconds As Double = 0.5
+    Private SmoothHeadingWindowSeconds As Double = 2.0
+    Private SmoothHeadingMaxWindowSeconds As Double = 8.0
+    Private SmoothPositionWindowSeconds As Double = 0.75
+    Private SmoothTailSampleStepSeconds As Double = 0.25
+    Private SmoothTailMinimumPointDistance As Double = 2.0
+    Private SmoothHeadingMinimumDistance As Double = 6.0
+#End Region
+
     Public Sub New(inQRRouteP As clsQRRoutePoints, InMainMapImage As Bitmap, Optional bLoadSettings As Boolean = True)
         LogFejl("Program started", False)
         prevangle = 0
@@ -588,6 +713,215 @@ Public Class clsMapImages
         ' Oprydning
         arrowBrush.Dispose()
     End Sub
+#Region "Smooth Rendering Helpers"
+    Private Function ClampTimeCode(timeCode As Double) As Double
+        If QRRoutePoints Is Nothing OrElse QRRoutePoints.RoutePoints.Count = 0 Then Return 0
+        If timeCode < 0 Then Return 0
+        Dim maxTimeCode As Double = QRRoutePoints.RoutePoints.Count - 1
+        If timeCode > maxTimeCode Then Return maxTimeCode
+        Return timeCode
+    End Function
+    Private Sub ResolveTimeSegment(timeCode As Double, ByRef lowerIdx As Integer, ByRef upperIdx As Integer, ByRef blend As Double)
+        Dim clampedTime As Double = ClampTimeCode(timeCode)
+        lowerIdx = CInt(Math.Floor(clampedTime))
+        upperIdx = CInt(Math.Ceiling(clampedTime))
+        If lowerIdx < 0 Then lowerIdx = 0
+        If upperIdx >= QRRoutePoints.RoutePoints.Count Then upperIdx = QRRoutePoints.RoutePoints.Count - 1
+        If upperIdx < lowerIdx Then upperIdx = lowerIdx
+        blend = clampedTime - lowerIdx
+        If upperIdx = lowerIdx Then blend = 0
+    End Sub
+    Private Function InterpolateValue(startValue As Double, endValue As Double, blend As Double) As Double
+        Return startValue + (endValue - startValue) * blend
+    End Function
+    Private Function InterpolatePoint(startPoint As PointF, endPoint As PointF, blend As Double) As PointF
+        Return New PointF(
+            CSng(InterpolateValue(startPoint.X, endPoint.X, blend)),
+            CSng(InterpolateValue(startPoint.Y, endPoint.Y, blend))
+        )
+    End Function
+    Private Function InterpolateAngle(startAngle As Double, endAngle As Double, blend As Double) As Double
+        Dim delta As Double = ((endAngle - startAngle + 540) Mod 360) - 180
+        Return (startAngle + delta * blend + 360) Mod 360
+    End Function
+    Private Function GetInterpolatedRoutePointAtTime(timeCode As Double) As PointF
+        Dim lowerIdx, upperIdx As Integer
+        Dim blend As Double
+        ResolveTimeSegment(timeCode, lowerIdx, upperIdx, blend)
+
+        Dim startPoint As clsQRRoutePoint = QRRoutePoints.RoutePoints(lowerIdx)
+        Dim endPoint As clsQRRoutePoint = QRRoutePoints.RoutePoints(upperIdx)
+        Dim yOffset As Double = QRRoutePoints.QRLogoYOffset
+        Dim p1 As New PointF(CSng(startPoint.ImageX), CSng(startPoint.ImageY + yOffset))
+        Dim p2 As New PointF(CSng(endPoint.ImageX), CSng(endPoint.ImageY + yOffset))
+        Return InterpolatePoint(p1, p2, blend)
+    End Function
+    Private Function GetDistanceBetweenPoints(startPoint As PointF, endPoint As PointF) As Double
+        Dim dx As Double = endPoint.X - startPoint.X
+        Dim dy As Double = endPoint.Y - startPoint.Y
+        Return Math.Sqrt(dx * dx + dy * dy)
+    End Function
+    Private Function GetSmoothedRoutePointAtTime(timeCode As Double) As PointF
+        Dim clampedTime As Double = ClampTimeCode(timeCode)
+        If SmoothPositionWindowSeconds <= 0 Then Return GetInterpolatedRoutePointAtTime(clampedTime)
+
+        Dim sampleStep As Double = Math.Max(0.05, SmoothTailSampleStepSeconds)
+        Dim startTime As Double = Math.Max(0, clampedTime - SmoothPositionWindowSeconds)
+        Dim endTime As Double = Math.Min(ClampTimeCode(Double.MaxValue), clampedTime + SmoothPositionWindowSeconds)
+        Dim weightedX As Double = 0
+        Dim weightedY As Double = 0
+        Dim totalWeight As Double = 0
+        Dim sampleTime As Double = startTime
+
+        Do While sampleTime <= endTime + sampleStep / 2
+            Dim currentSampleTime As Double = Math.Min(sampleTime, endTime)
+            Dim samplePoint As PointF = GetInterpolatedRoutePointAtTime(currentSampleTime)
+            Dim distanceToCenter As Double = Math.Abs(currentSampleTime - clampedTime)
+            Dim weight As Double = (SmoothPositionWindowSeconds + sampleStep) - distanceToCenter
+            If weight > 0 Then
+                weightedX += samplePoint.X * weight
+                weightedY += samplePoint.Y * weight
+                totalWeight += weight
+            End If
+            sampleTime += sampleStep
+        Loop
+
+        If totalWeight <= 0 Then Return GetInterpolatedRoutePointAtTime(clampedTime)
+        Return New PointF(CSng(weightedX / totalWeight), CSng(weightedY / totalWeight))
+    End Function
+    Private Function GetRoutePointAtTime(timeCode As Double) As PointF
+        Return GetSmoothedRoutePointAtTime(timeCode)
+    End Function
+    Private Function GetHeadingAngleAtTime(timeCode As Double) As Double
+        Dim clampedTime As Double = ClampTimeCode(timeCode)
+        Dim currentWindow As Double = Math.Max(0.25, SmoothHeadingWindowSeconds)
+        Dim maxWindow As Double = Math.Max(currentWindow, SmoothHeadingMaxWindowSeconds)
+        Dim startPoint As PointF = GetRoutePointAtTime(clampedTime)
+        Dim endPoint As PointF = startPoint
+
+        Do
+            startPoint = GetRoutePointAtTime(Math.Max(0, clampedTime - currentWindow))
+            endPoint = GetRoutePointAtTime(Math.Min(ClampTimeCode(Double.MaxValue), clampedTime + currentWindow))
+
+            If GetDistanceBetweenPoints(startPoint, endPoint) >= SmoothHeadingMinimumDistance Then Exit Do
+            If currentWindow >= maxWindow Then Exit Do
+            currentWindow = Math.Min(maxWindow, currentWindow * 1.5)
+        Loop
+
+        If GetDistanceBetweenPoints(startPoint, endPoint) < 0.001 Then
+            Return GetDirectionAtTime(timeCode)
+        End If
+
+        Dim angle As Double = Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X)
+        Return (90 - angle * 180 / Math.PI) Mod 360
+    End Function
+    Private Function GetArrowDirectionAtTime(timeCode As Double) As Double
+        Dim cameraAngle As Double = GetHeadingAngleAtTime(timeCode)
+        Return (180 - cameraAngle + 360) Mod 360
+    End Function
+    Private Function GetDirectionAtTime(timeCode As Double) As Double
+        Dim lowerIdx, upperIdx As Integer
+        Dim blend As Double
+        ResolveTimeSegment(timeCode, lowerIdx, upperIdx, blend)
+        Return InterpolateAngle(QRRoutePoints.RoutePoints(lowerIdx).Direction, QRRoutePoints.RoutePoints(upperIdx).Direction, blend)
+    End Function
+    Private Function GetLapNumberAtTime(timeCode As Double) As Integer
+        Dim idx As Integer = CInt(Math.Floor(ClampTimeCode(timeCode)))
+        Return QRRoutePoints.RoutePoints(idx).LapNumber
+    End Function
+    Private Function GetTailLinePointsAtTime(timeCode As Double) As List(Of PointF)
+        Dim tailPoints As New List(Of PointF)
+        Dim clampedTime As Double = ClampTimeCode(timeCode)
+        Dim startTime As Double = Math.Max(0, clampedTime - tailLineDurationSeconds)
+        Dim sampleStep As Double = Math.Max(0.05, SmoothTailSampleStepSeconds)
+        Dim sampleTime As Double = startTime
+
+        Do While sampleTime <= clampedTime + sampleStep / 2
+            Dim currentSampleTime As Double = Math.Min(sampleTime, clampedTime)
+            Dim currentPoint As PointF = GetRoutePointAtTime(currentSampleTime)
+            If tailPoints.Count = 0 OrElse GetDistanceBetweenPoints(tailPoints(tailPoints.Count - 1), currentPoint) >= SmoothTailMinimumPointDistance Then
+                tailPoints.Add(currentPoint)
+            Else
+                tailPoints(tailPoints.Count - 1) = currentPoint
+            End If
+            sampleTime += sampleStep
+        Loop
+
+        Dim endPoint As PointF = GetRoutePointAtTime(clampedTime)
+        If tailPoints.Count = 0 OrElse GetDistanceBetweenPoints(tailPoints(tailPoints.Count - 1), endPoint) > 0.01 Then
+            tailPoints.Add(endPoint)
+        Else
+            tailPoints(tailPoints.Count - 1) = endPoint
+        End If
+
+        Return tailPoints
+    End Function
+    Private Function GetSmoothedAngleAtTime(timeCode As Double, windowSize As Integer) As Double
+        Return GetHeadingAngleAtTime(timeCode)
+    End Function
+    Private Function GetSmoothOverlayMap(currentTime As Double) As Bitmap
+        Dim safeTime As Double = ClampTimeCode(currentTime)
+        If SmoothOverlayMapImage Is Nothing OrElse SmoothOverlayMapImage.Width <> MainMapImage.Width OrElse SmoothOverlayMapImage.Height <> MainMapImage.Height OrElse Double.IsNaN(LastSmoothOverlayTime) OrElse Math.Abs(LastSmoothOverlayTime - safeTime) > 0.0001 Then
+            If SmoothOverlayMapImage IsNot Nothing Then SmoothOverlayMapImage.Dispose()
+            SmoothOverlayMapImage = New Bitmap(MainMapImage.Width, MainMapImage.Height, PixelFormat.Format32bppArgb)
+
+            Dim currentPos As PointF = GetRoutePointAtTime(safeTime)
+            Dim tailLinePoints As List(Of PointF) = GetTailLinePointsAtTime(safeTime)
+            Using g As Graphics = Graphics.FromImage(SmoothOverlayMapImage)
+                g.Clear(Color.Transparent)
+                If tailLinePoints.Count > 1 Then
+                    Using tailLinePen As New Pen(tailLineColor, dotSize * dotTailRatio)
+                        g.DrawLines(tailLinePen, tailLinePoints.ToArray())
+                    End Using
+                End If
+
+                Dim dotSizeWithTail As Integer = dotSize
+                Dim direction As Double = GetArrowDirectionAtTime(safeTime)
+                If _DotType = "Arrow" Then
+                    DrawArrowWithBarbs(g, currentPos, CSng(direction), dotSizeWithTail, dotColor)
+                Else
+                    Using dotBrush As New SolidBrush(dotColor)
+                        g.FillEllipse(dotBrush, CSng(currentPos.X - dotSizeWithTail / 2), CSng(currentPos.Y - dotSizeWithTail / 2), CSng(dotSizeWithTail), CSng(dotSizeWithTail))
+                    End Using
+                End If
+            End Using
+
+            LastSmoothOverlayTime = safeTime
+        End If
+
+        Return SmoothOverlayMapImage
+    End Function
+    Private Function GetSmoothLegBackground(cacheKey As String, angleDegrees As Double, srcRect As RectangleF,
+                                            srcSize As Integer, clipWidth As Single, clipLength As Single,
+                                            outwidth As Integer, outheight As Integer) As Bitmap
+        If SmoothLegBackgroundImage Is Nothing OrElse SmoothLegBackgroundCacheKey <> cacheKey Then
+            If SmoothLegBackgroundImage IsNot Nothing Then SmoothLegBackgroundImage.Dispose()
+
+            Using tmpLegBackground As New Bitmap(srcSize, srcSize)
+                Using g As Graphics = Graphics.FromImage(tmpLegBackground)
+                    g.TranslateTransform(tmpLegBackground.Width / 2.0F, tmpLegBackground.Height / 2.0F)
+                    If IsNumeric(angleDegrees) Then g.RotateTransform(CSng(angleDegrees))
+                    g.TranslateTransform(-tmpLegBackground.Width / 2.0F, -tmpLegBackground.Height / 2.0F)
+                    g.DrawImage(MainMapImage, New RectangleF(0, 0, tmpLegBackground.Width, tmpLegBackground.Height), srcRect, GraphicsUnit.Pixel)
+                End Using
+
+                SmoothLegBackgroundImage = New Bitmap(outwidth, outheight)
+                Using graphics As Graphics = Graphics.FromImage(SmoothLegBackgroundImage)
+                    graphics.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+                    graphics.Clear(Color.Transparent)
+
+                    Dim srcRectF As New RectangleF(tmpLegBackground.Width / 2.0F - clipWidth / 2.0F, tmpLegBackground.Height / 2.0F - clipLength / 2.0F, clipWidth, clipLength)
+                    Dim dstRect As New RectangleF(0, 0, outwidth, outheight)
+                    graphics.DrawImage(tmpLegBackground, dstRect, srcRectF, GraphicsUnit.Pixel)
+                End Using
+            End Using
+
+            SmoothLegBackgroundCacheKey = cacheKey
+        End If
+
+        Return SmoothLegBackgroundImage
+    End Function
+#End Region
     Public Function DrawPositionOnBackgroundImage(currentTimecode As Integer) As Bitmap
         ' Get the current position index based on the elapsed time
         Dim currentPosIndex As Integer = currentTimecode
@@ -632,6 +966,40 @@ Public Class clsMapImages
         Return TmpMainMap
 
     End Function
+#Region "Smooth Map Rendering"
+    Public Function DrawPositionOnBackgroundImageSmooth(currentTimecode As Double) As Bitmap
+        Dim currentTime As Double = ClampTimeCode(currentTimecode)
+        If Not IsNothing(TmpMainMap) Then
+            TmpMainMap.Dispose()
+        End If
+        TmpMainMap = New Bitmap(MainMapImage.Width, MainMapImage.Height)
+
+        Dim currentPos As PointF = GetRoutePointAtTime(currentTime)
+        Dim tailLinePoints As List(Of PointF) = GetTailLinePointsAtTime(currentTime)
+
+        Using g As Graphics = Graphics.FromImage(TmpMainMap)
+            g.DrawImage(MainMapImage, 0, 0)
+
+            Using tailLinePen As New Pen(tailLineColor, dotSize * dotTailRatio)
+                If tailLinePoints.Count > 1 Then
+                    g.DrawLines(tailLinePen, tailLinePoints.ToArray())
+                End If
+            End Using
+
+            Dim dotSizeWithTail As Integer = dotSize
+            Dim direction As Double = GetArrowDirectionAtTime(currentTime)
+            If _DotType = "Arrow" Then
+                DrawArrowWithBarbs(g, currentPos, CSng(direction), dotSizeWithTail, dotColor)
+            Else
+                Using dotBrush As New SolidBrush(dotColor)
+                    g.FillEllipse(dotBrush, CSng(currentPos.X - dotSizeWithTail / 2), CSng(currentPos.Y - dotSizeWithTail / 2), CSng(dotSizeWithTail), CSng(dotSizeWithTail))
+                End Using
+            End If
+        End Using
+
+        Return TmpMainMap
+    End Function
+#End Region
 
 
     Private Function FillRoundedRectangle(brush As Brush, rect As Rectangle, radius As Integer) As GraphicsPath
@@ -769,6 +1137,11 @@ Public Class clsMapImages
     Function ZoomImage(timeCode As Integer) As Bitmap
         Return ZoomImage3(timeCode, ZoomWidth, ZoomHeight, ZoomRad)
     End Function
+#Region "Smooth Zoom Entry Point"
+    Function ZoomImageSmooth(timeCode As Double) As Bitmap
+        Return ZoomImage3Smooth(timeCode, ZoomWidth, ZoomHeight, ZoomRad)
+    End Function
+#End Region
 
     Function ZoomImage2(timeCode As Integer, pxwidth As Integer, pxheight As Integer, pxroundrad As Integer) As Bitmap
         Dim height As Double = pxheight
@@ -1097,6 +1470,85 @@ Public Class clsMapImages
         'Return tmpZLImg
 
     End Function
+#Region "Smooth Zoom Implementation"
+    Function ZoomImage3Smooth(timeCode As Double, OutWidth As Integer, OutHeight As Integer, pxroundrad As Integer, Optional fromAdj As Boolean = True) As Bitmap
+        Dim pxClipLength As Integer
+        Dim pxClipWidth As Single
+        Dim safeTimeCode As Double = ClampTimeCode(timeCode)
+        Dim middlepoint As PointF = GetRoutePointAtTime(safeTimeCode)
+        ZoomWidth = OutWidth
+        ZoomHeight = OutHeight
+        ZoomRad = pxroundrad
+        Dim windowsize As Integer = CInt(Math.Round(SmoothHeadingWindowSeconds))
+
+        If ZoomZoom < 0.001 Then ZoomZoom = 1
+        pxClipLength = Int(Math.Round(OutHeight / ZoomZoom))
+        pxClipWidth = Int(Math.Round(OutWidth / ZoomZoom))
+        Dim angle As Double = GetSmoothedAngleAtTime(safeTimeCode, windowsize)
+
+        Dim rWH As Single = CSng((pxClipWidth ^ 2 + pxClipLength ^ 2) ^ 0.5)
+        Dim srcSize As Integer = Math.Max(1, CInt(Math.Ceiling(rWH)))
+        Dim srcRect As New RectangleF(middlepoint.X - srcSize / 2.0F, middlepoint.Y - srcSize / 2.0F, srcSize, srcSize)
+        Dim overlayMap As Bitmap = GetSmoothOverlayMap(safeTimeCode)
+        Dim tmpOverlayImg As Bitmap = Nothing
+
+        If Not IsNothing(tmpZLImg) Then tmpZLImg.Dispose()
+        tmpZLImg = New Bitmap(srcSize, srcSize)
+        Using g As Graphics = Graphics.FromImage(tmpZLImg)
+            g.TranslateTransform(tmpZLImg.Width / 2.0F, tmpZLImg.Height / 2.0F)
+            If IsNumeric(angle) Then g.RotateTransform(CSng(angle + 180))
+            g.TranslateTransform(-tmpZLImg.Width / 2.0F, -tmpZLImg.Height / 2.0F)
+            g.DrawImage(MainMapImage, New RectangleF(0, 0, tmpZLImg.Width, tmpZLImg.Height), srcRect, GraphicsUnit.Pixel)
+        End Using
+        tmpOverlayImg = New Bitmap(srcSize, srcSize)
+        Using g As Graphics = Graphics.FromImage(tmpOverlayImg)
+            g.Clear(Color.Transparent)
+            g.TranslateTransform(tmpOverlayImg.Width / 2.0F, tmpOverlayImg.Height / 2.0F)
+            If IsNumeric(angle) Then g.RotateTransform(CSng(angle + 180))
+            g.TranslateTransform(-tmpOverlayImg.Width / 2.0F, -tmpOverlayImg.Height / 2.0F)
+            g.DrawImage(overlayMap, New RectangleF(0, 0, tmpOverlayImg.Width, tmpOverlayImg.Height), srcRect, GraphicsUnit.Pixel)
+        End Using
+
+        If Not IsNothing(ZoomMapImage) Then ZoomMapImage.Dispose()
+        ZoomMapImage = New Bitmap(OutWidth, OutHeight)
+
+        Using graphics As Graphics = Graphics.FromImage(ZoomMapImage)
+            graphics.Clear(Color.Transparent)
+            graphics.SmoothingMode = SmoothingMode.AntiAlias
+            graphics.CompositingMode = CompositingMode.SourceOver
+            graphics.CompositingQuality = CompositingQuality.HighQuality
+            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic
+
+            Dim dstRect As New Rectangle(0, 0, ZoomMapImage.Width, ZoomMapImage.Height)
+            graphics.DrawImage(tmpZLImg, dstRect, New RectangleF(tmpZLImg.Width / 2.0F - pxClipWidth / 2.0F, tmpZLImg.Height / 2.0F - pxClipLength / 2.0F, pxClipWidth, pxClipLength), GraphicsUnit.Pixel)
+            graphics.DrawImage(tmpOverlayImg, dstRect, New RectangleF(tmpOverlayImg.Width / 2.0F - pxClipWidth / 2.0F, tmpOverlayImg.Height / 2.0F - pxClipLength / 2.0F, pxClipWidth, pxClipLength), GraphicsUnit.Pixel)
+
+            If FrameFeather Then
+                Dim alphaMask As Bitmap = CreateAlphaMask(ZoomMapImage.Size, pxroundrad, FrameWidth, True)
+                Dim featheredImage As Bitmap = ApplyAlphaMask(ZoomMapImage, alphaMask)
+                ZoomMapImage.Dispose()
+                ZoomMapImage = featheredImage
+            Else
+                graphics.Clear(Color.Transparent)
+
+                Dim outerPath As GraphicsPath = FillRoundedRectangle(New SolidBrush(Color.White), dstRect, pxroundrad)
+                graphics.SetClip(outerPath)
+                Using brush As New SolidBrush(FrameColor)
+                    graphics.FillPath(brush, outerPath)
+                End Using
+
+                Dim innerRect As New Rectangle(FrameWidth, FrameWidth, ZoomMapImage.Width - FrameWidth * 2, ZoomMapImage.Height - FrameWidth * 2)
+                Dim innerPath As GraphicsPath = FillRoundedRectangle(New SolidBrush(Color.White), innerRect, pxroundrad)
+                graphics.SetClip(innerPath)
+                graphics.DrawImage(tmpZLImg, dstRect, New RectangleF(tmpZLImg.Width / 2.0F - pxClipWidth / 2.0F, tmpZLImg.Height / 2.0F - pxClipLength / 2.0F, pxClipWidth, pxClipLength), GraphicsUnit.Pixel)
+                graphics.DrawImage(tmpOverlayImg, dstRect, New RectangleF(tmpOverlayImg.Width / 2.0F - pxClipWidth / 2.0F, tmpOverlayImg.Height / 2.0F - pxClipLength / 2.0F, pxClipWidth, pxClipLength), GraphicsUnit.Pixel)
+            End If
+        End Using
+        If tmpOverlayImg IsNot Nothing Then tmpOverlayImg.Dispose()
+
+        Return ZoomMapImage
+    End Function
+#End Region
     'alternativ alphamask
     Private Function CreateAlphaMask(size As Size, radius As Integer, featherWidth As Integer, IsZoom As Boolean) As Bitmap
         Dim bmp As Bitmap
@@ -1182,6 +1634,11 @@ Public Class clsMapImages
     Function LapImage(CurrentTime As Integer) As Bitmap
         Return LapImage2(CurrentTime, LegMargin, LegWidth, LegHeight, LegRad)
     End Function
+#Region "Smooth Leg Entry Point"
+    Function LapImageSmooth(CurrentTime As Double) As Bitmap
+        Return LapImage2Smooth(CurrentTime, LegMargin, LegWidth, LegHeight, LegRad)
+    End Function
+#End Region
     Function LapImage2_backup(CurrentTime As Integer, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
         If CurrentTime < 0 Then CurrentTime = 0
         If CurrentTime > QRRoutePoints.RoutePoints.Count - 1 Then CurrentTime = QRRoutePoints.RoutePoints.Count - 1
@@ -1371,6 +1828,87 @@ Public Class clsMapImages
         Return LegMapImage
 
     End Function
+#Region "Smooth Leg Implementation"
+    Function LapImage2Smooth(CurrentTime As Double, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
+        Dim safeTime As Double = ClampTimeCode(CurrentTime)
+        Dim lap As Integer = GetLapNumberAtTime(safeTime) - 1
+        If lap < 0 Then lap = 0
+        If lap > QRRoutePoints.ImgLapVectors.Count - 1 Then lap = QRRoutePoints.ImgLapVectors.Count - 1
+
+        Dim startpointL As PointF = QRRoutePoints.ImgLapVectors(lap).StartPoint
+        Dim endPointL As PointF = QRRoutePoints.ImgLapVectors(lap).EndPoint
+
+        LegWidth = outwidth
+        LegHeight = outheight
+        LegRad = pxroundrad
+        LegMargin = pxmarginheight
+
+        Dim deltaX As Single = endPointL.X - startpointL.X
+        Dim deltaY As Single = endPointL.Y - startpointL.Y
+        Dim rotationAngle As Single = Math.Atan2(deltaY, deltaX)
+        Dim angleDegrees As Double = (90 - rotationAngle * 180 / Math.PI) Mod 360 + 180
+        Dim distance As Single = CSng((deltaX * deltaX + deltaY * deltaY) ^ 0.5F)
+        Dim midpoint As New PointF((startpointL.X + endPointL.X) / 2.0F, (startpointL.Y + endPointL.Y) / 2.0F)
+
+        Dim clipLength As Single = distance + pxmarginheight
+        Dim scale As Single = clipLength / outheight
+        Dim clipWidth As Single = outwidth * scale
+
+        Dim rWH As Single = CSng((clipWidth ^ 2 + clipLength ^ 2) ^ 0.5)
+        Dim srcSize As Integer = Math.Max(1, CInt(Math.Ceiling(rWH)))
+        Dim srcRect As New RectangleF(midpoint.X - srcSize / 2.0F, midpoint.Y - srcSize / 2.0F, srcSize, srcSize)
+        Dim legBackgroundKey As String = String.Format(CultureInfo.InvariantCulture, "{0}|{1}|{2}|{3}|{4}|{5:0.###}|{6:0.###}|{7:0.###}", lap, outwidth, outheight, pxmarginheight, pxroundrad, midpoint.X, midpoint.Y, angleDegrees)
+        Dim cachedLegBackground As Bitmap = GetSmoothLegBackground(legBackgroundKey, angleDegrees, srcRect, srcSize, clipWidth, clipLength, outwidth, outheight)
+        Dim overlayMap As Bitmap = GetSmoothOverlayMap(safeTime)
+        Dim tmpOverlayImg As Bitmap = Nothing
+        tmpOverlayImg = New Bitmap(srcSize, srcSize)
+        Using g As Graphics = Graphics.FromImage(tmpOverlayImg)
+            g.Clear(Color.Transparent)
+            g.TranslateTransform(tmpOverlayImg.Width / 2.0F, tmpOverlayImg.Height / 2.0F)
+            If IsNumeric(angleDegrees) Then g.RotateTransform(CSng(angleDegrees))
+            g.TranslateTransform(-tmpOverlayImg.Width / 2.0F, -tmpOverlayImg.Height / 2.0F)
+            g.DrawImage(overlayMap, New RectangleF(0, 0, tmpOverlayImg.Width, tmpOverlayImg.Height), srcRect, GraphicsUnit.Pixel)
+        End Using
+
+        If LegMapImage IsNot Nothing Then LegMapImage.Dispose()
+        LegMapImage = New Bitmap(cachedLegBackground)
+
+        Using graphics As Graphics = Graphics.FromImage(LegMapImage)
+            graphics.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+            Dim dstRect As New RectangleF(0, 0, outwidth, outheight)
+            graphics.DrawImage(tmpOverlayImg, dstRect, New RectangleF(tmpOverlayImg.Width / 2.0F - clipWidth / 2.0F, tmpOverlayImg.Height / 2.0F - clipLength / 2.0F, clipWidth, clipLength), GraphicsUnit.Pixel)
+        End Using
+
+        If FrameFeather Then
+            Dim alphaMask As Bitmap = CreateAlphaMask(LegMapImage.Size, pxroundrad, FrameWidth, False)
+            Dim featheredImage As Bitmap = ApplyAlphaMask(LegMapImage, alphaMask)
+            LegMapImage.Dispose()
+            LegMapImage = featheredImage
+        Else
+            Using graphics As Graphics = Graphics.FromImage(LegMapImage)
+                graphics.SmoothingMode = SmoothingMode.AntiAlias
+                graphics.CompositingMode = CompositingMode.SourceOver
+                graphics.CompositingQuality = CompositingQuality.HighQuality
+
+                Dim outerPath As GraphicsPath = FillRoundedRectangle(New SolidBrush(Color.White), New Rectangle(0, 0, outwidth, outheight), pxroundrad)
+                Dim innerRect As New Rectangle(FrameWidth, FrameWidth, outwidth - FrameWidth * 2, outheight - FrameWidth * 2)
+                Dim innerPath As GraphicsPath = FillRoundedRectangle(New SolidBrush(Color.White), innerRect, pxroundrad)
+
+                Using region As New Region(outerPath)
+                    region.Exclude(innerPath)
+                    graphics.SetClip(region, CombineMode.Replace)
+                    graphics.Clear(Color.Transparent)
+                    Using brush As New SolidBrush(FrameColor)
+                        graphics.FillPath(brush, outerPath)
+                    End Using
+                End Using
+            End Using
+        End If
+        If tmpOverlayImg IsNot Nothing Then tmpOverlayImg.Dispose()
+
+        Return LegMapImage
+    End Function
+#End Region
 
     Public Function GenerateSpeedometer(ByVal speed As Integer, ByVal minSpeed As Integer, ByVal maxSpeed As Integer, ByVal width As Integer, ByVal height As Integer) As Image
         Dim img As New Bitmap(width, height)

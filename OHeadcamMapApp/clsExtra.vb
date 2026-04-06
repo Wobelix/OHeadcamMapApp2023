@@ -721,6 +721,67 @@ Public Class clsExtra
         'End If
 
     End Function
+    Function FFMPeg_MakeParamSmoothMapVideosOnVideo(outputfile As String, zoomVideoFile As String, legVideoFile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
+                                                    Optional Tempo As Decimal = 1, Optional Quick As Boolean = False) As String
+        Dim inputArgs As String = ""
+        Dim filterParts As New List(Of String)
+        Dim currentTag As String = "[si1]"
+        Dim nextInputIndex As Integer = 1
+        Dim currentOutputTag As String = "[cro]"
+        Dim transparency As String = CStr(My.Settings.Transparency).Replace(",", ".")
+        Dim tmpGPXDiff As Integer = 0
+
+        If IsNumeric(GPXDiff) Then tmpGPXDiff = CInt(GPXDiff)
+        If tmpGPXDiff < 0 Then
+            inputArgs = " -ss " + Math.Abs(tmpGPXDiff).ToString(CultureInfo.InvariantCulture)
+        End If
+        inputArgs += " -i " + """" + videofile + """"
+        filterParts.Add("[0:v]" + FFMpeg_ScalePadFHD() + "[si1]")
+
+        If My.Settings.cbShowRoute AndAlso File.Exists(zoomVideoFile) Then
+            If tmpGPXDiff > 0 Then
+                inputArgs += " -ss " + tmpGPXDiff.ToString(CultureInfo.InvariantCulture)
+            End If
+            inputArgs += " -i " + """" + zoomVideoFile + """"
+            Dim zoomTag As String = $"[{nextInputIndex}:v]"
+            filterParts.Add($"{zoomTag}format=rgba,colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}[o{nextInputIndex}]")
+            currentTag = $"[o{nextInputIndex}]"
+            nextInputIndex += 1
+        End If
+
+        If My.Settings.cbShowLegMAp AndAlso File.Exists(legVideoFile) Then
+            If tmpGPXDiff > 0 Then
+                inputArgs += " -ss " + tmpGPXDiff.ToString(CultureInfo.InvariantCulture)
+            End If
+            inputArgs += " -i " + """" + legVideoFile + """"
+            Dim legTag As String = $"[{nextInputIndex}:v]"
+            filterParts.Add($"{legTag}format=rgba,colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}[o{nextInputIndex}]")
+            currentTag = $"[o{nextInputIndex}]"
+            nextInputIndex += 1
+        End If
+
+        filterParts.Add($"{currentTag}null{currentOutputTag}")
+
+        Dim tempoFilter As String = ""
+        Dim sngTempo As Single = Decimal.ToSingle(Tempo)
+        If sngTempo <> 1 Then
+            Dim speed As String = (1 / sngTempo).ToString(CultureInfo.InvariantCulture)
+            tempoFilter = $";{currentOutputTag}setpts={speed}*PTS[out]"
+        Else
+            tempoFilter = $";{currentOutputTag}null[out]"
+        End If
+
+        Dim outPStr As String
+        If Quick Then
+            outPStr = FFMPeg_MakeQuickOutputStr(outputfile, Length)
+        Else
+            outPStr = FFMPeg_MakeOutputStr(outputfile, Length)
+        End If
+
+        Return inputArgs + " -filter_complex " + """" + String.Join(";", filterParts) + tempoFilter + """" + FFMPEG_MAP_PARAM + outPStr
+    End Function
     Function FFMPeg_MakeOutputStr(outputfile As String, Optional length As String = "", Optional CodecCopy As Boolean = False, Optional DoAudio As Boolean = True) As String
         Dim fps, crf, audio, preset, pix As String
         'presets: ultrafast,superfast,veryfast,faster,fast,medium,slow,slower,veryslow

@@ -38,6 +38,14 @@ Public Class MainForm
     Public JoinedFilename As String = "joined.mp4"
     Public DeshakeFilename As String = "deshaked.mp4"
     Public LogJoin, LogDeshake, LogMapF, LogMakeVideo, LogStatus As String
+    Private LastSmoothAssetElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothRenderElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothZoomEncodeElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothLegEncodeElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothFrameCount As Integer = 0
+    Private LastSmoothBaseMapElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothZoomRenderElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothLegRenderElapsed As TimeSpan = TimeSpan.Zero
     Public strQuote As String = Chr(34)
     Public bMakeMapDirty, bMakeVideoInDirty, bOutputVideoDirty As Boolean
     Public bProcessIsRunning As Boolean = False ' Used to interrupt background processes
@@ -45,6 +53,9 @@ Public Class MainForm
     Public Shared strCurrentDone As String
     Public WriteToFiles As clMapsImgsToFiles
     Public WriteToFilesComplete As Boolean = False
+    Private Const SmoothOverlayFrameStepSeconds As Double = 0.25
+    Private Const SmoothOverlayFolderName As String = "temp_smooth"
+    Private Const SmoothOverlayBaseName As String = "map_overlay.mp4"
 
 
     'Public resources As ResourceManager = New ResourceManager("Texts", a  TypeOf MainForm)
@@ -1019,8 +1030,8 @@ Public Class MainForm
                          Dim writer As New clMapsImgsToFiles(RPs, mapImg)
 
                          ' Use 25 fps by default; adjust if needed
-                         writer.WriteImgsToVideo(outFile, 1, 0, 100, ExtraFunc.InputWidth)
-
+                         'writer.WriteImgsToVideo(outFile, 1, 0, 100, ExtraFunc.InputWidth)
+                         writer.WriteImgsToVideoSmooth(outFile, FrameStepSeconds:=0.5, StartTime:=0, Duration:=100, VideoWidth:=ExtraFunc.InputWidth)
                          ' Dispose image after writer finished
                          mapImg.Dispose()
 
@@ -1048,54 +1059,129 @@ Public Class MainForm
         MakeMapFiles()
         StatusBarUpdate(Texts.StatusCombine2)
     End Sub
+    Private Function GetMapOverlayDurationSeconds() As Integer
+        Dim duration As Integer
+        If txtOutputLength.Text = "" Then
+            duration = -1
+        Else
+            If My.Settings.GPXDiff = "" Then My.Settings.GPXDiff = "0"
+            duration = ExtraFunc.TimeStrToSec(txtOutputLength.Text) + Math.Abs(CInt(My.Settings.GPXDiff))
+            If numVideoTempo.Value <> 1 Then
+                duration = CInt(duration * numVideoTempo.Value)
+            End If
+        End If
+        Return duration
+    End Function
+    Private Function MakeSmoothMapVideoAssets() As Boolean
+        Dim RPs As New clsQRRoutePoints
+        Dim mapImg As Bitmap
+        Dim reader As New clsQRXMLReader(RPs)
+        Dim totalStopwatch As Diagnostics.Stopwatch = Diagnostics.Stopwatch.StartNew()
+
+        AppFolder = My.Application.Info.DirectoryPath + "\"
+        reader.ReadXML(AppFolder + My.Settings.QRXML)
+        mapImg = New Bitmap(Image.FromFile(My.Settings.QRimage))
+
+        Dim smoothFolder As String = Path.Combine(AppFolder, SmoothOverlayFolderName)
+        If Directory.Exists(smoothFolder) Then
+            Directory.Delete(smoothFolder, True)
+        End If
+        Directory.CreateDirectory(smoothFolder)
+
+        Dim smoothBaseOutput As String = Path.Combine(smoothFolder, SmoothOverlayBaseName)
+        Dim writer As New clMapsImgsToFiles(RPs, mapImg)
+        Dim duration As Integer = GetMapOverlayDurationSeconds()
+
+        Try
+            writer.WriteImgsToVideoSmooth(smoothBaseOutput,
+                                          FrameStepSeconds:=SmoothOverlayFrameStepSeconds,
+                                          StartTime:=0,
+                                          Duration:=duration,
+                                          VideoWidth:=ExtraFunc.InputWidth)
+        Finally
+            mapImg.Dispose()
+            totalStopwatch.Stop()
+            LastSmoothAssetElapsed = totalStopwatch.Elapsed
+            LastSmoothRenderElapsed = writer.LastSmoothRenderElapsed
+            LastSmoothZoomEncodeElapsed = writer.LastSmoothZoomEncodeElapsed
+            LastSmoothLegEncodeElapsed = writer.LastSmoothLegEncodeElapsed
+            LastSmoothFrameCount = writer.LastSmoothFrameCount
+            LastSmoothBaseMapElapsed = writer.LastSmoothBaseMapElapsed
+            LastSmoothZoomRenderElapsed = writer.LastSmoothZoomRenderElapsed
+            LastSmoothLegRenderElapsed = writer.LastSmoothLegRenderElapsed
+        End Try
+
+        Dim zoomVideo As String = Path.Combine(smoothFolder, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_z.mp4")
+        Dim legVideo As String = Path.Combine(smoothFolder, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_l.mp4")
+        Return ((Not My.Settings.cbShowRoute OrElse File.Exists(zoomVideo)) AndAlso
+                (Not My.Settings.cbShowLegMAp OrElse File.Exists(legVideo)))
+    End Function
+    Private Function GetSmoothOverlayZoomVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_z.mp4")
+    End Function
+    Private Function GetSmoothOverlayLegVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_l.mp4")
+    End Function
+    Private Function FormatElapsed(elapsed As TimeSpan) As String
+        Return elapsed.TotalSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s"
+    End Function
+    Private Sub AppendSmoothTimingLog()
+        LogMapF += "Smooth overlay timing:" + vbCrLf
+        LogMapF += "  Total asset generation: " + FormatElapsed(LastSmoothAssetElapsed) + vbCrLf
+        LogMapF += "  Render loop: " + FormatElapsed(LastSmoothRenderElapsed) + " (" + LastSmoothFrameCount.ToString(CultureInfo.InvariantCulture) + " frames)" + vbCrLf
+        LogMapF += "  Base map draw: " + FormatElapsed(LastSmoothBaseMapElapsed) + vbCrLf
+        LogMapF += "  Zoom render: " + FormatElapsed(LastSmoothZoomRenderElapsed) + vbCrLf
+        LogMapF += "  Leg render: " + FormatElapsed(LastSmoothLegRenderElapsed) + vbCrLf
+        LogMapF += "  Zoom encode process: " + FormatElapsed(LastSmoothZoomEncodeElapsed) + vbCrLf
+        LogMapF += "  Leg encode process: " + FormatElapsed(LastSmoothLegEncodeElapsed) + vbCrLf
+        LogMapF += "  Note: encode process times overlap with render loop." + vbCrLf
+    End Sub
     Function MakeMapFiles() As Boolean
         Dim RPs As New clsQRRoutePoints
         Dim MapImg As Image
         Dim a As New clsQRXMLReader(RPs)
-        ClearProgressBar(True)
-        StatusRemaining.Text = ""
-
         AppFolder = My.Application.Info.DirectoryPath + "\"
 
         a.ReadXML(AppFolder + My.Settings.QRXML)
         MapImg = New Bitmap(Image.FromFile(My.Settings.QRimage))
-        DeleteFolder(AppFolder + "temp3")
-        Directory.CreateDirectory(AppFolder + "temp3")
-        WriteToFiles = New clMapsImgsToFiles(RPs, MapImg)
-        Dim Duration As Integer
-        If txtOutputLength.Text = "" Then
-            Duration = -1 'all of the points
+        ' Legacy PNG sequence generation kept here only as reference/fallback.
+        'ClearProgressBar(True)
+        'StatusRemaining.Text = ""
+        'DeleteFolder(AppFolder + "temp3")
+        'Directory.CreateDirectory(AppFolder + "temp3")
+        'WriteToFiles = New clMapsImgsToFiles(RPs, MapImg)
+        'Dim Duration As Integer = GetMapOverlayDurationSeconds()
+        'RemainingTimeObj.StartTime(WriteToFiles.GetTotalFiles(0, Duration))
+        'StatusRemaining.Text = ""
+        'StatusBarProgressText.Text = ""
+        'TimerMapStatus.Start()
+        'WriteToFilesComplete = False
+        'TimerStatusRemaining.Start()
+        'WriteToFiles.WriteImgsToFiles(6, 0, Duration, ExtraFunc.InputWidth) ' scale
+        'Dim i As Integer
+        'While Not WriteToFilesComplete
+        '    Thread.Sleep(500)
+        '    Application.DoEvents()
+        '    i += 1
+        '    If i > 4 Then
+        '        StatusCount += 1
+        '        i = 0
+        '    End If
+        'End While
+        'TimerMapStatus.Stop()
+        'TimerStatusRemaining.Stop()
+        'StatusRemaining.Text = ""
+        'ClearProgressBar(False)
+
+        StatusBarUpdate("Generating smooth overlay videos...")
+        LogMapF += "Generating smooth overlay videos" + vbCrLf
+        If Not MakeSmoothMapVideoAssets() Then
+            LogMapF += "Smooth overlay video generation failed" + vbCrLf
         Else
-            If My.Settings.GPXDiff = "" Then My.Settings.GPXDiff = "0"
-            Duration = ExtraFunc.TimeStrToSec(txtOutputLength.Text) + Math.Abs(CInt(My.Settings.GPXDiff)) ' make sure to cover the total timeframe
-            If numVideoTempo.Value <> 1 Then
-                Duration = CInt(Duration * numVideoTempo.Value)
-            End If
+            LogMapF += "Smooth overlay videos generated in " + SmoothOverlayFolderName + vbCrLf
+            AppendSmoothTimingLog()
         End If
-        RemainingTimeObj.StartTime(WriteToFiles.GetTotalFiles(0, Duration))
-        StatusRemaining.Text = ""
-        StatusBarProgressText.Text = ""
-        TimerMapStatus.Start()
-        WriteToFilesComplete = False
-
-        TimerStatusRemaining.Start()
-
-        WriteToFiles.WriteImgsToFiles(6, 0, Duration, ExtraFunc.InputWidth) ' scale
-        Dim i As Integer
-        While Not WriteToFilesComplete
-            Thread.Sleep(500)
-            Application.DoEvents()
-            i += 1
-
-            If i > 4 Then
-                StatusCount += 1
-                i = 0
-            End If
-        End While
-        TimerMapStatus.Stop()
-        TimerStatusRemaining.Stop()
-        StatusRemaining.Text = ""
-        ClearProgressBar(False)
+        Return True
     End Function
     Function RunMakeVideo() As Boolean
         Dim bFailed As Boolean
@@ -1127,7 +1213,16 @@ Public Class MainForm
                 If My.Settings.cbNewMapF Then
                     tmpGPXDiff = CInt(My.Settings.GPXDiff)
                     If My.Settings.MapFlipActive Then tmpGPXDiff -= CInt(My.Settings.MapFlipStartS) ' add startpoint for map 2
-                    arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp3\%08d.png", GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
+                    Dim smoothZoomFile As String = GetSmoothOverlayZoomVideoPath()
+                    Dim smoothLegFile As String = GetSmoothOverlayLegVideoPath()
+                    If (Not My.Settings.cbShowRoute OrElse File.Exists(smoothZoomFile)) AndAlso
+                       (Not My.Settings.cbShowLegMAp OrElse File.Exists(smoothLegFile)) Then
+                        arg = ExtraFunc.FFMPeg_MakeParamSmoothMapVideosOnVideo(txtOutFilename.Text, smoothZoomFile, smoothLegFile, GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
+                    Else
+                        ' Legacy temp3 PNG overlay fallback:
+                        'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp3\%08d.png", GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
+                        Throw New FileNotFoundException("Smooth overlay video assets are missing.")
+                    End If
                 Else
                     arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp2\%08d.jpg", GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value)
                 End If

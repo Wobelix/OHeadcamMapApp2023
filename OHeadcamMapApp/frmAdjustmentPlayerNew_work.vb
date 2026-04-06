@@ -42,7 +42,6 @@ Public Class frmAdjustmentPlayer_new
     Private PBLeg_Adjust As New clsPictureBoxMoveResize
     Private _VideoPanelScale As Double
     Private Const UseSmoothPreview As Boolean = True
-    Private Const TrackBarUnitsPerSecond As Integer = 10
 
     Public Sub New(MainF As MainForm, iMaxLength As String)
         Dim prevLap, tmpLap As Integer
@@ -116,7 +115,6 @@ Public Class frmAdjustmentPlayer_new
             _MapImgHandler.LoadSettings() 'loading my.settings
             SetPBMapSizes()
             SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos)
-            MapImageTimer.Interval = 50
             SetVideo()
             _ZoomZoom = My.Settings.MIZoomZoom
             _LegMargin = My.Settings.MILegMargin
@@ -224,7 +222,7 @@ Public Class frmAdjustmentPlayer_new
         Timer1.Start()
         _MapInit = True
         MapImageTimer.Start()
-        TrackBar1.Maximum = VideoInfo.duration_sec * TrackBarUnitsPerSecond
+        TrackBar1.Maximum = VideoInfo.duration_sec * 2
         TrackBar1.TickFrequency = TrackBar1.Maximum / 50
         TrackBar1.LargeChange = TrackBar1.TickFrequency
         _mp.Play()
@@ -249,11 +247,10 @@ Public Class frmAdjustmentPlayer_new
     End Sub
 
     Sub setTrackbarValue(time As Double)
-        Dim targetValue As Integer = CInt(Math.Round(time * TrackBarUnitsPerSecond))
-        If targetValue > TrackBar1.Maximum Then
+        If time * 2 > TrackBar1.Maximum Then
             TrackBar1.Value = TrackBar1.Maximum
         Else
-            TrackBar1.Value = Math.Max(TrackBar1.Minimum, targetValue)
+            TrackBar1.Value = 2 * time
         End If
 
     End Sub
@@ -327,10 +324,10 @@ Public Class frmAdjustmentPlayer_new
     End Sub
     Dim bTrackChange As Boolean
     Private Sub TrackBar1_ValueChanged(sender As Object, e As EventArgs) Handles TrackBar1.ValueChanged
-        Dim timeSpan As TimeSpan = TimeSpan.FromSeconds(TrackBar1.Value / CDbl(TrackBarUnitsPerSecond))
+        Dim timeSpan As TimeSpan = TimeSpan.FromSeconds(TrackBar1.Value)
         Dim timeFormat As String = timeSpan.ToString("h\:mm\:ss")
 
-        _WantedPosition = TrackBar1.Value / CDbl(TrackBar1.Maximum)
+        _WantedPosition = TrackBar1.Value / TrackBar1.Maximum
 
     End Sub
 
@@ -425,12 +422,7 @@ Public Class frmAdjustmentPlayer_new
     End Sub
     Private Function GetCurrentMapPreviewTime() As Double
         If IsNothing(_mp) OrElse IsNothing(_mp.Media) OrElse _mp.Media.Duration <= 0 Then Return -1
-        Dim currentVideoSeconds As Double
-        If _mp.Time >= 0 Then
-            currentVideoSeconds = _mp.Time / 1000.0
-        Else
-            currentVideoSeconds = _mp.Position * _mp.Media.Duration / 1000.0
-        End If
+        Dim currentVideoSeconds As Double = _mp.Position * _mp.Media.Duration / 1000.0
         Dim mapTime As Double = currentVideoSeconds + CDbl(numGPSDelta.Value)
 
         If My.Settings.MapFlipActive Then
@@ -492,32 +484,8 @@ Public Class frmAdjustmentPlayer_new
     Private Sub MapImageTimer_Tick(sender As Object, e As EventArgs) Handles MapImageTimer.Tick
         Dim tmpCurrentTrackValue As Integer
         Dim previewTime As Double = GetCurrentMapPreviewTime()
-        CurrentTrackValue = CInt(Math.Round(previewTime))
+        CurrentTrackValue = Math.Round(_mp.Position * _mp.Media.Duration / 1000) + numGPSDelta.Value
         tmpCurrentTrackValue = CurrentTrackValue
-
-        If UseSmoothPreview Then
-            If _MapReady AndAlso previewTime > -1 AndAlso previewTime < RPs.RoutePoints.Count Then
-                _MapTimeSmooth = previewTime
-                If Math.Abs(previewTime - _LastMapTimeSmooth) >= 0.02 OrElse _MapInit Then
-                    _MapInit = False
-                    UpdatePreviewBaseMap()
-                    UpdateMapImgs()
-                ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) Then
-                    UpdateMapImgs()
-                    _ZoomResized = False
-                    _LegResized = False
-                ElseIf _ZoomZoom <> My.Settings.MIZoomZoom Then
-                    My.Settings.MIZoomZoom = _ZoomZoom
-                    _MapImgHandler.ZoomZoom = My.Settings.MIZoomZoom
-                    UpdateMapImgs()
-                ElseIf _LegMargin <> My.Settings.MILegMargin Then
-                    My.Settings.MILegMargin = _LegMargin
-                    _MapImgHandler.LegMargin = My.Settings.MILegMargin
-                    UpdateMapImgs()
-                End If
-            End If
-            Return
-        End If
 
         If My.Settings.MapFlipActive Then
             tmpCurrentTrackValue = CurrentTrackValue - CInt(My.Settings.MapFlipStartS) ' Offset for map 2
@@ -525,7 +493,12 @@ Public Class frmAdjustmentPlayer_new
 
             ' Map start without offset
         End If
-        Dim mapTimeChanged As Boolean = (Not ImageTrackValue = tmpCurrentTrackValue) OrElse _MapInit
+        Dim mapTimeChanged As Boolean
+        If UseSmoothPreview Then
+            mapTimeChanged = Math.Abs(previewTime - _LastMapTimeSmooth) >= 0.02 OrElse _MapInit
+        Else
+            mapTimeChanged = (Not ImageTrackValue = tmpCurrentTrackValue) OrElse _MapInit
+        End If
 
         If mapTimeChanged Then ' Map start without offset
             _MapInit = False

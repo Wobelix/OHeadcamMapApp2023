@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsMapImages.vb" />
+    <Compile Include="clsMapRenderEngine.vb" />
     <Compile Include="clsPicBKeepAspectResize.vb" />
     <Compile Include="clsPictureBoxMoveResize.vb" />
     <Compile Include="clsQRRoutePoints.vb" />
