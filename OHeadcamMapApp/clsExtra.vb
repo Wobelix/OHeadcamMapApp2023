@@ -729,6 +729,8 @@ Public Class clsExtra
         Dim nextInputIndex As Integer = 1
         Dim currentOutputTag As String = "[cro]"
         Dim transparency As String = CStr(My.Settings.Transparency).Replace(",", ".")
+        Dim keyColor As String = "0xFF00FF"
+        Dim keyFilter As String = "colorkey=" & keyColor & ":0.01:0.5"
         Dim tmpGPXDiff As Integer = 0
 
         If IsNumeric(GPXDiff) Then tmpGPXDiff = CInt(GPXDiff)
@@ -744,7 +746,7 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + zoomVideoFile + """"
             Dim zoomTag As String = $"[{nextInputIndex}:v]"
-            filterParts.Add($"{zoomTag}format=rgba,colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
+            filterParts.Add($"{zoomTag}format=rgba,{keyFilter},colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
@@ -756,7 +758,7 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + legVideoFile + """"
             Dim legTag As String = $"[{nextInputIndex}:v]"
-            filterParts.Add($"{legTag}format=rgba,colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
+            filterParts.Add($"{legTag}format=rgba,{keyFilter},colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
@@ -803,11 +805,11 @@ Public Class clsExtra
                 pix = " -pix_fmt yuvj420p"
                 FFMPeg_MakeOutputStr = outputStr & pix
             ElseIf InputWidth >= 2000 And OutputWidth <= 2800 Then '2.7K
-                outputStr = " -c:v libx265 -crf " & crf & " -x265-params profile=main10:bitrate=50000" & audio & " -r " & fps & " -preset " & preset
+                outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=50000" & audio & " -r " & fps & " -preset " & preset
                 pix = " -pix_fmt yuv420p10le"
                 FFMPeg_MakeOutputStr = outputStr & pix
             ElseIf InputWidth > 2800 Then '4K
-                outputStr = " -c:v libx265 -crf " & crf & " -x265-params profile=main10:bitrate=90000" & audio & " -r " & fps & " -preset " & preset
+                outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=90000" & audio & " -r " & fps & " -preset " & preset
                 pix = " -pix_fmt yuv420p10le"
                 FFMPeg_MakeOutputStr = outputStr & pix
             End If
@@ -817,7 +819,7 @@ Public Class clsExtra
             FFMPeg_MakeOutputStr += " -t " + length
         End If
 
-        FFMPeg_MakeOutputStr += pix + " -y " + """" + outputfile + """"
+        FFMPeg_MakeOutputStr += " -y " + """" + outputfile + """"
     End Function
     Function FFMPeg_MakeQuickOutputStr(outputfile As String, Optional length As String = "", Optional DoAudio As Boolean = True) As String
         Dim fps, crf, audio, preset, pix As String

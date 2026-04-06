@@ -995,7 +995,7 @@ Public Class MainForm
     End Sub
 
     Private Sub btnTestWriteVideo_Click(sender As Object, e As EventArgs) Handles btnTestWriteVideo.Click
-        ' Simple test harness to run WriteImgsToVideo in background
+        ' Simple test harness for render-engine zoom/leg video generation
         If String.IsNullOrWhiteSpace(My.Settings.QRXML) Or String.IsNullOrWhiteSpace(My.Settings.QRimage) Then
             MsgBox("Please set QuickRoute XML and image in the main form before testing.")
             Return
@@ -1010,11 +1010,12 @@ Public Class MainForm
             Return
         End If
 
+        SaveFileDialogOutput.FileName = "testrender.mp4"
         If SaveFileDialogOutput.ShowDialog() <> DialogResult.OK Then Return
         Dim outFile As String = SaveFileDialogOutput.FileName
 
         btnTestWriteVideo.Enabled = False
-        StatusBarUpdate("Starting test video write...")
+        StatusBarUpdate("Starting test render videos...")
         SetStatusLabel(IconStatusOutput, "Work", "Outputvideo")
 
         ' Read XML and load image on UI thread because ReadXML may touch UI/toolstrip items
@@ -1027,16 +1028,39 @@ Public Class MainForm
 
         Task.Run(Sub()
                      Try
-                         Dim writer As New clMapsImgsToFiles(RPs, mapImg)
+                         Dim renderEngine As New clsMapRenderEngine(RPs, mapImg)
+                         renderEngine.FrameStepSeconds = 0.5
+                         Dim outDir As String = Path.GetDirectoryName(outFile)
+                         If String.IsNullOrEmpty(outDir) Then outDir = "."
+                         Dim outBaseName As String = Path.GetFileNameWithoutExtension(outFile)
+                         Dim outExt As String = Path.GetExtension(outFile)
+                         If String.IsNullOrEmpty(outExt) Then outExt = ".mp4"
+                         Dim legOutFile As String = Path.Combine(outDir, outBaseName & "_leg" & outExt)
+                         Dim zoomOutFile As String = Path.Combine(outDir, outBaseName & "_zoom" & outExt)
 
-                         ' Use 25 fps by default; adjust if needed
-                         'writer.WriteImgsToVideo(outFile, 1, 0, 100, ExtraFunc.InputWidth)
-                         writer.WriteImgsToVideoSmooth(outFile, FrameStepSeconds:=0.5, StartTime:=0, Duration:=100, VideoWidth:=ExtraFunc.InputWidth)
+                         renderEngine.WriteLegVideo(legOutFile, startTime:=0, duration:=120, videoWidth:=ExtraFunc.InputWidth)
+                         Dim legTotal As Double = renderEngine.LastTotalElapsed.TotalSeconds
+                         Dim legRender As Double = renderEngine.LastRenderElapsed.TotalSeconds
+                         Dim legEncode As Double = renderEngine.LastEncodeElapsed.TotalSeconds
+                         Dim legFrames As Integer = renderEngine.LastFrameCount
+
+                         renderEngine.WriteZoomVideo(zoomOutFile, startTime:=0, duration:=120, videoWidth:=ExtraFunc.InputWidth)
                          ' Dispose image after writer finished
                          mapImg.Dispose()
 
                          Me.BeginInvoke(Sub()
-                                            StatusBarUpdate("Test video write finished")
+                                            Dim timingText As String = String.Format(CultureInfo.InvariantCulture,
+                                                "Test render videos finished. Leg total {0:0.0}s render {1:0.0}s encode {2:0.0}s frames {3}. Zoom total {4:0.0}s render {5:0.0}s encode {6:0.0}s frames {7}.",
+                                                legTotal,
+                                                legRender,
+                                                legEncode,
+                                                legFrames,
+                                                renderEngine.LastTotalElapsed.TotalSeconds,
+                                                renderEngine.LastRenderElapsed.TotalSeconds,
+                                                renderEngine.LastEncodeElapsed.TotalSeconds,
+                                                renderEngine.LastFrameCount)
+                                            StatusBarUpdate(timingText)
+                                            LogMapF += timingText + vbCrLf
                                             SetStatusLabel(IconStatusOutput, "OK", "Outputvideo")
                                             btnTestWriteVideo.Enabled = True
                                         End Sub)
@@ -1089,30 +1113,53 @@ Public Class MainForm
         Directory.CreateDirectory(smoothFolder)
 
         Dim smoothBaseOutput As String = Path.Combine(smoothFolder, SmoothOverlayBaseName)
-        Dim writer As New clMapsImgsToFiles(RPs, mapImg)
+        Dim renderEngine As New clsMapRenderEngine(RPs, mapImg)
         Dim duration As Integer = GetMapOverlayDurationSeconds()
+        Dim smoothBaseName As String = Path.GetFileNameWithoutExtension(SmoothOverlayBaseName)
+        Dim zoomVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_z.mp4")
+        Dim legVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_l.mp4")
+        Dim zoomRenderElapsed As TimeSpan = TimeSpan.Zero
+        Dim zoomEncodeElapsed As TimeSpan = TimeSpan.Zero
+        Dim legRenderElapsed As TimeSpan = TimeSpan.Zero
+        Dim legEncodeElapsed As TimeSpan = TimeSpan.Zero
+        Dim frameCount As Integer = 0
 
         Try
-            writer.WriteImgsToVideoSmooth(smoothBaseOutput,
-                                          FrameStepSeconds:=SmoothOverlayFrameStepSeconds,
-                                          StartTime:=0,
-                                          Duration:=duration,
-                                          VideoWidth:=ExtraFunc.InputWidth)
+            ' Active smooth asset path now uses the render-engine implementation.
+            renderEngine.FrameStepSeconds = SmoothOverlayFrameStepSeconds
+
+            If My.Settings.cbShowRoute Then
+                renderEngine.WriteZoomVideo(zoomVideo,
+                                            StartTime:=0,
+                                            Duration:=duration,
+                                            videoWidth:=ExtraFunc.InputWidth)
+                zoomRenderElapsed = renderEngine.LastRenderElapsed
+                zoomEncodeElapsed = renderEngine.LastEncodeElapsed
+                frameCount = renderEngine.LastFrameCount
+            End If
+
+            If My.Settings.cbShowLegMAp Then
+                renderEngine.WriteLegVideo(legVideo,
+                                           StartTime:=0,
+                                           Duration:=duration,
+                                           videoWidth:=ExtraFunc.InputWidth)
+                legRenderElapsed = renderEngine.LastRenderElapsed
+                legEncodeElapsed = renderEngine.LastEncodeElapsed
+                frameCount = Math.Max(frameCount, renderEngine.LastFrameCount)
+            End If
         Finally
             mapImg.Dispose()
             totalStopwatch.Stop()
             LastSmoothAssetElapsed = totalStopwatch.Elapsed
-            LastSmoothRenderElapsed = writer.LastSmoothRenderElapsed
-            LastSmoothZoomEncodeElapsed = writer.LastSmoothZoomEncodeElapsed
-            LastSmoothLegEncodeElapsed = writer.LastSmoothLegEncodeElapsed
-            LastSmoothFrameCount = writer.LastSmoothFrameCount
-            LastSmoothBaseMapElapsed = writer.LastSmoothBaseMapElapsed
-            LastSmoothZoomRenderElapsed = writer.LastSmoothZoomRenderElapsed
-            LastSmoothLegRenderElapsed = writer.LastSmoothLegRenderElapsed
+            LastSmoothRenderElapsed = zoomRenderElapsed + legRenderElapsed
+            LastSmoothZoomEncodeElapsed = zoomEncodeElapsed
+            LastSmoothLegEncodeElapsed = legEncodeElapsed
+            LastSmoothFrameCount = frameCount
+            LastSmoothBaseMapElapsed = TimeSpan.Zero
+            LastSmoothZoomRenderElapsed = zoomRenderElapsed
+            LastSmoothLegRenderElapsed = legRenderElapsed
         End Try
 
-        Dim zoomVideo As String = Path.Combine(smoothFolder, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_z.mp4")
-        Dim legVideo As String = Path.Combine(smoothFolder, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_l.mp4")
         Return ((Not My.Settings.cbShowRoute OrElse File.Exists(zoomVideo)) AndAlso
                 (Not My.Settings.cbShowLegMAp OrElse File.Exists(legVideo)))
     End Function

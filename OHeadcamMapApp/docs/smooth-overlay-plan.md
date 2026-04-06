@@ -12,8 +12,10 @@ Move from legacy per-second image-sequence overlays to smooth map overlays, whil
 ## Current Status
 - Smooth rendering helpers exist in `clsMapImages.vb`.
 - Smooth time-based video generation exists in `clsMapImages.vb`.
-- Smooth heading and tail smoothing are being tuned.
-- Legacy image-sequence output via `temp3\\%08d.png` is still the active final-render path.
+- Smooth heading and tail smoothing have been improved enough for practical testing.
+- Smooth overlay asset generation now runs through `clsMapRenderEngine.vb`.
+- Final FFmpeg overlay now uses smooth zoom/leg videos in the normal path.
+- Legacy `temp3\\%08d.png` generation is kept only as commented reference, not as the active path.
 
 ## Work Phases
 
@@ -34,20 +36,19 @@ Tests:
 
 ### 2. Smooth Overlay Asset Generation
 Files:
-- `clsMapImages.vb`
-- possibly `MainForm.vb`
+- `clsMapRenderEngine.vb`
+- `MainForm.vb`
 
 Tasks:
-- Generate standalone smooth overlay videos for:
-- zoom map
-- leg map
-- Ensure frame step and fps are derived consistently.
-- Ensure output duration and timing match preview logic.
+- Generate standalone smooth overlay videos for zoom and leg.
+- Keep frame step and fps derived consistently.
+- Compare render-engine timing with the earlier bitmap-heavy smooth path.
 
 Tests:
 - Verify output video length matches requested duration.
 - Verify first/middle/last frames against preview.
 - Verify both videos stay in sync with each other.
+- Verify transparency works via key color without removing real black map details.
 
 ### 3. Final FFmpeg Overlay Path
 Files:
@@ -55,9 +56,9 @@ Files:
 - `clsExtra.vb`
 
 Tasks:
-- Add a new final-render path using smooth overlay videos instead of `temp3` image sequences.
-- Overlay the new zoom/leg videos at the stored positions and sizes.
-- Keep old final-render path as fallback during migration.
+- Use smooth overlay videos instead of `temp3` image sequences.
+- Overlay the zoom/leg videos at the stored positions and sizes.
+- Keep enough legacy code in comments/reference form to recover behavior if needed.
 
 Tests:
 - Verify overlay positions match adjustment window layout.
@@ -82,6 +83,11 @@ Tasks:
 - Decide when smooth path is reliable enough to become default.
 - Reduce duplicated code where safe.
 - Keep fallback path until confidence is high.
+
+## Recent Findings
+- Feathered frame masking was a major performance bottleneck in the old smooth path.
+- The render-engine `leg`/`zoom` test path is substantially faster than the earlier smooth asset generator.
+- 4K output works, but should be validated with short clips because final encoding is still expensive.
 
 ## Notes
 - The adjustment window is the visual truth source. Final render should match it.

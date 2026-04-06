@@ -405,6 +405,7 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler.tailLineColor = My.Settings.MITailColor
         _MapImgHandler.dotSize = My.Settings.MIDotSize
         _MapImgHandler.dotTailRatio = My.Settings.MITailRatio
+        _MapImgHandler.FrameColor = My.Settings.MIFrameColor
         _MapImgHandler.FrameWidth = My.Settings.MIFrameWidth
         _MapImgHandler.LegRad = My.Settings.MILegRad
         _MapImgHandler.LegMargin = My.Settings.MILegMargin
@@ -415,6 +416,7 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler._DotType = My.Settings.MIDotType
         _MapImgHandler.FrameFeather = My.Settings.MIFrameFeather
         _MapImgHandler.ResetAlphaMasks()
+        _MapImgHandler.InvalidateSmoothCaches()
         _ZoomZoom = My.Settings.MIZoomZoom
         _LegMargin = My.Settings.MILegMargin
 

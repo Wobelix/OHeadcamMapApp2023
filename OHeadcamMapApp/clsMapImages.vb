@@ -227,7 +227,7 @@ Public Class clMapsImgsToFiles
     Private Sub WriteBitmapFrameToStream(sourceImage As Bitmap, targetStream As Stream)
         Using tmpBmp As New Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat.Format24bppRgb)
             Using g As Graphics = Graphics.FromImage(tmpBmp)
-                g.Clear(Color.Black)
+                g.Clear(Color.Magenta)
                 g.DrawImage(sourceImage, 0, 0)
             End Using
 
@@ -631,6 +631,13 @@ Public Class clsMapImages
         ' Opret nye bitmaps i korrekt størrelse og format
         alphaMaskZoom = New Bitmap(ZoomWidth, ZoomHeight, PixelFormat.Format32bppArgb)
         alphaMaskLeg = New Bitmap(LegWidth, LegHeight, PixelFormat.Format32bppArgb)
+    End Sub
+    Public Sub InvalidateSmoothCaches()
+        If SmoothOverlayMapImage IsNot Nothing Then
+            SmoothOverlayMapImage.Dispose()
+            SmoothOverlayMapImage = Nothing
+        End If
+        LastSmoothOverlayTime = Double.NaN
     End Sub
     Public Function ScalePixelSettings(OutVideoWidth As Integer, Optional InVideoWidth As Integer = 1920) As Double
         'all my.settings are done with 1920 reference - +++
