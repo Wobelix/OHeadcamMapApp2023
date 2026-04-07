@@ -371,9 +371,6 @@
     <Setting Name="VidAdj_Zoom" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="cbNewMapF" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="MIZoomCircle" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

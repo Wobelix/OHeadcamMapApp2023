@@ -112,7 +112,6 @@ Partial Class frmSideBySide
         MySettings1.bUseMapTrackingVideo = False
         MySettings1.cbHeightGraph = True
         MySettings1.cbLoopMusic = True
-        MySettings1.cbNewMapF = False
         MySettings1.cbSetImgM = False
         MySettings1.cbShowLegMAp = True
         MySettings1.cbShowRoute = True
@@ -250,7 +249,6 @@ Partial Class frmSideBySide
         MySettings2.bUseMapTrackingVideo = False
         MySettings2.cbHeightGraph = True
         MySettings2.cbLoopMusic = True
-        MySettings2.cbNewMapF = False
         MySettings2.cbSetImgM = False
         MySettings2.cbShowLegMAp = True
         MySettings2.cbShowRoute = True
@@ -399,7 +397,6 @@ Partial Class frmSideBySide
         MySettings3.bUseMapTrackingVideo = False
         MySettings3.cbHeightGraph = True
         MySettings3.cbLoopMusic = True
-        MySettings3.cbNewMapF = False
         MySettings3.cbSetImgM = False
         MySettings3.cbShowLegMAp = True
         MySettings3.cbShowRoute = True
@@ -581,7 +578,6 @@ Partial Class frmSideBySide
         MySettings4.bUseMapTrackingVideo = False
         MySettings4.cbHeightGraph = True
         MySettings4.cbLoopMusic = True
-        MySettings4.cbNewMapF = False
         MySettings4.cbSetImgM = False
         MySettings4.cbShowLegMAp = True
         MySettings4.cbShowRoute = True

@@ -33,12 +33,9 @@ Partial Class frmSettings
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.txtSettingSbSCode = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.btnSelectFolder = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -47,15 +44,17 @@ Partial Class frmSettings
         Me.rbImgLeft = New System.Windows.Forms.RadioButton()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.cmbPreset = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.chkHDformat = New System.Windows.Forms.CheckBox()
-        Me.cbNewMapF = New System.Windows.Forms.CheckBox()
-        Me.txtVideoWorkfolder = New System.Windows.Forms.TextBox()
-        Me.txtCRF = New System.Windows.Forms.TextBox()
-        Me.txtFPS = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.numSmooth = New System.Windows.Forms.NumericUpDown()
+        Me.chkHDformat = New System.Windows.Forms.CheckBox()
+        Me.txtVideoWorkfolder = New System.Windows.Forms.TextBox()
+        Me.cmbPreset = New System.Windows.Forms.ComboBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtSettingSbSCode = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtCRF = New System.Windows.Forms.TextBox()
+        Me.txtFPS = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.numSmooth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,6 +116,11 @@ Partial Class frmSettings
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.TabStop = False
         '
+        'Label3
+        '
+        resources.ApplyResources(Me.Label3, "Label3")
+        Me.Label3.Name = "Label3"
+        '
         'Label4
         '
         resources.ApplyResources(Me.Label4, "Label4")
@@ -128,34 +132,6 @@ Partial Class frmSettings
         resources.ApplyResources(Me.TextBox4, "TextBox4")
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
-        '
-        'TextBox2
-        '
-        Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabDetect", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.TextBox2, "TextBox2")
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabDetect
-        '
-        'TextBox1
-        '
-        Me.TextBox1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "No_deshake_filter", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.TextBox1, "TextBox1")
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Text = Global.OHeadcamMapApp.My.MySettings.Default.No_deshake_filter
-        '
-        'txtSettingSbSCode
-        '
-        Me.txtSettingSbSCode.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "SettingSbSCode", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtSettingSbSCode, "txtSettingSbSCode")
-        Me.txtSettingSbSCode.Name = "txtSettingSbSCode"
-        Me.txtSettingSbSCode.Text = Global.OHeadcamMapApp.My.MySettings.Default.SettingSbSCode
-        '
-        'TextBox3
-        '
-        Me.TextBox3.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabTransform", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.TextBox3, "TextBox3")
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabTransform
         '
         'btnSelectFolder
         '
@@ -208,58 +184,6 @@ Partial Class frmSettings
         resources.ApplyResources(Me.Label8, "Label8")
         Me.Label8.Name = "Label8"
         '
-        'cmbPreset
-        '
-        Me.cmbPreset.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegPreset", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.cmbPreset.FormattingEnabled = True
-        Me.cmbPreset.Items.AddRange(New Object() {resources.GetString("cmbPreset.Items"), resources.GetString("cmbPreset.Items1"), resources.GetString("cmbPreset.Items2"), resources.GetString("cmbPreset.Items3"), resources.GetString("cmbPreset.Items4"), resources.GetString("cmbPreset.Items5"), resources.GetString("cmbPreset.Items6"), resources.GetString("cmbPreset.Items7"), resources.GetString("cmbPreset.Items8"), resources.GetString("cmbPreset.Items9")})
-        resources.ApplyResources(Me.cmbPreset, "cmbPreset")
-        Me.cmbPreset.Name = "cmbPreset"
-        Me.cmbPreset.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegPreset
-        '
-        'Label3
-        '
-        resources.ApplyResources(Me.Label3, "Label3")
-        Me.Label3.Name = "Label3"
-        '
-        'chkHDformat
-        '
-        resources.ApplyResources(Me.chkHDformat, "chkHDformat")
-        Me.chkHDformat.Checked = Global.OHeadcamMapApp.My.MySettings.Default.chkHDFormat
-        Me.chkHDformat.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.OHeadcamMapApp.My.MySettings.Default, "chkHDFormat", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.chkHDformat.Name = "chkHDformat"
-        Me.chkHDformat.UseVisualStyleBackColor = True
-        '
-        'cbNewMapF
-        '
-        resources.ApplyResources(Me.cbNewMapF, "cbNewMapF")
-        Me.cbNewMapF.Checked = Global.OHeadcamMapApp.My.MySettings.Default.cbNewMapF
-        Me.cbNewMapF.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.cbNewMapF.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.OHeadcamMapApp.My.MySettings.Default, "cbNewMapF", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.cbNewMapF.Name = "cbNewMapF"
-        Me.cbNewMapF.UseVisualStyleBackColor = True
-        '
-        'txtVideoWorkfolder
-        '
-        Me.txtVideoWorkfolder.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "VideoWorkFolder", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtVideoWorkfolder, "txtVideoWorkfolder")
-        Me.txtVideoWorkfolder.Name = "txtVideoWorkfolder"
-        Me.txtVideoWorkfolder.Text = Global.OHeadcamMapApp.My.MySettings.Default.VideoWorkFolder
-        '
-        'txtCRF
-        '
-        Me.txtCRF.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegCRF", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtCRF, "txtCRF")
-        Me.txtCRF.Name = "txtCRF"
-        Me.txtCRF.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegCRF
-        '
-        'txtFPS
-        '
-        Me.txtFPS.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegOutFps", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtFPS, "txtFPS")
-        Me.txtFPS.Name = "txtFPS"
-        Me.txtFPS.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegOutFps
-        '
         'Label9
         '
         resources.ApplyResources(Me.Label9, "Label9")
@@ -275,6 +199,72 @@ Partial Class frmSettings
         Me.numSmooth.Name = "numSmooth"
         Me.numSmooth.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         '
+        'chkHDformat
+        '
+        resources.ApplyResources(Me.chkHDformat, "chkHDformat")
+        Me.chkHDformat.Checked = Global.OHeadcamMapApp.My.MySettings.Default.chkHDFormat
+        Me.chkHDformat.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.OHeadcamMapApp.My.MySettings.Default, "chkHDFormat", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.chkHDformat.Name = "chkHDformat"
+        Me.chkHDformat.UseVisualStyleBackColor = True
+        '
+        'txtVideoWorkfolder
+        '
+        Me.txtVideoWorkfolder.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "VideoWorkFolder", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtVideoWorkfolder, "txtVideoWorkfolder")
+        Me.txtVideoWorkfolder.Name = "txtVideoWorkfolder"
+        Me.txtVideoWorkfolder.Text = Global.OHeadcamMapApp.My.MySettings.Default.VideoWorkFolder
+        '
+        'cmbPreset
+        '
+        Me.cmbPreset.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegPreset", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.cmbPreset.FormattingEnabled = True
+        Me.cmbPreset.Items.AddRange(New Object() {resources.GetString("cmbPreset.Items"), resources.GetString("cmbPreset.Items1"), resources.GetString("cmbPreset.Items2"), resources.GetString("cmbPreset.Items3"), resources.GetString("cmbPreset.Items4"), resources.GetString("cmbPreset.Items5"), resources.GetString("cmbPreset.Items6"), resources.GetString("cmbPreset.Items7"), resources.GetString("cmbPreset.Items8"), resources.GetString("cmbPreset.Items9")})
+        resources.ApplyResources(Me.cmbPreset, "cmbPreset")
+        Me.cmbPreset.Name = "cmbPreset"
+        Me.cmbPreset.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegPreset
+        '
+        'TextBox2
+        '
+        Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabDetect", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox2, "TextBox2")
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabDetect
+        '
+        'TextBox1
+        '
+        Me.TextBox1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "No_deshake_filter", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox1, "TextBox1")
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Text = Global.OHeadcamMapApp.My.MySettings.Default.No_deshake_filter
+        '
+        'txtSettingSbSCode
+        '
+        Me.txtSettingSbSCode.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "SettingSbSCode", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtSettingSbSCode, "txtSettingSbSCode")
+        Me.txtSettingSbSCode.Name = "txtSettingSbSCode"
+        Me.txtSettingSbSCode.Text = Global.OHeadcamMapApp.My.MySettings.Default.SettingSbSCode
+        '
+        'TextBox3
+        '
+        Me.TextBox3.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabTransform", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox3, "TextBox3")
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabTransform
+        '
+        'txtCRF
+        '
+        Me.txtCRF.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegCRF", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtCRF, "txtCRF")
+        Me.txtCRF.Name = "txtCRF"
+        Me.txtCRF.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegCRF
+        '
+        'txtFPS
+        '
+        Me.txtFPS.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegOutFps", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtFPS, "txtFPS")
+        Me.txtFPS.Name = "txtFPS"
+        Me.txtFPS.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegOutFps
+        '
         'frmSettings
         '
         resources.ApplyResources(Me, "$this")
@@ -284,7 +274,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.chkHDformat)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.btnReset)
-        Me.Controls.Add(Me.cbNewMapF)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnSelectFolder)
         Me.Controls.Add(Me.Label7)
@@ -328,7 +317,6 @@ Partial Class frmSettings
     Friend WithEvents rbImgRight As RadioButton
     Friend WithEvents rbImgLeft As RadioButton
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents cbNewMapF As CheckBox
     Friend WithEvents btnReset As Button
     Friend WithEvents Label4 As Label
     Friend WithEvents TextBox4 As TextBox

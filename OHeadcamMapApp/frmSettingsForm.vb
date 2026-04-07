@@ -75,7 +75,7 @@ Public Class frmSettings
         My.Settings.ffmpegCRF = "25"
         My.Settings.VideoPadding = GetDefault("VideoPadding")
         My.Settings.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':input=data.trf:tripod=0,unsharp=5:5:0.8:3:3:0.4"
-        My.Settings.cbNewMapF = True
+        ' CLEANUP-CBNEWMAPF-START:My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"
         My.Settings.MISmoothFrameStepSeconds = CDbl(GetDefault("MISmoothFrameStepSeconds"))
         rbImgMiddle.Checked = False

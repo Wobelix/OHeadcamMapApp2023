@@ -123,20 +123,8 @@
   <data name="AddVideofile.Text" xml:space="preserve">
     <value>Add video</value>
   </data>
-  <data name="AddVideofile.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AddVideofile.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnOutputFile.Text" xml:space="preserve">
     <value>Choose...</value>
-  </data>
-  <data name="btnOutputFile.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnOutputFile.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Label7.Size" type="System.Drawing.Size, System.Drawing">
@@ -145,38 +133,20 @@
   <data name="Label7.Text" xml:space="preserve">
     <value>Output video (MP4)</value>
   </data>
-  <data name="Label7.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label7.ToolTip1" xml:space="preserve">
-    <value />
+  <data name="btnQRxml.Location" type="System.Drawing.Point, System.Drawing">
+    <value>233, 82</value>
   </data>
   <data name="btnQRxml.Text" xml:space="preserve">
     <value>Choose...</value>
   </data>
-  <data name="btnQRxml.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnQRxml.ToolTip1" xml:space="preserve">
-    <value />
+  <data name="btnQRimg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>230, 36</value>
   </data>
   <data name="btnQRimg.Text" xml:space="preserve">
     <value>Choose...</value>
   </data>
-  <data name="btnQRimg.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnQRimg.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnGpxf.Text" xml:space="preserve">
-    <value>Choose...</value>
-  </data>
-  <data name="btnGpxf.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnGpxf.ToolTip1" xml:space="preserve">
-    <value />
+  <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 66</value>
   </data>
   <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 13</value>
@@ -184,11 +154,8 @@
   <data name="Label4.Text" xml:space="preserve">
     <value>Quickroute route file(.xml)</value>
   </data>
-  <data name="Label4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label4.ToolTip1" xml:space="preserve">
-    <value />
+  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 20</value>
   </data>
   <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 13</value>
@@ -196,50 +163,20 @@
   <data name="Label3.Text" xml:space="preserve">
     <value>Quickroute map image file</value>
   </data>
-  <data name="Label3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label3.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 13</value>
-  </data>
-  <data name="Label2.Text" xml:space="preserve">
-    <value>.GPX file (from Quickroute)</value>
-  </data>
-  <data name="Label2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label2.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 13</value>
   </data>
   <data name="Label1.Text" xml:space="preserve">
     <value>Import video files in order</value>
   </data>
-  <data name="Label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label1.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="numVideoTempo.ToolTip" xml:space="preserve">
     <value>Fast &gt; 1 - Slowmotion &lt; 1</value>
-  </data>
-  <data name="numVideoTempo.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 15</value>
   </data>
   <data name="Label13.Text" xml:space="preserve">
     <value>GPS +/- (sec)</value>
-  </data>
-  <data name="Label13.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="cbXDeshake.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 20</value>
@@ -250,9 +187,6 @@
   <data name="cbXDeshake.ToolTip" xml:space="preserve">
     <value>Enhances the video</value>
   </data>
-  <data name="cbXDeshake.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="cbXJoin.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 20</value>
   </data>
@@ -261,9 +195,6 @@
   </data>
   <data name="cbXJoin.ToolTip" xml:space="preserve">
     <value>Creates a joined video file with the filename joined.mp4, in the folder  specified in Settings</value>
-  </data>
-  <data name="cbXJoin.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label15.Location" type="System.Drawing.Point, System.Drawing">
     <value>628, 91</value>
@@ -278,14 +209,8 @@
   <data name="Label15.ToolTip" xml:space="preserve">
     <value>Used in all steps</value>
   </data>
-  <data name="Label15.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnPrepareInput.Text" xml:space="preserve">
     <value>Run Prepare Steps</value>
-  </data>
-  <data name="btnPrepareInput.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="btnAddMusic.Text" xml:space="preserve">
     <value>Add music</value>
@@ -294,26 +219,17 @@
     <value>Will add music to the output video 
 in a separate file</value>
   </data>
-  <data name="btnAddMusic.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnMapSetting.Text" xml:space="preserve">
     <value>Map placement</value>
   </data>
   <data name="btnMapSetting.ToolTip" xml:space="preserve">
     <value>Choose and set map placement</value>
   </data>
-  <data name="btnMapSetting.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnMakeAdjVideo.Text" xml:space="preserve">
     <value>Adjust Timing</value>
   </data>
   <data name="btnMakeAdjVideo.ToolTip" xml:space="preserve">
     <value>synchronize video and gps tracking so they match in the video</value>
-  </data>
-  <data name="btnMakeAdjVideo.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 90</value>
@@ -324,20 +240,11 @@ in a separate file</value>
   <data name="Button1.Text" xml:space="preserve">
     <value>Adjust video settings</value>
   </data>
-  <data name="Button1.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="rb_deshake.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 20</value>
   </data>
   <data name="rb_deshake.Text" xml:space="preserve">
     <value>Deshake Video (takes time)</value>
-  </data>
-  <data name="rb_deshake.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="rb_deshake.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="RB_onlyfilter.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 20</value>
@@ -345,41 +252,16 @@ in a separate file</value>
   <data name="RB_onlyfilter.Text" xml:space="preserve">
     <value>Adjust video</value>
   </data>
-  <data name="RB_onlyfilter.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RB_onlyfilter.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="GroupBox7.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 131</value>
   </data>
   <data name="GroupBox7.Text" xml:space="preserve">
     <value>Enhance video</value>
   </data>
-  <data name="GroupBox7.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnMapFlip.Text" xml:space="preserve">
     <value>Flip map</value>
   </data>
-  <data name="btnMapFlip.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="txtPrepareLength.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="cbXMakeframes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 20</value>
-  </data>
-  <data name="cbXMakeframes.Text" xml:space="preserve">
-    <value>Prepare map</value>
-  </data>
-  <data name="cbXMakeframes.ToolTip" xml:space="preserve">
-    <value>Convert quickroute-data to a map on a black background, 
-images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest of black max length or quickroute.</value>
-  </data>
-  <data name="cbXMakeframes.ToolTip1" xml:space="preserve">
     <value />
   </data>
   <data name="txtOutputLength.ToolTip" xml:space="preserve">
@@ -400,17 +282,11 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="chbNoAudio.ToolTip" xml:space="preserve">
     <value>Remove audio-track from video</value>
   </data>
-  <data name="chbNoAudio.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="txtInpCutfromStart.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="txtInpCutfromStart.ToolTip1" xml:space="preserve">
     <value>Cuts from start of video</value>
-  </data>
-  <data name="LblGPSDiff.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="txtQRImage2.ToolTip" xml:space="preserve">
     <value />
@@ -424,17 +300,17 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="txtXMLfile2.ToolTip1" xml:space="preserve">
     <value>Made via Quickroute: Export-&gt;Route data...(tilføj markering af Lap time og  Lap number</value>
   </data>
+  <data name="txtXMLfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 82</value>
+  </data>
   <data name="txtXMLfile.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="txtXMLfile.ToolTip1" xml:space="preserve">
     <value>Made via Quickroute: Export-&gt;Route data...(set mark for Lap time og  Lap number</value>
   </data>
-  <data name="txtGpxFile.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtGpxFile.ToolTip1" xml:space="preserve">
-    <value>Export GPX from quickroute to get your route adjustments</value>
+  <data name="txtQRImage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 36</value>
   </data>
   <data name="txtQRImage.ToolTip" xml:space="preserve">
     <value />
@@ -454,20 +330,8 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="btnReset.Text" xml:space="preserve">
     <value>Reset</value>
   </data>
-  <data name="btnReset.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnReset.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnClearVideolist.Text" xml:space="preserve">
     <value>Clear list</value>
-  </data>
-  <data name="btnClearVideolist.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnClearVideolist.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="IndstillingerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 20</value>
@@ -538,32 +402,14 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="OmToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="MenuStrip1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuStrip1.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnPostProcess.Location" type="System.Drawing.Point, System.Drawing">
     <value>661, 521</value>
   </data>
   <data name="btnPostProcess.Text" xml:space="preserve">
     <value>Video editor...</value>
   </data>
-  <data name="btnPostProcess.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnPostProcess.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="IconStatusPrepare.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 50</value>
-  </data>
-  <data name="IconStatusPrepare.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IconStatusPrepare.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 16</value>
@@ -571,81 +417,21 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="Label6.Text" xml:space="preserve">
     <value>(sec/h:mm:ss)</value>
   </data>
-  <data name="Label6.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label6.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PictureBox1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PictureBox1.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblMapLength.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblMapLength.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblVideoInLength.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblVideoInLength.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="iconStatusVideoIn.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="iconStatusVideoIn.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="IconStatusMakeMap.Location" type="System.Drawing.Point, System.Drawing">
     <value>187, 102</value>
-  </data>
-  <data name="IconStatusMakeMap.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IconStatusMakeMap.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="IconStatusMakeMap.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="Label21.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label21.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="GroupBox1.Text" xml:space="preserve">
     <value>       Prepare video</value>
-  </data>
-  <data name="GroupBox1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupBox1.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>164, 22</value>
   </data>
-  <data name="Label20.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label20.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Button2.Text" xml:space="preserve">
     <value>Open in explorer</value>
-  </data>
-  <data name="Button2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Button2.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="btnMakeMapN.Location" type="System.Drawing.Point, System.Drawing">
     <value>414, 47</value>
@@ -656,56 +442,14 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="btnMakeMapN.Text" xml:space="preserve">
     <value>Prepare only map part</value>
   </data>
-  <data name="btnMakeMapN.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnMakeMapN.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="cbOnlyVideo.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 20</value>
   </data>
   <data name="cbOnlyVideo.Text" xml:space="preserve">
     <value>Make only video</value>
   </data>
-  <data name="cbOnlyVideo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="cbOnlyVideo.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PictureBox3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PictureBox3.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnRunMakeVideo.Text" xml:space="preserve">
     <value>Make Video</value>
-  </data>
-  <data name="btnRunMakeVideo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnRunMakeVideo.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblOutputVideoLength.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblOutputVideoLength.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IconStatusOutput.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="IconStatusOutput.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtOutFilename.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtOutFilename.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
     <value>837, 128</value>
@@ -713,23 +457,11 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="GroupBox6.Text" xml:space="preserve">
     <value>        Generate Output video</value>
   </data>
-  <data name="GroupBox6.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupBox6.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label22.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 16</value>
   </data>
   <data name="Label22.Text" xml:space="preserve">
     <value>(Blank=full length)</value>
-  </data>
-  <data name="Label22.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label22.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 16</value>
@@ -737,35 +469,11 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="Label14.Text" xml:space="preserve">
     <value>(sec/h:mm:ss)</value>
   </data>
-  <data name="Label14.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label14.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 16</value>
   </data>
   <data name="Label12.Text" xml:space="preserve">
     <value>(sec/h:mm:ss)</value>
-  </data>
-  <data name="Label12.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label12.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label10.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label10.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label9.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label9.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 16</value>
@@ -773,29 +481,11 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="Label5.Text" xml:space="preserve">
     <value>Video Length</value>
   </data>
-  <data name="Label5.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label5.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 16</value>
   </data>
   <data name="Label16.Text" xml:space="preserve">
     <value>Videospeed</value>
-  </data>
-  <data name="Label16.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label16.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PictureBox2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PictureBox2.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>154, 16</value>
@@ -803,35 +493,11 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="Label8.Text" xml:space="preserve">
     <value>Cut from video beginning</value>
   </data>
-  <data name="Label8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label8.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="GroupBox9.Text" xml:space="preserve">
     <value>       Settings</value>
   </data>
-  <data name="GroupBox9.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupBox9.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="GroupBox4.Size" type="System.Drawing.Size, System.Drawing">
     <value>894, 578</value>
-  </data>
-  <data name="GroupBox4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupBox4.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StatusStrip1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StatusStrip1.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="chkMapFlipOnOff.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 17</value>
@@ -839,44 +505,14 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="chkMapFlipOnOff.Text" xml:space="preserve">
     <value>Map Flip</value>
   </data>
-  <data name="chkMapFlipOnOff.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="chkMapFlipOnOff.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnMapFlipinfo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnMapFlipinfo.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblMapFlipGPXd.Location" type="System.Drawing.Point, System.Drawing">
     <value>164, 113</value>
-  </data>
-  <data name="lblMapFlipGPXd.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblMapFlipGPXd.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="lblMapFlipStarttime.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 113</value>
   </data>
-  <data name="lblMapFlipStarttime.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblMapFlipStarttime.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label19.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 113</value>
-  </data>
-  <data name="Label19.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label19.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 13</value>
@@ -884,23 +520,11 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="Label18.Text" xml:space="preserve">
     <value>Start time :</value>
   </data>
-  <data name="Label18.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label18.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label17.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 13</value>
   </data>
   <data name="Label17.Text" xml:space="preserve">
     <value>Quickroute map image 2 </value>
-  </data>
-  <data name="Label17.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label17.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="Label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 13</value>
@@ -908,38 +532,17 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="Label11.Text" xml:space="preserve">
     <value>Quickroute route file 2 (.xml )</value>
   </data>
-  <data name="Label11.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label11.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnQRimg2.Text" xml:space="preserve">
     <value>Choose...</value>
-  </data>
-  <data name="btnQRimg2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnQRimg2.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="btnQRXML2.Text" xml:space="preserve">
     <value>Choose...</value>
   </data>
-  <data name="btnQRXML2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnQRXML2.ToolTip1" xml:space="preserve">
-    <value />
+  <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 138</value>
   </data>
   <data name="grpMapFlip.Text" xml:space="preserve">
     <value>Map 2</value>
-  </data>
-  <data name="grpMapFlip.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="grpMapFlip.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="GroupBox10.Size" type="System.Drawing.Size, System.Drawing">
     <value>313, 333</value>
@@ -947,20 +550,8 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
   <data name="GroupBox10.Text" xml:space="preserve">
     <value>Import map and tracking data</value>
   </data>
-  <data name="GroupBox10.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="GroupBox10.ToolTip1" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblTrackVideoInUse.Text" xml:space="preserve">
     <value>Trackingvideo is active</value>
-  </data>
-  <data name="lblTrackVideoInUse.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblTrackVideoInUse.ToolTip1" xml:space="preserve">
-    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1120,11 +711,5 @@ images(1 pr sec) is placed in the app-subfolder "temp2", length is the shortest 
         G4UXAON+o/ACYNxvFF4AjPuNwguAcb9ReAEw7jcKNQAAi+5/3rjfKGRCtABRvPgT77kfYd86kAKITLEy
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="$this.ToolTip1" xml:space="preserve">
-    <value />
   </data>
 </root>

@@ -8,7 +8,7 @@ Imports OHeadcamMapApp.My.Resources
 
 Public Class MainForm
     Public Videolist, VideoCropStart, VideoCropEnd As String
-    Public inifile As clsInifile = New clsInifile
+    'OLD MAP 20260407:Public inifile As clsInifile = New clsInifile
     Public proc As clsRunprocess
     Public Shared CurrentLog As String
     Public Shared StatusCount As Integer
@@ -60,11 +60,7 @@ Public Class MainForm
     'Public resources As ResourceManager = New ResourceManager("Texts", a  TypeOf MainForm)
     Public Sub InitStatusLabels()
         SetStatusLabel(iconStatusVideoIn, My.Settings.StatusInputVideo, "Inputvideo")
-        SetStatusLabel(IconStatusMakeMap, My.Settings.StatusMakeMap, "MakeMap")
         SetStatusLabel(IconStatusOutput, My.Settings.StatusOutputVideo, "Outputvideo")
-        If My.Settings.StatusMakeMap = "OK" And My.Settings.StatusInputVideo = "OK" Then
-            My.Settings.StatusPrepare = "OK"
-        End If
         SetStatusLabel(IconStatusPrepare, My.Settings.StatusPrepare, "Prepare")
 
         IconStatusPrepare.Parent = GroupBox1
@@ -73,7 +69,6 @@ Public Class MainForm
     End Sub
     Public Sub SaveStatusLabels()
         SaveStatusLabel(iconStatusVideoIn, "Inputvideo")
-        SaveStatusLabel(IconStatusMakeMap, "MakeMap")
         SaveStatusLabel(IconStatusOutput, "Outputvideo")
         SaveStatusLabel(IconStatusPrepare, "Prepare")
 
@@ -177,7 +172,7 @@ Public Class MainForm
         ' This call is required by the designer.
         InitializeComponent()
 
-        inifile.SetLanguage(lang)
+        'OLD MAP 20260407:inifile.SetLanguage(lang)
 
         ' Get the application's executable directory
         Dim exeDirectory As String = AppDomain.CurrentDomain.BaseDirectory
@@ -191,7 +186,7 @@ Public Class MainForm
         ' Add any initialization after the InitializeComponent() call.
         AppFolder = AppDomain.CurrentDomain.BaseDirectory
         AppFolder = AppFolder.Substring(0, AppDomain.CurrentDomain.BaseDirectory.LastIndexOf("\")) + "\"
-        inifile.SetINIfile(AppFolder + IniFN)
+        'OLD MAP 20260407:inifile.SetINIfile(AppFolder + IniFN)
 
         CreateTmpfolders("temp")
         CreateTmpfolders("temp1")
@@ -278,7 +273,7 @@ Public Class MainForm
     Sub TrackVideoState()
         lblTrackVideoInUse.Visible = My.Settings.bUseMapTrackingVideo
         GroupBox10.Enabled = Not My.Settings.bUseMapTrackingVideo 'Disable Quickroute if tracking video
-        cbXMakeframes.Enabled = Not My.Settings.bUseMapTrackingVideo 'Disable Quickroute if tracking video
+        'OLD MAP: cbXMakeframes.Enabled = Not My.Settings.bUseMapTrackingVideo 'Disable Quickroute if tracking video
         If My.Settings.bUseMapTrackingVideo Then
             lblMapLength.Text = My.Settings.TrackMapVideoLength
         Else
@@ -295,9 +290,10 @@ Public Class MainForm
         If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtQRImage.Text)) Then
             txtQRImage.Text = ""
         End If
-        If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtGpxFile.Text)) Then
-            txtGpxFile.Text = ""
-        End If
+        'OLD MAP 20260407:
+        'If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtGpxFile.Text)) Then
+        '    txtGpxFile.Text = ""
+        'End If
         Dim Missingfile As Boolean
         Missingfile = False
         'Dim files As String() = My.Settings.Videofilesfull.Split(ControlChars.CrLf.ToCharArray) ' Split laver dobb linjer
@@ -312,7 +308,6 @@ Public Class MainForm
     End Sub
     Sub CheckDirtyStatus()
         If bMakeMapDirty Then
-            SetStatusLabel(IconStatusMakeMap, "NoImage")
             SetStatusLabel(IconStatusOutput, "NoVideo")
             SetStatusLabel(IconStatusPrepare, "NoImage") 'Sætter ikonet fordi det er fælles
             My.Settings.bAdjVideoIsReady = False
@@ -403,20 +398,21 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub btnGpxf_Click(sender As Object, e As EventArgs) Handles btnGpxf.Click
-        Dim fn, fnx As String
+    'OLD MAP 20260407:
+    'Private Sub btnGpxf_Click(sender As Object, e As EventArgs) Handles btnGpxf.Click
+    '    Dim fn, fnx As String
 
-        If OpenFileDialoggpx.ShowDialog() = DialogResult.OK Then
-            fn = System.IO.Path.GetFileName(OpenFileDialoggpx.FileName)
-            fnx = FileNameConv(fn)
-            DeleteFileWildcard(AppFolder, "*.gpx")
-            My.Computer.FileSystem.CopyFile(OpenFileDialoggpx.FileName, AppFolder + fnx, True)
-            txtGpxFile.Text = fn
-            inifile.SetINI(iniGPX, fnx)
-            bMakeMapDirty = True
-            CheckDirtyStatus()
-        End If
-    End Sub
+    '    If OpenFileDialoggpx.ShowDialog() = DialogResult.OK Then
+    '        fn = System.IO.Path.GetFileName(OpenFileDialoggpx.FileName)
+    '        fnx = FileNameConv(fn)
+    '        DeleteFileWildcard(AppFolder, "*.gpx")
+    '        My.Computer.FileSystem.CopyFile(OpenFileDialoggpx.FileName, AppFolder + fnx, True)
+    '        txtGpxFile.Text = fn
+    '        inifile.SetINI(iniGPX, fnx)
+    '        bMakeMapDirty = True
+    '        CheckDirtyStatus()
+    '    End If
+    'End Sub
 
     Private Sub btnQRimg_Click(sender As Object, e As EventArgs) Handles btnQRimg.Click
         Dim fn, fnx As String
@@ -428,11 +424,12 @@ Public Class MainForm
             My.Computer.FileSystem.CopyFile(OpenFileDialogqrimg.FileName, AppFolder + fn, True)
             txtQRImage.Text = fn
             My.Settings.QRimage = fn 'Set global 
-            If Not My.Settings.cbNewMapF Then
-                inifile.SetINI(iniQRIMG, fnx)
-                bMakeMapDirty = True
-                CheckDirtyStatus()
-            End If
+            ' CLEANUP-CBNEWMAPF-20260407:
+            'If Not My.Settings.cbNewMapF Then
+            '    inifile.SetINI(iniQRIMG, fnx)
+            '    bMakeMapDirty = True
+            '    CheckDirtyStatus()
+            'End If
 
 
         End If
@@ -474,7 +471,7 @@ Public Class MainForm
             txtXMLfile.Text = fn
             My.Settings.QRXML = fn ' set global
             My.Settings.GPXDiff = "0" ' reset GPXdiff
-            inifile.SetINI(iniQRXML, fnx)
+            'OLD MAP 20260407:inifile.SetINI(iniQRXML, fnx)
 
             Dim a As New clsTxtFiles
             If Not My.Computer.FileSystem.FileExists(AppFolder + fnx) Then MsgBox(Texts.ErrNoFile + fnx)
@@ -482,10 +479,11 @@ Public Class MainForm
 
             My.Settings.QRXMLTimesec = CDec(time)
             lblMapLength.Text = ExtraFunc.SecToTimeStr(CDec(time))
-            If Not My.Settings.cbNewMapF Then
-                bMakeMapDirty = True
-                CheckDirtyStatus()
-            End If
+            ' CLEANUP-CBNEWMAPF-START
+            'If Not My.Settings.cbNewMapF Then
+            '    bMakeMapDirty = True
+            '    CheckDirtyStatus()
+            'End If
         End If
     End Sub
 
@@ -603,28 +601,29 @@ Public Class MainForm
             MsgBox(Texts.ErrNoFile + " " + appfolderin + filename)
         End If
     End Function
-    Private Function SetINIfilevalues() As Boolean
-        'Videolist = txtVideolist.Text.Replace(vbCrLf, ",")
-        'Videolist = My.Settings.Videofilesfull.Replace(vbCrLf, ",")
-        'inifile.SetINI(iniVideo, Videolist)
-        SetINIfilevalues = True
-        If Not CheckFileWithMsg(FileNameConv(txtGpxFile.Text)) Then
-            SetINIfilevalues = False
-        ElseIf Not CheckFileWithMsg(FileNameConv(txtQRImage.Text)) Then
-            SetINIfilevalues = False
-        ElseIf Not CheckFileWithMsg(FileNameConv(txtXMLfile.Text)) Then
-            SetINIfilevalues = False
-        End If
-        If SetINIfilevalues Then
-            inifile.SetINI(iniGPX, FileNameConv(txtGpxFile.Text))
-            inifile.SetINI(iniQRIMG, FileNameConv(txtQRImage.Text))
-            inifile.SetINI(iniQRXML, FileNameConv(txtXMLfile.Text))
-            inifile.SetINI(iniCropStart, (VideoCropStart * 1000).ToString)
-            inifile.SetINI(iniCropEnd, (VideoCropEnd * 1000).ToString)
-            'Kan nøjes med 1 pr sekund
-            inifile.SetINI(iniFPS, "1")
-        End If
-    End Function
+    'OLD MAP 20260407:
+    'Private Function SetINIfilevalues() As Boolean
+    '    'Videolist = txtVideolist.Text.Replace(vbCrLf, ",")
+    '    'Videolist = My.Settings.Videofilesfull.Replace(vbCrLf, ",")
+    '    'inifile.SetINI(iniVideo, Videolist)
+    '    SetINIfilevalues = True
+    '    If Not CheckFileWithMsg(FileNameConv(txtGpxFile.Text)) Then
+    '        SetINIfilevalues = False
+    '    ElseIf Not CheckFileWithMsg(FileNameConv(txtQRImage.Text)) Then
+    '        SetINIfilevalues = False
+    '    ElseIf Not CheckFileWithMsg(FileNameConv(txtXMLfile.Text)) Then
+    '        SetINIfilevalues = False
+    '    End If
+    '    If SetINIfilevalues Then
+    '        inifile.SetINI(iniGPX, FileNameConv(txtGpxFile.Text))
+    '        inifile.SetINI(iniQRIMG, FileNameConv(txtQRImage.Text))
+    '        inifile.SetINI(iniQRXML, FileNameConv(txtXMLfile.Text))
+    '        inifile.SetINI(iniCropStart, (VideoCropStart * 1000).ToString)
+    '        inifile.SetINI(iniCropEnd, (VideoCropEnd * 1000).ToString)
+    '        'Kan nøjes med 1 pr sekund
+    '        inifile.SetINI(iniFPS, "1")
+    '    End If
+    'End Function
 
     Function CalcFrames(fps As Integer, Optional TimeIn As String = "") As Integer
         Dim tmp, hour, min, sec, t As String, i As Integer, dhour, dmin, dsec, totsec As Single
@@ -898,76 +897,73 @@ Public Class MainForm
                 cbXJoin.Checked = False
                 lblVideoInLength.Text = ExtraFunc.SecToTimeStr(ProbeVideo.duration_sec)
                 SetStatusLabel(iconStatusVideoIn, "OK")
-                If IconStatusMakeMap.Tag.ToString = "OK" Then
-                    SetStatusLabel(IconStatusPrepare, "OK")
-                Else
-                    SetStatusLabel(IconStatusPrepare, "NoVideo")
-                End If
+                SetStatusLabel(IconStatusPrepare, "OK")
             End If
         End If 'cbJoined
         Return bFailed
     End Function
-    Function RunMakeFrames() As Boolean
-        Dim bFailed As Boolean
 
-        If cbXMakeframes.Checked And Not My.Settings.bUseMapTrackingVideo Then ' Kortoverlay - kun hvis der ikke anvendes tracking video
-            If Not My.Settings.bUseMapTrackingVideo Then
-                SetStatusLabel(IconStatusMakeMap, "Work")
-                SetStatusLabel(IconStatusPrepare, "Work")
-                If SetINIfilevalues() Then
-                    My.Computer.FileSystem.CopyFile(AppFolder + IniFN, AppFolder + "tmpini.ini", True)
-                    StatusBarUpdate(Texts.Status1 + IniFN)
-                    LogMapF = Texts.Status1 + IniFN + vbCrLf
-                    StatusBarUpdate(Texts.Makeblack1)
+    'OLD MAP 20260407:
+    'Function RunMakeFrames() As Boolean
+    '    Dim bFailed As Boolean
 
-                    If txtPrepareLength.Text = "" Then
-                        lblMapLength.Text = ExtraFunc.SecToTimeStr(My.Settings.QRXMLTimesec)
-                        ExtraFunc.MakeBlackFrameFiles(CalcFrames(1)) ' 1 Frame pr sec
-                        LogMapF += Texts.Makeblack1 + " " + lblMapLength.Text + vbCrLf
-                    Else
-                        lblMapLength.Text = ExtraFunc.SecToTimeStr(txtPrepareLength.Text)
-                        LogMapF += Texts.Makeblack1 + " " + txtPrepareLength.Text + vbCrLf
-                        ExtraFunc.MakeBlackFrameFiles(CalcFrames(1, txtPrepareLength.Text))
-                    End If
+    '    If cbXMakeframes.Checked And Not My.Settings.bUseMapTrackingVideo Then ' Kortoverlay - kun hvis der ikke anvendes tracking video
+    '        If Not My.Settings.bUseMapTrackingVideo Then
+    '            SetStatusLabel(IconStatusMakeMap, "Work")
+    '            SetStatusLabel(IconStatusPrepare, "Work")
+    '            If SetINIfilevalues() Then
+    '                My.Computer.FileSystem.CopyFile(AppFolder + IniFN, AppFolder + "tmpini.ini", True)
+    '                StatusBarUpdate(Texts.Status1 + IniFN)
+    '                LogMapF = Texts.Status1 + IniFN + vbCrLf
+    '                StatusBarUpdate(Texts.Makeblack1)
 
-                    StatusBarUpdate(Texts.Makeblack2)
-                    LogMapF += Texts.Makeblack2 + vbCrLf
-                    StatusBarUpdate(Texts.Status4)
-                    LogMapF += Texts.Status4 + vbCrLf
-                    Run_Command(cmd3Mapframes)
+    '                If txtPrepareLength.Text = "" Then
+    '                    lblMapLength.Text = ExtraFunc.SecToTimeStr(My.Settings.QRXMLTimesec)
+    '                    ExtraFunc.MakeBlackFrameFiles(CalcFrames(1)) ' 1 Frame pr sec
+    '                    LogMapF += Texts.Makeblack1 + " " + lblMapLength.Text + vbCrLf
+    '                Else
+    '                    lblMapLength.Text = ExtraFunc.SecToTimeStr(txtPrepareLength.Text)
+    '                    LogMapF += Texts.Makeblack1 + " " + txtPrepareLength.Text + vbCrLf
+    '                    ExtraFunc.MakeBlackFrameFiles(CalcFrames(1, txtPrepareLength.Text))
+    '                End If
 
-                    Dim dir As DirectoryInfo = New DirectoryInfo(AppFolder + "temp2\")
-                    If Not dir.Exists Then
-                        MsgBox(Texts.ErrNoMapfolder)
-                        StatusBarUpdate(Texts.ErrNoMapfolder)
-                        SetStatusLabel(IconStatusMakeMap, "Fail")
-                        SetStatusLabel(IconStatusPrepare, "Fail")
-                        bFailed = True
-                    Else
-                        If Not dir.GetFiles("*.jpg").Count > 0 Then
-                            MsgBox(Texts.ErrNoMapfiles)
-                            StatusBarUpdate(Texts.ErrNoMapfiles + GetStatusBarText())
-                            SetStatusLabel(IconStatusMakeMap, "Fail")
-                            SetStatusLabel(IconStatusPrepare, "Fail")
-                            bFailed = True
-                        Else
-                            StatusBarUpdate(Texts.StatusCombine2)
-                            SetStatusLabel(IconStatusMakeMap, "OK")
-                            If iconStatusVideoIn.Tag.ToString = "OK" Then
-                                SetStatusLabel(IconStatusPrepare, "OK")
-                            End If
-                        End If
-                    End If
-                Else
-                    SetStatusLabel(IconStatusMakeMap, "Fail")
-                    SetStatusLabel(IconStatusPrepare, "Fail")
-                    bFailed = True
-                End If
+    '                StatusBarUpdate(Texts.Makeblack2)
+    '                LogMapF += Texts.Makeblack2 + vbCrLf
+    '                StatusBarUpdate(Texts.Status4)
+    '                LogMapF += Texts.Status4 + vbCrLf
+    '                Run_Command(cmd3Mapframes)
 
-            End If
-        End If
-        Return bFailed
-    End Function
+    '                Dim dir As DirectoryInfo = New DirectoryInfo(AppFolder + "temp2\")
+    '                If Not dir.Exists Then
+    '                    MsgBox(Texts.ErrNoMapfolder)
+    '                    StatusBarUpdate(Texts.ErrNoMapfolder)
+    '                    SetStatusLabel(IconStatusMakeMap, "Fail")
+    '                    SetStatusLabel(IconStatusPrepare, "Fail")
+    '                    bFailed = True
+    '                Else
+    '                    If Not dir.GetFiles("*.jpg").Count > 0 Then
+    '                        MsgBox(Texts.ErrNoMapfiles)
+    '                        StatusBarUpdate(Texts.ErrNoMapfiles + GetStatusBarText())
+    '                        SetStatusLabel(IconStatusMakeMap, "Fail")
+    '                        SetStatusLabel(IconStatusPrepare, "Fail")
+    '                        bFailed = True
+    '                    Else
+    '                        StatusBarUpdate(Texts.StatusCombine2)
+    '                '                        If iconStatusVideoIn.Tag.ToString = "OK" Then
+    '                            SetStatusLabel(IconStatusPrepare, "OK")
+    '                        End If
+    '                    End If
+    '                End If
+    '            Else
+    '                SetStatusLabel(IconStatusMakeMap, "Fail")
+    '                SetStatusLabel(IconStatusPrepare, "Fail")
+    '                bFailed = True
+    '            End If
+
+    '        End If
+    '    End If
+    '    Return bFailed
+    'End Function
 
     Private Function GetStatusBarText() As String
         If Me Is Nothing Then Return ""
@@ -1401,7 +1397,8 @@ Public Class MainForm
             MsgBox(Texts.ErrDeshakemissing + GetDeshakedFilename(True))
         Else
             SetStatusLabel(IconStatusOutput, "Work")
-            If My.Settings.cbNewMapF And Not My.Settings.bUseMapTrackingVideo Then 'Generate the new map images
+            ' CLEANUP-CBNEWMAPF-START: If My.Settings.cbNewMapF And
+            If Not My.Settings.bUseMapTrackingVideo Then 'Generate the new map images
                 StatusBarUpdate(Texts.StatusMakeMapImgs)
                 Me.Update()
 
@@ -1416,22 +1413,22 @@ Public Class MainForm
 
                 arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor)
             Else
-                If My.Settings.cbNewMapF Then
-                    tmpGPXDiff = CInt(My.Settings.GPXDiff)
-                    If My.Settings.MapFlipActive Then tmpGPXDiff -= CInt(My.Settings.MapFlipStartS) ' add startpoint for map 2
-                    Dim smoothZoomFile As String = GetSmoothOverlayZoomVideoPath()
-                    Dim smoothLegFile As String = GetSmoothOverlayLegVideoPath()
-                    If (Not My.Settings.cbShowRoute OrElse File.Exists(smoothZoomFile)) AndAlso
+                ' CLEANUP-CBNEWMAPF-START:If My.Settings.cbNewMapF Then
+                tmpGPXDiff = CInt(My.Settings.GPXDiff)
+                If My.Settings.MapFlipActive Then tmpGPXDiff -= CInt(My.Settings.MapFlipStartS) ' add startpoint for map 2
+                Dim smoothZoomFile As String = GetSmoothOverlayZoomVideoPath()
+                Dim smoothLegFile As String = GetSmoothOverlayLegVideoPath()
+                If (Not My.Settings.cbShowRoute OrElse File.Exists(smoothZoomFile)) AndAlso
                        (Not My.Settings.cbShowLegMAp OrElse File.Exists(smoothLegFile)) Then
-                        arg = ExtraFunc.FFMPeg_MakeParamSmoothMapVideosOnVideo(txtOutFilename.Text, smoothZoomFile, smoothLegFile, GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
-                    Else
-                        ' Legacy temp3 PNG overlay fallback:
-                        'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp3\%08d.png", GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
-                        Throw New FileNotFoundException("Smooth overlay video assets are missing.")
-                    End If
+                    arg = ExtraFunc.FFMPeg_MakeParamSmoothMapVideosOnVideo(txtOutFilename.Text, smoothZoomFile, smoothLegFile, GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
                 Else
-                    arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp2\%08d.jpg", GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value)
+                    ' Legacy temp3 PNG overlay fallback:
+                    'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp3\%08d.png", GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
+                    Throw New FileNotFoundException("Smooth overlay video assets are missing.")
                 End If
+                ' CLEANUP-CBNEWMAPF-START:Else
+                'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp2\%08d.jpg", GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value)
+                'End If
             End If
             LogMakeVideo += arg + vbCrLf
             StatusBarUpdate(Texts.Status5)
@@ -1476,18 +1473,19 @@ Public Class MainForm
             Else
                 bFailed = RunPrepareVideo()
             End If
-            If Not bFailed And Not My.Settings.cbNewMapF Then
+            ' CLEANUP-CBNEWMAPF-START:
+            'If Not bFailed And Not My.Settings.cbNewMapF Then
 
-                bFailed = RunMakeFrames()
+            '    bFailed = RunMakeFrames()
 
-            End If
+            'End If
             If bFailed Then
                 StatusBarUpdate(Texts.ErrFailRunning)
 
             Else
-                If My.Settings.bUseMapTrackingVideo Or My.Settings.cbNewMapF Then
-                    SetStatusLabel(IconStatusPrepare, "OK") 'Only the video is prepared with a trackingvideo, or new map function.
-                End If
+                ' CLEANUP-CBNEWMAPF-START:If My.Settings.bUseMapTrackingVideo  Then ' CLEANUP-CBNEWMAPF-START:Or My.Settings.cbNewMapF
+                SetStatusLabel(IconStatusPrepare, "OK") 'Only the video is prepared with a trackingvideo, or new map function.
+                ' CLEANUP-CBNEWMAPF-START:End If
                 StatusBarUpdate(Texts.Status6)
             End If
             My.Settings.AdjTestVideoReady = False
@@ -1590,13 +1588,14 @@ Public Class MainForm
 
     End Sub
 
-    Function CheckFiles() As Boolean
-        If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtQRImage.Text)) Then MsgBox("QuickRoute billede mangler : " + txtQRImage.Text)
-        If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtXMLfile.Text)) Then MsgBox("QuickRoute XML mangler : " + txtXMLfile.Text)
-        If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtGpxFile.Text)) Then MsgBox(".GPX fil mangler : " + txtGpxFile.Text)
-        If txtOutFilename.Text = "" Then MsgBox("Output filnavn mangler")
+    'OLD MAP 20260407:
+    'Function CheckFiles() As Boolean
+    '    If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtQRImage.Text)) Then MsgBox("QuickRoute billede mangler : " + txtQRImage.Text)
+    '    If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtXMLfile.Text)) Then MsgBox("QuickRoute XML mangler : " + txtXMLfile.Text)
+    '    If Not My.Computer.FileSystem.FileExists(AppFolder + FileNameConv(txtGpxFile.Text)) Then MsgBox(".GPX fil mangler : " + txtGpxFile.Text)
+    '    If txtOutFilename.Text = "" Then MsgBox("Output filnavn mangler")
 
-    End Function
+    'End Function
 
     Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
 
@@ -1669,7 +1668,7 @@ Public Class MainForm
         My.Settings.txtRealtimeFactor = ""
         My.Settings.ffmpegCRF = "25"
         My.Settings.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':input=data.trf:tripod=0,unsharp=5:5:0.8:3:3:0.4"
-        My.Settings.cbNewMapF = True
+        ' CLEANUP-CBNEWMAPF-START:My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"
         With My.Settings
             .GPXDiff1 = ""
@@ -1764,20 +1763,20 @@ Public Class MainForm
             If result = DialogResult.Yes Then ok = True
         End If
         If ok Then
-            If My.Settings.cbNewMapF Then 'new adjust
-                Try
-                    Dim Slider As New frmAdjustmentPlayer_new(Me, 500)
-                    Slider.Show()
-                Catch ex As Exception
+            ' CLEANUP-CBNEWMAPF-START:If My.Settings.cbNewMapF Then 'new adjust
+            Try
+                Dim Slider As New frmAdjustmentPlayer_new(Me, 500)
+                Slider.Show()
+            Catch ex As Exception
 
-                End Try
+            End Try
 
 
 
-            Else
-                Dim Player As frmAdjustmentPlayer = New frmAdjustmentPlayer(Me, lblMapLength.Text)
-                Player.Show()
-            End If
+            ' CLEANUP-CBNEWMAPF-START:Else
+            'Dim Player As frmAdjustmentPlayer = New frmAdjustmentPlayer(Me, lblMapLength.Text)
+            '    Player.Show()
+            'End If
         End If
     End Sub
 
@@ -1885,9 +1884,9 @@ Public Class MainForm
                 txtOutputLength.BackColor = SystemColors.Window
             End If
             If My.Settings.MapFlipActive Then
-                    MapFlip(False, False) ' deactivate map flip
-                End If
+                MapFlip(False, False) ' deactivate map flip
             End If
+        End If
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -1921,7 +1920,6 @@ Public Class MainForm
             LogMakeVideo += arg + vbCrLf
             Run_CommandX(FFMpegExe, arg, LogMakeVideo)
             My.Settings.TrackMapVideoLength = ExtraFunc.SecToTimeStr(ProbeVideo.duration_sec * CInt(My.Settings.txtRealtimeFactor))
-            SetStatusLabel(IconStatusMakeMap, "OK")
             If iconStatusVideoIn.Tag.ToString = "OK" Then SetStatusLabel(IconStatusPrepare, "OK")
         End If
     End Function
@@ -1990,26 +1988,27 @@ Public Class MainForm
         My.Settings.Save()
     End Sub
     Public Sub ChangeNewMap()
-        If My.Settings.cbNewMapF Then
-            cbXMakeframes.Visible = False
-            lblMapLength.Visible = False
-            btnMapSetting.Visible = False
-            Label2.Visible = False
-            txtGpxFile.Visible = False
-            btnGpxf.Visible = False
-            cbOnlyVideo.Visible = False
-            btnMakeMapN.Visible = False
+        ' CLEANUP-CBNEWMAPF-START:If My.Settings.cbNewMapF Then
+        'OLD MAP 20260407:cbXMakeframes.Visible = False
+        lblMapLength.Visible = False
+        btnMapSetting.Visible = False
+        'OLD MAP 20260407:
+        'Label2.Visible = False
+        '    txtGpxFile.Visible = False
+        '    btnGpxf.Visible = False
+        cbOnlyVideo.Visible = False
+        btnMakeMapN.Visible = False
 
-        Else
-            cbOnlyVideo.Visible = False
-            btnMakeMapN.Visible = False
-            cbXMakeframes.Visible = True
-            lblMapLength.Visible = True
-            btnMapSetting.Visible = True
-            Label2.Visible = True
-            txtGpxFile.Visible = True
-            btnGpxf.Visible = True
-        End If
+        ' CLEANUP-CBNEWMAPF-START:Else
+        'cbOnlyVideo.Visible = False
+        '    btnMakeMapN.Visible = False
+        '    cbXMakeframes.Visible = True
+        '    lblMapLength.Visible = True
+        '    btnMapSetting.Visible = True
+        '    Label2.Visible = True
+        '    txtGpxFile.Visible = True
+        '    btnGpxf.Visible = True
+        'End If
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -2024,4 +2023,5 @@ Public Class MainForm
 
     End Sub
 End Class
+
 

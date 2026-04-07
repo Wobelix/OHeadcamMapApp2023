@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -178,7 +178,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="btnSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -590,7 +590,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="btnSelectFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -617,7 +617,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnSelectFolder.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="Label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -647,7 +647,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="rbImgMiddle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -761,7 +761,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="btnReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -820,135 +820,6 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="chkHDformat.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkHDformat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkHDformat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 92</value>
-  </data>
-  <data name="chkHDformat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 17</value>
-  </data>
-  <data name="chkHDformat.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="chkHDformat.Text" xml:space="preserve">
-    <value>Umarkeret anvendes input format</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.Name" xml:space="preserve">
-    <value>chkHDformat</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cbNewMapF.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbNewMapF.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cbNewMapF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>510, 26</value>
-  </data>
-  <data name="cbNewMapF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 17</value>
-  </data>
-  <data name="cbNewMapF.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="cbNewMapF.Text" xml:space="preserve">
-    <value>Anvend ny kortfunktion</value>
-  </data>
-  <data name="&gt;&gt;cbNewMapF.Name" xml:space="preserve">
-    <value>cbNewMapF</value>
-  </data>
-  <data name="&gt;&gt;cbNewMapF.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbNewMapF.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cbNewMapF.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="txtVideoWorkfolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 42</value>
-  </data>
-  <data name="txtVideoWorkfolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="txtVideoWorkfolder.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;txtVideoWorkfolder.Name" xml:space="preserve">
-    <value>txtVideoWorkfolder</value>
-  </data>
-  <data name="&gt;&gt;txtVideoWorkfolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtVideoWorkfolder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtVideoWorkfolder.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="txtCRF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 175</value>
-  </data>
-  <data name="txtCRF.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
-  <data name="txtCRF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 20</value>
-  </data>
-  <data name="txtCRF.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;txtCRF.Name" xml:space="preserve">
-    <value>txtCRF</value>
-  </data>
-  <data name="&gt;&gt;txtCRF.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtCRF.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtCRF.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="txtFPS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 130</value>
-  </data>
-  <data name="txtFPS.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
-  <data name="txtFPS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 20</value>
-  </data>
-  <data name="txtFPS.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;txtFPS.Name" xml:space="preserve">
-    <value>txtFPS</value>
-  </data>
-  <data name="&gt;&gt;txtFPS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtFPS.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtFPS.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
   <data name="Label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -999,6 +870,105 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   </data>
   <data name="&gt;&gt;numSmooth.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="chkHDformat.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkHDformat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkHDformat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 92</value>
+  </data>
+  <data name="chkHDformat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 17</value>
+  </data>
+  <data name="chkHDformat.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="chkHDformat.Text" xml:space="preserve">
+    <value>Umarkeret anvendes input format</value>
+  </data>
+  <data name="&gt;&gt;chkHDformat.Name" xml:space="preserve">
+    <value>chkHDformat</value>
+  </data>
+  <data name="&gt;&gt;chkHDformat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkHDformat.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;chkHDformat.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtVideoWorkfolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 42</value>
+  </data>
+  <data name="txtVideoWorkfolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="txtVideoWorkfolder.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;txtVideoWorkfolder.Name" xml:space="preserve">
+    <value>txtVideoWorkfolder</value>
+  </data>
+  <data name="&gt;&gt;txtVideoWorkfolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtVideoWorkfolder.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtVideoWorkfolder.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="txtCRF.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 175</value>
+  </data>
+  <data name="txtCRF.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="txtCRF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 20</value>
+  </data>
+  <data name="txtCRF.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;txtCRF.Name" xml:space="preserve">
+    <value>txtCRF</value>
+  </data>
+  <data name="&gt;&gt;txtCRF.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtCRF.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtCRF.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="txtFPS.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 130</value>
+  </data>
+  <data name="txtFPS.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="txtFPS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 20</value>
+  </data>
+  <data name="txtFPS.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;txtFPS.Name" xml:space="preserve">
+    <value>txtFPS</value>
+  </data>
+  <data name="&gt;&gt;txtFPS.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtFPS.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtFPS.ZOrder" xml:space="preserve">
+    <value>13</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

@@ -223,7 +223,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnQRxml.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 141</value>
+    <value>233, 84</value>
   </data>
   <data name="btnQRxml.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -244,13 +244,13 @@
     <value>GroupBox10</value>
   </data>
   <data name="&gt;&gt;btnQRxml.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="btnQRimg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnQRimg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 97</value>
+    <value>233, 40</value>
   </data>
   <data name="btnQRimg.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -271,36 +271,6 @@
     <value>GroupBox10</value>
   </data>
   <data name="&gt;&gt;btnQRimg.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="btnGpxf.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="btnGpxf.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 50</value>
-  </data>
-  <data name="btnGpxf.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btnGpxf.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="btnGpxf.Text" xml:space="preserve">
-    <value>Vælg fil</value>
-  </data>
-  <data name="btnGpxf.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;btnGpxf.Name" xml:space="preserve">
-    <value>btnGpxf</value>
-  </data>
-  <data name="&gt;&gt;btnGpxf.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnGpxf.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;btnGpxf.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
@@ -310,7 +280,7 @@
     <value>NoControl</value>
   </data>
   <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 125</value>
+    <value>7, 68</value>
   </data>
   <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 13</value>
@@ -331,7 +301,7 @@
     <value>GroupBox10</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -340,7 +310,7 @@
     <value>NoControl</value>
   </data>
   <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 81</value>
+    <value>7, 24</value>
   </data>
   <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 13</value>
@@ -361,40 +331,7 @@
     <value>GroupBox10</value>
   </data>
   <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 31</value>
-  </data>
-  <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 13</value>
-  </data>
-  <data name="Label2.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="Label2.Text" xml:space="preserve">
-    <value>Løbstracking( .GPX fra Quickroute)</value>
-  </data>
-  <data name="Label2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;Label2.Name" xml:space="preserve">
-    <value>Label2</value>
-  </data>
-  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -588,7 +525,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;cbXJoin.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="Label15.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
@@ -621,7 +558,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label15.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="btnPrepareInput.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
@@ -654,7 +591,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnPrepareInput.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="btnAddMusic.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
@@ -874,7 +811,7 @@ i en separat fil - Generer video skal køres igen</value>
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;GroupBox7.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="btnMapFlip.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -937,47 +874,7 @@ i en separat fil - Generer video skal køres igen</value>
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;txtPrepareLength.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cbXMakeframes.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbXMakeframes.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
-  </data>
-  <data name="cbXMakeframes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cbXMakeframes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 107</value>
-  </data>
-  <data name="cbXMakeframes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 20</value>
-  </data>
-  <data name="cbXMakeframes.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="cbXMakeframes.Text" xml:space="preserve">
-    <value>Klargør kort </value>
-  </data>
-  <data name="cbXMakeframes.ToolTip" xml:space="preserve">
-    <value>Danner quickroute-data som kort m.m. på sort baggrund, 
-billeder(1 pr sek) ligger i App-mappen "temp2", længden er enten længde på sort baggrund eller Deshaked.mp4</value>
-  </data>
-  <data name="cbXMakeframes.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;cbXMakeframes.Name" xml:space="preserve">
-    <value>cbXMakeframes</value>
-  </data>
-  <data name="&gt;&gt;cbXMakeframes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbXMakeframes.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
-  </data>
-  <data name="&gt;&gt;cbXMakeframes.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>3</value>
   </data>
   <data name="txtOutputLength.Location" type="System.Drawing.Point, System.Drawing">
     <value>326, 152</value>
@@ -1162,7 +1059,7 @@ det med nedsat videolængde
     <value>11</value>
   </data>
   <data name="txtXMLfile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 141</value>
+    <value>7, 84</value>
   </data>
   <data name="txtXMLfile.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 20</value>
@@ -1186,40 +1083,10 @@ det med nedsat videolængde
     <value>GroupBox10</value>
   </data>
   <data name="&gt;&gt;txtXMLfile.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="txtGpxFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 52</value>
-  </data>
-  <data name="txtGpxFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 20</value>
-  </data>
-  <data name="txtGpxFile.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="txtGpxFile.ToolTip" xml:space="preserve">
-    <value>GPX fil fra ur/telefon eller Quickroute</value>
-  </data>
-  <data name="txtGpxFile.ToolTip1" xml:space="preserve">
-    <value>GPX fil fra ur/telefon eller Quickroute</value>
-  </data>
-  <data name="txtGpxFile.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;txtGpxFile.Name" xml:space="preserve">
-    <value>txtGpxFile</value>
-  </data>
-  <data name="&gt;&gt;txtGpxFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtGpxFile.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;txtGpxFile.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>4</value>
   </data>
   <data name="txtQRImage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 97</value>
+    <value>7, 40</value>
   </data>
   <data name="txtQRImage.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 20</value>
@@ -1243,7 +1110,7 @@ det med nedsat videolængde
     <value>GroupBox10</value>
   </data>
   <data name="&gt;&gt;txtQRImage.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>7</value>
   </data>
   <data name="txtVideolist.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 107</value>
@@ -1488,6 +1355,30 @@ det med nedsat videolængde
   <data name="&gt;&gt;btnPostProcess.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="lblMapLength.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMapLength.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 146</value>
+  </data>
+  <data name="lblMapLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 16</value>
+  </data>
+  <data name="lblMapLength.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.Name" xml:space="preserve">
+    <value>lblMapLength</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblMapLength.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="IconStatusPrepare.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1510,7 +1401,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;IconStatusPrepare.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1543,7 +1434,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="PictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1573,40 +1464,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;PictureBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="lblMapLength.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblMapLength.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
-  </data>
-  <data name="lblMapLength.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblMapLength.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 126</value>
-  </data>
-  <data name="lblMapLength.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 16</value>
-  </data>
-  <data name="lblMapLength.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="lblMapLength.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;lblMapLength.Name" xml:space="preserve">
-    <value>lblMapLength</value>
-  </data>
-  <data name="&gt;&gt;lblMapLength.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblMapLength.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
-  </data>
-  <data name="&gt;&gt;lblMapLength.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="lblVideoInLength.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1665,30 +1523,6 @@ det med nedsat videolængde
   <data name="&gt;&gt;iconStatusVideoIn.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="IconStatusMakeMap.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="IconStatusMakeMap.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 107</value>
-  </data>
-  <data name="IconStatusMakeMap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 50</value>
-  </data>
-  <data name="IconStatusMakeMap.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="&gt;&gt;IconStatusMakeMap.Name" xml:space="preserve">
-    <value>IconStatusMakeMap</value>
-  </data>
-  <data name="&gt;&gt;IconStatusMakeMap.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IconStatusMakeMap.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
-  </data>
-  <data name="&gt;&gt;IconStatusMakeMap.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
   <data name="Label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1714,7 +1548,7 @@ det med nedsat videolængde
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label21.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="GroupBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
@@ -2419,7 +2253,7 @@ det med nedsat videolængde
     <value>NoControl</value>
   </data>
   <data name="chkMapFlipOnOff.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 167</value>
+    <value>10, 110</value>
   </data>
   <data name="chkMapFlipOnOff.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 17</value>
@@ -2704,7 +2538,7 @@ det med nedsat videolængde
     <value>10</value>
   </data>
   <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 182</value>
+    <value>10, 146</value>
   </data>
   <data name="grpMapFlip.Size" type="System.Drawing.Size, System.Drawing">
     <value>306, 151</value>
@@ -2784,18 +2618,6 @@ det med nedsat videolængde
   <data name="&gt;&gt;lblTrackVideoInUse.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="TimerRGCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>622, 55</value>
-  </metadata>
-  <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>870, 55</value>
-  </metadata>
-  <metadata name="TimerStatusRemaining.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>959, 55</value>
-  </metadata>
-  <metadata name="TimerMapStatus.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1133, 55</value>
-  </metadata>
   <data name="btnTestWriteVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -2811,6 +2633,9 @@ det med nedsat videolængde
   <data name="btnTestWriteVideo.Text" xml:space="preserve">
     <value>TestImgVideo</value>
   </data>
+  <data name="btnTestWriteVideo.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;btnTestWriteVideo.Name" xml:space="preserve">
     <value>btnTestWriteVideo</value>
   </data>
@@ -2823,6 +2648,18 @@ det med nedsat videolængde
   <data name="&gt;&gt;btnTestWriteVideo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="TimerRGCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>622, 55</value>
+  </metadata>
+  <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>870, 55</value>
+  </metadata>
+  <metadata name="TimerStatusRemaining.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>959, 55</value>
+  </metadata>
+  <metadata name="TimerMapStatus.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1133, 55</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

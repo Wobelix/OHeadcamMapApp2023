@@ -464,6 +464,7 @@
     <EmbeddedResource Include="My Project\Texts.en.resx" />
     <EmbeddedResource Include="frmSettingsForm.en.resx">
       <DependentUpon>frmSettingsForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmShowLogForm.en-US.resx">
       <DependentUpon>frmShowLogForm.vb</DependentUpon>
@@ -476,9 +477,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettingsForm.en-US.resx">
       <DependentUpon>frmSettingsForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettingsForm.resx">
       <DependentUpon>frmSettingsForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettingsForm.zh.resx">
       <DependentUpon>frmSettingsForm.vb</DependentUpon>

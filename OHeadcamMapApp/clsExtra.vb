@@ -524,8 +524,8 @@ Public Class clsExtra
         inputscale = videoinput + FFMpeg_ScalePadFHD() 'videopadding
         mapscale = "scale=1920:1080"
         strscale = FFMpeg_Scale(My.Settings.dFfmpegScaleMap)
-        If My.Settings.cbNewMapF Then ' Mapfile format
-            cmapvid = FFMpeg_Crop(My.Settings.MIFZoomDim.X, My.Settings.MIFZoomDim.Y, My.Settings.MIFZoomPos.X, My.Settings.MIFZoomPos.Y)
+        ' CLEANUP-CBNEWMAPF-20260407: If My.Settings.cbNewMapF Then ' Mapfile format
+        cmapvid = FFMpeg_Crop(My.Settings.MIFZoomDim.X, My.Settings.MIFZoomDim.Y, My.Settings.MIFZoomPos.X, My.Settings.MIFZoomPos.Y)
             clegmapvid = FFMpeg_Crop(My.Settings.MIFLegDim.X, My.Settings.MIFLegDim.Y, My.Settings.MIFLegPos.X, My.Settings.MIFLegPos.Y)
             'Scale
             'VideoScale = InputWidth / 1920 ' scale factor
@@ -534,13 +534,14 @@ Public Class clsExtra
             ScaledLegMapPos = ScalePoint(My.Settings.MILegMapPos, VideoScale)
             omap = "overlay=" + CStr(ScaledZoomMapPos.X) + ":" + CStr(ScaledZoomMapPos.Y)
             olegmap = "overlay=" + CStr(ScaledLegMapPos.X) + ":" + CStr(ScaledLegMapPos.Y)
-        Else
-            cmapvid = FFMpeg_Crop(MapWidth, MapHeight, MAP_X, MAP_Y) + "," + strscale
-            clegmapvid = FFMpeg_Crop(LEGMAP_WIDTH, LEGMAP_HEIGHT, LEGMAP_X, LEGMAP_Y) + "," + strscale
-            omap = FFMpeg_Overlay(CInt(My.Settings.MRouteH), CInt(My.Settings.MRouteV), "Bottom_Right")
-            olegmap = FFMpeg_Overlay(CInt(My.Settings.MLegMapH), CInt(My.Settings.MLegMapV), "Bottom Left")
-        End If
-        cgraph = FFMpeg_Crop(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y)
+            ' CLEANUP-CBNEWMAPF-20260407:
+            'Else
+            '    cmapvid = FFMpeg_Crop(MapWidth, MapHeight, MAP_X, MAP_Y) + "," + strscale
+            '    clegmapvid = FFMpeg_Crop(LEGMAP_WIDTH, LEGMAP_HEIGHT, LEGMAP_X, LEGMAP_Y) + "," + strscale
+            '    omap = FFMpeg_Overlay(CInt(My.Settings.MRouteH), CInt(My.Settings.MRouteV), "Bottom_Right")
+            '    olegmap = FFMpeg_Overlay(CInt(My.Settings.MLegMapH), CInt(My.Settings.MLegMapV), "Bottom Left")
+            'End If
+            cgraph = FFMpeg_Crop(GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y)
         cpanel = FFMpeg_Crop(PANEL_WIDTH, PANEL_HEIGHT, PANEL_X, PANEL_Y)
         'omap blev flyttet op over panel + margin
 
@@ -655,11 +656,11 @@ Public Class clsExtra
         GPXd = ""
         InpD = ""
         OLength = ""
-        If My.Settings.cbNewMapF Then
-            My.Settings.cbHeightGraph = False
+        ' CLEANUP-CBNEWMAPF-20260407: If My.Settings.cbNewMapF Then
+        My.Settings.cbHeightGraph = False
             My.Settings.cbShowSpeedPanel = False
             My.Settings.Save()
-        End If
+        ' CLEANUP-CBNEWMAPF-20260407:End If
 
         If IsNumeric(GPXDiff) Then
             iGPXDiff = CInt(GPXDiff)

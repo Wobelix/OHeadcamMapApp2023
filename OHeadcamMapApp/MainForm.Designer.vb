@@ -33,10 +33,8 @@ Partial Class MainForm
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnQRxml = New System.Windows.Forms.Button()
         Me.btnQRimg = New System.Windows.Forms.Button()
-        Me.btnGpxf = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.OpenFileDialoggpx = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialogqrimg = New System.Windows.Forms.OpenFileDialog()
@@ -58,7 +56,6 @@ Partial Class MainForm
         Me.RB_onlyfilter = New System.Windows.Forms.RadioButton()
         Me.btnMapFlip = New System.Windows.Forms.Button()
         Me.txtPrepareLength = New System.Windows.Forms.TextBox()
-        Me.cbXMakeframes = New System.Windows.Forms.CheckBox()
         Me.txtOutputLength = New System.Windows.Forms.TextBox()
         Me.chbNoAudio = New System.Windows.Forms.CheckBox()
         Me.txtInpCutfromStart = New System.Windows.Forms.TextBox()
@@ -66,7 +63,6 @@ Partial Class MainForm
         Me.txtQRImage2 = New System.Windows.Forms.TextBox()
         Me.txtXMLfile2 = New System.Windows.Forms.TextBox()
         Me.txtXMLfile = New System.Windows.Forms.TextBox()
-        Me.txtGpxFile = New System.Windows.Forms.TextBox()
         Me.txtQRImage = New System.Windows.Forms.TextBox()
         Me.txtVideolist = New System.Windows.Forms.TextBox()
         Me.btnReset = New System.Windows.Forms.Button()
@@ -94,10 +90,8 @@ Partial Class MainForm
         Me.IconStatusPrepare = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.lblMapLength = New System.Windows.Forms.Label()
         Me.lblVideoInLength = New System.Windows.Forms.Label()
         Me.iconStatusVideoIn = New System.Windows.Forms.Label()
-        Me.IconStatusMakeMap = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -138,12 +132,13 @@ Partial Class MainForm
         Me.btnQRimg2 = New System.Windows.Forms.Button()
         Me.btnQRXML2 = New System.Windows.Forms.Button()
         Me.lblTrackVideoInUse = New System.Windows.Forms.Label()
+        Me.btnTestWriteVideo = New System.Windows.Forms.Button()
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TimerRGCheck = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.TimerStatusRemaining = New System.Windows.Forms.Timer(Me.components)
         Me.TimerMapStatus = New System.Windows.Forms.Timer(Me.components)
-        Me.btnTestWriteVideo = New System.Windows.Forms.Button()
+        Me.lblMapLength = New System.Windows.Forms.Label()
         CType(Me.numVideoTempo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox7.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -193,12 +188,6 @@ Partial Class MainForm
         Me.btnQRimg.Name = "btnQRimg"
         Me.btnQRimg.UseVisualStyleBackColor = True
         '
-        'btnGpxf
-        '
-        resources.ApplyResources(Me.btnGpxf, "btnGpxf")
-        Me.btnGpxf.Name = "btnGpxf"
-        Me.btnGpxf.UseVisualStyleBackColor = True
-        '
         'Label4
         '
         resources.ApplyResources(Me.Label4, "Label4")
@@ -208,11 +197,6 @@ Partial Class MainForm
         '
         resources.ApplyResources(Me.Label3, "Label3")
         Me.Label3.Name = "Label3"
-        '
-        'Label2
-        '
-        resources.ApplyResources(Me.Label2, "Label2")
-        Me.Label2.Name = "Label2"
         '
         'Label1
         '
@@ -360,15 +344,6 @@ Partial Class MainForm
         Me.ToolTip2.SetToolTip(Me.txtPrepareLength, resources.GetString("txtPrepareLength.ToolTip"))
         Me.ToolTip1.SetToolTip(Me.txtPrepareLength, resources.GetString("txtPrepareLength.ToolTip1"))
         '
-        'cbXMakeframes
-        '
-        resources.ApplyResources(Me.cbXMakeframes, "cbXMakeframes")
-        Me.cbXMakeframes.Checked = Global.OHeadcamMapApp.My.MySettings.Default.cbXMakeframes
-        Me.cbXMakeframes.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.OHeadcamMapApp.My.MySettings.Default, "cbXMakeframes", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.cbXMakeframes.Name = "cbXMakeframes"
-        Me.ToolTip1.SetToolTip(Me.cbXMakeframes, resources.GetString("cbXMakeframes.ToolTip"))
-        Me.cbXMakeframes.UseVisualStyleBackColor = True
-        '
         'txtOutputLength
         '
         Me.txtOutputLength.BackColor = System.Drawing.SystemColors.Window
@@ -402,7 +377,6 @@ Partial Class MainForm
         MySettings1.bUseMapTrackingVideo = False
         MySettings1.cbHeightGraph = True
         MySettings1.cbLoopMusic = True
-        MySettings1.cbNewMapF = False
         MySettings1.cbSetImgM = False
         MySettings1.cbShowLegMAp = True
         MySettings1.cbShowRoute = True
@@ -459,6 +433,8 @@ Partial Class MainForm
         MySettings1.MILegMargin = 50
         MySettings1.MILegRad = 40
         MySettings1.MILegWidth = 350
+        MySettings1.MISmoothFrameStepSeconds = 0.25R
+        MySettings1.MISmoothParallelGeneration = True
         MySettings1.MITailColor = System.Drawing.Color.Red
         MySettings1.MITailDuration = 30
         MySettings1.MITailRatio = New Decimal(New Integer() {9, 0, 0, 65536})
@@ -581,15 +557,6 @@ Partial Class MainForm
         Me.txtXMLfile.Text = Global.OHeadcamMapApp.My.MySettings.Default.QRXML1
         Me.ToolTip2.SetToolTip(Me.txtXMLfile, resources.GetString("txtXMLfile.ToolTip"))
         Me.ToolTip1.SetToolTip(Me.txtXMLfile, resources.GetString("txtXMLfile.ToolTip1"))
-        '
-        'txtGpxFile
-        '
-        Me.txtGpxFile.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "GPXfile", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtGpxFile, "txtGpxFile")
-        Me.txtGpxFile.Name = "txtGpxFile"
-        Me.txtGpxFile.Text = Global.OHeadcamMapApp.My.MySettings.Default.GPXfile
-        Me.ToolTip2.SetToolTip(Me.txtGpxFile, resources.GetString("txtGpxFile.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtGpxFile, resources.GetString("txtGpxFile.ToolTip1"))
         '
         'txtQRImage
         '
@@ -731,18 +698,16 @@ Partial Class MainForm
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.MistyRose
+        Me.GroupBox1.Controls.Add(Me.lblMapLength)
         Me.GroupBox1.Controls.Add(Me.IconStatusPrepare)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.txtPrepareLength)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.btnPrepareInput)
-        Me.GroupBox1.Controls.Add(Me.lblMapLength)
         Me.GroupBox1.Controls.Add(Me.lblVideoInLength)
         Me.GroupBox1.Controls.Add(Me.iconStatusVideoIn)
-        Me.GroupBox1.Controls.Add(Me.IconStatusMakeMap)
         Me.GroupBox1.Controls.Add(Me.GroupBox7)
-        Me.GroupBox1.Controls.Add(Me.cbXMakeframes)
         Me.GroupBox1.Controls.Add(Me.Label21)
         Me.GroupBox1.Controls.Add(Me.cbXJoin)
         resources.ApplyResources(Me.GroupBox1, "GroupBox1")
@@ -767,13 +732,6 @@ Partial Class MainForm
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.TabStop = False
         '
-        'lblMapLength
-        '
-        resources.ApplyResources(Me.lblMapLength, "lblMapLength")
-        Me.lblMapLength.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "lblMapLength", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.lblMapLength.Name = "lblMapLength"
-        Me.lblMapLength.Text = Global.OHeadcamMapApp.My.MySettings.Default.lblMapLength
-        '
         'lblVideoInLength
         '
         resources.ApplyResources(Me.lblVideoInLength, "lblVideoInLength")
@@ -786,12 +744,6 @@ Partial Class MainForm
         Me.iconStatusVideoIn.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         resources.ApplyResources(Me.iconStatusVideoIn, "iconStatusVideoIn")
         Me.iconStatusVideoIn.Name = "iconStatusVideoIn"
-        '
-        'IconStatusMakeMap
-        '
-        Me.IconStatusMakeMap.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
-        resources.ApplyResources(Me.IconStatusMakeMap, "IconStatusMakeMap")
-        Me.IconStatusMakeMap.Name = "IconStatusMakeMap"
         '
         'Label21
         '
@@ -981,14 +933,11 @@ Partial Class MainForm
         '
         Me.GroupBox10.Controls.Add(Me.chkMapFlipOnOff)
         Me.GroupBox10.Controls.Add(Me.grpMapFlip)
-        Me.GroupBox10.Controls.Add(Me.Label2)
-        Me.GroupBox10.Controls.Add(Me.btnGpxf)
         Me.GroupBox10.Controls.Add(Me.Label4)
         Me.GroupBox10.Controls.Add(Me.btnQRimg)
         Me.GroupBox10.Controls.Add(Me.txtXMLfile)
         Me.GroupBox10.Controls.Add(Me.btnQRxml)
         Me.GroupBox10.Controls.Add(Me.Label3)
-        Me.GroupBox10.Controls.Add(Me.txtGpxFile)
         Me.GroupBox10.Controls.Add(Me.txtQRImage)
         resources.ApplyResources(Me.GroupBox10, "GroupBox10")
         Me.GroupBox10.Name = "GroupBox10"
@@ -1077,6 +1026,12 @@ Partial Class MainForm
         Me.lblTrackVideoInUse.ForeColor = System.Drawing.Color.Red
         Me.lblTrackVideoInUse.Name = "lblTrackVideoInUse"
         '
+        'btnTestWriteVideo
+        '
+        resources.ApplyResources(Me.btnTestWriteVideo, "btnTestWriteVideo")
+        Me.btnTestWriteVideo.Name = "btnTestWriteVideo"
+        Me.btnTestWriteVideo.UseVisualStyleBackColor = True
+        '
         'TimerRGCheck
         '
         Me.TimerRGCheck.Interval = 5000
@@ -1093,11 +1048,10 @@ Partial Class MainForm
         '
         Me.TimerMapStatus.Interval = 500
         '
-        'btnTestWriteVideo
+        'lblMapLength
         '
-        resources.ApplyResources(Me.btnTestWriteVideo, "btnTestWriteVideo")
-        Me.btnTestWriteVideo.Name = "btnTestWriteVideo"
-        Me.btnTestWriteVideo.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.lblMapLength, "lblMapLength")
+        Me.lblMapLength.Name = "lblMapLength"
         '
         'MainForm
         '
@@ -1148,12 +1102,9 @@ Partial Class MainForm
     Friend WithEvents txtXMLfile As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents txtQRImage As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtGpxFile As TextBox
     Friend WithEvents btnQRxml As Button
     Friend WithEvents btnQRimg As Button
-    Friend WithEvents btnGpxf As Button
     Friend WithEvents OpenFileDialoggpx As OpenFileDialog
     Friend WithEvents OpenFileDialogqrimg As OpenFileDialog
     Friend WithEvents OpenFileDialogxml As OpenFileDialog
@@ -1193,13 +1144,11 @@ Partial Class MainForm
     Friend WithEvents chbNoAudio As CheckBox
     Friend WithEvents Label16 As Label
     Friend WithEvents numVideoTempo As NumericUpDown
-    Friend WithEvents cbXMakeframes As CheckBox
     Friend WithEvents btnMakeAdjVideo As Button
     Friend WithEvents btnAddMusic As Button
     Friend WithEvents TimerRGCheck As Timer
     Friend WithEvents iconStatusVideoIn As Label
     Friend WithEvents lblVideoInLength As Label
-    Friend WithEvents IconStatusMakeMap As Label
     Friend WithEvents IconStatusOutput As Label
     Friend WithEvents lblOutputVideoLength As Label
     Friend WithEvents StatusStrip1 As StatusStrip
@@ -1209,7 +1158,6 @@ Partial Class MainForm
     Friend WithEvents GroupBox10 As GroupBox
     Friend WithEvents btnMapSetting As Button
     Friend WithEvents btnPrepareInput As Button
-    Friend WithEvents lblMapLength As Label
     Friend WithEvents btnRunMakeVideo As Button
     Friend WithEvents Label5 As Label
     Friend WithEvents txtOutputLength As TextBox
@@ -1258,4 +1206,5 @@ Partial Class MainForm
     Friend WithEvents Label20 As Label
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents btnTestWriteVideo As Button
+    Friend WithEvents lblMapLength As Label
 End Class
