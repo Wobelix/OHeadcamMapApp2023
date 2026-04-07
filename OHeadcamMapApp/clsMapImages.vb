@@ -33,6 +33,7 @@ Public Class clMapsImgsToFiles
 
     End Sub
 
+    ' REPLACED WITH SMOOTH: use WriteImgsToVideoSmooth or clsMapRenderEngine for interpolated map video generation.
     Public Sub WriteImgsToVideo(outputFile As String, fps As Integer, Optional StartTime As Integer = 0, Optional Duration As Integer = -1, Optional VideoWidth As Integer = 1920)
         WriteImgsToVideoInternal(outputFile, 1.0, fps, StartTime, Duration, VideoWidth)
     End Sub
@@ -40,6 +41,7 @@ Public Class clMapsImgsToFiles
 #Region "Smooth Video Rendering"
     ' Smooth rendering is driven by time spacing between frames.
     ' Example: FrameStepSeconds = 0.5 gives one rendered frame every half second and defaults to 2 fps.
+    ' REPLACED WITH CLSMAPRENDERENGINE: smooth overlay video generation now runs through clsMapRenderEngine.
     Public Sub WriteImgsToVideoSmooth(outputFile As String, Optional FrameStepSeconds As Double = 0.5, Optional StartTime As Double = 0, Optional Duration As Double = -1, Optional VideoWidth As Integer = 1920, Optional OutputFps As Double = -1)
         If FrameStepSeconds <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(FrameStepSeconds))
         SmoothFrameStepSeconds = FrameStepSeconds
@@ -55,6 +57,7 @@ Public Class clMapsImgsToFiles
         If outputFps > 0 Then Return outputFps
         Return 1.0 / frameStepSeconds
     End Function
+    ' REPLACED WITH CLSMAPRENDERENGINE: legacy smooth video writer kept only for reference.
     Private Sub WriteImgsToVideoInternal(outputFile As String, frameStepSeconds As Double, fps As Double, Optional StartTime As Double = 0, Optional Duration As Double = -1, Optional VideoWidth As Integer = 1920)
         If frameStepSeconds <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(frameStepSeconds))
         If fps <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(fps))
@@ -257,6 +260,7 @@ Public Class clMapsImgsToFiles
         ' Divide the images into equal-sized chunks for each thread '
         Return endIdx - startIdx + 1
     End Function
+    ' REPLACED WITH SMOOTH: legacy image-sequence export kept for reference.
     Public Sub WriteImgsToFiles(SetnumThreads As Integer, Optional StartTime As Integer = 0, Optional Duration As Integer = -1, Optional VideoWidth As Integer = 1920)
         Dim imagePaths As New List(Of String)
         Dim multithread As Boolean = True
@@ -929,6 +933,7 @@ Public Class clsMapImages
         Return SmoothLegBackgroundImage
     End Function
 #End Region
+    ' REPLACED WITH SMOOTH: use DrawPositionOnBackgroundImageSmooth for interpolated map rendering.
     Public Function DrawPositionOnBackgroundImage(currentTimecode As Integer) As Bitmap
         ' Get the current position index based on the elapsed time
         Dim currentPosIndex As Integer = currentTimecode
@@ -1075,6 +1080,7 @@ Public Class clsMapImages
         Return path
     End Function
 
+    ' LEGACY UNUSED HELPER: older angle smoothing variant kept for reference.
     Function SmoothedAngle(timeCode As Integer, windowSize As Integer) As Double
         ' Calculate the start and end indices of the moving average window
 
@@ -1102,6 +1108,7 @@ Public Class clsMapImages
         Return filteredAngle
         'Return avgAngle
     End Function
+    ' LEGACY HELPER FOR REPLACED METHODS: only used by older non-smooth zoom/leg variants.
     Function SmoothedAngle2(timeCode As Integer, windowSize As Integer) As Double
         ' Calculate the start and end indices of the moving average window
         Dim endIdx As Integer = timeCode - windowSize
@@ -1141,6 +1148,7 @@ Public Class clsMapImages
 
         Return angle
     End Function
+    ' REPLACED WITH SMOOTH: use ZoomImageSmooth for interpolated zoom rendering.
     Function ZoomImage(timeCode As Integer) As Bitmap
         Return ZoomImage3(timeCode, ZoomWidth, ZoomHeight, ZoomRad)
     End Function
@@ -1150,6 +1158,7 @@ Public Class clsMapImages
     End Function
 #End Region
 
+    ' LEGACY BACKUP COPY: older zoom implementation kept for comparison/reference.
     Function ZoomImage2(timeCode As Integer, pxwidth As Integer, pxheight As Integer, pxroundrad As Integer) As Bitmap
         Dim height As Double = pxheight
         Dim width As Double = pxwidth
@@ -1208,6 +1217,7 @@ Public Class clsMapImages
         ' Draw the cut image onto the new bitmap
         Return ZoomMapImage
     End Function
+    ' LEGACY BACKUP COPY: superseded older zoom variant kept for reference.
     Function ZoomImage3_backup(timeCode As Integer, OutWidth As Integer, OutHeight As Integer, pxroundrad As Integer, Optional fromAdj As Boolean = True) As Bitmap
         Dim startPoint As Point
         Dim pxClipLength As Integer
@@ -1333,6 +1343,7 @@ Public Class clsMapImages
 
     End Function
 
+    ' REPLACED WITH SMOOTH: use ZoomImage3Smooth for interpolated zoom rendering.
     Function ZoomImage3(timeCode As Integer, OutWidth As Integer, OutHeight As Integer, pxroundrad As Integer, Optional fromAdj As Boolean = True) As Bitmap
         Dim startPoint As Point
         Dim pxClipLength As Integer
@@ -1638,6 +1649,7 @@ Public Class clsMapImages
             ' Hvis logning fejler, kan du evt. vise en besked, logge andetsteds eller ignorere det
         End Try
     End Sub
+    ' REPLACED WITH SMOOTH: use LapImageSmooth for interpolated leg rendering.
     Function LapImage(CurrentTime As Integer) As Bitmap
         Return LapImage2(CurrentTime, LegMargin, LegWidth, LegHeight, LegRad)
     End Function
@@ -1646,6 +1658,7 @@ Public Class clsMapImages
         Return LapImage2Smooth(CurrentTime, LegMargin, LegWidth, LegHeight, LegRad)
     End Function
 #End Region
+    ' LEGACY BACKUP COPY: superseded older leg variant kept for reference.
     Function LapImage2_backup(CurrentTime As Integer, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
         If CurrentTime < 0 Then CurrentTime = 0
         If CurrentTime > QRRoutePoints.RoutePoints.Count - 1 Then CurrentTime = QRRoutePoints.RoutePoints.Count - 1
@@ -1740,6 +1753,7 @@ Public Class clsMapImages
         Return LegMapImage
 
     End Function
+    ' REPLACED WITH SMOOTH: use LapImage2Smooth for interpolated leg rendering.
     Function LapImage2(CurrentTime As Integer, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
         If CurrentTime < 0 Then CurrentTime = 0
         If CurrentTime > QRRoutePoints.RoutePoints.Count - 1 Then CurrentTime = QRRoutePoints.RoutePoints.Count - 1
@@ -2070,3 +2084,4 @@ Public Class clsMapImages
 
 
 End Class
+

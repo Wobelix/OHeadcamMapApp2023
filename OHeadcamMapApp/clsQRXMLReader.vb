@@ -21,7 +21,7 @@ Public Class clsQRXMLReader
         Dim mainForm As MainForm = CType(Application.OpenForms("MainForm"), MainForm)
         If mainForm IsNot Nothing Then
             mainForm.StatusProgressBar1.Visible = True
-            mainForm.StatusBarProgressText.Text = "Begins reading XML"
+            'mainForm.StatusBarProgressText.Text = "Begins reading XML"
         End If
         ReadXML = True
         Try

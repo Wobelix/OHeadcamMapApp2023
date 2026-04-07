@@ -17,20 +17,21 @@ Public Class MainForm
     Private Shared MeVar As MainForm
     Private uiContext As SynchronizationContext
     Private uiThreadId As Integer
-    Public cmd1Join As String = "VIDEOJOIN"
-    Public cmd2Deshake As String = "DESHAKE"
-    Public cmd3Mapframes As String = "MAPFRAMES"
-    Public cmd4MakeVideo As String = "MAKEVIDEO"
-    Public iniOutFile As String = "FINALVIDEO"
-    Public iniVideo As String = "VIDEO"
-    Public iniGPX As String = "GPX"
-    Public iniQRIMG As String = "QUICKROUTE_IMG"
-    Public iniQRXML As String = "QUICKROUTE_ROUTEDATA"
-    Public iniCropStart As String = "CROPSTART"
-    Public iniCropEnd As String = "CROPEND"
-    Public iniFPS As String = "FRAMERATE"
-    Public IniFN As String = "RGmapvideo.ini"
-    Public ExeF As String = "RGmapvideo.exe"
+    'OLD MAP 20260407:
+    'Public cmd1Join As String = "VIDEOJOIN"
+    'Public cmd2Deshake As String = "DESHAKE"
+    'Public cmd3Mapframes As String = "MAPFRAMES"
+    'Public cmd4MakeVideo As String = "MAKEVIDEO"
+    'Public iniOutFile As String = "FINALVIDEO"
+    'Public iniVideo As String = "VIDEO"
+    'Public iniGPX As String = "GPX"
+    'Public iniQRIMG As String = "QUICKROUTE_IMG"
+    'Public iniQRXML As String = "QUICKROUTE_ROUTEDATA"
+    'Public iniCropStart As String = "CROPSTART"
+    'Public iniCropEnd As String = "CROPEND"
+    'Public iniFPS As String = "FRAMERATE"
+    'Public IniFN As String = "RGmapvideo.ini"
+    'Public ExeF As String = "RGmapvideo.exe"
     Public FFMpegExe As String = "ffmpeg.exe"
     Public ExtraFunc As clsExtra
     Public VidstabTransform As String
@@ -654,10 +655,7 @@ Public Class MainForm
 
     End Function
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
-        ' Dim FFPlayWin As New ffplay(Me)
-        ' FFPlayWin.Show()
-    End Sub
+
     Public Function Run_CommandX(exe As String, arg As String, ByRef Log As String) As Boolean
         Cursor = Cursors.WaitCursor
         CurrentLog = ""
@@ -704,47 +702,48 @@ Public Class MainForm
         Cursor = Cursors.Default
     End Function
 
-    Public Function Run_Command(cmd As String, Optional exefile As String = "A") As Boolean
-        Dim file, cmdx As String
-        CurrentLog = ""
-        If exefile = "A" Then
-            file = ExeF
-        Else
-            file = exefile
-        End If
-        ClearProgressBar(True)
+    'CLEANUP20260407: Samme som Run_CommandX - kan nok nøjes med 1 funktion
+    'Public Function Run_Command(cmd As String, Optional exefile As String = "A") As Boolean
+    '    Dim file, cmdx As String
+    '    CurrentLog = ""
+    '    If exefile = "A" Then
+    '        file = ExeF
+    '    Else
+    '        file = exefile
+    '    End If
+    '    ClearProgressBar(True)
 
-        LogMapF += Texts.LogStartProcess + file + " " + cmd + vbCrLf
-        If Not IsNothing(proc) Then proc = Nothing
-        proc = New clsRunprocess(AddressOf UpdateTextBox)
-        proc.WorkingDir = AppFolder
-        proc.Run_Process2(file, cmd)
-        'proc.Run_Process2(file, cmd + " > rgmapvideolog.txt")
-        Cursor = Cursors.WaitCursor
-        ProcessFinished = False
+    '    LogMapF += Texts.LogStartProcess + file + " " + cmd + vbCrLf
+    '    If Not IsNothing(proc) Then proc = Nothing
+    '    proc = New clsRunprocess(AddressOf UpdateTextBox)
+    '    proc.WorkingDir = AppFolder
+    '    proc.Run_Process2(file, cmd)
+    '    'proc.Run_Process2(file, cmd + " > rgmapvideolog.txt")
+    '    Cursor = Cursors.WaitCursor
+    '    ProcessFinished = False
 
-        Do
-            Thread.Sleep(200)
-            Application.DoEvents()
-        Loop While (Not ProcessFinished) And (Not proc.My_Process.HasExited)
-        'MsgBox("finished")
-        proc.ClearProcess()
-        ClearProgressBar(False)
-        Select Case cmd
-            Case cmd1Join
-                LogJoin = LogJoin + CurrentLog
-            Case cmd2Deshake
-                LogDeshake = LogDeshake + CurrentLog
-            Case cmd3Mapframes
-                LogMapF = LogMapF + cmd3Mapframes + vbCrLf + LogMapF + CurrentLog + vbCrLf + "----END----" + vbCrLf
-            Case cmd4MakeVideo
-                LogMakeVideo = LogMakeVideo + CurrentLog
-            Case Else
-                LogJoin = LogJoin + CurrentLog
-        End Select
+    '    Do
+    '        Thread.Sleep(200)
+    '        Application.DoEvents()
+    '    Loop While (Not ProcessFinished) And (Not proc.My_Process.HasExited)
+    '    'MsgBox("finished")
+    '    proc.ClearProcess()
+    '    ClearProgressBar(False)
+    '    Select Case cmd
+    '        Case cmd1Join
+    '            LogJoin = LogJoin + CurrentLog
+    '        Case cmd2Deshake
+    '            LogDeshake = LogDeshake + CurrentLog
+    '        Case cmd3Mapframes
+    '            LogMapF = LogMapF + cmd3Mapframes + vbCrLf + LogMapF + CurrentLog + vbCrLf + "----END----" + vbCrLf
+    '        Case cmd4MakeVideo
+    '            LogMakeVideo = LogMakeVideo + CurrentLog
+    '        Case Else
+    '            LogJoin = LogJoin + CurrentLog
+    '    End Select
 
-        Cursor = Cursors.Default
-    End Function
+    '    Cursor = Cursors.Default
+    'End Function
     Public Function MakeMusicVideo() As Boolean
         If Not My.Computer.FileSystem.FileExists(My.Settings.AudioVideofile) Then
             MsgBox(Texts.ErrNoFile + My.Settings.AudioVideofile)
