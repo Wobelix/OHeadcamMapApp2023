@@ -35,6 +35,10 @@ Partial Class frmSettings
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtSettingSbSCode = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.btnSelectFolder = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -45,17 +49,16 @@ Partial Class frmSettings
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmbPreset = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.txtSettingSbSCode = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.chkHDformat = New System.Windows.Forms.CheckBox()
         Me.cbNewMapF = New System.Windows.Forms.CheckBox()
         Me.txtVideoWorkfolder = New System.Windows.Forms.TextBox()
         Me.txtCRF = New System.Windows.Forms.TextBox()
         Me.txtFPS = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.numSmooth = New System.Windows.Forms.NumericUpDown()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.numSmooth, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label12
@@ -98,6 +101,8 @@ Partial Class frmSettings
         'GroupBox1
         '
         Me.GroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.None
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.cmbPreset)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.TextBox4)
         Me.GroupBox1.Controls.Add(Me.Label5)
@@ -123,6 +128,34 @@ Partial Class frmSettings
         resources.ApplyResources(Me.TextBox4, "TextBox4")
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
+        '
+        'TextBox2
+        '
+        Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabDetect", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox2, "TextBox2")
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabDetect
+        '
+        'TextBox1
+        '
+        Me.TextBox1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "No_deshake_filter", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox1, "TextBox1")
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Text = Global.OHeadcamMapApp.My.MySettings.Default.No_deshake_filter
+        '
+        'txtSettingSbSCode
+        '
+        Me.txtSettingSbSCode.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "SettingSbSCode", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtSettingSbSCode, "txtSettingSbSCode")
+        Me.txtSettingSbSCode.Name = "txtSettingSbSCode"
+        Me.txtSettingSbSCode.Text = Global.OHeadcamMapApp.My.MySettings.Default.SettingSbSCode
+        '
+        'TextBox3
+        '
+        Me.TextBox3.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabTransform", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox3, "TextBox3")
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabTransform
         '
         'btnSelectFolder
         '
@@ -189,34 +222,6 @@ Partial Class frmSettings
         resources.ApplyResources(Me.Label3, "Label3")
         Me.Label3.Name = "Label3"
         '
-        'TextBox2
-        '
-        Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabDetect", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.TextBox2, "TextBox2")
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabDetect
-        '
-        'TextBox1
-        '
-        Me.TextBox1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "No_deshake_filter", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.TextBox1, "TextBox1")
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Text = Global.OHeadcamMapApp.My.MySettings.Default.No_deshake_filter
-        '
-        'txtSettingSbSCode
-        '
-        Me.txtSettingSbSCode.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "SettingSbSCode", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtSettingSbSCode, "txtSettingSbSCode")
-        Me.txtSettingSbSCode.Name = "txtSettingSbSCode"
-        Me.txtSettingSbSCode.Text = Global.OHeadcamMapApp.My.MySettings.Default.SettingSbSCode
-        '
-        'TextBox3
-        '
-        Me.TextBox3.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabTransform", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.TextBox3, "TextBox3")
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabTransform
-        '
         'chkHDformat
         '
         resources.ApplyResources(Me.chkHDformat, "chkHDformat")
@@ -255,12 +260,27 @@ Partial Class frmSettings
         Me.txtFPS.Name = "txtFPS"
         Me.txtFPS.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegOutFps
         '
+        'Label9
+        '
+        resources.ApplyResources(Me.Label9, "Label9")
+        Me.Label9.Name = "Label9"
+        '
+        'numSmooth
+        '
+        Me.numSmooth.DecimalPlaces = 2
+        Me.numSmooth.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        resources.ApplyResources(Me.numSmooth, "numSmooth")
+        Me.numSmooth.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numSmooth.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numSmooth.Name = "numSmooth"
+        Me.numSmooth.Value = New Decimal(New Integer() {25, 0, 0, 131072})
+        '
         'frmSettings
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.cmbPreset)
+        Me.Controls.Add(Me.numSmooth)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.chkHDformat)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.btnReset)
@@ -280,6 +300,7 @@ Partial Class frmSettings
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.numSmooth, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -315,4 +336,6 @@ Partial Class frmSettings
     Friend WithEvents chkHDformat As CheckBox
     Friend WithEvents cmbPreset As ComboBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents numSmooth As NumericUpDown
 End Class

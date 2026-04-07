@@ -53,7 +53,6 @@ Public Class MainForm
     Public Shared strCurrentDone As String
     Public WriteToFiles As clMapsImgsToFiles
     Public WriteToFilesComplete As Boolean = False
-    Private Const SmoothOverlayFrameStepSeconds As Double = 0.25
     Private Const SmoothOverlayFolderName As String = "temp_smooth"
     Private Const SmoothOverlayBaseName As String = "map_overlay.mp4"
 
@@ -1010,7 +1009,7 @@ Public Class MainForm
             Return
         End If
 
-        SaveFileDialogOutput.FileName = "testrender.mp4"
+        SaveFileDialogOutput.FileName = "testrender" & GetSmoothOverlayVideoExtension()
         If SaveFileDialogOutput.ShowDialog() <> DialogResult.OK Then Return
         Dim outFile As String = SaveFileDialogOutput.FileName
 
@@ -1029,12 +1028,11 @@ Public Class MainForm
         Task.Run(Sub()
                      Try
                          Dim renderEngine As New clsMapRenderEngine(RPs, mapImg)
-                         renderEngine.FrameStepSeconds = 0.5
+                         renderEngine.FrameStepSeconds = GetSmoothOverlayFrameStepSeconds()
                          Dim outDir As String = Path.GetDirectoryName(outFile)
                          If String.IsNullOrEmpty(outDir) Then outDir = "."
                          Dim outBaseName As String = Path.GetFileNameWithoutExtension(outFile)
-                         Dim outExt As String = Path.GetExtension(outFile)
-                         If String.IsNullOrEmpty(outExt) Then outExt = ".mp4"
+                         Dim outExt As String = GetSmoothOverlayVideoExtension()
                          Dim legOutFile As String = Path.Combine(outDir, outBaseName & "_leg" & outExt)
                          Dim zoomOutFile As String = Path.Combine(outDir, outBaseName & "_zoom" & outExt)
 
@@ -1096,6 +1094,76 @@ Public Class MainForm
         End If
         Return duration
     End Function
+    Private Function GetSmoothOverlayFrameStepSeconds() As Double
+        Dim frameStep As Double = My.Settings.MISmoothFrameStepSeconds
+        If frameStep <= 0 Then
+            frameStep = 0.25
+            My.Settings.MISmoothFrameStepSeconds = frameStep
+        End If
+        Return frameStep
+    End Function
+    Private Function GetSmoothOverlayVideoExtension() As String
+        If My.Settings.MIFrameFeather Then Return ".mov"
+        Return ".mp4"
+    End Function
+    Private Function IsDanishUi() As Boolean
+        Return Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.Equals("da", StringComparison.OrdinalIgnoreCase)
+    End Function
+    Private Function GetMapVideoProgressText() As String
+        If IsDanishUi() Then Return "Genererer kortvideoer..."
+        Return "Generating map videos..."
+    End Function
+    Private Function GetMapVideoStartLogText() As String
+        If IsDanishUi() Then Return "Genererer kortvideoer"
+        Return "Generating map videos"
+    End Function
+    Private Function GetMapVideoFailedLogText() As String
+        If IsDanishUi() Then Return "Generering af kortvideoer mislykkedes"
+        Return "Map video generation failed"
+    End Function
+    Private Function GetMapVideoGeneratedLogText(folderName As String) As String
+        If IsDanishUi() Then Return "Kortvideoer genereret i " & folderName
+        Return "Map videos generated in " & folderName
+    End Function
+    Private Function GetMapVideoTimingHeaderText() As String
+        If IsDanishUi() Then Return "Tider for kortvideoer:"
+        Return "Map video timing:"
+    End Function
+    Private Function GetMapVideoTimingLabelTotal() As String
+        If IsDanishUi() Then Return "  Samlet genereringstid: "
+        Return "  Total asset generation: "
+    End Function
+    Private Function GetMapVideoTimingLabelRenderLoop() As String
+        If IsDanishUi() Then Return "  Samlet rendertid: "
+        Return "  Render loop: "
+    End Function
+    Private Function GetMapVideoTimingLabelBaseMap() As String
+        If IsDanishUi() Then Return "  Basiskort-tegning: "
+        Return "  Base map draw: "
+    End Function
+    Private Function GetMapVideoTimingLabelZoomRender() As String
+        If IsDanishUi() Then Return "  Zoom-rendering: "
+        Return "  Zoom render: "
+    End Function
+    Private Function GetMapVideoTimingLabelLegRender() As String
+        If IsDanishUi() Then Return "  Leg-rendering: "
+        Return "  Leg render: "
+    End Function
+    Private Function GetMapVideoTimingLabelZoomEncode() As String
+        If IsDanishUi() Then Return "  Zoom-kodning: "
+        Return "  Zoom encode process: "
+    End Function
+    Private Function GetMapVideoTimingLabelLegEncode() As String
+        If IsDanishUi() Then Return "  Leg-kodning: "
+        Return "  Leg encode process: "
+    End Function
+    Private Function GetMapVideoTimingNoteText() As String
+        If IsDanishUi() Then Return "  Bemærk: kodningstider overlapper med rendering."
+        Return "  Note: encode times overlap with rendering."
+    End Function
+    Private Function GetSmoothOverlayUseParallelGeneration() As Boolean
+        Return My.Settings.MISmoothParallelGeneration
+    End Function
     Private Function MakeSmoothMapVideoAssets() As Boolean
         Dim RPs As New clsQRRoutePoints
         Dim mapImg As Bitmap
@@ -1112,40 +1180,124 @@ Public Class MainForm
         End If
         Directory.CreateDirectory(smoothFolder)
 
-        Dim smoothBaseOutput As String = Path.Combine(smoothFolder, SmoothOverlayBaseName)
-        Dim renderEngine As New clsMapRenderEngine(RPs, mapImg)
         Dim duration As Integer = GetMapOverlayDurationSeconds()
         Dim smoothBaseName As String = Path.GetFileNameWithoutExtension(SmoothOverlayBaseName)
-        Dim zoomVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_z.mp4")
-        Dim legVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_l.mp4")
+        Dim smoothOverlayExtension As String = GetSmoothOverlayVideoExtension()
+        Dim zoomVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_z" & smoothOverlayExtension)
+        Dim legVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_l" & smoothOverlayExtension)
         Dim zoomRenderElapsed As TimeSpan = TimeSpan.Zero
         Dim zoomEncodeElapsed As TimeSpan = TimeSpan.Zero
         Dim legRenderElapsed As TimeSpan = TimeSpan.Zero
         Dim legEncodeElapsed As TimeSpan = TimeSpan.Zero
         Dim frameCount As Integer = 0
+        Dim frameStepSeconds As Double = GetSmoothOverlayFrameStepSeconds()
+        Dim useParallelGeneration As Boolean = GetSmoothOverlayUseParallelGeneration()
+        Dim totalVideoCount As Integer = 0
+        If My.Settings.cbShowRoute Then totalVideoCount += 1
+        If My.Settings.cbShowLegMAp Then totalVideoCount += 1
+        Dim timelineLength As Double = If(duration > 0, duration, Math.Max(0, RPs.RoutePoints.Count - 1))
+        Dim framesPerVideo As Integer = CInt(Math.Floor(timelineLength / frameStepSeconds + 0.0001)) + 1
+        Dim totalFramesPlanned As Integer = Math.Max(1, framesPerVideo)
+        Dim zoomEngine As clsMapRenderEngine = Nothing
+        Dim legEngine As clsMapRenderEngine = Nothing
 
         Try
             ' Active smooth asset path now uses the render-engine implementation.
-            renderEngine.FrameStepSeconds = SmoothOverlayFrameStepSeconds
-
             If My.Settings.cbShowRoute Then
-                renderEngine.WriteZoomVideo(zoomVideo,
-                                            StartTime:=0,
-                                            Duration:=duration,
-                                            videoWidth:=ExtraFunc.InputWidth)
-                zoomRenderElapsed = renderEngine.LastRenderElapsed
-                zoomEncodeElapsed = renderEngine.LastEncodeElapsed
-                frameCount = renderEngine.LastFrameCount
+                zoomEngine = New clsMapRenderEngine(RPs, mapImg)
+                zoomEngine.FrameStepSeconds = frameStepSeconds
+            End If
+            If My.Settings.cbShowLegMAp Then
+                legEngine = New clsMapRenderEngine(RPs, mapImg)
+                legEngine.FrameStepSeconds = frameStepSeconds
+            End If
+            ClearProgressBar(True)
+            EnsureInvoke(Sub()
+                             Timer2.Stop()
+                             StatusRemaining.Text = ""
+                             StatusBarProgressText.Text = ""
+                             StatusProgressBar1.Maximum = 100
+                             StatusProgressBar1.Value = 0
+                         End Sub)
+            RemainingTimeObj.StartTime(totalFramesPlanned)
+            Dim progressSource As clsMapRenderEngine = If(legEngine, zoomEngine)
+            If progressSource IsNot Nothing Then
+                progressSource.ProgressCallback =
+                    Sub(doneFrames As Integer, totalFrames As Integer, phaseFile As String)
+                        Dim safeDone As Integer = Math.Min(totalFramesPlanned, doneFrames)
+                        RemainingTimeObj.SetGetRemainingTime(CDec(safeDone))
+                        EnsureInvoke(Sub()
+                                         StatusRemaining.Text = RemainingTimeObj.sPercent & " " & Texts.StatusTimeLeft & RemainingTimeObj.sRemainingTime
+                                         Dim progressValue As Integer = CInt(Math.Round((safeDone / Math.Max(1.0, totalFramesPlanned)) * StatusProgressBar1.Maximum))
+                                         StatusProgressBar1.Value = Math.Max(StatusProgressBar1.Minimum, Math.Min(StatusProgressBar1.Maximum, progressValue))
+                                     End Sub)
+                        Application.DoEvents()
+                    End Sub
             End If
 
-            If My.Settings.cbShowLegMAp Then
-                renderEngine.WriteLegVideo(legVideo,
-                                           StartTime:=0,
-                                           Duration:=duration,
-                                           videoWidth:=ExtraFunc.InputWidth)
-                legRenderElapsed = renderEngine.LastRenderElapsed
-                legEncodeElapsed = renderEngine.LastEncodeElapsed
-                frameCount = Math.Max(frameCount, renderEngine.LastFrameCount)
+            If legEngine IsNot Nothing Then
+                legEngine.ProgressCallback = progressSource.ProgressCallback
+            End If
+
+            If useParallelGeneration Then
+                Dim zoomTask As Threading.Tasks.Task = Nothing
+                Dim legTask As Threading.Tasks.Task = Nothing
+
+                If zoomEngine IsNot Nothing Then
+                    zoomTask = Threading.Tasks.Task.Run(
+                        Sub()
+                            zoomEngine.WriteZoomVideo(zoomVideo,
+                                                      startTime:=0,
+                                                      duration:=duration,
+                                                      videoWidth:=ExtraFunc.InputWidth)
+                        End Sub)
+                End If
+
+                If legEngine IsNot Nothing Then
+                    legTask = Threading.Tasks.Task.Run(
+                        Sub()
+                            legEngine.WriteLegVideo(legVideo,
+                                                    startTime:=0,
+                                                    duration:=duration,
+                                                    videoWidth:=ExtraFunc.InputWidth)
+                        End Sub)
+                End If
+
+                Dim activeTasks As New List(Of Threading.Tasks.Task)
+                If zoomTask IsNot Nothing Then activeTasks.Add(zoomTask)
+                If legTask IsNot Nothing Then activeTasks.Add(legTask)
+                If activeTasks.Count > 0 Then
+                    While activeTasks.Any(Function(t) Not t.IsCompleted)
+                        Application.DoEvents()
+                        Threading.Thread.Sleep(50)
+                    End While
+                    Threading.Tasks.Task.WaitAll(activeTasks.ToArray())
+                End If
+            Else
+                If zoomEngine IsNot Nothing Then
+                    zoomEngine.WriteZoomVideo(zoomVideo,
+                                              startTime:=0,
+                                              duration:=duration,
+                                              videoWidth:=ExtraFunc.InputWidth)
+                End If
+                If legEngine IsNot Nothing Then
+                    legEngine.WriteLegVideo(legVideo,
+                                            startTime:=0,
+                                            duration:=duration,
+                                            videoWidth:=ExtraFunc.InputWidth)
+                End If
+            End If
+
+            If zoomEngine IsNot Nothing Then
+                zoomRenderElapsed = zoomEngine.LastRenderElapsed
+                zoomEncodeElapsed = zoomEngine.LastEncodeElapsed
+                frameCount = Math.Max(frameCount, zoomEngine.LastFrameCount)
+            End If
+
+            If legEngine IsNot Nothing Then
+                legRenderElapsed = legEngine.LastRenderElapsed
+                legEncodeElapsed = legEngine.LastEncodeElapsed
+                frameCount = Math.Max(frameCount, legEngine.LastFrameCount)
             End If
         Finally
             mapImg.Dispose()
@@ -1158,30 +1310,37 @@ Public Class MainForm
             LastSmoothBaseMapElapsed = TimeSpan.Zero
             LastSmoothZoomRenderElapsed = zoomRenderElapsed
             LastSmoothLegRenderElapsed = legRenderElapsed
+            If zoomEngine IsNot Nothing Then zoomEngine.ProgressCallback = Nothing
+            If legEngine IsNot Nothing Then legEngine.ProgressCallback = Nothing
+            EnsureInvoke(Sub()
+                             StatusRemaining.Text = ""
+                             StatusBarProgressText.Text = ""
+                         End Sub)
+            ClearProgressBar(False)
         End Try
 
         Return ((Not My.Settings.cbShowRoute OrElse File.Exists(zoomVideo)) AndAlso
                 (Not My.Settings.cbShowLegMAp OrElse File.Exists(legVideo)))
     End Function
     Private Function GetSmoothOverlayZoomVideoPath() As String
-        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_z.mp4")
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_z" & GetSmoothOverlayVideoExtension())
     End Function
     Private Function GetSmoothOverlayLegVideoPath() As String
-        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_l.mp4")
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_l" & GetSmoothOverlayVideoExtension())
     End Function
     Private Function FormatElapsed(elapsed As TimeSpan) As String
         Return elapsed.TotalSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s"
     End Function
     Private Sub AppendSmoothTimingLog()
-        LogMapF += "Smooth overlay timing:" + vbCrLf
-        LogMapF += "  Total asset generation: " + FormatElapsed(LastSmoothAssetElapsed) + vbCrLf
-        LogMapF += "  Render loop: " + FormatElapsed(LastSmoothRenderElapsed) + " (" + LastSmoothFrameCount.ToString(CultureInfo.InvariantCulture) + " frames)" + vbCrLf
-        LogMapF += "  Base map draw: " + FormatElapsed(LastSmoothBaseMapElapsed) + vbCrLf
-        LogMapF += "  Zoom render: " + FormatElapsed(LastSmoothZoomRenderElapsed) + vbCrLf
-        LogMapF += "  Leg render: " + FormatElapsed(LastSmoothLegRenderElapsed) + vbCrLf
-        LogMapF += "  Zoom encode process: " + FormatElapsed(LastSmoothZoomEncodeElapsed) + vbCrLf
-        LogMapF += "  Leg encode process: " + FormatElapsed(LastSmoothLegEncodeElapsed) + vbCrLf
-        LogMapF += "  Note: encode process times overlap with render loop." + vbCrLf
+        LogMapF += GetMapVideoTimingHeaderText() + vbCrLf
+        LogMapF += GetMapVideoTimingLabelTotal() + FormatElapsed(LastSmoothAssetElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelRenderLoop() + FormatElapsed(LastSmoothRenderElapsed) + " (" + LastSmoothFrameCount.ToString(CultureInfo.InvariantCulture) + " frames)" + vbCrLf
+        LogMapF += GetMapVideoTimingLabelBaseMap() + FormatElapsed(LastSmoothBaseMapElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelZoomRender() + FormatElapsed(LastSmoothZoomRenderElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelLegRender() + FormatElapsed(LastSmoothLegRenderElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelZoomEncode() + FormatElapsed(LastSmoothZoomEncodeElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelLegEncode() + FormatElapsed(LastSmoothLegEncodeElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingNoteText() + vbCrLf
     End Sub
     Function MakeMapFiles() As Boolean
         Dim RPs As New clsQRRoutePoints
@@ -1220,12 +1379,12 @@ Public Class MainForm
         'StatusRemaining.Text = ""
         'ClearProgressBar(False)
 
-        StatusBarUpdate("Generating smooth overlay videos...")
-        LogMapF += "Generating smooth overlay videos" + vbCrLf
+        StatusBarUpdate(GetMapVideoProgressText())
+        LogMapF += GetMapVideoStartLogText() + vbCrLf
         If Not MakeSmoothMapVideoAssets() Then
-            LogMapF += "Smooth overlay video generation failed" + vbCrLf
+            LogMapF += GetMapVideoFailedLogText() + vbCrLf
         Else
-            LogMapF += "Smooth overlay videos generated in " + SmoothOverlayFolderName + vbCrLf
+            LogMapF += GetMapVideoGeneratedLogText(SmoothOverlayFolderName) + vbCrLf
             AppendSmoothTimingLog()
         End If
         Return True
@@ -1276,8 +1435,13 @@ Public Class MainForm
             End If
             LogMakeVideo += arg + vbCrLf
             StatusBarUpdate(Texts.Status5)
-            strDuration = ExtraFunc.GetVideoFileDuration(GetDeshakedFilename(True))
-            decDuration = ExtraFunc.TimeStrToSec(strDuration)
+            If String.IsNullOrWhiteSpace(txtOutputLength.Text) OrElse txtOutputLength.Text = "0" Then
+                strDuration = ExtraFunc.GetVideoFileDuration(GetDeshakedFilename(True))
+                decDuration = ExtraFunc.TimeStrToSec(strDuration)
+            Else
+                strDuration = txtOutputLength.Text
+                decDuration = ExtraFunc.TimeStrToSec(strDuration)
+            End If
             RemainingTimeObj.StartTime(decDuration)
             EnsureInvoke(Sub() StatusRemaining.Text = "")
             TimerStatusRemaining.Start()

@@ -746,7 +746,11 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + zoomVideoFile + """"
             Dim zoomTag As String = $"[{nextInputIndex}:v]"
-            filterParts.Add($"{zoomTag}format=rgba,{keyFilter},colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
+            Dim zoomInputFilter As String = "format=rgba,colorchannelmixer=aa=" & transparency
+            If String.Equals(Path.GetExtension(zoomVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
+                zoomInputFilter = "format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+            End If
+            filterParts.Add($"{zoomTag}{zoomInputFilter}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
@@ -758,7 +762,11 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + legVideoFile + """"
             Dim legTag As String = $"[{nextInputIndex}:v]"
-            filterParts.Add($"{legTag}format=rgba,{keyFilter},colorchannelmixer=aa={transparency}[c{nextInputIndex}]")
+            Dim legInputFilter As String = "format=rgba,colorchannelmixer=aa=" & transparency
+            If String.Equals(Path.GetExtension(legVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
+                legInputFilter = "format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+            End If
+            filterParts.Add($"{legTag}{legInputFilter}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1

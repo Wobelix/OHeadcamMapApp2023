@@ -241,7 +241,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label17.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -271,7 +271,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,7 +301,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -331,7 +331,88 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
+  </data>
+  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>441, 41</value>
+  </data>
+  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 13</value>
+  </data>
+  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="Label3.Text" xml:space="preserve">
+    <value>Videokodning (ultrafast=lavere kvalitet)</value>
+  </data>
+  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
+    <value>Label3</value>
+  </data>
+  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmbPreset.Items" xml:space="preserve">
+    <value>ultrafast</value>
+  </data>
+  <data name="cmbPreset.Items1" xml:space="preserve">
+    <value>superfast</value>
+  </data>
+  <data name="cmbPreset.Items2" xml:space="preserve">
+    <value>veryfast</value>
+  </data>
+  <data name="cmbPreset.Items3" xml:space="preserve">
+    <value>faster</value>
+  </data>
+  <data name="cmbPreset.Items4" xml:space="preserve">
+    <value>fast</value>
+  </data>
+  <data name="cmbPreset.Items5" xml:space="preserve">
+    <value>medium</value>
+  </data>
+  <data name="cmbPreset.Items6" xml:space="preserve">
+    <value>slow</value>
+  </data>
+  <data name="cmbPreset.Items7" xml:space="preserve">
+    <value>slower</value>
+  </data>
+  <data name="cmbPreset.Items8" xml:space="preserve">
+    <value>veryslow</value>
+  </data>
+  <data name="cmbPreset.Items9" xml:space="preserve">
+    <value>placebo</value>
+  </data>
+  <data name="cmbPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>444, 57</value>
+  </data>
+  <data name="cmbPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <data name="cmbPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;cmbPreset.Name" xml:space="preserve">
+    <value>cmbPreset</value>
+  </data>
+  <data name="&gt;&gt;cmbPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbPreset.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;cmbPreset.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -361,7 +442,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="TextBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>406, 197</value>
@@ -392,7 +473,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;TextBox4.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="TextBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 58</value>
@@ -416,7 +497,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;TextBox2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 214</value>
@@ -437,7 +518,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;TextBox1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="txtSettingSbSCode.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 158</value>
@@ -461,7 +542,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;txtSettingSbSCode.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="TextBox3.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 110</value>
@@ -485,7 +566,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;TextBox3.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="GroupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 209</value>
@@ -739,87 +820,6 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="cmbPreset.Items" xml:space="preserve">
-    <value>ultrafast</value>
-  </data>
-  <data name="cmbPreset.Items1" xml:space="preserve">
-    <value>superfast</value>
-  </data>
-  <data name="cmbPreset.Items2" xml:space="preserve">
-    <value>veryfast</value>
-  </data>
-  <data name="cmbPreset.Items3" xml:space="preserve">
-    <value>faster</value>
-  </data>
-  <data name="cmbPreset.Items4" xml:space="preserve">
-    <value>fast</value>
-  </data>
-  <data name="cmbPreset.Items5" xml:space="preserve">
-    <value>medium</value>
-  </data>
-  <data name="cmbPreset.Items6" xml:space="preserve">
-    <value>slow</value>
-  </data>
-  <data name="cmbPreset.Items7" xml:space="preserve">
-    <value>slower</value>
-  </data>
-  <data name="cmbPreset.Items8" xml:space="preserve">
-    <value>veryslow</value>
-  </data>
-  <data name="cmbPreset.Items9" xml:space="preserve">
-    <value>placebo</value>
-  </data>
-  <data name="cmbPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 128</value>
-  </data>
-  <data name="cmbPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
-  </data>
-  <data name="cmbPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.Name" xml:space="preserve">
-    <value>cmbPreset</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 112</value>
-  </data>
-  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 13</value>
-  </data>
-  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
-  </data>
-  <data name="Label3.Text" xml:space="preserve">
-    <value>Video frame rate</value>
-  </data>
-  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
-    <value>Label3</value>
-  </data>
-  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="chkHDformat.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -948,6 +948,57 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   </data>
   <data name="&gt;&gt;txtFPS.ZOrder" xml:space="preserve">
     <value>14</value>
+  </data>
+  <data name="Label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>241, 113</value>
+  </data>
+  <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 13</value>
+  </data>
+  <data name="Label9.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="Label9.Text" xml:space="preserve">
+    <value>GPS opdatering(pr sek)</value>
+  </data>
+  <data name="&gt;&gt;Label9.Name" xml:space="preserve">
+    <value>Label9</value>
+  </data>
+  <data name="&gt;&gt;Label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label9.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numSmooth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 129</value>
+  </data>
+  <data name="numSmooth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 20</value>
+  </data>
+  <data name="numSmooth.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="&gt;&gt;numSmooth.Name" xml:space="preserve">
+    <value>numSmooth</value>
+  </data>
+  <data name="&gt;&gt;numSmooth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numSmooth.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;numSmooth.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1119,9 +1170,6 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
         G4UXAON+o/ACYNxvFF4AjPuNwguAcb9ReAEw7jcKNQAAi+5/3rjfKGRCtABRvPgT77kfYd86kAKITLEy
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
     <value>True</value>

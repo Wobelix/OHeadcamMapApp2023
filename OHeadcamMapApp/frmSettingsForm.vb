@@ -28,6 +28,7 @@ Public Class frmSettings
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        My.Settings.MISmoothFrameStepSeconds = CDbl(numSmooth.Value)
         My.Settings.Save()
         Me.Close()
     End Sub
@@ -76,23 +77,27 @@ Public Class frmSettings
         My.Settings.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':input=data.trf:tripod=0,unsharp=5:5:0.8:3:3:0.4"
         My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"
+        My.Settings.MISmoothFrameStepSeconds = CDbl(GetDefault("MISmoothFrameStepSeconds"))
         rbImgMiddle.Checked = False
         rbImgRight.Checked = True
         rbImgLeft.Checked = False
+        numSmooth.Value = CDec(My.Settings.MISmoothFrameStepSeconds)
         My.Settings.Save()
 
 
     End Sub
 
-    Private Sub cbNewMapF_CheckedChanged(sender As Object, e As EventArgs) Handles cbNewMapF.CheckedChanged
 
-    End Sub
 
     Private Sub chkHDformat_CheckedChanged(sender As Object, e As EventArgs) Handles chkHDformat.CheckedChanged
         If Not isFormLoading Then MsgBox(Texts.HDChanged)
     End Sub
 
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If My.Settings.MISmoothFrameStepSeconds <= 0 Then
+            My.Settings.MISmoothFrameStepSeconds = 0.25
+        End If
+        numSmooth.Value = CDec(My.Settings.MISmoothFrameStepSeconds)
         isFormLoading = False
     End Sub
 

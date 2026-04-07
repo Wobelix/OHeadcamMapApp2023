@@ -16,10 +16,15 @@ Public Class clsMapRenderEngine
     Private _legBackgroundKey As String = ""
     Private _zoomBackground As Bitmap
     Private _zoomBackgroundKey As String = ""
+    Private _zoomFeatherMask As Bitmap
+    Private _zoomFeatherMaskKey As String = ""
+    Private _legFeatherMask As Bitmap
+    Private _legFeatherMaskKey As String = ""
     Public LastRenderElapsed As TimeSpan = TimeSpan.Zero
     Public LastEncodeElapsed As TimeSpan = TimeSpan.Zero
     Public LastTotalElapsed As TimeSpan = TimeSpan.Zero
     Public LastFrameCount As Integer = 0
+    Public ProgressCallback As Action(Of Integer, Integer, String)
 
     Public Sub New(routePoints As clsQRRoutePoints, mapImage As Bitmap, Optional loadSettings As Boolean = True)
         _routePoints = New clsQRRoutePoints(routePoints)
@@ -28,6 +33,12 @@ Public Class clsMapRenderEngine
     End Sub
 
     Public Property FrameStepSeconds As Double = 0.25
+
+    Public ReadOnly Property UsesAlphaVideoOutput As Boolean
+        Get
+            Return _legacyRenderer.FrameFeather
+        End Get
+    End Property
 
     Public Sub ScalePixelSettings(videoWidth As Integer)
         _legacyRenderer.ScalePixelSettings(videoWidth)
@@ -71,7 +82,9 @@ Public Class clsMapRenderEngine
         End Using
         overlay.Dispose()
 
-        If Not _legacyRenderer.FrameFeather Then
+        If _legacyRenderer.FrameFeather Then
+            ApplyFeatherFrame(result, roundRadius, False)
+        Else
             ApplyHardFrame(result, roundRadius)
         End If
 
@@ -106,7 +119,9 @@ Public Class clsMapRenderEngine
         End Using
         overlay.Dispose()
 
-        If Not _legacyRenderer.FrameFeather Then
+        If _legacyRenderer.FrameFeather Then
+            ApplyFeatherFrame(result, roundRadius, True)
+        Else
             ApplyHardFrame(result, roundRadius)
         End If
 
@@ -138,6 +153,7 @@ Public Class clsMapRenderEngine
                                    videoWidth As Integer,
                                    frameStepSeconds As Double,
                                    outputFps As Double)
+        Dim useAlphaOutput As Boolean = UsesAlphaVideoOutput
         Dim effectiveFrameStep As Double = Me.FrameStepSeconds
         If frameStepSeconds > 0 Then effectiveFrameStep = frameStepSeconds
         If effectiveFrameStep <= 0 Then Throw New ArgumentOutOfRangeException(NameOf(frameStepSeconds))
@@ -160,6 +176,7 @@ Public Class clsMapRenderEngine
         Dim clampedStart As Double = Math.Max(0, startTime)
         Dim endTime As Double = If(duration < 0, maxTime, Math.Min(clampedStart + duration - effectiveFrameStep, maxTime))
         If clampedStart > endTime Then Return
+        Dim totalFrames As Integer = CInt(Math.Floor((endTime - clampedStart) / effectiveFrameStep + 0.0001)) + 1
 
         Using sampleFrame As Bitmap = renderFrame(clampedStart)
             If sampleFrame Is Nothing Then Throw New InvalidOperationException("Render frame callback returned Nothing.")
@@ -170,7 +187,11 @@ Public Class clsMapRenderEngine
 
             Dim psi As New ProcessStartInfo()
             psi.FileName = "ffmpeg"
-            psi.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {sampleFrame.Width}x{sampleFrame.Height} -framerate {fpsText} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{outputFile}"""
+            If useAlphaOutput Then
+                psi.Arguments = $"-y -f rawvideo -pixel_format bgra -video_size {sampleFrame.Width}x{sampleFrame.Height} -framerate {fpsText} -i - -c:v qtrle -pix_fmt argb ""{outputFile}"""
+            Else
+                psi.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {sampleFrame.Width}x{sampleFrame.Height} -framerate {fpsText} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{outputFile}"""
+            End If
             psi.UseShellExecute = False
             psi.RedirectStandardInput = True
             psi.RedirectStandardError = True
@@ -188,9 +209,10 @@ Public Class clsMapRenderEngine
 
                 Using inputStream As Stream = ffmpegProcess.StandardInput.BaseStream
                     renderStopwatch.Start()
-                    WriteBitmapFrameToStream(sampleFrame, inputStream)
+                    WriteBitmapFrameToStream(sampleFrame, inputStream, useAlphaOutput)
                     renderStopwatch.Stop()
                     LastFrameCount = 1
+                    ReportProgress(1, totalFrames, outputFile)
 
                     Dim frameNo As Integer = 1
                     Dim epsilon As Double = effectiveFrameStep / 1000.0
@@ -200,12 +222,15 @@ Public Class clsMapRenderEngine
 
                         renderStopwatch.Start()
                         Using frame As Bitmap = renderFrame(currentTime)
-                            WriteBitmapFrameToStream(frame, inputStream)
+                            WriteBitmapFrameToStream(frame, inputStream, useAlphaOutput)
                         End Using
                         renderStopwatch.Stop()
 
                         frameNo += 1
                         LastFrameCount = frameNo
+                        If frameNo = totalFrames OrElse frameNo Mod 4 = 0 Then
+                            ReportProgress(frameNo, totalFrames, outputFile)
+                        End If
                     Loop
                 End Using
 
@@ -220,28 +245,58 @@ Public Class clsMapRenderEngine
         LastTotalElapsed = totalStopwatch.Elapsed
     End Sub
 
-    Private Sub WriteBitmapFrameToStream(sourceImage As Bitmap, targetStream As Stream)
-        Using tmpBmp As New Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat.Format24bppRgb)
-            Using g As Graphics = Graphics.FromImage(tmpBmp)
-                g.Clear(Color.Magenta)
-                g.DrawImage(sourceImage, 0, 0)
+    Private Sub ReportProgress(doneFrames As Integer, totalFrames As Integer, outputFile As String)
+        If ProgressCallback Is Nothing Then Return
+        Dim safeTotal As Integer = Math.Max(1, totalFrames)
+        ProgressCallback(Math.Min(doneFrames, safeTotal), safeTotal, Path.GetFileName(outputFile))
+    End Sub
+
+    Private Sub WriteBitmapFrameToStream(sourceImage As Bitmap, targetStream As Stream, includeAlpha As Boolean)
+        If includeAlpha Then
+            Using tmpBmp As New Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat.Format32bppArgb)
+                Using g As Graphics = Graphics.FromImage(tmpBmp)
+                    g.Clear(Color.Transparent)
+                    g.DrawImage(sourceImage, 0, 0)
+                End Using
+
+                Dim rect As New Rectangle(0, 0, tmpBmp.Width, tmpBmp.Height)
+                Dim bitmapData As BitmapData = tmpBmp.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb)
+                Dim stride As Integer = Math.Abs(bitmapData.Stride)
+                Dim rowBytes As Integer = tmpBmp.Width * 4
+                Dim buffer(rowBytes * tmpBmp.Height - 1) As Byte
+
+                For row As Integer = 0 To tmpBmp.Height - 1
+                    Dim srcPtr As IntPtr = New IntPtr(bitmapData.Scan0.ToInt64() + row * stride)
+                    Marshal.Copy(srcPtr, buffer, row * rowBytes, rowBytes)
+                Next
+
+                tmpBmp.UnlockBits(bitmapData)
+                targetStream.Write(buffer, 0, buffer.Length)
+                targetStream.Flush()
             End Using
+        Else
+            Using tmpBmp As New Bitmap(sourceImage.Width, sourceImage.Height, PixelFormat.Format24bppRgb)
+                Using g As Graphics = Graphics.FromImage(tmpBmp)
+                    g.Clear(Color.Magenta)
+                    g.DrawImage(sourceImage, 0, 0)
+                End Using
 
-            Dim rect As New Rectangle(0, 0, tmpBmp.Width, tmpBmp.Height)
-            Dim bitmapData As BitmapData = tmpBmp.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb)
-            Dim stride As Integer = Math.Abs(bitmapData.Stride)
-            Dim rowBytes As Integer = tmpBmp.Width * 3
-            Dim buffer(rowBytes * tmpBmp.Height - 1) As Byte
+                Dim rect As New Rectangle(0, 0, tmpBmp.Width, tmpBmp.Height)
+                Dim bitmapData As BitmapData = tmpBmp.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb)
+                Dim stride As Integer = Math.Abs(bitmapData.Stride)
+                Dim rowBytes As Integer = tmpBmp.Width * 3
+                Dim buffer(rowBytes * tmpBmp.Height - 1) As Byte
 
-            For row As Integer = 0 To tmpBmp.Height - 1
-                Dim srcPtr As IntPtr = New IntPtr(bitmapData.Scan0.ToInt64() + row * stride)
-                Marshal.Copy(srcPtr, buffer, row * rowBytes, rowBytes)
-            Next
+                For row As Integer = 0 To tmpBmp.Height - 1
+                    Dim srcPtr As IntPtr = New IntPtr(bitmapData.Scan0.ToInt64() + row * stride)
+                    Marshal.Copy(srcPtr, buffer, row * rowBytes, rowBytes)
+                Next
 
-            tmpBmp.UnlockBits(bitmapData)
-            targetStream.Write(buffer, 0, buffer.Length)
-            targetStream.Flush()
-        End Using
+                tmpBmp.UnlockBits(bitmapData)
+                targetStream.Write(buffer, 0, buffer.Length)
+                targetStream.Flush()
+            End Using
+        End If
     End Sub
 
     Private Function ClampTimeCode(timeCode As Double) As Double
@@ -526,6 +581,138 @@ Public Class clsMapRenderEngine
         path.CloseFigure()
         Return path
     End Function
+
+
+    Private Sub ApplyFeatherFrame(target As Bitmap, radius As Integer, isZoom As Boolean)
+        Dim mask As Bitmap = GetFeatherMask(target.Size, radius, _legacyRenderer.FrameWidth, isZoom)
+        ApplyMaskAlpha(target, mask)
+    End Sub
+
+    Private Function GetFeatherMask(size As Size, radius As Integer, featherWidth As Integer, isZoom As Boolean) As Bitmap
+        featherWidth = Math.Max(1, featherWidth)
+
+        If Not isZoom Then
+            Dim widthRatio As Double = _legacyRenderer.LegWidth / Math.Max(1.0, _legacyRenderer.ZoomWidth)
+            featherWidth = CInt(Math.Round(featherWidth * Math.Max(1.0, widthRatio)))
+        End If
+
+        Dim maxFeatherWidth As Integer
+        If isZoom Then
+            maxFeatherWidth = Math.Min(size.Width, size.Height) \ 2 - 1
+        Else
+            maxFeatherWidth = size.Width \ 2 - 1
+        End If
+
+        featherWidth = Math.Min(featherWidth, Math.Max(1, maxFeatherWidth))
+        If featherWidth < 1 Then featherWidth = 1
+
+        Dim cacheKey As String = $"{size.Width}|{size.Height}|{radius}|{featherWidth}"
+        Dim cachedMask As Bitmap = If(isZoom, _zoomFeatherMask, _legFeatherMask)
+        Dim cachedKey As String = If(isZoom, _zoomFeatherMaskKey, _legFeatherMaskKey)
+
+        If cachedMask Is Nothing OrElse cachedKey <> cacheKey Then
+            If cachedMask IsNot Nothing Then cachedMask.Dispose()
+            cachedMask = CreateFeatherMask(size, radius, featherWidth)
+            cachedKey = cacheKey
+
+            If isZoom Then
+                _zoomFeatherMask = cachedMask
+                _zoomFeatherMaskKey = cachedKey
+            Else
+                _legFeatherMask = cachedMask
+                _legFeatherMaskKey = cachedKey
+            End If
+        End If
+
+        Return cachedMask
+    End Function
+
+    Private Function CreateFeatherMask(size As Size, radius As Integer, featherWidth As Integer) As Bitmap
+        Dim mask As New Bitmap(size.Width, size.Height, PixelFormat.Format32bppArgb)
+        Dim rect As New Rectangle(0, 0, size.Width, size.Height)
+        Dim bmpData As BitmapData = mask.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb)
+
+        Try
+            Dim stride As Integer = bmpData.Stride
+            Dim buffer(Math.Abs(stride) * size.Height - 1) As Byte
+
+            For y As Integer = 0 To size.Height - 1
+                Dim rowStart As Integer = y * stride
+                For x As Integer = 0 To size.Width - 1
+                    Dim pixelCenterX As Double = x + 0.5
+                    Dim pixelCenterY As Double = y + 0.5
+                    Dim outerDistance As Double = SignedDistanceToRoundedRect(pixelCenterX, pixelCenterY, size.Width, size.Height, radius)
+                    Dim alpha As Integer
+
+                    If outerDistance >= 0 Then
+                        alpha = 0
+                    ElseIf outerDistance <= -featherWidth Then
+                        alpha = 255
+                    Else
+                        Dim blend As Double = Math.Max(0.0, Math.Min(1.0, (-outerDistance) / Math.Max(1.0, featherWidth)))
+                        ' Smoothstep gives a softer edge without a visible inner border.
+                        blend = blend * blend * (3.0 - 2.0 * blend)
+                        alpha = CInt(Math.Round(blend * 255.0))
+                    End If
+
+                    Dim pixelIndex As Integer = rowStart + x * 4
+                    buffer(pixelIndex) = 255
+                    buffer(pixelIndex + 1) = 255
+                    buffer(pixelIndex + 2) = 255
+                    buffer(pixelIndex + 3) = CByte(Math.Max(0, Math.Min(255, alpha)))
+                Next
+            Next
+
+            Marshal.Copy(buffer, 0, bmpData.Scan0, buffer.Length)
+        Finally
+            mask.UnlockBits(bmpData)
+        End Try
+
+        Return mask
+    End Function
+
+    Private Function SignedDistanceToRoundedRect(x As Double, y As Double, width As Integer, height As Integer, radius As Integer) As Double
+        Dim clampedRadius As Double = Math.Max(0, Math.Min(radius, Math.Min(width, height) / 2.0))
+        Dim halfWidth As Double = width / 2.0
+        Dim halfHeight As Double = height / 2.0
+        Dim qx As Double = Math.Abs(x - halfWidth) - (halfWidth - clampedRadius)
+        Dim qy As Double = Math.Abs(y - halfHeight) - (halfHeight - clampedRadius)
+        Dim dx As Double = Math.Max(qx, 0)
+        Dim dy As Double = Math.Max(qy, 0)
+        Return Math.Sqrt(dx * dx + dy * dy) + Math.Min(Math.Max(qx, qy), 0) - clampedRadius
+    End Function
+
+    Private Sub ApplyMaskAlpha(target As Bitmap, mask As Bitmap)
+        Dim rect As New Rectangle(0, 0, target.Width, target.Height)
+        Dim targetData As BitmapData = target.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb)
+        Dim maskData As BitmapData = mask.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb)
+
+        Try
+            Dim targetStride As Integer = targetData.Stride
+            Dim maskStride As Integer = maskData.Stride
+            Dim bytesPerPixel As Integer = 4
+            Dim targetBuffer(Math.Abs(targetStride) * target.Height - 1) As Byte
+            Dim maskBuffer(Math.Abs(maskStride) * mask.Height - 1) As Byte
+
+            Marshal.Copy(targetData.Scan0, targetBuffer, 0, targetBuffer.Length)
+            Marshal.Copy(maskData.Scan0, maskBuffer, 0, maskBuffer.Length)
+
+            For y As Integer = 0 To target.Height - 1
+                Dim targetRow As Integer = y * targetStride
+                Dim maskRow As Integer = y * maskStride
+                For x As Integer = 0 To target.Width - 1
+                    Dim targetIdx As Integer = targetRow + x * bytesPerPixel
+                    Dim maskIdx As Integer = maskRow + x * bytesPerPixel
+                    targetBuffer(targetIdx + 3) = maskBuffer(maskIdx + 3)
+                Next
+            Next
+
+            Marshal.Copy(targetBuffer, 0, targetData.Scan0, targetBuffer.Length)
+        Finally
+            target.UnlockBits(targetData)
+            mask.UnlockBits(maskData)
+        End Try
+    End Sub
 
     Private Sub ApplyHardFrame(target As Bitmap, radius As Integer)
         Using sourceCopy As New Bitmap(target)
