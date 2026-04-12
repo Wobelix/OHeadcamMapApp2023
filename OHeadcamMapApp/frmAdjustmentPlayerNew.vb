@@ -14,6 +14,7 @@ Public Class frmAdjustmentPlayer_new
     Dim PlayMode As String, PlayMode_play As String = "play", PlayMode_fast As String = "fast", PlayMode_slow As String = "slow", PlayMode_stop As String = "stop"
     Private _mp As MediaPlayer
     Private _libVLC As LibVLC
+    Private _media As Media
 
     Private _WantedPosition As Double
     Private CurrentTrackValue, ImageTrackValue, _MapTime As Integer
@@ -200,14 +201,18 @@ Public Class frmAdjustmentPlayer_new
         VideoInfo = New clsFFMPegProbe
         VideoInfo.StoreVideoProps(Mainform1.GetDeshakedFilename(False))
         Dim vfile As String = Mainform1.GetDeshakedFilename(False)
-        Dim Vmedia As Media
         If File.Exists(vfile) Then
-            Vmedia = New Media(_libVLC, vfile)
+            If Not IsNothing(_media) Then
+                _media.Dispose()
+                _media = Nothing
+            End If
+            _media = New Media(_libVLC, vfile)
         Else
             MsgBox(Texts.ErrNoFile + vfile)
             Me.Close()
+            Return
         End If
-        _mp.Media = Vmedia
+        _mp.Media = _media
 
         VideoView1.Height = VideoPanel.Height
         VideoView1.Width = VideoInfo.Width * VideoPanel.Height / VideoInfo.Height
@@ -790,5 +795,52 @@ Public Class frmAdjustmentPlayer_new
         cbZoom.Checked = My.Settings.cbShowRoute
         IsLoaded = True
         SetShowMaps()
+    End Sub
+
+    Private Sub ReleaseVideoResources()
+        Timer1.Stop()
+        Timer2.Stop()
+        MapImageTimer.Stop()
+
+        Try
+            If Not IsNothing(_mp) Then
+                _mp.Stop()
+            End If
+        Catch
+        End Try
+
+        Try
+            VideoView1.MediaPlayer = Nothing
+        Catch
+        End Try
+
+        Try
+            If Not IsNothing(_media) Then
+                _media.Dispose()
+                _media = Nothing
+            End If
+        Catch
+        End Try
+
+        Try
+            If Not IsNothing(_mp) Then
+                RemoveHandler _mp.EncounteredError, AddressOf MediaPlayer_EncounteredError
+                _mp.Dispose()
+                _mp = Nothing
+            End If
+        Catch
+        End Try
+
+        Try
+            If Not IsNothing(_libVLC) Then
+                _libVLC.Dispose()
+                _libVLC = Nothing
+            End If
+        Catch
+        End Try
+    End Sub
+
+    Private Sub frmAdjustmentPlayer_new_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        ReleaseVideoResources()
     End Sub
 End Class

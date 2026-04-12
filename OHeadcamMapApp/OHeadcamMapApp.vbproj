@@ -58,7 +58,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\Release2023V5\</OutputPath>
+    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\Release2026_V7\</OutputPath>
     <DocumentationFile>Headcam Orienteering.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>

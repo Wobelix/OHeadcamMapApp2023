@@ -45,8 +45,17 @@ Public Class MainForm
     Private LastSmoothLegEncodeElapsed As TimeSpan = TimeSpan.Zero
     Private LastSmoothFrameCount As Integer = 0
     Private LastSmoothBaseMapElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothBackgroundElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothOverlayMapElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothOverlayFrameElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothDrawElapsed As TimeSpan = TimeSpan.Zero
+    Private LastSmoothStreamWriteElapsed As TimeSpan = TimeSpan.Zero
     Private LastSmoothZoomRenderElapsed As TimeSpan = TimeSpan.Zero
     Private LastSmoothLegRenderElapsed As TimeSpan = TimeSpan.Zero
+    Private LastWholeMapStageElapsed As TimeSpan = TimeSpan.Zero
+    Private LastWholeOverlayStageElapsed As TimeSpan = TimeSpan.Zero
+    Private LastWholeVideoTotalElapsed As TimeSpan = TimeSpan.Zero
+    Private _autorunRenderCompareStarted As Boolean = False
     Public strQuote As String = Chr(34)
     Public bMakeMapDirty, bMakeVideoInDirty, bOutputVideoDirty As Boolean
     Public bProcessIsRunning As Boolean = False ' Used to interrupt background processes
@@ -56,6 +65,16 @@ Public Class MainForm
     Public WriteToFilesComplete As Boolean = False
     Private Const SmoothOverlayFolderName As String = "temp_smooth"
     Private Const SmoothOverlayBaseName As String = "map_overlay.mp4"
+    Private Class RenderCompareOptions
+        Public Property Variant1 As String = "perf"
+        Public Property Variant2 As String = "perf4"
+        Public Property StartTime As Double = 360
+        Public Property Duration As Double = 120
+        Public Property VideoWidth As Integer = 1920
+        Public Property OutputFile As String = ""
+        Public Property LogFile As String = ""
+        Public Property AutoClose As Boolean = True
+    End Class
 
 
     'Public resources As ResourceManager = New ResourceManager("Texts", a  TypeOf MainForm)
@@ -989,81 +1008,259 @@ Public Class MainForm
     End Sub
 
     Private Sub btnTestWriteVideo_Click(sender As Object, e As EventArgs) Handles btnTestWriteVideo.Click
-        ' Simple test harness for render-engine zoom/leg video generation
-        If String.IsNullOrWhiteSpace(My.Settings.QRXML) Or String.IsNullOrWhiteSpace(My.Settings.QRimage) Then
-            MsgBox("Please set QuickRoute XML and image in the main form before testing.")
-            Return
-        End If
-
-        If Not File.Exists(AppFolder + My.Settings.QRXML) Then
-            MsgBox("QR XML not found: " & AppFolder & My.Settings.QRXML)
-            Return
-        End If
-        If Not File.Exists(AppFolder + My.Settings.QRimage) Then
-            MsgBox("QR image not found: " & AppFolder & My.Settings.QRimage)
-            Return
-        End If
-
-        SaveFileDialogOutput.FileName = "testrender" & GetSmoothOverlayVideoExtension()
+        SaveFileDialogOutput.FileName = "testleg_perf4" & GetSmoothOverlayVideoExtension()
         If SaveFileDialogOutput.ShowDialog() <> DialogResult.OK Then Return
-        Dim outFile As String = SaveFileDialogOutput.FileName
+        Dim options As New RenderCompareOptions With {
+            .OutputFile = SaveFileDialogOutput.FileName,
+            .VideoWidth = ExtraFunc.InputWidth,
+            .StartTime = 360,
+            .Duration = 120,
+            .Variant1 = "perf",
+            .Variant2 = "perf4",
+            .AutoClose = False
+        }
+        StartLegRenderComparison(options)
+    End Sub
+
+    Private Function ParseRenderCompareArgs() As RenderCompareOptions
+        Dim args As String() = Environment.GetCommandLineArgs()
+        If args Is Nothing OrElse args.Length <= 1 Then Return Nothing
+
+        Dim hasRenderCompare As Boolean = False
+        Dim options As New RenderCompareOptions With {
+            .VideoWidth = ExtraFunc.InputWidth
+        }
+
+        For i As Integer = 1 To args.Length - 1
+            Dim rawArg As String = args(i)
+            If String.IsNullOrWhiteSpace(rawArg) Then Continue For
+            Dim arg As String = rawArg.Trim()
+            If arg.StartsWith("/") OrElse arg.StartsWith("-") Then arg = arg.Substring(1)
+            Dim eqPos As Integer = arg.IndexOf("="c)
+            Dim key As String = If(eqPos >= 0, arg.Substring(0, eqPos), arg)
+            Dim value As String = If(eqPos >= 0, arg.Substring(eqPos + 1), "")
+            key = key.Trim().ToLowerInvariant()
+            value = value.Trim().Trim(""""c)
+
+            Select Case key
+                Case "rendercompare"
+                    hasRenderCompare = True
+                Case "variant1"
+                    If value <> "" Then options.Variant1 = value.ToLowerInvariant()
+                Case "variant2"
+                    If value <> "" Then options.Variant2 = value.ToLowerInvariant()
+                Case "start"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) Then options.StartTime = parsed
+                Case "duration"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) Then options.Duration = parsed
+                Case "width"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) AndAlso parsed > 0 Then options.VideoWidth = parsed
+                Case "outfile", "output"
+                    options.OutputFile = value
+                Case "log", "logfile"
+                    options.LogFile = value
+                Case "autoclose", "exit"
+                    If value = "" Then
+                        options.AutoClose = True
+                    Else
+                        Dim parsed As Boolean
+                        If Boolean.TryParse(value, parsed) Then options.AutoClose = parsed
+                    End If
+            End Select
+        Next
+
+        If Not hasRenderCompare Then Return Nothing
+
+        If String.IsNullOrWhiteSpace(options.OutputFile) Then
+            Dim baseDir As String = AppFolder
+            Dim ext As String = GetSmoothOverlayVideoExtension()
+            options.OutputFile = Path.Combine(baseDir, "autorender_perf4" & ext)
+        End If
+        If String.IsNullOrWhiteSpace(options.LogFile) Then
+            Dim outDir As String = Path.GetDirectoryName(options.OutputFile)
+            If String.IsNullOrWhiteSpace(outDir) Then outDir = AppFolder
+            Dim outBaseName As String = Path.GetFileNameWithoutExtension(options.OutputFile)
+            options.LogFile = Path.Combine(outDir, outBaseName & "_rendercompare.log")
+        End If
+
+        Return options
+    End Function
+
+    Private Function BuildScaledRoutePoints(source As clsQRRoutePoints, scale As Double) As clsQRRoutePoints
+        Dim scaled As New clsQRRoutePoints()
+        scaled.QRLogoYOffset = source.QRLogoYOffset * scale
+
+        For Each rp As clsQRRoutePoint In source.RoutePoints
+            Dim copy As New clsQRRoutePoint(rp)
+            copy.ImageX *= scale
+            copy.ImageY *= scale
+            scaled.AddPoint(copy)
+        Next
+
+        If scaled.RoutePoints.Count > 0 Then
+            scaled.EndAddPoints()
+        End If
+
+        Return scaled
+    End Function
+
+    Private Function BuildScaledBitmap(source As Bitmap, scale As Double) As Bitmap
+        Dim width As Integer = Math.Max(1, CInt(Math.Round(source.Width * scale)))
+        Dim height As Integer = Math.Max(1, CInt(Math.Round(source.Height * scale)))
+        Dim scaled As New Bitmap(width, height)
+        Using g As Graphics = Graphics.FromImage(scaled)
+            g.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+            g.DrawImage(source, New Rectangle(0, 0, width, height))
+        End Using
+        Return scaled
+    End Function
+
+    Private Function RunLegRenderVariant(routePoints As clsQRRoutePoints, mapImg As Bitmap, renderVariant As String, outputFile As String, startTime As Double, duration As Double, videoWidth As Integer) As clsMapRenderEngine
+        Dim variantKey As String = renderVariant.Trim().ToLowerInvariant()
+        Dim useHalfScale As Boolean = False
+
+        If variantKey.StartsWith("half") Then
+            useHalfScale = True
+            variantKey = variantKey.Substring(4).TrimStart("-"c, "_"c)
+            If variantKey = "" Then variantKey = "perf"
+        End If
+
+        Dim variantRoutePoints As clsQRRoutePoints = routePoints
+        Dim variantMapImg As Bitmap = mapImg
+        If useHalfScale Then
+            variantRoutePoints = BuildScaledRoutePoints(routePoints, 0.5)
+            variantMapImg = BuildScaledBitmap(mapImg, 0.5)
+        End If
+
+        Try
+            Dim renderEngine As New clsMapRenderEngine(variantRoutePoints, variantMapImg)
+            renderEngine.FrameStepSeconds = GetSmoothOverlayFrameStepSeconds()
+            renderEngine.ScalePixelSettings(videoWidth)
+
+            Select Case variantKey
+                Case "base"
+                    renderEngine.WriteLegVideo(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf"
+                    renderEngine.WriteLegVideoPerf(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf3"
+                    renderEngine.WriteLegVideoPerf3(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf4"
+                    renderEngine.WriteLegVideoPerf4(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf5"
+                    renderEngine.WriteLegVideoPerf5(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf6"
+                    renderEngine.WriteLegVideoPerf6(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf7"
+                    renderEngine.WriteLegVideoPerf7(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "perf8"
+                    renderEngine.WriteLegVideoPerf8(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case "selective"
+                    renderEngine.WriteLegVideoSelective(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                Case Else
+                    Throw New ArgumentException("Unknown render variant: " & renderVariant)
+            End Select
+
+            Return renderEngine
+        Finally
+            If useHalfScale Then
+                variantMapImg.Dispose()
+            End If
+        End Try
+    End Function
+
+    Private Sub StartLegRenderComparison(options As RenderCompareOptions)
+        If options Is Nothing Then Return
+        If String.IsNullOrWhiteSpace(My.Settings.QRXML) Or String.IsNullOrWhiteSpace(My.Settings.QRimage) Then
+            Throw New InvalidOperationException("QuickRoute XML/image settings are not configured.")
+        End If
+
+        Dim qrXmlPath As String = AppFolder + My.Settings.QRXML
+        Dim qrImagePath As String = AppFolder + My.Settings.QRimage
+        If Not File.Exists(qrXmlPath) Then Throw New FileNotFoundException("QR XML not found.", qrXmlPath)
+        If Not File.Exists(qrImagePath) Then Throw New FileNotFoundException("QR image not found.", qrImagePath)
 
         btnTestWriteVideo.Enabled = False
-        StatusBarUpdate("Starting test render videos...")
+        StatusBarUpdate("Starting test leg performance comparison...")
         SetStatusLabel(IconStatusOutput, "Work", "Outputvideo")
 
-        ' Read XML and load image on UI thread because ReadXML may touch UI/toolstrip items
         Dim RPs As New clsQRRoutePoints
         Dim reader As New clsQRXMLReader(RPs)
-        reader.ReadXML(AppFolder + My.Settings.QRXML)
-
-        ' Load the map image on UI thread then pass to background worker
-        Dim mapImg As Bitmap = New Bitmap(Image.FromFile(AppFolder + My.Settings.QRimage))
+        reader.ReadXML(qrXmlPath)
+        Dim mapImg As Bitmap = New Bitmap(Image.FromFile(qrImagePath))
 
         Task.Run(Sub()
                      Try
-                         Dim renderEngine As New clsMapRenderEngine(RPs, mapImg)
-                         renderEngine.FrameStepSeconds = GetSmoothOverlayFrameStepSeconds()
-                         Dim outDir As String = Path.GetDirectoryName(outFile)
+                         Dim maxStartTime As Double = Math.Max(0, RPs.RoutePoints.Count - 11)
+                         Dim testStartTime As Double = Math.Min(maxStartTime, Math.Max(0, options.StartTime))
+                         Dim outDir As String = Path.GetDirectoryName(options.OutputFile)
                          If String.IsNullOrEmpty(outDir) Then outDir = "."
-                         Dim outBaseName As String = Path.GetFileNameWithoutExtension(outFile)
+                         Dim outBaseName As String = Path.GetFileNameWithoutExtension(options.OutputFile)
                          Dim outExt As String = GetSmoothOverlayVideoExtension()
-                         Dim legOutFile As String = Path.Combine(outDir, outBaseName & "_leg" & outExt)
-                         Dim zoomOutFile As String = Path.Combine(outDir, outBaseName & "_zoom" & outExt)
+                         Dim variant1File As String = Path.Combine(outDir, outBaseName & "_" & options.Variant1 & outExt)
+                         Dim variant2File As String = Path.Combine(outDir, outBaseName & "_" & options.Variant2 & outExt)
 
-                         renderEngine.WriteLegVideo(legOutFile, startTime:=0, duration:=120, videoWidth:=ExtraFunc.InputWidth)
-                         Dim legTotal As Double = renderEngine.LastTotalElapsed.TotalSeconds
-                         Dim legRender As Double = renderEngine.LastRenderElapsed.TotalSeconds
-                         Dim legEncode As Double = renderEngine.LastEncodeElapsed.TotalSeconds
-                         Dim legFrames As Integer = renderEngine.LastFrameCount
+                         Dim renderEngine1 As clsMapRenderEngine = RunLegRenderVariant(RPs, mapImg, options.Variant1, variant1File, testStartTime, options.Duration, options.VideoWidth)
+                         Dim variant1Total As Double = renderEngine1.LastTotalElapsed.TotalSeconds
+                         Dim variant1Render As Double = renderEngine1.LastRenderElapsed.TotalSeconds
+                         Dim variant1Encode As Double = renderEngine1.LastEncodeElapsed.TotalSeconds
+                         Dim variant1Frames As Integer = renderEngine1.LastFrameCount
 
-                         renderEngine.WriteZoomVideo(zoomOutFile, startTime:=0, duration:=120, videoWidth:=ExtraFunc.InputWidth)
-                         ' Dispose image after writer finished
+                         Dim renderEngine2 As clsMapRenderEngine = RunLegRenderVariant(RPs, mapImg, options.Variant2, variant2File, testStartTime, options.Duration, options.VideoWidth)
                          mapImg.Dispose()
 
+                         Dim timingText As String = String.Format(CultureInfo.InvariantCulture,
+                            "Test leg performance comparison finished. Start {0:0}s. {1} total {2:0.0}s render {3:0.0}s encode {4:0.0}s frames {5}. {6} total {7:0.0}s render {8:0.0}s encode {9:0.0}s frames {10}.",
+                            testStartTime,
+                            options.Variant1.Substring(0, 1).ToUpperInvariant() & options.Variant1.Substring(1),
+                            variant1Total,
+                            variant1Render,
+                            variant1Encode,
+                            variant1Frames,
+                            options.Variant2.Substring(0, 1).ToUpperInvariant() & options.Variant2.Substring(1),
+                            renderEngine2.LastTotalElapsed.TotalSeconds,
+                            renderEngine2.LastRenderElapsed.TotalSeconds,
+                            renderEngine2.LastEncodeElapsed.TotalSeconds,
+                            renderEngine2.LastFrameCount)
+
+                         Dim logLines As String =
+                             "Render compare" & vbCrLf &
+                             "Start=" & testStartTime.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "Duration=" & options.Duration.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "Width=" & options.VideoWidth.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "Variant1=" & options.Variant1 & vbCrLf &
+                             "Variant2=" & options.Variant2 & vbCrLf &
+                             timingText & vbCrLf
+                         File.WriteAllText(options.LogFile, logLines)
+
                          Me.BeginInvoke(Sub()
-                                            Dim timingText As String = String.Format(CultureInfo.InvariantCulture,
-                                                "Test render videos finished. Leg total {0:0.0}s render {1:0.0}s encode {2:0.0}s frames {3}. Zoom total {4:0.0}s render {5:0.0}s encode {6:0.0}s frames {7}.",
-                                                legTotal,
-                                                legRender,
-                                                legEncode,
-                                                legFrames,
-                                                renderEngine.LastTotalElapsed.TotalSeconds,
-                                                renderEngine.LastRenderElapsed.TotalSeconds,
-                                                renderEngine.LastEncodeElapsed.TotalSeconds,
-                                                renderEngine.LastFrameCount)
                                             StatusBarUpdate(timingText)
                                             LogMapF += timingText + vbCrLf
+                                            LogMapF += "Render compare log: " & options.LogFile & vbCrLf
                                             SetStatusLabel(IconStatusOutput, "OK", "Outputvideo")
                                             btnTestWriteVideo.Enabled = True
+                                            If options.AutoClose Then
+                                                Close()
+                                            End If
                                         End Sub)
                      Catch ex As Exception
-                         ' Ensure UI updates happen on UI thread
                          Me.BeginInvoke(Sub()
-                                            MsgBox("Error during test write: " & ex.ToString())
+                                            Dim errorText As String = "Error during test write: " & ex.ToString()
+                                            Try
+                                                If options IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(options.LogFile) Then
+                                                    File.WriteAllText(options.LogFile, errorText)
+                                                End If
+                                            Catch
+                                            End Try
+                                            MsgBox(errorText)
                                             StatusBarUpdate("Error: " & ex.Message)
                                             SetStatusLabel(IconStatusOutput, "Fail", "Outputvideo")
                                             btnTestWriteVideo.Enabled = True
+                                            If options IsNot Nothing AndAlso options.AutoClose Then
+                                                Close()
+                                            End If
                                         End Sub)
                      End Try
                  End Sub)
@@ -1136,6 +1333,26 @@ Public Class MainForm
         If IsDanishUi() Then Return "  Basiskort-tegning: "
         Return "  Base map draw: "
     End Function
+    Private Function GetMapVideoTimingLabelBackground() As String
+        If IsDanishUi() Then Return "  Baggrundsudsnit: "
+        Return "  Background crop: "
+    End Function
+    Private Function GetMapVideoTimingLabelOverlayMap() As String
+        If IsDanishUi() Then Return "  Overlaymap-tegning: "
+        Return "  Overlay map draw: "
+    End Function
+    Private Function GetMapVideoTimingLabelOverlayFrame() As String
+        If IsDanishUi() Then Return "  Overlay-crop/rotate: "
+        Return "  Overlay crop/rotate: "
+    End Function
+    Private Function GetMapVideoTimingLabelDraw() As String
+        If IsDanishUi() Then Return "  Frame-tegning: "
+        Return "  Frame draw: "
+    End Function
+    Private Function GetMapVideoTimingLabelStreamWrite() As String
+        If IsDanishUi() Then Return "  Stream-skrivning: "
+        Return "  Stream write: "
+    End Function
     Private Function GetMapVideoTimingLabelZoomRender() As String
         If IsDanishUi() Then Return "  Zoom-rendering: "
         Return "  Zoom render: "
@@ -1184,6 +1401,16 @@ Public Class MainForm
         Dim zoomEncodeElapsed As TimeSpan = TimeSpan.Zero
         Dim legRenderElapsed As TimeSpan = TimeSpan.Zero
         Dim legEncodeElapsed As TimeSpan = TimeSpan.Zero
+        Dim zoomDrawElapsed As TimeSpan = TimeSpan.Zero
+        Dim zoomStreamWriteElapsed As TimeSpan = TimeSpan.Zero
+        Dim legDrawElapsed As TimeSpan = TimeSpan.Zero
+        Dim legStreamWriteElapsed As TimeSpan = TimeSpan.Zero
+        Dim zoomBackgroundElapsed As TimeSpan = TimeSpan.Zero
+        Dim zoomOverlayMapElapsed As TimeSpan = TimeSpan.Zero
+        Dim zoomOverlayFrameElapsed As TimeSpan = TimeSpan.Zero
+        Dim legBackgroundElapsed As TimeSpan = TimeSpan.Zero
+        Dim legOverlayMapElapsed As TimeSpan = TimeSpan.Zero
+        Dim legOverlayFrameElapsed As TimeSpan = TimeSpan.Zero
         Dim frameCount As Integer = 0
         Dim frameStepSeconds As Double = GetSmoothOverlayFrameStepSeconds()
         Dim useParallelGeneration As Boolean = GetSmoothOverlayUseParallelGeneration()
@@ -1251,10 +1478,10 @@ Public Class MainForm
                 If legEngine IsNot Nothing Then
                     legTask = Threading.Tasks.Task.Run(
                         Sub()
-                            legEngine.WriteLegVideo(legVideo,
-                                                    startTime:=0,
-                                                    duration:=duration,
-                                                    videoWidth:=ExtraFunc.InputWidth)
+                            legEngine.WriteLegVideoPerf8(legVideo,
+                                                        startTime:=0,
+                                                        duration:=duration,
+                                                        videoWidth:=ExtraFunc.InputWidth)
                         End Sub)
                 End If
 
@@ -1276,20 +1503,30 @@ Public Class MainForm
                                               videoWidth:=ExtraFunc.InputWidth)
                 End If
                 If legEngine IsNot Nothing Then
-                    legEngine.WriteLegVideo(legVideo,
-                                            startTime:=0,
-                                            duration:=duration,
-                                            videoWidth:=ExtraFunc.InputWidth)
+                    legEngine.WriteLegVideoPerf8(legVideo,
+                                                startTime:=0,
+                                                duration:=duration,
+                                                videoWidth:=ExtraFunc.InputWidth)
                 End If
             End If
 
             If zoomEngine IsNot Nothing Then
+                zoomBackgroundElapsed = zoomEngine.LastBackgroundElapsed
+                zoomOverlayMapElapsed = zoomEngine.LastOverlayMapElapsed
+                zoomOverlayFrameElapsed = zoomEngine.LastOverlayFrameElapsed
+                zoomDrawElapsed = zoomEngine.LastDrawElapsed
+                zoomStreamWriteElapsed = zoomEngine.LastStreamWriteElapsed
                 zoomRenderElapsed = zoomEngine.LastRenderElapsed
                 zoomEncodeElapsed = zoomEngine.LastEncodeElapsed
                 frameCount = Math.Max(frameCount, zoomEngine.LastFrameCount)
             End If
 
             If legEngine IsNot Nothing Then
+                legBackgroundElapsed = legEngine.LastBackgroundElapsed
+                legOverlayMapElapsed = legEngine.LastOverlayMapElapsed
+                legOverlayFrameElapsed = legEngine.LastOverlayFrameElapsed
+                legDrawElapsed = legEngine.LastDrawElapsed
+                legStreamWriteElapsed = legEngine.LastStreamWriteElapsed
                 legRenderElapsed = legEngine.LastRenderElapsed
                 legEncodeElapsed = legEngine.LastEncodeElapsed
                 frameCount = Math.Max(frameCount, legEngine.LastFrameCount)
@@ -1303,6 +1540,11 @@ Public Class MainForm
             LastSmoothLegEncodeElapsed = legEncodeElapsed
             LastSmoothFrameCount = frameCount
             LastSmoothBaseMapElapsed = TimeSpan.Zero
+            LastSmoothBackgroundElapsed = zoomBackgroundElapsed + legBackgroundElapsed
+            LastSmoothOverlayMapElapsed = zoomOverlayMapElapsed + legOverlayMapElapsed
+            LastSmoothOverlayFrameElapsed = zoomOverlayFrameElapsed + legOverlayFrameElapsed
+            LastSmoothDrawElapsed = zoomDrawElapsed + legDrawElapsed
+            LastSmoothStreamWriteElapsed = zoomStreamWriteElapsed + legStreamWriteElapsed
             LastSmoothZoomRenderElapsed = zoomRenderElapsed
             LastSmoothLegRenderElapsed = legRenderElapsed
             If zoomEngine IsNot Nothing Then zoomEngine.ProgressCallback = Nothing
@@ -1326,11 +1568,38 @@ Public Class MainForm
     Private Function FormatElapsed(elapsed As TimeSpan) As String
         Return elapsed.TotalSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s"
     End Function
+    Private Function GetWholeVideoTimingHeaderText() As String
+        If IsDanishUi() Then Return "Samlede videotider:"
+        Return "Whole video timing:"
+    End Function
+    Private Function GetWholeVideoTimingMapLabelText() As String
+        If IsDanishUi() Then Return "  Kortdel: "
+        Return "  Map stage: "
+    End Function
+    Private Function GetWholeVideoTimingOverlayLabelText() As String
+        If IsDanishUi() Then Return "  Videooverlay-del: "
+        Return "  Video overlay stage: "
+    End Function
+    Private Function GetWholeVideoTimingTotalLabelText() As String
+        If IsDanishUi() Then Return "  Samlet tid: "
+        Return "  Total time: "
+    End Function
+    Private Sub AppendWholeVideoTimingLog()
+        LogMakeVideo += GetWholeVideoTimingHeaderText() + vbCrLf
+        LogMakeVideo += GetWholeVideoTimingMapLabelText() + FormatElapsed(LastWholeMapStageElapsed) + vbCrLf
+        LogMakeVideo += GetWholeVideoTimingOverlayLabelText() + FormatElapsed(LastWholeOverlayStageElapsed) + vbCrLf
+        LogMakeVideo += GetWholeVideoTimingTotalLabelText() + FormatElapsed(LastWholeVideoTotalElapsed) + vbCrLf
+    End Sub
     Private Sub AppendSmoothTimingLog()
         LogMapF += GetMapVideoTimingHeaderText() + vbCrLf
         LogMapF += GetMapVideoTimingLabelTotal() + FormatElapsed(LastSmoothAssetElapsed) + vbCrLf
         LogMapF += GetMapVideoTimingLabelRenderLoop() + FormatElapsed(LastSmoothRenderElapsed) + " (" + LastSmoothFrameCount.ToString(CultureInfo.InvariantCulture) + " frames)" + vbCrLf
         LogMapF += GetMapVideoTimingLabelBaseMap() + FormatElapsed(LastSmoothBaseMapElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelBackground() + FormatElapsed(LastSmoothBackgroundElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelOverlayMap() + FormatElapsed(LastSmoothOverlayMapElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelOverlayFrame() + FormatElapsed(LastSmoothOverlayFrameElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelDraw() + FormatElapsed(LastSmoothDrawElapsed) + vbCrLf
+        LogMapF += GetMapVideoTimingLabelStreamWrite() + FormatElapsed(LastSmoothStreamWriteElapsed) + vbCrLf
         LogMapF += GetMapVideoTimingLabelZoomRender() + FormatElapsed(LastSmoothZoomRenderElapsed) + vbCrLf
         LogMapF += GetMapVideoTimingLabelLegRender() + FormatElapsed(LastSmoothLegRenderElapsed) + vbCrLf
         LogMapF += GetMapVideoTimingLabelZoomEncode() + FormatElapsed(LastSmoothZoomEncodeElapsed) + vbCrLf
@@ -1390,7 +1659,13 @@ Public Class MainForm
         Dim decDuration As Integer
         Dim ProbeVideo As New clsFFMPegProbe
         Dim tmpGPXDiff As Integer
+        Dim totalStopwatch As System.Diagnostics.Stopwatch = System.Diagnostics.Stopwatch.StartNew()
+        Dim mapStageStopwatch As New System.Diagnostics.Stopwatch()
+        Dim overlayStageStopwatch As New System.Diagnostics.Stopwatch()
         bFailed = False
+        LastWholeMapStageElapsed = TimeSpan.Zero
+        LastWholeOverlayStageElapsed = TimeSpan.Zero
+        LastWholeVideoTotalElapsed = TimeSpan.Zero
         StatusBarUpdate(Texts.Status5)
         If Not My.Computer.FileSystem.FileExists(GetDeshakedFilename(False)) Then
             MsgBox(Texts.ErrDeshakemissing + GetDeshakedFilename(True))
@@ -1402,7 +1677,10 @@ Public Class MainForm
                 Me.Update()
 
                 If Not cbOnlyVideo.Checked Then
+                    mapStageStopwatch.Start()
                     MakeMapFiles()
+                    mapStageStopwatch.Stop()
+                    LastWholeMapStageElapsed = mapStageStopwatch.Elapsed
                 End If
                 StatusBarUpdate(Texts.StatusCombine2)
             End If
@@ -1413,6 +1691,7 @@ Public Class MainForm
                 arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor)
             Else
                 ' CLEANUP-CBNEWMAPF-START:If My.Settings.cbNewMapF Then
+                If Not IsNumeric(My.Settings.GPXDiff) Then My.Settings.GPXDiff = "0"
                 tmpGPXDiff = CInt(My.Settings.GPXDiff)
                 If My.Settings.MapFlipActive Then tmpGPXDiff -= CInt(My.Settings.MapFlipStartS) ' add startpoint for map 2
                 Dim smoothZoomFile As String = GetSmoothOverlayZoomVideoPath()
@@ -1441,7 +1720,10 @@ Public Class MainForm
             RemainingTimeObj.StartTime(decDuration)
             EnsureInvoke(Sub() StatusRemaining.Text = "")
             TimerStatusRemaining.Start()
+            overlayStageStopwatch.Start()
             Run_CommandX(FFMpegExe, arg, LogMakeVideo)
+            overlayStageStopwatch.Stop()
+            LastWholeOverlayStageElapsed = overlayStageStopwatch.Elapsed
             TimerStatusRemaining.Stop()
             EnsureInvoke(Sub() StatusRemaining.Text = "")
             If Not ProbeVideo.StoreVideoProps(txtOutFilename.Text) Then
@@ -1457,6 +1739,9 @@ Public Class MainForm
             End If
 
         End If
+        totalStopwatch.Stop()
+        LastWholeVideoTotalElapsed = totalStopwatch.Elapsed
+        AppendWholeVideoTimingLog()
     End Function
 
     Private Sub btnPrepareInput_Click(sender As Object, e As EventArgs) Handles btnPrepareInput.Click
@@ -1660,7 +1945,7 @@ Public Class MainForm
         txtOutFilename.Text = ""
         My.Settings.txtGPSPos = ""
         My.Settings.txtVideoPos = ""
-        My.Settings.GPXDiff = ""
+        My.Settings.GPXDiff = "0"
         My.Settings.bUseMapTrackingVideo = False
         TrackVideoState()
         My.Settings.txtMapVideoFilename = ""
@@ -2016,6 +2301,15 @@ Public Class MainForm
             ResetData()
         End If
         InitStatusLabels()
+        If Not _autorunRenderCompareStarted Then
+            Dim autorunOptions As RenderCompareOptions = ParseRenderCompareArgs()
+            If autorunOptions IsNot Nothing Then
+                _autorunRenderCompareStarted = True
+                Me.WindowState = FormWindowState.Minimized
+                Me.ShowInTaskbar = False
+                BeginInvoke(Sub() StartLegRenderComparison(autorunOptions))
+            End If
+        End If
     End Sub
 
     Private Sub MainForm_Leave(sender As Object, e As EventArgs) Handles Me.Leave

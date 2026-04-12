@@ -50,6 +50,16 @@ Public Class clsExtra
         AppFolder = My.Application.Info.DirectoryPath + "\"
 
     End Sub
+    Private Function ParseRealtimeFactorOrDefault(value As String) As Single
+        Dim parsed As Single
+        If Single.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) Then
+            If parsed > 0 Then Return parsed
+        End If
+        If Single.TryParse(value, NumberStyles.Float, CultureInfo.CurrentCulture, parsed) Then
+            If parsed > 0 Then Return parsed
+        End If
+        Return 1.0F
+    End Function
     Function FFMpeg_VideoFrameToImage(VideoFile As String, ImageFile As String, Seconds As String) As String
         Return "-ss " + Seconds + " -i " + VideoFile + " -frames:v 1 -y " + ImageFile
 
@@ -604,6 +614,7 @@ Public Class clsExtra
         Dim GPXd, InpD, OLength, Tempoparam, tempostr, videofile_esc, mapfile_esc As String
         Dim SngTempo, SngSpeed, tempo As Single
         Dim iGPXDiff, iVideoDiff, iMapDiff As Integer
+        Dim safeMapVideoSpeed As Single = ParseRealtimeFactorOrDefault(MapVideoSpeed)
 
         videofile_esc = "'" + videofile.Replace("\", "\/") + "'"
         videofile_esc = videofile_esc.Replace(":", "\:")
@@ -653,6 +664,7 @@ Public Class clsExtra
         Dim GPXd, InpD, OLength, Tempoparam, tempostr As String
         Dim SngTempo, SngSpeed As Single
         Dim iGPXDiff As Integer
+        Dim safeMapVideoSpeed As Single = ParseRealtimeFactorOrDefault(MapVideoSpeed)
         GPXd = ""
         InpD = ""
         OLength = ""
@@ -666,7 +678,7 @@ Public Class clsExtra
             iGPXDiff = CInt(GPXDiff)
             If iGPXDiff > 0 Then
                 If UseMapVideo Then
-                    SngSpeed = Math.Abs(iGPXDiff) / MapVideoSpeed
+                    SngSpeed = Math.Abs(iGPXDiff) / safeMapVideoSpeed
 
                     GPXd = " -ss " + CStr(SngSpeed).Replace(",", ".")
                 Else
@@ -795,6 +807,8 @@ Public Class clsExtra
     End Function
     Function FFMPeg_MakeOutputStr(outputfile As String, Optional length As String = "", Optional CodecCopy As Boolean = False, Optional DoAudio As Boolean = True) As String
         Dim fps, crf, audio, preset, pix As String
+        Dim targetWidth As Integer
+        Dim useHardwareEncode As Boolean
         'presets: ultrafast,superfast,veryfast,faster,fast,medium,slow,slower,veryslow
         crf = My.Settings.ffmpegCRF
         fps = My.Settings.ffmpegOutFps
@@ -805,21 +819,37 @@ Public Class clsExtra
         End If
 
         preset = My.Settings.ffmpegPreset
+        If OutputWidth > 0 Then
+            targetWidth = OutputWidth
+        Else
+            targetWidth = InputWidth
+        End If
+        useHardwareEncode = (targetWidth >= 2000)
         If CodecCopy Then
             FFMPeg_MakeOutputStr = " -c:v copy -c:a aac -ac 2 -ar 48000 -b:a 128k"
             pix = ""
         Else ' HD, 2.7K, 4K
-            If InputWidth < 2000 Then
+            If targetWidth < 2000 Then
                 outputStr = " -c:v libx264 -crf " & crf & audio & " -r " & fps & " -preset " & preset
                 pix = " -pix_fmt yuvj420p"
                 FFMPeg_MakeOutputStr = outputStr & pix
-            ElseIf InputWidth >= 2000 And OutputWidth <= 2800 Then '2.7K
-                outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=50000" & audio & " -r " & fps & " -preset " & preset
-                pix = " -pix_fmt yuv420p10le"
+            ElseIf targetWidth <= 2800 Then '2.7K
+                If useHardwareEncode Then
+                    outputStr = " -c:v hevc_nvenc -cq " & crf & audio & " -r " & fps & " -preset p5"
+                    pix = " -pix_fmt yuv420p"
+                Else
+                    outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=50000" & audio & " -r " & fps & " -preset " & preset
+                    pix = " -pix_fmt yuv420p10le"
+                End If
                 FFMPeg_MakeOutputStr = outputStr & pix
-            ElseIf InputWidth > 2800 Then '4K
-                outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=90000" & audio & " -r " & fps & " -preset " & preset
-                pix = " -pix_fmt yuv420p10le"
+            Else '4K
+                If useHardwareEncode Then
+                    outputStr = " -c:v hevc_nvenc -cq " & crf & audio & " -r " & fps & " -preset p5"
+                    pix = " -pix_fmt yuv420p"
+                Else
+                    outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=90000" & audio & " -r " & fps & " -preset " & preset
+                    pix = " -pix_fmt yuv420p10le"
+                End If
                 FFMPeg_MakeOutputStr = outputStr & pix
             End If
         End If

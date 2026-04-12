@@ -87,6 +87,7 @@ Partial Class MainForm
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.btnPostProcess = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblMapLength = New System.Windows.Forms.Label()
         Me.IconStatusPrepare = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -138,7 +139,6 @@ Partial Class MainForm
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.TimerStatusRemaining = New System.Windows.Forms.Timer(Me.components)
         Me.TimerMapStatus = New System.Windows.Forms.Timer(Me.components)
-        Me.lblMapLength = New System.Windows.Forms.Label()
         CType(Me.numVideoTempo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox7.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -714,6 +714,11 @@ Partial Class MainForm
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.TabStop = False
         '
+        'lblMapLength
+        '
+        resources.ApplyResources(Me.lblMapLength, "lblMapLength")
+        Me.lblMapLength.Name = "lblMapLength"
+        '
         'IconStatusPrepare
         '
         Me.IconStatusPrepare.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
@@ -1047,11 +1052,6 @@ Partial Class MainForm
         'TimerMapStatus
         '
         Me.TimerMapStatus.Interval = 500
-        '
-        'lblMapLength
-        '
-        resources.ApplyResources(Me.lblMapLength, "lblMapLength")
-        Me.lblMapLength.Name = "lblMapLength"
         '
         'MainForm
         '
