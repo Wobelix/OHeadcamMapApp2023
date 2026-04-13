@@ -1147,14 +1147,6 @@ Public Class MainForm
                     renderEngine.WriteLegVideoPerf(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
                 Case "perf3"
                     renderEngine.WriteLegVideoPerf3(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
-                Case "perf4"
-                    renderEngine.WriteLegVideoPerf4(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
-                Case "perf5"
-                    renderEngine.WriteLegVideoPerf5(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
-                Case "perf6"
-                    renderEngine.WriteLegVideoPerf6(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
-                Case "perf7"
-                    renderEngine.WriteLegVideoPerf7(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
                 Case "perf8"
                     renderEngine.WriteLegVideoPerf8(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
                 Case "selective"
@@ -1442,14 +1434,22 @@ Public Class MainForm
                              StatusProgressBar1.Value = 0
                          End Sub)
             RemainingTimeObj.StartTime(totalFramesPlanned)
+            RemainingTimeObj.ExtraRemainingSeconds = CDec(GetStoredOverlayEstimateSeconds(ExtraFunc.InputWidth))
             Dim progressSource As clsMapRenderEngine = If(legEngine, zoomEngine)
             If progressSource IsNot Nothing Then
                 progressSource.ProgressCallback =
                     Sub(doneFrames As Integer, totalFrames As Integer, phaseFile As String)
                         Dim safeDone As Integer = Math.Min(totalFramesPlanned, doneFrames)
+                        Dim overlayEstimateSeconds As Double = GetStoredOverlayEstimateSeconds(ExtraFunc.InputWidth)
+                        RemainingTimeObj.ExtraRemainingSeconds = CDec(overlayEstimateSeconds)
                         RemainingTimeObj.SetGetRemainingTime(CDec(safeDone))
                         EnsureInvoke(Sub()
                                          StatusRemaining.Text = RemainingTimeObj.sPercent & " " & Texts.StatusTimeLeft & RemainingTimeObj.sRemainingTime
+                                         If overlayEstimateSeconds > 0 Then
+                                             StatusBarProgressText.Text = GetTotalEstimateStatusText(TimeSpan.ParseExact(RemainingTimeObj.sTotalRemainingTime, "hh\:mm\:ss", CultureInfo.InvariantCulture).TotalSeconds)
+                                         Else
+                                             StatusBarProgressText.Text = ""
+                                         End If
                                          Dim progressValue As Integer = CInt(Math.Round((safeDone / Math.Max(1.0, totalFramesPlanned)) * StatusProgressBar1.Maximum))
                                          StatusProgressBar1.Value = Math.Max(StatusProgressBar1.Minimum, Math.Min(StatusProgressBar1.Maximum, progressValue))
                                      End Sub)
@@ -1567,6 +1567,42 @@ Public Class MainForm
     End Function
     Private Function FormatElapsed(elapsed As TimeSpan) As String
         Return elapsed.TotalSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s"
+    End Function
+    Private Function FormatShortRemaining(seconds As Double) As String
+        Dim safeSeconds As Double = Math.Max(0, seconds)
+        Dim ts As TimeSpan = TimeSpan.FromSeconds(safeSeconds)
+        Return ts.ToString("hh\:mm\:ss")
+    End Function
+    Private Function GetOverlayEstimateBucketKey(videoWidth As Integer) As String
+        If videoWidth <= 1920 Then Return "hd"
+        If videoWidth <= 2560 Then Return "2k"
+        Return "4k"
+    End Function
+    Private Function GetStoredOverlayEstimateSeconds(videoWidth As Integer) As Double
+        Select Case GetOverlayEstimateBucketKey(videoWidth)
+            Case "hd"
+                Return Math.Max(0, My.Settings.OverlayEstimateHdSeconds)
+            Case "2k"
+                Return Math.Max(0, My.Settings.OverlayEstimate2KSeconds)
+            Case Else
+                Return Math.Max(0, My.Settings.OverlayEstimate4KSeconds)
+        End Select
+    End Function
+    Private Sub StoreOverlayEstimateSeconds(videoWidth As Integer, elapsed As TimeSpan)
+        Dim seconds As Double = Math.Max(0, elapsed.TotalSeconds)
+        Select Case GetOverlayEstimateBucketKey(videoWidth)
+            Case "hd"
+                My.Settings.OverlayEstimateHdSeconds = seconds
+            Case "2k"
+                My.Settings.OverlayEstimate2KSeconds = seconds
+            Case Else
+                My.Settings.OverlayEstimate4KSeconds = seconds
+        End Select
+    End Sub
+    Private Function GetTotalEstimateStatusText(totalSeconds As Double) As String
+        If totalSeconds <= 0 Then Return ""
+        If IsDanishUi() Then Return "Samlet est.: " & FormatShortRemaining(totalSeconds)
+        Return "Total est.: " & FormatShortRemaining(totalSeconds)
     End Function
     Private Function GetWholeVideoTimingHeaderText() As String
         If IsDanishUi() Then Return "Samlede videotider:"
@@ -1724,6 +1760,8 @@ Public Class MainForm
             Run_CommandX(FFMpegExe, arg, LogMakeVideo)
             overlayStageStopwatch.Stop()
             LastWholeOverlayStageElapsed = overlayStageStopwatch.Elapsed
+            StoreOverlayEstimateSeconds(ExtraFunc.InputWidth, LastWholeOverlayStageElapsed)
+            My.Settings.Save()
             TimerStatusRemaining.Stop()
             EnsureInvoke(Sub() StatusRemaining.Text = "")
             If Not ProbeVideo.StoreVideoProps(txtOutFilename.Text) Then

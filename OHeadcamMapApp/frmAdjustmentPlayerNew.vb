@@ -36,6 +36,7 @@ Public Class frmAdjustmentPlayer_new
     Private _ZoomZoom As Decimal
     Private _LegMargin As Integer
     Private _LoadingForm As Boolean
+    Private _DeferredInitStarted As Boolean = False
     Private RPs As New clsQRRoutePoints
     Private MapImg As Bitmap
     Private VideoInfo As clsFFMPegProbe
@@ -44,6 +45,8 @@ Public Class frmAdjustmentPlayer_new
     Private _VideoPanelScale As Double
     Private Const UseSmoothPreview As Boolean = True
     Private Const TrackBarUnitsPerSecond As Integer = 10
+    Private Const PreviewTailSampleStepSeconds As Double = 0.5
+    Private Const PreviewTailMinimumPointDistance As Double = 1.5
 
     Public Sub New(MainF As MainForm, iMaxLength As String)
         Dim prevLap, tmpLap As Integer
@@ -79,11 +82,6 @@ Public Class frmAdjustmentPlayer_new
                 Throw
             End Try
 
-            _MapImgHandler = New clsMapImages(RPs, MapImg)
-            _MapDeltaTime = 0
-            '_MapImgHandler.labelx = Label1
-            _MapReady = True
-
             bTrackChange = False
             prevLap = -1
             For Each lap As clsQRRoutePoint In RPs.LapPoints
@@ -114,13 +112,7 @@ Public Class frmAdjustmentPlayer_new
                 lblMap2Active.Visible = False
 
             End If
-            _MapImgHandler.LoadSettings() 'loading my.settings
-            SetPBMapSizes()
-            SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos)
             MapImageTimer.Interval = 50
-            SetVideo()
-            _ZoomZoom = My.Settings.MIZoomZoom
-            _LegMargin = My.Settings.MILegMargin
 
             _LoadingForm = False
         Catch ex As Exception
@@ -422,6 +414,7 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler.FrameFeather = My.Settings.MIFrameFeather
         _MapImgHandler.ResetAlphaMasks()
         _MapImgHandler.InvalidateSmoothCaches()
+        ApplyPreviewRenderTuning()
         _ZoomZoom = My.Settings.MIZoomZoom
         _LegMargin = My.Settings.MILegMargin
 
@@ -627,6 +620,11 @@ Public Class frmAdjustmentPlayer_new
     Public Function retrat() As Decimal
         Return My.Settings.MITailRatio
     End Function
+    Private Sub ApplyPreviewRenderTuning()
+        If IsNothing(_MapImgHandler) Then Return
+        _MapImgHandler.ConfigureSmoothPreview(tailSampleStepSeconds:=PreviewTailSampleStepSeconds,
+                                              tailMinimumPointDistance:=PreviewTailMinimumPointDistance)
+    End Sub
     Private Sub OpenMapSettingsDialog()
         Dim fMapSet As frmMapSettings = New frmMapSettings(Me)
         If Not PlayMode = PlayMode_stop Then
@@ -635,6 +633,7 @@ Public Class frmAdjustmentPlayer_new
         End If
         fMapSet.ShowDialog()
         _MapImgHandler.LoadSettings()
+        ApplyPreviewRenderTuning()
     End Sub
     Private Sub bMapSettings_Click(sender As Object, e As EventArgs) Handles bMapSettings.Click
         OpenMapSettingsDialog()
@@ -795,6 +794,36 @@ Public Class frmAdjustmentPlayer_new
         cbZoom.Checked = My.Settings.cbShowRoute
         IsLoaded = True
         SetShowMaps()
+        If Not _DeferredInitStarted Then
+            _DeferredInitStarted = True
+            BeginInvoke(New Action(AddressOf InitializePreviewAfterShow))
+        End If
+    End Sub
+
+    Private Sub InitializePreviewAfterShow()
+        If IsDisposed Then Return
+
+        Try
+            UseWaitCursor = True
+            StatusLabel.Text = "Loading preview..."
+            Application.DoEvents()
+
+            _MapImgHandler = New clsMapImages(RPs, MapImg)
+            _MapDeltaTime = 0
+            _MapReady = True
+            _MapImgHandler.LoadSettings()
+            ApplyPreviewRenderTuning()
+            SetPBMapSizes()
+            SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos)
+            _ZoomZoom = My.Settings.MIZoomZoom
+            _LegMargin = My.Settings.MILegMargin
+            SetVideo()
+            StatusLabel.Text = ""
+        Catch ex As Exception
+            StatusLabel.Text = ex.Message
+        Finally
+            UseWaitCursor = False
+        End Try
     End Sub
 
     Private Sub ReleaseVideoResources()

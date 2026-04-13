@@ -545,9 +545,32 @@ Public Class clsMapImages
     Private SmoothHeadingMaxWindowSeconds As Double = 8.0
     Private SmoothPositionWindowSeconds As Double = 0.75
     Private SmoothTailSampleStepSeconds As Double = 0.25
-    Private SmoothTailMinimumPointDistance As Double = 2.0
+    Private SmoothTailMinimumPointDistance As Double = 1.0
     Private SmoothHeadingMinimumDistance As Double = 6.0
 #End Region
+
+    Public Sub ConfigureSmoothPreview(Optional tailSampleStepSeconds As Double = -1,
+                                      Optional tailMinimumPointDistance As Double = -1,
+                                      Optional positionWindowSeconds As Double = -1,
+                                      Optional headingWindowSeconds As Double = -1,
+                                      Optional headingMinimumDistance As Double = -1)
+        If tailSampleStepSeconds > 0 Then SmoothTailSampleStepSeconds = tailSampleStepSeconds
+        If tailMinimumPointDistance > 0 Then SmoothTailMinimumPointDistance = tailMinimumPointDistance
+        If positionWindowSeconds > 0 Then SmoothPositionWindowSeconds = positionWindowSeconds
+        If headingWindowSeconds > 0 Then SmoothHeadingWindowSeconds = headingWindowSeconds
+        If headingMinimumDistance > 0 Then SmoothHeadingMinimumDistance = headingMinimumDistance
+        InvalidateSmoothCaches()
+    End Sub
+
+    Public Sub ResetSmoothPreviewDefaults()
+        SmoothHeadingWindowSeconds = 2.0
+        SmoothHeadingMaxWindowSeconds = 8.0
+        SmoothPositionWindowSeconds = 0.75
+        SmoothTailSampleStepSeconds = 0.25
+        SmoothTailMinimumPointDistance = 1.0
+        SmoothHeadingMinimumDistance = 6.0
+        InvalidateSmoothCaches()
+    End Sub
 
     Public Sub New(inQRRouteP As clsQRRoutePoints, InMainMapImage As Bitmap, Optional bLoadSettings As Boolean = True)
         LogFejl("Program started", False)

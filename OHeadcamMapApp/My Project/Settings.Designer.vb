@@ -1831,6 +1831,42 @@ Namespace My
                 Me("MISmoothParallelGeneration") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property OverlayEstimateHdSeconds() As Double
+            Get
+                Return CType(Me("OverlayEstimateHdSeconds"),Double)
+            End Get
+            Set
+                Me("OverlayEstimateHdSeconds") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property OverlayEstimate2KSeconds() As Double
+            Get
+                Return CType(Me("OverlayEstimate2KSeconds"),Double)
+            End Get
+            Set
+                Me("OverlayEstimate2KSeconds") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property OverlayEstimate4KSeconds() As Double
+            Get
+                Return CType(Me("OverlayEstimate4KSeconds"),Double)
+            End Get
+            Set
+                Me("OverlayEstimate4KSeconds") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
