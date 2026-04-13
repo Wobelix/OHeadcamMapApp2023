@@ -1446,7 +1446,7 @@ Public Class MainForm
                         EnsureInvoke(Sub()
                                          StatusRemaining.Text = RemainingTimeObj.sPercent & " " & Texts.StatusTimeLeft & RemainingTimeObj.sRemainingTime
                                          If overlayEstimateSeconds > 0 Then
-                                             StatusBarProgressText.Text = GetTotalEstimateStatusText(TimeSpan.ParseExact(RemainingTimeObj.sTotalRemainingTime, "hh\:mm\:ss", CultureInfo.InvariantCulture).TotalSeconds)
+                                             StatusBarProgressText.Text = GetTotalEstimateStatusText(TryParseRemainingTimeSeconds(RemainingTimeObj.sTotalRemainingTime))
                                          Else
                                              StatusBarProgressText.Text = ""
                                          End If
@@ -1603,6 +1603,13 @@ Public Class MainForm
         If totalSeconds <= 0 Then Return ""
         If IsDanishUi() Then Return "Samlet est.: " & FormatShortRemaining(totalSeconds)
         Return "Total est.: " & FormatShortRemaining(totalSeconds)
+    End Function
+    Private Function TryParseRemainingTimeSeconds(value As String) As Double
+        Dim parsed As TimeSpan
+        If TimeSpan.TryParseExact(value, "hh\:mm\:ss", CultureInfo.InvariantCulture, parsed) Then
+            Return Math.Max(0, parsed.TotalSeconds)
+        End If
+        Return 0
     End Function
     Private Function GetWholeVideoTimingHeaderText() As String
         If IsDanishUi() Then Return "Samlede videotider:"
