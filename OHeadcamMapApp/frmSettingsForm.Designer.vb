@@ -55,6 +55,7 @@ Partial Class frmSettings
         Me.txtVideoWorkfolder = New System.Windows.Forms.TextBox()
         Me.txtCRF = New System.Windows.Forms.TextBox()
         Me.txtFPS = New System.Windows.Forms.TextBox()
+        Me.cmbOutputFormat = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.numSmooth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,19 +65,16 @@ Partial Class frmSettings
         '
         resources.ApplyResources(Me.Label12, "Label12")
         Me.Label12.Name = "Label12"
-        Me.ToolTip1.SetToolTip(Me.Label12, resources.GetString("Label12.ToolTip"))
         '
         'Label1
         '
         resources.ApplyResources(Me.Label1, "Label1")
         Me.Label1.Name = "Label1"
-        Me.ToolTip1.SetToolTip(Me.Label1, resources.GetString("Label1.ToolTip"))
         '
         'btnSave
         '
         resources.ApplyResources(Me.btnSave, "btnSave")
         Me.btnSave.Name = "btnSave"
-        Me.ToolTip1.SetToolTip(Me.btnSave, resources.GetString("btnSave.ToolTip"))
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'Label17
@@ -89,23 +87,19 @@ Partial Class frmSettings
         '
         resources.ApplyResources(Me.Label5, "Label5")
         Me.Label5.Name = "Label5"
-        Me.ToolTip1.SetToolTip(Me.Label5, resources.GetString("Label5.ToolTip"))
         '
         'Label6
         '
         resources.ApplyResources(Me.Label6, "Label6")
         Me.Label6.Name = "Label6"
-        Me.ToolTip1.SetToolTip(Me.Label6, resources.GetString("Label6.ToolTip"))
         '
         'Label2
         '
         resources.ApplyResources(Me.Label2, "Label2")
         Me.Label2.Name = "Label2"
-        Me.ToolTip1.SetToolTip(Me.Label2, resources.GetString("Label2.ToolTip"))
         '
         'GroupBox1
         '
-        resources.ApplyResources(Me.GroupBox1, "GroupBox1")
         Me.GroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.None
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.cmbPreset)
@@ -119,100 +113,88 @@ Partial Class frmSettings
         Me.GroupBox1.Controls.Add(Me.txtSettingSbSCode)
         Me.GroupBox1.Controls.Add(Me.TextBox3)
         Me.GroupBox1.Controls.Add(Me.Label2)
+        resources.ApplyResources(Me.GroupBox1, "GroupBox1")
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GroupBox1, resources.GetString("GroupBox1.ToolTip"))
         '
         'Label3
         '
         resources.ApplyResources(Me.Label3, "Label3")
         Me.Label3.Name = "Label3"
-        Me.ToolTip1.SetToolTip(Me.Label3, resources.GetString("Label3.ToolTip"))
         '
         'cmbPreset
         '
-        resources.ApplyResources(Me.cmbPreset, "cmbPreset")
         Me.cmbPreset.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegPreset", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.cmbPreset.FormattingEnabled = True
         Me.cmbPreset.Items.AddRange(New Object() {resources.GetString("cmbPreset.Items"), resources.GetString("cmbPreset.Items1"), resources.GetString("cmbPreset.Items2"), resources.GetString("cmbPreset.Items3"), resources.GetString("cmbPreset.Items4"), resources.GetString("cmbPreset.Items5"), resources.GetString("cmbPreset.Items6"), resources.GetString("cmbPreset.Items7"), resources.GetString("cmbPreset.Items8"), resources.GetString("cmbPreset.Items9")})
+        resources.ApplyResources(Me.cmbPreset, "cmbPreset")
         Me.cmbPreset.Name = "cmbPreset"
         Me.cmbPreset.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegPreset
-        Me.ToolTip1.SetToolTip(Me.cmbPreset, resources.GetString("cmbPreset.ToolTip"))
         '
         'Label4
         '
         resources.ApplyResources(Me.Label4, "Label4")
         Me.Label4.Name = "Label4"
-        Me.ToolTip1.SetToolTip(Me.Label4, resources.GetString("Label4.ToolTip"))
         '
         'TextBox4
         '
-        resources.ApplyResources(Me.TextBox4, "TextBox4")
         Me.TextBox4.BackColor = System.Drawing.SystemColors.Info
+        resources.ApplyResources(Me.TextBox4, "TextBox4")
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
-        Me.ToolTip1.SetToolTip(Me.TextBox4, resources.GetString("TextBox4.ToolTip"))
         '
         'TextBox2
         '
-        resources.ApplyResources(Me.TextBox2, "TextBox2")
         Me.TextBox2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabDetect", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox2, "TextBox2")
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabDetect
-        Me.ToolTip1.SetToolTip(Me.TextBox2, resources.GetString("TextBox2.ToolTip"))
         '
         'TextBox1
         '
-        resources.ApplyResources(Me.TextBox1, "TextBox1")
         Me.TextBox1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "No_deshake_filter", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox1, "TextBox1")
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Text = Global.OHeadcamMapApp.My.MySettings.Default.No_deshake_filter
-        Me.ToolTip1.SetToolTip(Me.TextBox1, resources.GetString("TextBox1.ToolTip"))
         '
         'txtSettingSbSCode
         '
-        resources.ApplyResources(Me.txtSettingSbSCode, "txtSettingSbSCode")
         Me.txtSettingSbSCode.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "SettingSbSCode", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtSettingSbSCode, "txtSettingSbSCode")
         Me.txtSettingSbSCode.Name = "txtSettingSbSCode"
         Me.txtSettingSbSCode.Text = Global.OHeadcamMapApp.My.MySettings.Default.SettingSbSCode
-        Me.ToolTip1.SetToolTip(Me.txtSettingSbSCode, resources.GetString("txtSettingSbSCode.ToolTip"))
         '
         'TextBox3
         '
-        resources.ApplyResources(Me.TextBox3, "TextBox3")
         Me.TextBox3.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegVidstabTransform", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.TextBox3, "TextBox3")
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegVidstabTransform
-        Me.ToolTip1.SetToolTip(Me.TextBox3, resources.GetString("TextBox3.ToolTip"))
         '
         'btnSelectFolder
         '
         resources.ApplyResources(Me.btnSelectFolder, "btnSelectFolder")
         Me.btnSelectFolder.Name = "btnSelectFolder"
-        Me.ToolTip1.SetToolTip(Me.btnSelectFolder, resources.GetString("btnSelectFolder.ToolTip"))
         Me.btnSelectFolder.UseVisualStyleBackColor = True
         '
         'Label7
         '
         resources.ApplyResources(Me.Label7, "Label7")
         Me.Label7.Name = "Label7"
-        Me.ToolTip1.SetToolTip(Me.Label7, resources.GetString("Label7.ToolTip"))
         '
         'GroupBox2
         '
-        resources.ApplyResources(Me.GroupBox2, "GroupBox2")
         Me.GroupBox2.Controls.Add(Me.rbImgMiddle)
         Me.GroupBox2.Controls.Add(Me.rbImgRight)
         Me.GroupBox2.Controls.Add(Me.rbImgLeft)
+        resources.ApplyResources(Me.GroupBox2, "GroupBox2")
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GroupBox2, resources.GetString("GroupBox2.ToolTip"))
         '
         'rbImgMiddle
         '
         resources.ApplyResources(Me.rbImgMiddle, "rbImgMiddle")
         Me.rbImgMiddle.Name = "rbImgMiddle"
-        Me.ToolTip1.SetToolTip(Me.rbImgMiddle, resources.GetString("rbImgMiddle.ToolTip"))
         Me.rbImgMiddle.UseVisualStyleBackColor = True
         '
         'rbImgRight
@@ -221,44 +203,38 @@ Partial Class frmSettings
         Me.rbImgRight.Checked = True
         Me.rbImgRight.Name = "rbImgRight"
         Me.rbImgRight.TabStop = True
-        Me.ToolTip1.SetToolTip(Me.rbImgRight, resources.GetString("rbImgRight.ToolTip"))
         Me.rbImgRight.UseVisualStyleBackColor = True
         '
         'rbImgLeft
         '
         resources.ApplyResources(Me.rbImgLeft, "rbImgLeft")
         Me.rbImgLeft.Name = "rbImgLeft"
-        Me.ToolTip1.SetToolTip(Me.rbImgLeft, resources.GetString("rbImgLeft.ToolTip"))
         Me.rbImgLeft.UseVisualStyleBackColor = True
         '
         'btnReset
         '
         resources.ApplyResources(Me.btnReset, "btnReset")
         Me.btnReset.Name = "btnReset"
-        Me.ToolTip1.SetToolTip(Me.btnReset, resources.GetString("btnReset.ToolTip"))
         Me.btnReset.UseVisualStyleBackColor = True
         '
         'Label8
         '
         resources.ApplyResources(Me.Label8, "Label8")
         Me.Label8.Name = "Label8"
-        Me.ToolTip1.SetToolTip(Me.Label8, resources.GetString("Label8.ToolTip"))
         '
         'Label9
         '
         resources.ApplyResources(Me.Label9, "Label9")
         Me.Label9.Name = "Label9"
-        Me.ToolTip1.SetToolTip(Me.Label9, resources.GetString("Label9.ToolTip"))
         '
         'numSmooth
         '
-        resources.ApplyResources(Me.numSmooth, "numSmooth")
         Me.numSmooth.DecimalPlaces = 2
         Me.numSmooth.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        resources.ApplyResources(Me.numSmooth, "numSmooth")
         Me.numSmooth.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numSmooth.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
         Me.numSmooth.Name = "numSmooth"
-        Me.ToolTip1.SetToolTip(Me.numSmooth, resources.GetString("numSmooth.ToolTip"))
         Me.numSmooth.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         '
         'chkHDformat
@@ -267,37 +243,41 @@ Partial Class frmSettings
         Me.chkHDformat.Checked = Global.OHeadcamMapApp.My.MySettings.Default.chkHDFormat
         Me.chkHDformat.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.OHeadcamMapApp.My.MySettings.Default, "chkHDFormat", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.chkHDformat.Name = "chkHDformat"
-        Me.ToolTip1.SetToolTip(Me.chkHDformat, resources.GetString("chkHDformat.ToolTip"))
         Me.chkHDformat.UseVisualStyleBackColor = True
         '
         'txtVideoWorkfolder
         '
-        resources.ApplyResources(Me.txtVideoWorkfolder, "txtVideoWorkfolder")
         Me.txtVideoWorkfolder.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "VideoWorkFolder", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtVideoWorkfolder, "txtVideoWorkfolder")
         Me.txtVideoWorkfolder.Name = "txtVideoWorkfolder"
         Me.txtVideoWorkfolder.Text = Global.OHeadcamMapApp.My.MySettings.Default.VideoWorkFolder
-        Me.ToolTip1.SetToolTip(Me.txtVideoWorkfolder, resources.GetString("txtVideoWorkfolder.ToolTip"))
         '
         'txtCRF
         '
-        resources.ApplyResources(Me.txtCRF, "txtCRF")
         Me.txtCRF.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegCRF", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtCRF, "txtCRF")
         Me.txtCRF.Name = "txtCRF"
         Me.txtCRF.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegCRF
-        Me.ToolTip1.SetToolTip(Me.txtCRF, resources.GetString("txtCRF.ToolTip"))
         '
         'txtFPS
         '
-        resources.ApplyResources(Me.txtFPS, "txtFPS")
         Me.txtFPS.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegOutFps", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        resources.ApplyResources(Me.txtFPS, "txtFPS")
         Me.txtFPS.Name = "txtFPS"
         Me.txtFPS.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegOutFps
-        Me.ToolTip1.SetToolTip(Me.txtFPS, resources.GetString("txtFPS.ToolTip"))
+        '
+        'cmbOutputFormat
+        '
+        Me.cmbOutputFormat.FormattingEnabled = True
+        Me.cmbOutputFormat.Items.AddRange(New Object() {resources.GetString("cmbOutputFormat.Items"), resources.GetString("cmbOutputFormat.Items1"), resources.GetString("cmbOutputFormat.Items2"), resources.GetString("cmbOutputFormat.Items3")})
+        resources.ApplyResources(Me.cmbOutputFormat, "cmbOutputFormat")
+        Me.cmbOutputFormat.Name = "cmbOutputFormat"
         '
         'frmSettings
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.cmbOutputFormat)
         Me.Controls.Add(Me.numSmooth)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.chkHDformat)
@@ -314,7 +294,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.txtFPS)
         Me.Controls.Add(Me.Label12)
         Me.Name = "frmSettings"
-        Me.ToolTip1.SetToolTip(Me, resources.GetString("$this.ToolTip"))
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -356,4 +335,5 @@ Partial Class frmSettings
     Friend WithEvents Label3 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents numSmooth As NumericUpDown
+    Friend WithEvents cmbOutputFormat As ComboBox
 End Class

@@ -2,7 +2,9 @@
 Public Class frmMapSettings
 
     Public ratio, LegCorner, ZoomCorner, LegMargin, ZoomZoom, ArrowBarb, ArrowWidth As Decimal
-    Public circle, feather As Boolean
+    Public tailTransparency, paceFastMinPerKm, paceSlowMinPerKm As Decimal
+    Public arrowOutlineScale As Integer
+    Public circle, feather, tailSpeedColors As Boolean
     Public DotType As String
     Public FrmAdj As frmAdjustmentPlayer_new
     Public dotcolor, framecolor, tailcolor As Color
@@ -100,6 +102,16 @@ Public Class frmMapSettings
         numZoomZoom.Value = My.Settings.MIZoomZoom
         numArrowBarb.Value = My.Settings.MIArrowBarb
         numArrowWidth.Value = My.Settings.MIArrowWidth
+        cbTailSpeed.Checked = My.Settings.MITailUseSpeedColors
+        numPaceFast.Value = CDec(My.Settings.MIPaceFastMinPerKm)
+        numPaceSlow.Value = CDec(My.Settings.MIPaceSlowMinPerKm)
+        numTransparent.Value = CDec(My.Settings.MITailTransparency)
+        numOutline.Value = My.Settings.MIArrowOutlineScale
+        tailSpeedColors = cbTailSpeed.Checked
+        paceFastMinPerKm = numPaceFast.Value
+        paceSlowMinPerKm = numPaceSlow.Value
+        tailTransparency = numTransparent.Value
+        arrowOutlineScale = CInt(numOutline.Value)
         If My.Settings.MIDotType = "Arrow" Then
             cbArrow.Checked = True
         Else
@@ -132,8 +144,14 @@ Public Class frmMapSettings
         End If
     End Sub
 
+
+
     Private Sub cbFeather_CheckedChanged(sender As Object, e As EventArgs) Handles cbFeather.CheckedChanged
         feather = cbFeather.Checked
+    End Sub
+
+    Private Sub cbTailSpeed_CheckedChanged(sender As Object, e As EventArgs) Handles cbTailSpeed.CheckedChanged
+        tailSpeedColors = cbTailSpeed.Checked
     End Sub
 
     Private Sub numArrowBarb_ValueChanged(sender As Object, e As EventArgs) Handles numArrowBarb.ValueChanged
@@ -146,6 +164,22 @@ Public Class frmMapSettings
 
     Private Sub numZoomZoom_ValueChanged(sender As Object, e As EventArgs) Handles numZoomZoom.ValueChanged
         ZoomZoom = numZoomZoom.Value
+    End Sub
+
+    Private Sub numPaceFast_ValueChanged(sender As Object, e As EventArgs) Handles numPaceFast.ValueChanged
+        paceFastMinPerKm = numPaceFast.Value
+    End Sub
+
+    Private Sub numPaceSlow_ValueChanged(sender As Object, e As EventArgs) Handles numPaceSlow.ValueChanged
+        paceSlowMinPerKm = numPaceSlow.Value
+    End Sub
+
+    Private Sub numTransparent_ValueChanged(sender As Object, e As EventArgs) Handles numTransparent.ValueChanged
+        tailTransparency = numTransparent.Value
+    End Sub
+
+    Private Sub numOutline_ValueChanged(sender As Object, e As EventArgs) Handles numOutline.ValueChanged
+        arrowOutlineScale = CInt(numOutline.Value)
     End Sub
 
     Private Sub txtZCorner_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtZCorner.KeyPress
@@ -194,6 +228,11 @@ Public Class frmMapSettings
         My.Settings.MIArrowBarb = ArrowBarb
         My.Settings.MIDotType = DotType
         My.Settings.MIFrameFeather = feather
+        My.Settings.MITailUseSpeedColors = tailSpeedColors
+        My.Settings.MIPaceFastMinPerKm = CDbl(paceFastMinPerKm)
+        My.Settings.MIPaceSlowMinPerKm = CDbl(paceSlowMinPerKm)
+        My.Settings.MITailTransparency = CDbl(tailTransparency)
+        My.Settings.MIArrowOutlineScale = Math.Max(1, arrowOutlineScale)
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SetSettings()

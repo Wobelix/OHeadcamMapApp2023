@@ -1294,7 +1294,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.9")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.4")>  _
         Public Property MITailRatio() As Decimal
             Get
                 Return CType(Me("MITailRatio"),Decimal)
@@ -1306,7 +1306,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("15")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("14")>  _
         Public Property MIDotSize() As Integer
             Get
                 Return CType(Me("MIDotSize"),Integer)
@@ -1582,7 +1582,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.5")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.3")>  _
         Public Property MIArrowBarb() As Double
             Get
                 Return CType(Me("MIArrowBarb"),Double)
@@ -1594,7 +1594,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.7")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.9")>  _
         Public Property MIArrowWidth() As Double
             Get
                 Return CType(Me("MIArrowWidth"),Double)
@@ -1606,7 +1606,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Dot")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Arrow")>  _
         Public Property MIDotType() As String
             Get
                 Return CType(Me("MIDotType"),String)
@@ -1829,6 +1829,78 @@ Namespace My
             End Get
             Set
                 Me("MISmoothParallelGeneration") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("web")>  _
+        Public Property MILegRenderLayout() As String
+            Get
+                Return CType(Me("MILegRenderLayout"),String)
+            End Get
+            Set
+                Me("MILegRenderLayout") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property MITailUseSpeedColors() As Boolean
+            Get
+                Return CType(Me("MITailUseSpeedColors"),Boolean)
+            End Get
+            Set
+                Me("MITailUseSpeedColors") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
+        Public Property MIPaceFastMinPerKm() As Double
+            Get
+                Return CType(Me("MIPaceFastMinPerKm"),Double)
+            End Get
+            Set
+                Me("MIPaceFastMinPerKm") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("14")>  _
+        Public Property MIPaceSlowMinPerKm() As Double
+            Get
+                Return CType(Me("MIPaceSlowMinPerKm"),Double)
+            End Get
+            Set
+                Me("MIPaceSlowMinPerKm") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.4")>  _
+        Public Property MITailTransparency() As Double
+            Get
+                Return CType(Me("MITailTransparency"),Double)
+            End Get
+            Set
+                Me("MITailTransparency") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property MIArrowOutlineScale() As Integer
+            Get
+                Return CType(Me("MIArrowOutlineScale"),Integer)
+            End Get
+            Set
+                Me("MIArrowOutlineScale") = value
             End Set
         End Property
         

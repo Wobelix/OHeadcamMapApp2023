@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Collections.Generic
 Imports System.Globalization
 Imports System.IO
 Imports System.Text.RegularExpressions
@@ -56,6 +57,7 @@ Public Class MainForm
     Private LastWholeOverlayStageElapsed As TimeSpan = TimeSpan.Zero
     Private LastWholeVideoTotalElapsed As TimeSpan = TimeSpan.Zero
     Private _autorunRenderCompareStarted As Boolean = False
+    Private _autorunRenderLegStarted As Boolean = False
     Public strQuote As String = Chr(34)
     Public bMakeMapDirty, bMakeVideoInDirty, bOutputVideoDirty As Boolean
     Public bProcessIsRunning As Boolean = False ' Used to interrupt background processes
@@ -67,13 +69,51 @@ Public Class MainForm
     Private Const SmoothOverlayBaseName As String = "map_overlay.mp4"
     Private Class RenderCompareOptions
         Public Property Variant1 As String = "perf"
-        Public Property Variant2 As String = "perf4"
+        Public Property Variant2 As String = "perf8"
         Public Property StartTime As Double = 360
         Public Property Duration As Double = 120
         Public Property VideoWidth As Integer = 1920
         Public Property OutputFile As String = ""
         Public Property LogFile As String = ""
         Public Property AutoClose As Boolean = True
+    End Class
+
+    Private Class RenderStyleOverrides
+        Public Property LegWidth As Integer?
+        Public Property LegHeight As Integer?
+        Public Property TailDurationSeconds As Integer?
+        Public Property DotSize As Integer?
+        Public Property DotTailRatio As Double?
+        Public Property ArrowBarb As Double?
+        Public Property ArrowWidth As Double?
+        Public Property DotType As String = ""
+        Public Property FrameFeather As Boolean?
+        Public Property TailColorArgb As Integer?
+        Public Property DotColorArgb As Integer?
+        Public Property TailAlpha As Integer?
+        Public Property SpeedColoringEnabled As Boolean?
+        Public Property PaceFastSecondsPerKm As Double?
+        Public Property PaceSlowSecondsPerKm As Double?
+        Public Property TailTicksEnabled As Boolean?
+        Public Property TailTickIntervalSeconds As Double?
+        Public Property TailTickAlpha As Integer?
+        Public Property TailTickColorArgb As Integer?
+    End Class
+
+    Private Class RenderLegOptions
+        Public Property RenderVariant As String = "perf8"
+        Public Property StylePreset As String = ""
+        Public Property StartTime As Double = 360
+        Public Property Duration As Double = 120
+        Public Property VideoWidth As Integer = 1920
+        Public Property OutputFile As String = ""
+        Public Property LogFile As String = ""
+        Public Property AutoClose As Boolean = True
+        Public Property XmlPath As String = ""
+        Public Property ImagePath As String = ""
+        Public Property FrameStepSeconds As Double = -1
+        Public Property OutputFps As Double = -1
+        Public Property Style As New RenderStyleOverrides()
     End Class
 
 
@@ -1008,18 +1048,27 @@ Public Class MainForm
     End Sub
 
     Private Sub btnTestWriteVideo_Click(sender As Object, e As EventArgs) Handles btnTestWriteVideo.Click
-        SaveFileDialogOutput.FileName = "testleg_perf4" & GetSmoothOverlayVideoExtension()
+        SaveFileDialogOutput.FileName = "testleg_web_420" & GetSmoothOverlayVideoExtension()
         If SaveFileDialogOutput.ShowDialog() <> DialogResult.OK Then Return
-        Dim options As New RenderCompareOptions With {
+        Dim outputFile As String = SaveFileDialogOutput.FileName
+        Dim outputDir As String = Path.GetDirectoryName(outputFile)
+        If String.IsNullOrWhiteSpace(outputDir) Then outputDir = AppFolder
+        Dim logFile As String = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(outputFile) & ".log")
+
+        Dim options As New RenderLegOptions With {
             .OutputFile = SaveFileDialogOutput.FileName,
-            .VideoWidth = ExtraFunc.InputWidth,
-            .StartTime = 360,
-            .Duration = 120,
-            .Variant1 = "perf",
-            .Variant2 = "perf4",
+            .LogFile = logFile,
+            .VideoWidth = 1920,
+            .StartTime = 1380,
+            .Duration = 60,
+            .RenderVariant = "perf8",
+            .StylePreset = "web",
             .AutoClose = False
         }
-        StartLegRenderComparison(options)
+        options.Style.LegWidth = 940
+        options.Style.LegHeight = 2140
+        options.Style.DotSize = 16
+        StartLegRender(options)
     End Sub
 
     Private Function ParseRenderCompareArgs() As RenderCompareOptions
@@ -1077,7 +1126,7 @@ Public Class MainForm
         If String.IsNullOrWhiteSpace(options.OutputFile) Then
             Dim baseDir As String = AppFolder
             Dim ext As String = GetSmoothOverlayVideoExtension()
-            options.OutputFile = Path.Combine(baseDir, "autorender_perf4" & ext)
+            options.OutputFile = Path.Combine(baseDir, "autorender_perf8" & ext)
         End If
         If String.IsNullOrWhiteSpace(options.LogFile) Then
             Dim outDir As String = Path.GetDirectoryName(options.OutputFile)
@@ -1088,6 +1137,278 @@ Public Class MainForm
 
         Return options
     End Function
+
+    Private Function ResolveAutorunPath(pathValue As String) As String
+        If String.IsNullOrWhiteSpace(pathValue) Then Return ""
+        If Path.IsPathRooted(pathValue) Then Return pathValue
+        Return Path.Combine(AppFolder, pathValue)
+    End Function
+
+    Private Function TryParseColorArgument(value As String, ByRef parsedColor As Color) As Boolean
+        If String.IsNullOrWhiteSpace(value) Then Return False
+        Dim trimmed As String = value.Trim()
+
+        Try
+            If trimmed.StartsWith("#") Then
+                parsedColor = ColorTranslator.FromHtml(trimmed)
+                Return True
+            End If
+
+            If trimmed.StartsWith("0x", StringComparison.OrdinalIgnoreCase) Then
+                Dim argb As Integer
+                If Integer.TryParse(trimmed.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, argb) Then
+                    parsedColor = Color.FromArgb(argb)
+                    Return True
+                End If
+            End If
+
+            Dim namedColor As Color = Color.FromName(trimmed)
+            If namedColor.IsKnownColor OrElse namedColor.IsNamedColor Then
+                parsedColor = namedColor
+                Return True
+            End If
+        Catch
+        End Try
+
+        Return False
+    End Function
+
+    Private Function ParseRenderLegArgs() As RenderLegOptions
+        Dim args As String() = Environment.GetCommandLineArgs()
+        If args Is Nothing OrElse args.Length <= 1 Then Return Nothing
+
+        Dim hasRenderLeg As Boolean = False
+        Dim options As New RenderLegOptions With {
+            .VideoWidth = ExtraFunc.InputWidth
+        }
+
+        For i As Integer = 1 To args.Length - 1
+            Dim rawArg As String = args(i)
+            If String.IsNullOrWhiteSpace(rawArg) Then Continue For
+            Dim arg As String = rawArg.Trim()
+            If arg.StartsWith("/") OrElse arg.StartsWith("-") Then arg = arg.Substring(1)
+            Dim eqPos As Integer = arg.IndexOf("="c)
+            Dim key As String = If(eqPos >= 0, arg.Substring(0, eqPos), arg)
+            Dim value As String = If(eqPos >= 0, arg.Substring(eqPos + 1), "")
+            key = key.Trim().ToLowerInvariant()
+            value = value.Trim().Trim(""""c)
+
+            Select Case key
+                Case "renderleg"
+                    hasRenderLeg = True
+                Case "variant"
+                    If value <> "" Then options.RenderVariant = value.ToLowerInvariant()
+                Case "stylepreset", "style"
+                    options.StylePreset = value.ToLowerInvariant()
+                Case "start"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) Then options.StartTime = parsed
+                Case "duration"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) Then options.Duration = parsed
+                Case "width"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) AndAlso parsed > 0 Then options.VideoWidth = parsed
+                Case "legwidth"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) AndAlso parsed > 0 Then options.Style.LegWidth = parsed
+                Case "legheight"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) AndAlso parsed > 0 Then options.Style.LegHeight = parsed
+                Case "outfile", "output"
+                    options.OutputFile = value
+                Case "log", "logfile"
+                    options.LogFile = value
+                Case "autoclose", "exit"
+                    If value = "" Then
+                        options.AutoClose = True
+                    Else
+                        Dim parsed As Boolean
+                        If Boolean.TryParse(value, parsed) Then options.AutoClose = parsed
+                    End If
+                Case "xml", "qrxml"
+                    options.XmlPath = ResolveAutorunPath(value)
+                Case "image", "qrimage", "map"
+                    options.ImagePath = ResolveAutorunPath(value)
+                Case "framestep"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed > 0 Then options.FrameStepSeconds = parsed
+                Case "fps", "outputfps"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed > 0 Then options.OutputFps = parsed
+                Case "tailduration"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) AndAlso parsed >= 0 Then options.Style.TailDurationSeconds = parsed
+                Case "dotsize"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) AndAlso parsed > 0 Then options.Style.DotSize = parsed
+                Case "tailratio"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed >= 0 Then options.Style.DotTailRatio = parsed
+                Case "arrowbarb"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed >= 0 Then options.Style.ArrowBarb = parsed
+                Case "arrowwidth"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed >= 0 Then options.Style.ArrowWidth = parsed
+                Case "dottype"
+                    options.Style.DotType = value
+                Case "framefeather"
+                    Dim parsed As Boolean
+                    If Boolean.TryParse(value, parsed) Then options.Style.FrameFeather = parsed
+                Case "tailcolor"
+                    Dim parsedColor As Color
+                    If TryParseColorArgument(value, parsedColor) Then options.Style.TailColorArgb = parsedColor.ToArgb()
+                Case "dotcolor"
+                    Dim parsedColor As Color
+                    If TryParseColorArgument(value, parsedColor) Then options.Style.DotColorArgb = parsedColor.ToArgb()
+                Case "tailalpha"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) Then options.Style.TailAlpha = Math.Max(0, Math.Min(255, parsed))
+                Case "speedcolor", "speedcoloring"
+                    Dim parsed As Boolean
+                    If Boolean.TryParse(value, parsed) Then options.Style.SpeedColoringEnabled = parsed
+                Case "pacefast", "pacefastsec"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed > 0 Then options.Style.PaceFastSecondsPerKm = parsed
+                Case "paceslow", "paceslowsec"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed > 0 Then options.Style.PaceSlowSecondsPerKm = parsed
+                Case "tailticks", "ticks"
+                    Dim parsed As Boolean
+                    If Boolean.TryParse(value, parsed) Then options.Style.TailTicksEnabled = parsed
+                Case "tickinterval"
+                    Dim parsed As Double
+                    If Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, parsed) AndAlso parsed > 0 Then options.Style.TailTickIntervalSeconds = parsed
+                Case "tickalpha"
+                    Dim parsed As Integer
+                    If Integer.TryParse(value, parsed) Then options.Style.TailTickAlpha = Math.Max(0, Math.Min(255, parsed))
+                Case "tickcolor"
+                    Dim parsedColor As Color
+                    If TryParseColorArgument(value, parsedColor) Then options.Style.TailTickColorArgb = parsedColor.ToArgb()
+            End Select
+        Next
+
+        If Not hasRenderLeg Then Return Nothing
+
+        If String.IsNullOrWhiteSpace(options.OutputFile) Then
+            Dim baseDir As String = AppFolder
+            Dim ext As String = GetSmoothOverlayVideoExtension()
+            options.OutputFile = Path.Combine(baseDir, "autorender_leg_" & options.RenderVariant & ext)
+        End If
+        If String.IsNullOrWhiteSpace(options.LogFile) Then
+            Dim outDir As String = Path.GetDirectoryName(options.OutputFile)
+            If String.IsNullOrWhiteSpace(outDir) Then outDir = AppFolder
+            Dim outBaseName As String = Path.GetFileNameWithoutExtension(options.OutputFile)
+            options.LogFile = Path.Combine(outDir, outBaseName & ".log")
+        End If
+
+        ApplyRenderStylePreset(options)
+
+        Return options
+    End Function
+
+    Private Sub ApplyRenderStylePreset(options As RenderLegOptions)
+        If options Is Nothing OrElse String.IsNullOrWhiteSpace(options.StylePreset) Then Return
+
+        Select Case options.StylePreset.Trim().ToLowerInvariant()
+            Case "classic"
+                If String.IsNullOrWhiteSpace(options.Style.DotType) Then options.Style.DotType = "Arrow"
+                If Not options.Style.DotSize.HasValue Then options.Style.DotSize = 28
+                If Not options.Style.DotTailRatio.HasValue Then options.Style.DotTailRatio = 0.55
+                If Not options.Style.ArrowWidth.HasValue Then options.Style.ArrowWidth = 0.8
+                If Not options.Style.ArrowBarb.HasValue Then options.Style.ArrowBarb = 0.22
+            Case "web", "webstyle"
+                If String.IsNullOrWhiteSpace(options.Style.DotType) Then options.Style.DotType = "Arrow"
+                If Not options.Style.DotSize.HasValue Then options.Style.DotSize = 28
+                If Not options.Style.DotTailRatio.HasValue Then options.Style.DotTailRatio = 0.55
+                If Not options.Style.ArrowWidth.HasValue Then options.Style.ArrowWidth = 0.8
+                If Not options.Style.ArrowBarb.HasValue Then options.Style.ArrowBarb = 0.22
+                If Not options.Style.DotColorArgb.HasValue Then options.Style.DotColorArgb = Color.FromArgb(255, 140, 40).ToArgb()
+                If Not options.Style.TailAlpha.HasValue Then options.Style.TailAlpha = 95
+                If Not options.Style.SpeedColoringEnabled.HasValue Then options.Style.SpeedColoringEnabled = True
+                If Not options.Style.PaceFastSecondsPerKm.HasValue Then options.Style.PaceFastSecondsPerKm = 270
+                If Not options.Style.PaceSlowSecondsPerKm.HasValue Then options.Style.PaceSlowSecondsPerKm = 780
+                If Not options.Style.TailTicksEnabled.HasValue Then options.Style.TailTicksEnabled = True
+                If Not options.Style.TailTickIntervalSeconds.HasValue Then options.Style.TailTickIntervalSeconds = 2
+                If Not options.Style.TailTickAlpha.HasValue Then options.Style.TailTickAlpha = 70
+                If Not options.Style.TailTickColorArgb.HasValue Then options.Style.TailTickColorArgb = Color.FromArgb(150, 150, 150).ToArgb()
+        End Select
+    End Sub
+
+    Private Sub ApplyRenderStyleOverrides(renderEngine As clsMapRenderEngine, style As RenderStyleOverrides)
+        If renderEngine Is Nothing OrElse style Is Nothing Then Return
+
+        If style.LegWidth.HasValue Then renderEngine.LegWidth = style.LegWidth.Value
+        If style.LegHeight.HasValue Then renderEngine.LegHeight = style.LegHeight.Value
+        If style.TailDurationSeconds.HasValue Then renderEngine.TailLineDurationSeconds = style.TailDurationSeconds.Value
+        If style.DotSize.HasValue Then renderEngine.DotSize = style.DotSize.Value
+        If style.DotTailRatio.HasValue Then renderEngine.DotTailRatio = style.DotTailRatio.Value
+        If style.ArrowBarb.HasValue Then renderEngine.ArrowBarb = style.ArrowBarb.Value
+        If style.ArrowWidth.HasValue Then renderEngine.ArrowWidth = style.ArrowWidth.Value
+        If Not String.IsNullOrWhiteSpace(style.DotType) Then renderEngine.DotType = style.DotType
+        If style.FrameFeather.HasValue Then renderEngine.FrameFeather = style.FrameFeather.Value
+        If style.TailColorArgb.HasValue Then renderEngine.TailLineColor = Color.FromArgb(style.TailColorArgb.Value)
+        If style.DotColorArgb.HasValue Then renderEngine.DotColor = Color.FromArgb(style.DotColorArgb.Value)
+        If style.TailAlpha.HasValue Then renderEngine.TailAlpha = style.TailAlpha.Value
+        If style.SpeedColoringEnabled.HasValue Then renderEngine.SpeedColoringEnabled = style.SpeedColoringEnabled.Value
+        If style.PaceFastSecondsPerKm.HasValue Then renderEngine.PaceFastSecondsPerKm = style.PaceFastSecondsPerKm.Value
+        If style.PaceSlowSecondsPerKm.HasValue Then renderEngine.PaceSlowSecondsPerKm = style.PaceSlowSecondsPerKm.Value
+        If style.TailTicksEnabled.HasValue Then renderEngine.TailTicksEnabled = style.TailTicksEnabled.Value
+        If style.TailTickIntervalSeconds.HasValue Then renderEngine.TailTickIntervalSeconds = style.TailTickIntervalSeconds.Value
+        If style.TailTickAlpha.HasValue Then renderEngine.TailTickAlpha = style.TailTickAlpha.Value
+        If style.TailTickColorArgb.HasValue Then renderEngine.TailTickColor = Color.FromArgb(style.TailTickColorArgb.Value)
+    End Sub
+
+    Private Function GetSavedLegRenderLayout() As String
+        Dim layout As String = My.Settings.MILegRenderLayout
+        If String.IsNullOrWhiteSpace(layout) Then Return "classic"
+        Return layout.Trim().ToLowerInvariant()
+    End Function
+
+    Private Function PaceMinutesPerKmToSeconds(minutesPerKm As Double) As Double
+        Return Math.Max(1.0, minutesPerKm * 60.0)
+    End Function
+
+    Private Function TailTransparencyToAlpha(transparency As Double) As Integer
+        Dim clamped As Double = Math.Max(0.0, Math.Min(1.0, transparency))
+        Return CInt(Math.Round((1.0 - clamped) * 255.0))
+    End Function
+
+    Public Function IsNewLegLayoutEnabled() As Boolean
+        Select Case GetSavedLegRenderLayout()
+            Case "web", "webstyle", "new"
+                Return True
+            Case Else
+                Return False
+        End Select
+    End Function
+
+    Public Sub ApplySavedLegRenderLayout(renderEngine As clsMapRenderEngine)
+        If renderEngine Is Nothing Then Return
+
+        Dim style As New RenderStyleOverrides()
+        If IsNewLegLayoutEnabled() Then
+            style.TailAlpha = TailTransparencyToAlpha(My.Settings.MITailTransparency)
+            style.SpeedColoringEnabled = My.Settings.MITailUseSpeedColors
+            style.PaceFastSecondsPerKm = PaceMinutesPerKmToSeconds(Math.Min(My.Settings.MIPaceFastMinPerKm, My.Settings.MIPaceSlowMinPerKm))
+            style.PaceSlowSecondsPerKm = PaceMinutesPerKmToSeconds(Math.Max(My.Settings.MIPaceFastMinPerKm, My.Settings.MIPaceSlowMinPerKm))
+            style.TailTicksEnabled = True
+            style.TailTickIntervalSeconds = 5
+            style.TailTickAlpha = 110
+            style.TailTickColorArgb = Color.FromArgb(65, 65, 65).ToArgb()
+            renderEngine.ArrowOutlineScale = Math.Max(1, My.Settings.MIArrowOutlineScale)
+            renderEngine.TailTickWidth = Math.Max(1.0F, 1.1F + CSng(My.Settings.MIArrowOutlineScale - 1) * 0.22F)
+        Else
+            style.TailAlpha = 255
+            style.SpeedColoringEnabled = False
+            style.TailTicksEnabled = False
+            renderEngine.ArrowOutlineScale = 1
+            renderEngine.TailTickWidth = 1.0F
+        End If
+
+        ApplyRenderStyleOverrides(renderEngine, style)
+    End Sub
 
     Private Function BuildScaledRoutePoints(source As clsQRRoutePoints, scale As Double) As clsQRRoutePoints
         Dim scaled As New clsQRRoutePoints()
@@ -1118,7 +1439,16 @@ Public Class MainForm
         Return scaled
     End Function
 
-    Private Function RunLegRenderVariant(routePoints As clsQRRoutePoints, mapImg As Bitmap, renderVariant As String, outputFile As String, startTime As Double, duration As Double, videoWidth As Integer) As clsMapRenderEngine
+    Private Function RunLegRenderVariant(routePoints As clsQRRoutePoints,
+                                         mapImg As Bitmap,
+                                         renderVariant As String,
+                                         outputFile As String,
+                                         startTime As Double,
+                                         duration As Double,
+                                         videoWidth As Integer,
+                                         Optional style As RenderStyleOverrides = Nothing,
+                                         Optional frameStepSeconds As Double = -1,
+                                         Optional outputFps As Double = -1) As clsMapRenderEngine
         Dim variantKey As String = renderVariant.Trim().ToLowerInvariant()
         Dim useHalfScale As Boolean = False
 
@@ -1138,19 +1468,21 @@ Public Class MainForm
         Try
             Dim renderEngine As New clsMapRenderEngine(variantRoutePoints, variantMapImg)
             renderEngine.FrameStepSeconds = GetSmoothOverlayFrameStepSeconds()
+            If frameStepSeconds > 0 Then renderEngine.FrameStepSeconds = frameStepSeconds
             renderEngine.ScalePixelSettings(videoWidth)
+            ApplyRenderStyleOverrides(renderEngine, style)
 
             Select Case variantKey
                 Case "base"
-                    renderEngine.WriteLegVideo(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                    renderEngine.WriteLegVideo(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth, frameStepSeconds:=frameStepSeconds, outputFps:=outputFps)
                 Case "perf"
-                    renderEngine.WriteLegVideoPerf(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                    renderEngine.WriteLegVideoPerf(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth, frameStepSeconds:=frameStepSeconds, outputFps:=outputFps)
                 Case "perf3"
-                    renderEngine.WriteLegVideoPerf3(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                    renderEngine.WriteLegVideoPerf3(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth, frameStepSeconds:=frameStepSeconds, outputFps:=outputFps)
                 Case "perf8"
-                    renderEngine.WriteLegVideoPerf8(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                    renderEngine.WriteLegVideoPerf8(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth, frameStepSeconds:=frameStepSeconds, outputFps:=outputFps)
                 Case "selective"
-                    renderEngine.WriteLegVideoSelective(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth)
+                    renderEngine.WriteLegVideoSelective(outputFile, startTime:=startTime, duration:=duration, videoWidth:=videoWidth, frameStepSeconds:=frameStepSeconds, outputFps:=outputFps)
                 Case Else
                     Throw New ArgumentException("Unknown render variant: " & renderVariant)
             End Select
@@ -1240,6 +1572,144 @@ Public Class MainForm
                      Catch ex As Exception
                          Me.BeginInvoke(Sub()
                                             Dim errorText As String = "Error during test write: " & ex.ToString()
+                                            Try
+                                                If options IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(options.LogFile) Then
+                                                    File.WriteAllText(options.LogFile, errorText)
+                                                End If
+                                            Catch
+                                            End Try
+                                            MsgBox(errorText)
+                                            StatusBarUpdate("Error: " & ex.Message)
+                                            SetStatusLabel(IconStatusOutput, "Fail", "Outputvideo")
+                                            btnTestWriteVideo.Enabled = True
+                                            If options IsNot Nothing AndAlso options.AutoClose Then
+                                                Close()
+                                            End If
+                                        End Sub)
+                     End Try
+                 End Sub)
+    End Sub
+
+    Private Sub StartLegRender(options As RenderLegOptions)
+        If options Is Nothing Then Return
+
+        ' Ensure style presets are applied for both CLI and UI-triggered renders.
+        ApplyRenderStylePreset(options)
+
+        Dim qrXmlPath As String = options.XmlPath
+        If String.IsNullOrWhiteSpace(qrXmlPath) Then
+            If String.IsNullOrWhiteSpace(My.Settings.QRXML) Then Throw New InvalidOperationException("QuickRoute XML setting is not configured.")
+            qrXmlPath = AppFolder + My.Settings.QRXML
+        End If
+
+        Dim qrImagePath As String = options.ImagePath
+        If String.IsNullOrWhiteSpace(qrImagePath) Then
+            If String.IsNullOrWhiteSpace(My.Settings.QRimage) Then Throw New InvalidOperationException("QuickRoute image setting is not configured.")
+            qrImagePath = AppFolder + My.Settings.QRimage
+        End If
+
+        If Not File.Exists(qrXmlPath) Then Throw New FileNotFoundException("QR XML not found.", qrXmlPath)
+        If Not File.Exists(qrImagePath) Then Throw New FileNotFoundException("QR image not found.", qrImagePath)
+
+        btnTestWriteVideo.Enabled = False
+        StatusBarUpdate("Starting leg render...")
+        SetStatusLabel(IconStatusOutput, "Work", "Outputvideo")
+
+        Task.Run(Sub()
+                     Dim mapImg As Bitmap = Nothing
+                     Try
+                         Dim RPs As New clsQRRoutePoints
+                         Dim reader As New clsQRXMLReader(RPs)
+                         reader.ReadXML(qrXmlPath)
+                         mapImg = New Bitmap(Image.FromFile(qrImagePath))
+
+                         Dim maxStartTime As Double = Math.Max(0, RPs.RoutePoints.Count - 11)
+                         Dim renderStartTime As Double = Math.Min(maxStartTime, Math.Max(0, options.StartTime))
+                         Dim renderEngine As clsMapRenderEngine = RunLegRenderVariant(RPs,
+                                                                                      mapImg,
+                                                                                      options.RenderVariant,
+                                                                                      options.OutputFile,
+                                                                                      renderStartTime,
+                                                                                      options.Duration,
+                                                                                      options.VideoWidth,
+                                                                                      options.Style,
+                                                                                      options.FrameStepSeconds,
+                                                                                      options.OutputFps)
+                         mapImg.Dispose()
+                         mapImg = Nothing
+                         Dim effectiveFrameStep As Double = If(options.FrameStepSeconds > 0, options.FrameStepSeconds, GetSmoothOverlayFrameStepSeconds())
+                         Dim effectiveOutputFps As Double = If(options.OutputFps > 0, options.OutputFps, 1.0 / effectiveFrameStep)
+
+                         Dim summary As String = String.Format(CultureInfo.InvariantCulture,
+                                                               "Leg render finished. Variant {0}. Start {1:0}s duration {2:0.###}s width {3}. Total {4:0.0}s render {5:0.0}s encode {6:0.0}s frames {7}.",
+                                                               options.RenderVariant,
+                                                               renderStartTime,
+                                                               options.Duration,
+                                                               options.VideoWidth,
+                                                               renderEngine.LastTotalElapsed.TotalSeconds,
+                                                               renderEngine.LastRenderElapsed.TotalSeconds,
+                                                               renderEngine.LastEncodeElapsed.TotalSeconds,
+                                                               renderEngine.LastFrameCount)
+
+                         Dim styleLines As New List(Of String)
+                         Dim rawArgs As String() = Environment.GetCommandLineArgs()
+                         If rawArgs IsNot Nothing AndAlso rawArgs.Length > 1 Then
+                             styleLines.Add("Args=" & String.Join(" | ", rawArgs.Skip(1)))
+                         End If
+                         If options.Style IsNot Nothing Then
+                             If options.Style.LegWidth.HasValue Then styleLines.Add("LegWidth=" & options.Style.LegWidth.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.LegHeight.HasValue Then styleLines.Add("LegHeight=" & options.Style.LegHeight.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.TailDurationSeconds.HasValue Then styleLines.Add("TailDuration=" & options.Style.TailDurationSeconds.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.DotSize.HasValue Then styleLines.Add("DotSize=" & options.Style.DotSize.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.DotTailRatio.HasValue Then styleLines.Add("TailRatio=" & options.Style.DotTailRatio.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.ArrowBarb.HasValue Then styleLines.Add("ArrowBarb=" & options.Style.ArrowBarb.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.ArrowWidth.HasValue Then styleLines.Add("ArrowWidth=" & options.Style.ArrowWidth.Value.ToString(CultureInfo.InvariantCulture))
+                             If Not String.IsNullOrWhiteSpace(options.Style.DotType) Then styleLines.Add("DotType=" & options.Style.DotType)
+                             If options.Style.FrameFeather.HasValue Then styleLines.Add("FrameFeather=" & options.Style.FrameFeather.Value.ToString())
+                             If options.Style.TailColorArgb.HasValue Then styleLines.Add("TailColor=" & Color.FromArgb(options.Style.TailColorArgb.Value).Name)
+                             If options.Style.DotColorArgb.HasValue Then styleLines.Add("DotColor=" & Color.FromArgb(options.Style.DotColorArgb.Value).Name)
+                             If options.Style.TailAlpha.HasValue Then styleLines.Add("TailAlpha=" & options.Style.TailAlpha.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.SpeedColoringEnabled.HasValue Then styleLines.Add("SpeedColoring=" & options.Style.SpeedColoringEnabled.Value.ToString())
+                             If options.Style.PaceFastSecondsPerKm.HasValue Then styleLines.Add("PaceFast=" & options.Style.PaceFastSecondsPerKm.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.PaceSlowSecondsPerKm.HasValue Then styleLines.Add("PaceSlow=" & options.Style.PaceSlowSecondsPerKm.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.TailTicksEnabled.HasValue Then styleLines.Add("TailTicks=" & options.Style.TailTicksEnabled.Value.ToString())
+                             If options.Style.TailTickIntervalSeconds.HasValue Then styleLines.Add("TickInterval=" & options.Style.TailTickIntervalSeconds.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.TailTickAlpha.HasValue Then styleLines.Add("TickAlpha=" & options.Style.TailTickAlpha.Value.ToString(CultureInfo.InvariantCulture))
+                             If options.Style.TailTickColorArgb.HasValue Then styleLines.Add("TickColor=" & Color.FromArgb(options.Style.TailTickColorArgb.Value).Name)
+                         End If
+
+                         Dim logLines As String =
+                             "Render leg" & vbCrLf &
+                             "Variant=" & options.RenderVariant & vbCrLf &
+                             "StylePreset=" & options.StylePreset & vbCrLf &
+                             "Start=" & renderStartTime.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "Duration=" & options.Duration.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "Width=" & options.VideoWidth.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "FrameStep=" & effectiveFrameStep.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "OutputFps=" & effectiveOutputFps.ToString(CultureInfo.InvariantCulture) & vbCrLf &
+                             "Xml=" & qrXmlPath & vbCrLf &
+                             "Image=" & qrImagePath & vbCrLf
+
+                         If styleLines.Count > 0 Then
+                             logLines &= "Style=" & String.Join("; ", styleLines) & vbCrLf
+                         End If
+                         logLines &= summary & vbCrLf
+                         File.WriteAllText(options.LogFile, logLines)
+
+                         Me.BeginInvoke(Sub()
+                                            StatusBarUpdate(summary)
+                                            LogMapF += summary & vbCrLf
+                                            LogMapF += "Render leg log: " & options.LogFile & vbCrLf
+                                            SetStatusLabel(IconStatusOutput, "OK", "Outputvideo")
+                                            btnTestWriteVideo.Enabled = True
+                                            If options.AutoClose Then
+                                                Close()
+                                            End If
+                                        End Sub)
+                     Catch ex As Exception
+                         If mapImg IsNot Nothing Then mapImg.Dispose()
+                         Me.BeginInvoke(Sub()
+                                            Dim errorText As String = "Error during leg render: " & ex.ToString()
                                             Try
                                                 If options IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(options.LogFile) Then
                                                     File.WriteAllText(options.LogFile, errorText)
@@ -1420,10 +1890,12 @@ Public Class MainForm
             If My.Settings.cbShowRoute Then
                 zoomEngine = New clsMapRenderEngine(RPs, mapImg)
                 zoomEngine.FrameStepSeconds = frameStepSeconds
+                ApplySavedLegRenderLayout(zoomEngine)
             End If
             If My.Settings.cbShowLegMAp Then
                 legEngine = New clsMapRenderEngine(RPs, mapImg)
                 legEngine.FrameStepSeconds = frameStepSeconds
+                ApplySavedLegRenderLayout(legEngine)
             End If
             ClearProgressBar(True)
             EnsureInvoke(Sub()
@@ -1468,10 +1940,10 @@ Public Class MainForm
                 If zoomEngine IsNot Nothing Then
                     zoomTask = Threading.Tasks.Task.Run(
                         Sub()
-                            zoomEngine.WriteZoomVideo(zoomVideo,
-                                                      startTime:=0,
-                                                      duration:=duration,
-                                                      videoWidth:=ExtraFunc.InputWidth)
+                            zoomEngine.WriteZoomVideoPerf8(zoomVideo,
+                                                           startTime:=0,
+                                                           duration:=duration,
+                                                           videoWidth:=ExtraFunc.InputWidth)
                         End Sub)
                 End If
 
@@ -1497,10 +1969,10 @@ Public Class MainForm
                 End If
             Else
                 If zoomEngine IsNot Nothing Then
-                    zoomEngine.WriteZoomVideo(zoomVideo,
-                                              startTime:=0,
-                                              duration:=duration,
-                                              videoWidth:=ExtraFunc.InputWidth)
+                    zoomEngine.WriteZoomVideoPerf8(zoomVideo,
+                                                   startTime:=0,
+                                                   duration:=duration,
+                                                   videoWidth:=ExtraFunc.InputWidth)
                 End If
                 If legEngine IsNot Nothing Then
                     legEngine.WriteLegVideoPerf8(legVideo,
@@ -2353,6 +2825,15 @@ Public Class MainForm
                 Me.WindowState = FormWindowState.Minimized
                 Me.ShowInTaskbar = False
                 BeginInvoke(Sub() StartLegRenderComparison(autorunOptions))
+            End If
+        End If
+        If Not _autorunRenderCompareStarted AndAlso Not _autorunRenderLegStarted Then
+            Dim autorunLegOptions As RenderLegOptions = ParseRenderLegArgs()
+            If autorunLegOptions IsNot Nothing Then
+                _autorunRenderLegStarted = True
+                Me.WindowState = FormWindowState.Minimized
+                Me.ShowInTaskbar = False
+                BeginInvoke(Sub() StartLegRender(autorunLegOptions))
             End If
         End If
     End Sub

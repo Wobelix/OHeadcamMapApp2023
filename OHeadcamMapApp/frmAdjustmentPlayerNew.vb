@@ -23,6 +23,8 @@ Public Class frmAdjustmentPlayer_new
     Private _LastMapTimeSmooth As Double = -1
     Private _VideoFileName As String
     Private _MapImgHandler As clsMapImages
+    Private _ZoomPreviewEngine As clsMapRenderEngine
+    Private _LegPreviewEngine As clsMapRenderEngine
     Private _MapDeltaTime As Integer 'Timediff to Current Time
     Private _MapReady As Boolean = False
     Private _MapInit As Boolean = False
@@ -47,6 +49,7 @@ Public Class frmAdjustmentPlayer_new
     Private Const TrackBarUnitsPerSecond As Integer = 10
     Private Const PreviewTailSampleStepSeconds As Double = 0.5
     Private Const PreviewTailMinimumPointDistance As Double = 1.5
+    Private WithEvents cbNewLegLayout As CheckBox
 
     Public Sub New(MainF As MainForm, iMaxLength As String)
         Dim prevLap, tmpLap As Integer
@@ -113,6 +116,7 @@ Public Class frmAdjustmentPlayer_new
 
             End If
             MapImageTimer.Interval = 50
+            InitializeLayoutToggle()
 
             _LoadingForm = False
         Catch ex As Exception
@@ -253,6 +257,43 @@ Public Class frmAdjustmentPlayer_new
             TrackBar1.Value = Math.Max(TrackBar1.Minimum, targetValue)
         End If
 
+    End Sub
+    Private Function IsDanishUi() As Boolean
+        Return Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.Equals("da", StringComparison.OrdinalIgnoreCase)
+    End Function
+    Private Sub InitializeLayoutToggle()
+        If cbNewLegLayout IsNot Nothing Then Return
+
+        cbNewLegLayout = New CheckBox()
+        cbNewLegLayout.Name = "cbNewLegLayout"
+        cbNewLegLayout.AutoSize = True
+        cbNewLegLayout.Text = If(IsDanishUi(), "Nyt leg-layout", "New leg layout")
+        cbNewLegLayout.Checked = Mainform1 IsNot Nothing AndAlso Mainform1.IsNewLegLayoutEnabled()
+        cbNewLegLayout.UseVisualStyleBackColor = True
+        cbNewLegLayout.Visible = False
+        cbNewLegLayout.Location = New Point(bMapSettings.Left, bMapSettings.Bottom + 6)
+        Controls.Add(cbNewLegLayout)
+        cbNewLegLayout.BringToFront()
+    End Sub
+    Private Sub RebuildPreviewRenderEngines()
+        _ZoomPreviewEngine = Nothing
+        _LegPreviewEngine = Nothing
+        If Mainform1 Is Nothing OrElse Not Mainform1.IsNewLegLayoutEnabled() Then Return
+        If MapImg Is Nothing Then Return
+
+        _ZoomPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+        Mainform1.ApplySavedLegRenderLayout(_ZoomPreviewEngine)
+        _LegPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+        Mainform1.ApplySavedLegRenderLayout(_LegPreviewEngine)
+    End Sub
+    Private Sub cbNewLegLayout_CheckedChanged(sender As Object, e As EventArgs) Handles cbNewLegLayout.CheckedChanged
+        My.Settings.MILegRenderLayout = If(cbNewLegLayout.Checked, "web", "classic")
+        My.Settings.Save()
+        RebuildPreviewRenderEngines()
+        If _MapImgHandler Is Nothing OrElse Not _MapReady Then Return
+        If HasValidMapPreviewTime() Then
+            UpdateMapImgs()
+        End If
     End Sub
     Private Sub bSlow_Click(sender As Object, e As EventArgs) Handles bSlow.Click
         If PlayMode = PlayMode_slow Then
@@ -415,6 +456,7 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler.ResetAlphaMasks()
         _MapImgHandler.InvalidateSmoothCaches()
         ApplyPreviewRenderTuning()
+        RebuildPreviewRenderEngines()
         _ZoomZoom = My.Settings.MIZoomZoom
         _LegMargin = My.Settings.MILegMargin
 
@@ -479,9 +521,31 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler.LegHeight = lh
         _MapImgHandler.ResetAlphaMasks()
         If UseSmoothPreview Then
-            PB_Zoom.Image = _MapImgHandler.ZoomImage3Smooth(_MapTimeSmooth, w, h, rad)
-            PBLeg.Image = _MapImgHandler.LapImage2Smooth(_MapTimeSmooth,
-                                                         My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
+            If Mainform1 IsNot Nothing AndAlso Mainform1.IsNewLegLayoutEnabled() Then
+                If _ZoomPreviewEngine Is Nothing OrElse _LegPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
+                If _ZoomPreviewEngine IsNot Nothing Then
+                    _ZoomPreviewEngine.ZoomWidth = w
+                    _ZoomPreviewEngine.ZoomHeight = h
+                    _ZoomPreviewEngine.ZoomRadius = rad
+                    _ZoomPreviewEngine.ZoomFactor = My.Settings.MIZoomZoom
+                    PB_Zoom.Image = _ZoomPreviewEngine.RenderZoomFramePerf8(_MapTimeSmooth)
+                Else
+                    PB_Zoom.Image = _MapImgHandler.ZoomImage3Smooth(_MapTimeSmooth, w, h, rad)
+                End If
+                If _LegPreviewEngine IsNot Nothing Then
+                    _LegPreviewEngine.LegWidth = lw
+                    _LegPreviewEngine.LegHeight = lh
+                    _LegPreviewEngine.LegMargin = My.Settings.MILegMargin
+                    PBLeg.Image = _LegPreviewEngine.RenderLegFramePerf8(_MapTimeSmooth)
+                Else
+                    PBLeg.Image = _MapImgHandler.LapImage2Smooth(_MapTimeSmooth,
+                                                                 My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
+                End If
+            Else
+                PB_Zoom.Image = _MapImgHandler.ZoomImage3Smooth(_MapTimeSmooth, w, h, rad)
+                PBLeg.Image = _MapImgHandler.LapImage2Smooth(_MapTimeSmooth,
+                                                             My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
+            End If
         Else
             PB_Zoom.Image = _MapImgHandler.ZoomImage3(_MapTime, w, h, rad) ' 110725 true true
             PBLeg.Image = _MapImgHandler.LapImage2(_MapTime,
@@ -813,6 +877,7 @@ Public Class frmAdjustmentPlayer_new
             _MapReady = True
             _MapImgHandler.LoadSettings()
             ApplyPreviewRenderTuning()
+            RebuildPreviewRenderEngines()
             SetPBMapSizes()
             SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos)
             _ZoomZoom = My.Settings.MIZoomZoom

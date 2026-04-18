@@ -875,8 +875,6 @@ Public Class clsMapImages
             Dim currentPoint As PointF = GetRoutePointAtTime(currentSampleTime)
             If tailPoints.Count = 0 OrElse GetDistanceBetweenPoints(tailPoints(tailPoints.Count - 1), currentPoint) >= SmoothTailMinimumPointDistance Then
                 tailPoints.Add(currentPoint)
-            Else
-                tailPoints(tailPoints.Count - 1) = currentPoint
             End If
             sampleTime += sampleStep
         Loop

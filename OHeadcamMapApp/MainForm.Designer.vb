@@ -432,6 +432,7 @@ Partial Class MainForm
         MySettings1.MILegMapPos = New System.Drawing.Point(80, 450)
         MySettings1.MILegMargin = 50
         MySettings1.MILegRad = 40
+        MySettings1.MILegRenderLayout = "classic"
         MySettings1.MILegWidth = 350
         MySettings1.MISmoothFrameStepSeconds = 0.25R
         MySettings1.MISmoothParallelGeneration = True
@@ -461,6 +462,9 @@ Partial Class MainForm
         MySettings1.Outputfile = ""
         MySettings1.OutputLength = ""
         MySettings1.OutputVideoLength = "0:00:00"
+        MySettings1.OverlayEstimate2KSeconds = 0R
+        MySettings1.OverlayEstimate4KSeconds = 0R
+        MySettings1.OverlayEstimateHdSeconds = 0R
         MySettings1.PostVideo = ""
         MySettings1.PostVideoList = ""
         MySettings1.PrepareLength = ""

@@ -120,33 +120,24 @@
   <data name="btnSave.Text" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="cmbPreset.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Label8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>301, 27</value>
+  </data>
   <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 13</value>
   </data>
   <data name="Label9.Text" xml:space="preserve">
     <value>GPS Update (sec)</value>
   </data>
-  <data name="Label9.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numSmooth.ToolTip" xml:space="preserve">
-    <value />
+  <data name="numSmooth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>304, 43</value>
   </data>
   <data name="chkHDformat.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 17</value>
   </data>
   <data name="chkHDformat.Text" xml:space="preserve">
     <value>Unchecked keeps input format</value>
-  </data>
-  <data name="chkHDformat.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -306,10 +297,6 @@
         G4UXAON+o/ACYNxvFF4AjPuNwguAcb9ReAEw7jcKNQAAi+5/3rjfKGRCtABRvPgT77kfYd86kAKITLEy
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Settings</value>

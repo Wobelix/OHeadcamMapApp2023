@@ -61,11 +61,6 @@ Public Class clsQRXMLReader
     End Function
 
     Public Function ReadXML(Filename As String) As Boolean
-        Dim mainForm As MainForm = CType(Application.OpenForms("MainForm"), MainForm)
-        If mainForm IsNot Nothing Then
-            mainForm.StatusProgressBar1.Visible = True
-            'mainForm.StatusBarProgressText.Text = "Begins reading XML"
-        End If
         ReadXML = True
         Try
             doc.Load(Filename)
@@ -131,7 +126,6 @@ Public Class clsQRXMLReader
         Next
         RoutePoints.EndAddPoints()
         'mainForm.StatusBarProgressText.Text = "XML Finished"
-        Application.DoEvents()
         Return True
     End Function
 End Class

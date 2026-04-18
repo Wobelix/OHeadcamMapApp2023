@@ -22,7 +22,13 @@ Public Class clsMapRenderEngine
         Public Property MarginHeight As Integer
         Public Property RoundRadius As Integer
         Public Property BackgroundKey As String
+        Public Property LegDistance As Single
     End Class
+
+    Private Structure TailSample
+        Public Property TimeCode As Double
+        Public Property Position As PointF
+    End Structure
 
     Private ReadOnly _routePoints As clsQRRoutePoints
     Private ReadOnly _mapImage As Bitmap
@@ -38,8 +44,11 @@ Public Class clsMapRenderEngine
     Private _legFeatherMask As Bitmap
     Private _legFeatherMaskKey As String = ""
     Private _legRenderInfoCache As New Dictionary(Of String, LegRenderInfo)
+    Private _hasExplicitLegWidth As Boolean = False
+    Private _hasExplicitLegHeight As Boolean = False
     Private ReadOnly _routePointCache As New Dictionary(Of Integer, PointF)
     Private ReadOnly _headingAngleCache As New Dictionary(Of Integer, Double)
+    Private ReadOnly _paceCache As New Dictionary(Of Integer, Double)
     Public LastBackgroundElapsed As TimeSpan = TimeSpan.Zero
     Public LastOverlayMapElapsed As TimeSpan = TimeSpan.Zero
     Public LastOverlayFrameElapsed As TimeSpan = TimeSpan.Zero
@@ -58,6 +67,163 @@ Public Class clsMapRenderEngine
     End Sub
 
     Public Property FrameStepSeconds As Double = 0.25
+    Public Property TailAlpha As Integer = 255
+    Public Property SpeedColoringEnabled As Boolean = False
+    Public Property PaceFastSecondsPerKm As Double = 270.0
+    Public Property PaceSlowSecondsPerKm As Double = 780.0
+    Public Property TailTicksEnabled As Boolean = False
+    Public Property TailTickIntervalSeconds As Double = 2.0
+    Public Property TailTickLengthScale As Double = 0.8
+    Public Property TailTickWidth As Single = 1.0F
+    Public Property TailTickColor As Color = Color.Gray
+    Public Property TailTickAlpha As Integer = 140
+    Public Property ArrowOutlineScale As Integer = 1
+
+    Public Property TailLineDurationSeconds As Integer
+        Get
+            Return _legacyRenderer.tailLineDurationSeconds
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.tailLineDurationSeconds = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property TailLineColor As Color
+        Get
+            Return _legacyRenderer.tailLineColor
+        End Get
+        Set(value As Color)
+            _legacyRenderer.tailLineColor = value
+        End Set
+    End Property
+
+    Public Property DotColor As Color
+        Get
+            Return _legacyRenderer.dotColor
+        End Get
+        Set(value As Color)
+            _legacyRenderer.dotColor = value
+        End Set
+    End Property
+
+    Public Property LegWidth As Integer
+        Get
+            Return _legacyRenderer.LegWidth
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.LegWidth = Math.Max(1, value)
+            _hasExplicitLegWidth = True
+        End Set
+    End Property
+
+    Public Property LegHeight As Integer
+        Get
+            Return _legacyRenderer.LegHeight
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.LegHeight = Math.Max(1, value)
+            _hasExplicitLegHeight = True
+        End Set
+    End Property
+
+    Public Property LegMargin As Integer
+        Get
+            Return _legacyRenderer.LegMargin
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.LegMargin = Math.Max(1, value)
+        End Set
+    End Property
+
+    Public Property ZoomWidth As Integer
+        Get
+            Return _legacyRenderer.ZoomWidth
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.ZoomWidth = Math.Max(1, value)
+        End Set
+    End Property
+
+    Public Property ZoomHeight As Integer
+        Get
+            Return _legacyRenderer.ZoomHeight
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.ZoomHeight = Math.Max(1, value)
+        End Set
+    End Property
+
+    Public Property ZoomRadius As Integer
+        Get
+            Return _legacyRenderer.ZoomRad
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.ZoomRad = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property ZoomFactor As Double
+        Get
+            Return _legacyRenderer.ZoomZoom
+        End Get
+        Set(value As Double)
+            _legacyRenderer.ZoomZoom = Math.Max(0.001, value)
+        End Set
+    End Property
+
+    Public Property DotSize As Integer
+        Get
+            Return _legacyRenderer.dotSize
+        End Get
+        Set(value As Integer)
+            _legacyRenderer.dotSize = Math.Max(1, value)
+        End Set
+    End Property
+
+    Public Property DotTailRatio As Double
+        Get
+            Return _legacyRenderer.dotTailRatio
+        End Get
+        Set(value As Double)
+            _legacyRenderer.dotTailRatio = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property ArrowBarb As Double
+        Get
+            Return _legacyRenderer.ArrowBarb
+        End Get
+        Set(value As Double)
+            _legacyRenderer.ArrowBarb = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property ArrowWidth As Double
+        Get
+            Return _legacyRenderer.ArrowWidth
+        End Get
+        Set(value As Double)
+            _legacyRenderer.ArrowWidth = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property DotType As String
+        Get
+            Return _legacyRenderer._DotType
+        End Get
+        Set(value As String)
+            _legacyRenderer._DotType = value
+        End Set
+    End Property
+
+    Public Property FrameFeather As Boolean
+        Get
+            Return _legacyRenderer.FrameFeather
+        End Get
+        Set(value As Boolean)
+            _legacyRenderer.FrameFeather = value
+        End Set
+    End Property
 
     Public ReadOnly Property UsesAlphaVideoOutput As Boolean
         Get
@@ -66,7 +232,11 @@ Public Class clsMapRenderEngine
     End Property
 
     Public Sub ScalePixelSettings(videoWidth As Integer)
+        Dim preservedLegWidth As Integer = _legacyRenderer.LegWidth
+        Dim preservedLegHeight As Integer = _legacyRenderer.LegHeight
         _legacyRenderer.ScalePixelSettings(videoWidth)
+        If _hasExplicitLegWidth Then _legacyRenderer.LegWidth = Math.Max(1, preservedLegWidth)
+        If _hasExplicitLegHeight Then _legacyRenderer.LegHeight = Math.Max(1, preservedLegHeight)
     End Sub
 
     Public Function RenderLegFrame(timeSeconds As Double) As Bitmap
@@ -118,6 +288,45 @@ Public Class clsMapRenderEngine
             g.DrawImage(overlay, 0, 0)
         End Using
         overlay.Dispose()
+
+        If _legacyRenderer.FrameFeather Then
+            ApplyFeatherFrame(result, roundRadius, True)
+        Else
+            ApplyHardFrame(result, roundRadius)
+        End If
+
+        Return result
+    End Function
+
+    Public Function RenderZoomFramePerf8(timeSeconds As Double) As Bitmap
+        Dim safeTime As Double = ClampTimeCode(timeSeconds)
+        Dim outWidth As Integer = _legacyRenderer.ZoomWidth
+        Dim outHeight As Integer = _legacyRenderer.ZoomHeight
+        Dim roundRadius As Integer = _legacyRenderer.ZoomRad
+        Dim midPoint As PointF = GetRoutePointAtTime(safeTime)
+
+        Dim zoomFactor As Double = _legacyRenderer.ZoomZoom
+        If zoomFactor < 0.001 Then zoomFactor = 1
+        Dim clipLength As Single = CSng(Math.Round(outHeight / zoomFactor))
+        Dim clipWidth As Single = CSng(Math.Round(outWidth / zoomFactor))
+        Dim angleDegrees As Double = GetHeadingAngleAtTime(safeTime) + 180
+
+        Dim diagonal As Single = CSng(Math.Sqrt(clipWidth * clipWidth + clipLength * clipLength))
+        Dim srcSize As Integer = Math.Max(1, CInt(Math.Ceiling(diagonal)))
+        Dim srcRect As New RectangleF(midPoint.X - srcSize / 2.0F, midPoint.Y - srcSize / 2.0F, srcSize, srcSize)
+
+        Dim backgroundKey As String = String.Format(CultureInfo.InvariantCulture, "{0}|{1}|{2}|{3}|{4:0.###}|{5:0.###}|{6:0.###}", outWidth, outHeight, roundRadius, srcSize, midPoint.X, midPoint.Y, angleDegrees)
+        Dim background As Bitmap = GetZoomBackground(backgroundKey, angleDegrees, srcRect, srcSize, clipWidth, clipLength, outWidth, outHeight)
+        Dim result As New Bitmap(background)
+        Dim overlayStopwatch As Stopwatch = Stopwatch.StartNew()
+        Using g As Graphics = Graphics.FromImage(result)
+            g.SmoothingMode = SmoothingMode.AntiAlias
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality
+            g.CompositingQuality = CompositingQuality.HighQuality
+            DrawOverlayDirectProjected(g, safeTime, midPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, 1.0F)
+        End Using
+        overlayStopwatch.Stop()
+        LastOverlayFrameElapsed += overlayStopwatch.Elapsed
 
         If _legacyRenderer.FrameFeather Then
             ApplyFeatherFrame(result, roundRadius, True)
@@ -190,14 +399,16 @@ Public Class clsMapRenderEngine
         Dim info As LegRenderInfo = GetCachedLegRenderInfo(safeTime)
         Dim workSize As Integer = GetAdaptiveLegWorkSizeOutputAware(info)
         Dim background As Bitmap = GetLegBackgroundAdaptive(info, workSize)
-        Dim overlay As Bitmap = RenderOverlayLegFrameAdaptive(safeTime, info, workSize)
-
         Dim result As New Bitmap(background)
+        Dim overlayStopwatch As Stopwatch = Stopwatch.StartNew()
         Using g As Graphics = Graphics.FromImage(result)
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic
-            g.DrawImage(overlay, 0, 0)
+            g.SmoothingMode = SmoothingMode.AntiAlias
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality
+            g.CompositingQuality = CompositingQuality.HighQuality
+            DrawLegOverlayDirect(g, safeTime, info)
         End Using
-        overlay.Dispose()
+        overlayStopwatch.Stop()
+        LastOverlayFrameElapsed += overlayStopwatch.Elapsed
 
         If _legacyRenderer.FrameFeather Then
             ApplyFeatherFrame(result, info.RoundRadius, False)
@@ -262,6 +473,15 @@ Public Class clsMapRenderEngine
         WriteVideoInternal(AddressOf RenderZoomFrame, outputFile, startTime, duration, videoWidth, frameStepSeconds, outputFps)
     End Sub
 
+    Public Sub WriteZoomVideoPerf8(outputFile As String,
+                                   Optional startTime As Double = 0,
+                                   Optional duration As Double = -1,
+                                   Optional videoWidth As Integer = 1920,
+                                   Optional frameStepSeconds As Double = -1,
+                                   Optional outputFps As Double = -1)
+        WriteVideoInternal(AddressOf RenderZoomFramePerf8, outputFile, startTime, duration, videoWidth, frameStepSeconds, outputFps)
+    End Sub
+
     Private Sub WriteVideoInternal(renderFrame As Func(Of Double, Bitmap),
                                    outputFile As String,
                                    startTime As Double,
@@ -304,6 +524,12 @@ Public Class clsMapRenderEngine
         Using sampleFrame As Bitmap = renderFrame(clampedStart)
             drawStopwatch.Stop()
             If sampleFrame Is Nothing Then Throw New InvalidOperationException("Render frame callback returned Nothing.")
+            Dim outputFrameWidth As Integer = sampleFrame.Width
+            Dim outputFrameHeight As Integer = sampleFrame.Height
+            If Not useAlphaOutput Then
+                outputFrameWidth = EnsureEvenDimension(outputFrameWidth)
+                outputFrameHeight = EnsureEvenDimension(outputFrameHeight)
+            End If
 
             Dim baseDir As String = Path.GetDirectoryName(outputFile)
             If String.IsNullOrEmpty(baseDir) Then baseDir = "."
@@ -312,9 +538,9 @@ Public Class clsMapRenderEngine
             Dim psi As New ProcessStartInfo()
             psi.FileName = "ffmpeg"
             If useAlphaOutput Then
-                psi.Arguments = $"-y -f rawvideo -pixel_format bgra -video_size {sampleFrame.Width}x{sampleFrame.Height} -framerate {fpsText} -i - -c:v qtrle -pix_fmt argb ""{outputFile}"""
+                psi.Arguments = $"-y -f rawvideo -pixel_format bgra -video_size {outputFrameWidth}x{outputFrameHeight} -framerate {fpsText} -i - -c:v qtrle -pix_fmt argb ""{outputFile}"""
             Else
-                psi.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {sampleFrame.Width}x{sampleFrame.Height} -framerate {fpsText} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{outputFile}"""
+                psi.Arguments = $"-y -f rawvideo -pixel_format bgr24 -video_size {outputFrameWidth}x{outputFrameHeight} -framerate {fpsText} -i - -pix_fmt yuv420p -c:v libx264 -preset veryfast -crf 18 ""{outputFile}"""
             End If
             psi.UseShellExecute = False
             psi.RedirectStandardInput = True
@@ -324,16 +550,19 @@ Public Class clsMapRenderEngine
             Using ffmpegProcess As Process = Process.Start(psi)
                 encodeStopwatch.Start()
                 Dim stderrReader = ffmpegProcess.StandardError
-                Threading.Tasks.Task.Run(Sub()
-                                             Try
-                                                 stderrReader.ReadToEnd()
-                                             Catch
-                                             End Try
-                                         End Sub)
+                Dim stderrTask = Threading.Tasks.Task.Run(Function()
+                                                              Try
+                                                                  Return stderrReader.ReadToEnd()
+                                                              Catch
+                                                                  Return ""
+                                                              End Try
+                                                          End Function)
 
                 Using inputStream As Stream = ffmpegProcess.StandardInput.BaseStream
                     streamWriteStopwatch.Start()
-                    WriteBitmapFrameToStream(sampleFrame, inputStream, useAlphaOutput)
+                    Using preparedSampleFrame As Bitmap = PrepareFrameForVideo(sampleFrame, outputFrameWidth, outputFrameHeight, useAlphaOutput)
+                        WriteBitmapFrameToStream(preparedSampleFrame, inputStream, useAlphaOutput)
+                    End Using
                     streamWriteStopwatch.Stop()
                     LastFrameCount = 1
                     ReportProgress(1, totalFrames, outputFile)
@@ -348,7 +577,9 @@ Public Class clsMapRenderEngine
                         Using frame As Bitmap = renderFrame(currentTime)
                             drawStopwatch.Stop()
                             streamWriteStopwatch.Start()
-                            WriteBitmapFrameToStream(frame, inputStream, useAlphaOutput)
+                            Using preparedFrame As Bitmap = PrepareFrameForVideo(frame, outputFrameWidth, outputFrameHeight, useAlphaOutput)
+                                WriteBitmapFrameToStream(preparedFrame, inputStream, useAlphaOutput)
+                            End Using
                             streamWriteStopwatch.Stop()
                         End Using
 
@@ -362,8 +593,30 @@ Public Class clsMapRenderEngine
 
                 ffmpegProcess.WaitForExit()
                 encodeStopwatch.Stop()
+                Dim ffmpegErrorOutput As String = ""
+                Try
+                    ffmpegErrorOutput = stderrTask.Result
+                Catch
+                End Try
+                If ffmpegProcess.ExitCode <> 0 Then
+                    Throw New InvalidOperationException("ffmpeg failed while writing " &
+                                                        Path.GetFileName(outputFile) &
+                                                        " (exit code " &
+                                                        ffmpegProcess.ExitCode.ToString(CultureInfo.InvariantCulture) &
+                                                        ")." &
+                                                        If(String.IsNullOrWhiteSpace(ffmpegErrorOutput), "", Environment.NewLine & ffmpegErrorOutput))
+                End If
             End Using
         End Using
+
+        If Not File.Exists(outputFile) Then
+            Throw New FileNotFoundException("Expected overlay video was not created.", outputFile)
+        End If
+
+        Dim outputInfo As New FileInfo(outputFile)
+        If outputInfo.Length <= 0 Then
+            Throw New InvalidOperationException("Overlay video was created with zero length: " & outputInfo.FullName)
+        End If
 
         totalStopwatch.Stop()
         LastDrawElapsed = drawStopwatch.Elapsed
@@ -378,6 +631,34 @@ Public Class clsMapRenderEngine
         Dim safeTotal As Integer = Math.Max(1, totalFrames)
         ProgressCallback(Math.Min(doneFrames, safeTotal), safeTotal, Path.GetFileName(outputFile))
     End Sub
+
+    Private Function EnsureEvenDimension(value As Integer) As Integer
+        Dim safeValue As Integer = Math.Max(1, value)
+        If safeValue Mod 2 <> 0 Then safeValue += 1
+        Return safeValue
+    End Function
+
+    Private Function PrepareFrameForVideo(sourceImage As Bitmap,
+                                          targetWidth As Integer,
+                                          targetHeight As Integer,
+                                          includeAlpha As Boolean) As Bitmap
+        If sourceImage.Width = targetWidth AndAlso sourceImage.Height = targetHeight Then
+            Return DirectCast(sourceImage.Clone(), Bitmap)
+        End If
+
+        Dim pixelFormat As PixelFormat = If(includeAlpha, PixelFormat.Format32bppArgb, PixelFormat.Format24bppRgb)
+        Dim preparedFrame As New Bitmap(targetWidth, targetHeight, pixelFormat)
+        Using g As Graphics = Graphics.FromImage(preparedFrame)
+            If includeAlpha Then
+                g.Clear(Color.Transparent)
+            Else
+                g.Clear(Color.Magenta)
+            End If
+            g.DrawImage(sourceImage, 0, 0, sourceImage.Width, sourceImage.Height)
+        End Using
+
+        Return preparedFrame
+    End Function
 
     Private Sub WriteBitmapFrameToStream(sourceImage As Bitmap, targetStream As Stream, includeAlpha As Boolean)
         If includeAlpha Then
@@ -535,6 +816,34 @@ Public Class clsMapRenderEngine
         Return (90 - angle * 180 / Math.PI) Mod 360
     End Function
 
+    Private Function GetInterpolatedPaceAtTime(timeCode As Double) As Double
+        Dim clampedTime As Double = ClampTimeCode(timeCode)
+        Dim cacheKey As Integer = GetTimeCacheKey(clampedTime)
+        If _paceCache.ContainsKey(cacheKey) Then
+            Return _paceCache(cacheKey)
+        End If
+
+        Dim lowerIdx, upperIdx As Integer
+        Dim blend As Double
+        ResolveTimeSegment(clampedTime, lowerIdx, upperIdx, blend)
+        Dim pace1 As Double = _routePoints.RoutePoints(lowerIdx).Pace
+        Dim pace2 As Double = _routePoints.RoutePoints(upperIdx).Pace
+        Dim result As Double
+
+        If pace1 <= 0 AndAlso pace2 > 0 Then
+            result = pace2
+        ElseIf pace2 <= 0 AndAlso pace1 > 0 Then
+            result = pace1
+        ElseIf pace1 > 0 AndAlso pace2 > 0 Then
+            result = pace1 + (pace2 - pace1) * blend
+        Else
+            result = 0
+        End If
+
+        _paceCache(cacheKey) = result
+        Return result
+    End Function
+
     Private Function GetHeadingAngleAtTime(timeCode As Double) As Double
         Dim clampedTime As Double = ClampTimeCode(timeCode)
         Dim cacheKey As Integer = GetTimeCacheKey(clampedTime)
@@ -582,7 +891,7 @@ Public Class clsMapRenderEngine
         Dim endPoint As PointF = _routePoints.ImgLapVectors(lap).EndPoint
         Dim outWidth As Integer = Math.Max(1, _legacyRenderer.LegWidth)
         Dim outHeight As Integer = Math.Max(1, _legacyRenderer.LegHeight)
-        Dim marginHeight As Integer = _legacyRenderer.LegMargin
+        Dim marginHeight As Integer = Math.Max(100, _legacyRenderer.LegMargin)
         Dim roundRadius As Integer = _legacyRenderer.LegRad
 
         Dim deltaX As Single = endPoint.X - startPoint.X
@@ -592,7 +901,9 @@ Public Class clsMapRenderEngine
         Dim distance As Single = CSng(Math.Sqrt(deltaX * deltaX + deltaY * deltaY))
         Dim midPoint As New PointF((startPoint.X + endPoint.X) / 2.0F, (startPoint.Y + endPoint.Y) / 2.0F)
 
-        Dim clipLength As Single = Math.Max(1.0F, distance + marginHeight)
+        ' Keep a fixed map-pixel margin before start-center and after end-center.
+        ' The margin is measured in source map pixels, not output pixels.
+        Dim clipLength As Single = Math.Max(1.0F, distance + (marginHeight * 2.0F))
         Dim scale As Single = clipLength / Math.Max(1, outHeight)
         Dim clipWidth As Single = Math.Max(1.0F, outWidth * scale)
         Dim diagonal As Single = CSng(Math.Sqrt(clipWidth * clipWidth + clipLength * clipLength))
@@ -612,7 +923,8 @@ Public Class clsMapRenderEngine
             .OutHeight = outHeight,
             .MarginHeight = marginHeight,
             .RoundRadius = roundRadius,
-            .BackgroundKey = backgroundKey
+            .BackgroundKey = backgroundKey,
+            .LegDistance = distance
         }
     End Function
 
@@ -657,6 +969,277 @@ Public Class clsMapRenderEngine
         Return Math.Max(1, workSize)
     End Function
 
+    Private Function ProjectViewPoint(viewMidPoint As PointF,
+                                      angleDegrees As Double,
+                                      clipWidth As Single,
+                                      clipLength As Single,
+                                      outWidth As Integer,
+                                      outHeight As Integer,
+                                      sourcePoint As PointF) As PointF
+        Dim angleRadians As Double = angleDegrees * Math.PI / 180.0
+        Dim dx As Double = sourcePoint.X - viewMidPoint.X
+        Dim dy As Double = sourcePoint.Y - viewMidPoint.Y
+
+        Dim rotatedX As Double = dx * Math.Cos(angleRadians) - dy * Math.Sin(angleRadians)
+        Dim rotatedY As Double = dx * Math.Sin(angleRadians) + dy * Math.Cos(angleRadians)
+
+        Dim normalizedX As Double = (rotatedX + clipWidth / 2.0) / Math.Max(1.0, clipWidth)
+        Dim normalizedY As Double = (rotatedY + clipLength / 2.0) / Math.Max(1.0, clipLength)
+
+        Return New PointF(CSng(normalizedX * outWidth), CSng(normalizedY * outHeight))
+    End Function
+
+    Private Function ProjectLegPoint(info As LegRenderInfo, sourcePoint As PointF) As PointF
+        Return ProjectViewPoint(info.MidPoint, info.AngleDegrees, info.ClipWidth, info.ClipLength, info.OutWidth, info.OutHeight, sourcePoint)
+    End Function
+
+    Private Function ComputeTailSamplesAtTime(timeCode As Double) As List(Of TailSample)
+        Dim samples As New List(Of TailSample)
+        Dim clampedTime As Double = ClampTimeCode(timeCode)
+        Dim startTime As Double = Math.Max(0, clampedTime - _legacyRenderer.tailLineDurationSeconds)
+        Dim sampleStep As Double = 0.25
+        Dim sampleTime As Double = startTime
+
+        Do While sampleTime <= clampedTime + sampleStep / 2
+            Dim currentSampleTime As Double = Math.Min(sampleTime, clampedTime)
+            Dim currentPoint As PointF = GetRoutePointAtTime(currentSampleTime)
+            If samples.Count = 0 OrElse GetDistanceBetweenPoints(samples(samples.Count - 1).Position, currentPoint) >= 1.0 Then
+                samples.Add(New TailSample With {.TimeCode = currentSampleTime, .Position = currentPoint})
+            End If
+            sampleTime += sampleStep
+        Loop
+
+        Return samples
+    End Function
+
+    Private Function GetViewMapToScreenScale(clipLength As Single, outHeight As Integer) As Double
+        Return outHeight / Math.Max(1.0, CDbl(clipLength))
+    End Function
+
+    Private Function GetLegMapToScreenScale(info As LegRenderInfo) As Double
+        Return GetViewMapToScreenScale(info.ClipLength, info.OutHeight)
+    End Function
+
+    Private Function GetViewEffectiveDotSize(clipLength As Single, outHeight As Integer, symbolScale As Single) As Integer
+        Return Math.Max(4, CInt(Math.Round(_legacyRenderer.dotSize * GetViewMapToScreenScale(clipLength, outHeight) * symbolScale)))
+    End Function
+
+    Private Function GetLegEffectiveDotSize(info As LegRenderInfo, symbolScale As Single) As Integer
+        Return GetViewEffectiveDotSize(info.ClipLength, info.OutHeight, symbolScale)
+    End Function
+
+    Private Function FilterTailSamplesForProjectedView(viewMidPoint As PointF,
+                                                       angleDegrees As Double,
+                                                       clipWidth As Single,
+                                                       clipLength As Single,
+                                                       outWidth As Integer,
+                                                       outHeight As Integer,
+                                                       rawSamples As List(Of TailSample),
+                                                       symbolScale As Single) As List(Of TailSample)
+        If rawSamples Is Nothing OrElse rawSamples.Count <= 1 Then Return rawSamples
+
+        Dim filtered As New List(Of TailSample)
+        Dim projectedTailWidth As Double = GetViewEffectiveDotSize(clipLength, outHeight, symbolScale) * Math.Max(0.05, _legacyRenderer.dotTailRatio)
+        ' Keep only a mild spacing in output pixels, but let it follow the actual
+        ' projected tail width. A fixed distance makes long-leg tails look thinner
+        ' and more transparent than short-leg tails.
+        Dim minProjectedDistance As Double = Math.Max(1.25, Math.Min(3.0, projectedTailWidth * 0.35))
+
+        filtered.Add(rawSamples(0))
+
+        For i As Integer = 1 To rawSamples.Count - 1
+            Dim previousProjected As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, filtered(filtered.Count - 1).Position)
+            Dim currentProjected As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, rawSamples(i).Position)
+            If GetDistanceBetweenPoints(previousProjected, currentProjected) >= minProjectedDistance Then
+                filtered.Add(rawSamples(i))
+            ElseIf i = rawSamples.Count - 1 Then
+                ' Always keep the newest sample so the tail reaches the runner/arrow.
+                filtered(filtered.Count - 1) = rawSamples(i)
+            End If
+        Next
+
+        Return filtered
+    End Function
+
+    Private Function FilterTailSamplesForLeg(info As LegRenderInfo, rawSamples As List(Of TailSample), symbolScale As Single) As List(Of TailSample)
+        Return FilterTailSamplesForProjectedView(info.MidPoint, info.AngleDegrees, info.ClipWidth, info.ClipLength, info.OutWidth, info.OutHeight, rawSamples, symbolScale)
+    End Function
+
+    Private Function ComputeArrowDirectionProjected(info As LegRenderInfo, timeCode As Double) As Double
+        Dim startPoint, endPoint As PointF
+        GetHeadingSamplePoints(timeCode, startPoint, endPoint)
+        Dim projectedStart As PointF = ProjectLegPoint(info, startPoint)
+        Dim projectedEnd As PointF = ProjectLegPoint(info, endPoint)
+        Dim angle As Double = Math.Atan2(projectedEnd.Y - projectedStart.Y, projectedEnd.X - projectedStart.X)
+        Dim cameraAngle As Double = (90 - angle * 180 / Math.PI) Mod 360
+        Return (180 - cameraAngle + 360) Mod 360
+    End Function
+
+    Private Function ComputeHeadingAngleProjectedRadians(info As LegRenderInfo, timeCode As Double) As Double
+        Return ComputeHeadingAngleProjectedRadiansForView(info.MidPoint, info.AngleDegrees, info.ClipWidth, info.ClipLength, info.OutWidth, info.OutHeight, timeCode)
+    End Function
+
+    Private Function ComputeHeadingAngleProjectedRadiansForView(viewMidPoint As PointF,
+                                                                angleDegrees As Double,
+                                                                clipWidth As Single,
+                                                                clipLength As Single,
+                                                                outWidth As Integer,
+                                                                outHeight As Integer,
+                                                                timeCode As Double) As Double
+        Dim startPoint, endPoint As PointF
+        GetHeadingSamplePoints(timeCode, startPoint, endPoint)
+        Dim projectedStart As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, startPoint)
+        Dim projectedEnd As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, endPoint)
+        Return Math.Atan2(projectedEnd.Y - projectedStart.Y, projectedEnd.X - projectedStart.X)
+    End Function
+
+    Private Function ComputeArrowDirectionProjectedForView(viewMidPoint As PointF,
+                                                           angleDegrees As Double,
+                                                           clipWidth As Single,
+                                                           clipLength As Single,
+                                                           outWidth As Integer,
+                                                           outHeight As Integer,
+                                                           timeCode As Double) As Double
+        Dim startPoint, endPoint As PointF
+        GetHeadingSamplePoints(timeCode, startPoint, endPoint)
+        Dim projectedStart As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, startPoint)
+        Dim projectedEnd As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, endPoint)
+        Dim angle As Double = Math.Atan2(projectedEnd.Y - projectedStart.Y, projectedEnd.X - projectedStart.X)
+        Dim cameraAngle As Double = (90 - angle * 180 / Math.PI) Mod 360
+        Return (180 - cameraAngle + 360) Mod 360
+    End Function
+
+    Private Function GetAdaptiveSymbolScale(info As LegRenderInfo) As Single
+        ' Keep symbol size fixed for now. The leg framing should be controlled by
+        ' source-map margins, not by shrinking symbols on short legs.
+        Return 1.0F
+    End Function
+
+    Private Sub DrawTailSideMarkers(g As Graphics, projectedPoints() As PointF, tailWidth As Single)
+        If projectedPoints Is Nothing OrElse projectedPoints.Length < 3 Then Return
+
+        Dim outlineMultiplier As Single = Math.Max(1.0F, CSng(ArrowOutlineScale))
+        Dim markerThickness As Single = Math.Max(1.35F, tailWidth * 0.18F * outlineMultiplier)
+        Dim markerLength As Single = Math.Max(2.5F, tailWidth * (0.45F + 0.05F * outlineMultiplier))
+        Dim sideOffset As Single = Math.Max(markerThickness, tailWidth * 0.52F)
+        Using sidePen As New Pen(Color.Black, markerThickness)
+            sidePen.StartCap = LineCap.Round
+            sidePen.EndCap = LineCap.Round
+            For i As Integer = 1 To projectedPoints.Length - 2 Step 2
+                Dim prevPt As PointF = projectedPoints(i - 1)
+                Dim nextPt As PointF = projectedPoints(i + 1)
+                Dim dx As Single = nextPt.X - prevPt.X
+                Dim dy As Single = nextPt.Y - prevPt.Y
+                Dim length As Double = Math.Sqrt(dx * dx + dy * dy)
+                If length < 0.001 Then Continue For
+
+                Dim tangentX As Single = CSng(dx / length)
+                Dim tangentY As Single = CSng(dy / length)
+                Dim perpX As Single = -tangentY
+                Dim perpY As Single = tangentX
+                Dim center As PointF = projectedPoints(i)
+                Dim halfLenX As Single = tangentX * markerLength / 2.0F
+                Dim halfLenY As Single = tangentY * markerLength / 2.0F
+
+                Dim leftCenter As New PointF(center.X + perpX * sideOffset, center.Y + perpY * sideOffset)
+                Dim rightCenter As New PointF(center.X - perpX * sideOffset, center.Y - perpY * sideOffset)
+
+                g.DrawLine(sidePen,
+                           leftCenter.X - halfLenX,
+                           leftCenter.Y - halfLenY,
+                           leftCenter.X + halfLenX,
+                           leftCenter.Y + halfLenY)
+                g.DrawLine(sidePen,
+                           rightCenter.X - halfLenX,
+                           rightCenter.Y - halfLenY,
+                           rightCenter.X + halfLenX,
+                           rightCenter.Y + halfLenY)
+            Next
+        End Using
+    End Sub
+
+    Private Sub DrawLegOverlayDirect(g As Graphics, currentTime As Double, info As LegRenderInfo)
+        DrawOverlayDirectProjected(g, currentTime, info.MidPoint, info.AngleDegrees, info.ClipWidth, info.ClipLength, info.OutWidth, info.OutHeight, GetAdaptiveSymbolScale(info))
+    End Sub
+
+    Private Sub DrawOverlayDirectProjected(g As Graphics,
+                                           currentTime As Double,
+                                           viewMidPoint As PointF,
+                                           angleDegrees As Double,
+                                           clipWidth As Single,
+                                           clipLength As Single,
+                                           outWidth As Integer,
+                                           outHeight As Integer,
+                                           symbolScale As Single)
+        Dim safeTime As Double = ClampTimeCode(currentTime)
+        Dim tailSamples As List(Of TailSample) = FilterTailSamplesForProjectedView(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, ComputeTailSamplesAtTime(safeTime), symbolScale)
+        ' The legacy renderer defines symbol sizes in source map pixels. When we draw
+        ' directly into the leg output, we need to convert that source-pixel size to
+        ' output pixels using the current leg view scale.
+        Dim mapToScreenScale As Double = GetViewMapToScreenScale(clipLength, outHeight)
+        Dim effectiveDotSize As Integer = GetViewEffectiveDotSize(clipLength, outHeight, symbolScale)
+
+        If tailSamples.Count > 1 Then
+            Dim tailWidth As Single = CSng(effectiveDotSize * _legacyRenderer.dotTailRatio)
+            Dim projectedPoints(tailSamples.Count - 1) As PointF
+            For i As Integer = 0 To tailSamples.Count - 1
+                projectedPoints(i) = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, tailSamples(i).Position)
+            Next
+
+            If Not SpeedColoringEnabled Then
+                Using tailPen As New Pen(Color.FromArgb(Math.Max(0, Math.Min(255, TailAlpha)), _legacyRenderer.tailLineColor), tailWidth)
+                    tailPen.StartCap = LineCap.Round
+                    tailPen.EndCap = LineCap.Round
+                    tailPen.LineJoin = LineJoin.Round
+                    g.DrawLines(tailPen, projectedPoints)
+                End Using
+            Else
+                For i As Integer = 1 To tailSamples.Count - 1
+                    Dim startPoint As PointF = projectedPoints(i - 1)
+                    Dim endPoint As PointF = projectedPoints(i)
+                    Using tailPen As New Pen(GetTailColorForPace(GetInterpolatedPaceAtTime(tailSamples(i).TimeCode)), tailWidth)
+                        tailPen.StartCap = LineCap.Round
+                        tailPen.EndCap = LineCap.Round
+                        tailPen.LineJoin = LineJoin.Round
+                        g.DrawLine(tailPen, startPoint, endPoint)
+                    End Using
+                Next
+                DrawTailSideMarkers(g, projectedPoints, tailWidth)
+            End If
+
+            If TailTicksEnabled AndAlso TailTickIntervalSeconds > 0 Then
+                Dim startTime As Double = Math.Max(0, safeTime - _legacyRenderer.tailLineDurationSeconds)
+                Dim firstTick As Double = Math.Ceiling(startTime / TailTickIntervalSeconds) * TailTickIntervalSeconds
+                Dim tickLength As Single = CSng(Math.Max(2.0, tailWidth * 0.9))
+                Dim tickColor As Color = Color.FromArgb(Math.Max(0, Math.Min(255, TailTickAlpha)), TailTickColor)
+
+                Using tickPen As New Pen(tickColor, Math.Max(1.4F, CSng(TailTickWidth * mapToScreenScale * symbolScale * 1.15F)))
+                    Dim tickTime As Double = firstTick
+                    ' TODO-LAYOUT: add an alternate "floating" tick mode where tick spacing is
+                    ' still time-based, but anchored relative to the runner/tail window so the
+                    ' ticks move with the tail instead of absolute route time.
+                    Do While tickTime <= safeTime + 0.0001
+                        Dim center As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, GetRoutePointAtTime(tickTime))
+                        Dim perpendicularRadians As Double = ComputeHeadingAngleProjectedRadiansForView(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, tickTime) + (Math.PI / 2.0)
+                        Dim dx As Single = CSng(Math.Cos(perpendicularRadians) * tickLength / 2.0)
+                        Dim dy As Single = CSng(Math.Sin(perpendicularRadians) * tickLength / 2.0)
+                        g.DrawLine(tickPen, center.X - dx, center.Y - dy, center.X + dx, center.Y + dy)
+                        tickTime += TailTickIntervalSeconds
+                    Loop
+                End Using
+            End If
+        End If
+
+        Dim currentPos As PointF = ProjectViewPoint(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, GetRoutePointAtTime(safeTime))
+        If _legacyRenderer._DotType = "Arrow" Then
+            DrawArrowWithBarbs(g, currentPos, CSng(ComputeArrowDirectionProjectedForView(viewMidPoint, angleDegrees, clipWidth, clipLength, outWidth, outHeight, safeTime)), effectiveDotSize, _legacyRenderer.dotColor)
+        Else
+            Using dotBrush As New SolidBrush(_legacyRenderer.dotColor)
+                g.FillEllipse(dotBrush, currentPos.X - effectiveDotSize / 2.0F, currentPos.Y - effectiveDotSize / 2.0F, effectiveDotSize, effectiveDotSize)
+            End Using
+        End If
+    End Sub
+
     Private Function ComputeTailLinePointsAtTime(timeCode As Double) As List(Of PointF)
         Dim tailPoints As New List(Of PointF)
         Dim clampedTime As Double = ClampTimeCode(timeCode)
@@ -669,14 +1252,117 @@ Public Class clsMapRenderEngine
             Dim currentPoint As PointF = GetRoutePointAtTime(currentSampleTime)
             If tailPoints.Count = 0 OrElse GetDistanceBetweenPoints(tailPoints(tailPoints.Count - 1), currentPoint) >= 1.0 Then
                 tailPoints.Add(currentPoint)
-            Else
-                tailPoints(tailPoints.Count - 1) = currentPoint
             End If
             sampleTime += sampleStep
         Loop
 
         Return tailPoints
     End Function
+
+    Private Function GetTailColorForPace(paceSecondsPerKm As Double) As Color
+        Dim baseAlpha As Integer = Math.Max(0, Math.Min(255, TailAlpha))
+        If Not SpeedColoringEnabled OrElse paceSecondsPerKm <= 0 Then
+            Return Color.FromArgb(baseAlpha, _legacyRenderer.tailLineColor)
+        End If
+
+        Dim fastPace As Double = Math.Max(1.0, PaceFastSecondsPerKm)
+        Dim slowPace As Double = Math.Max(fastPace + 0.001, PaceSlowSecondsPerKm)
+        Dim normalized As Double = (paceSecondsPerKm - fastPace) / (slowPace - fastPace)
+        normalized = Math.Max(0.0, Math.Min(1.0, normalized))
+
+        Dim greenColor As Color = Color.FromArgb(0, 210, 70)
+        Dim yellowColor As Color = Color.FromArgb(245, 220, 40)
+        Dim orangeColor As Color = Color.FromArgb(245, 145, 40)
+        Dim redColor As Color = Color.FromArgb(220, 50, 50)
+
+        Dim result As Color
+        If normalized <= (1.0 / 3.0) Then
+            result = LerpColor(greenColor, yellowColor, normalized * 3.0)
+        ElseIf normalized <= (2.0 / 3.0) Then
+            result = LerpColor(yellowColor, orangeColor, (normalized - 1.0 / 3.0) * 3.0)
+        Else
+            result = LerpColor(orangeColor, redColor, (normalized - 2.0 / 3.0) * 3.0)
+        End If
+
+        Return Color.FromArgb(baseAlpha, result)
+    End Function
+
+    Private Function LerpColor(startColor As Color, endColor As Color, amount As Double) As Color
+        amount = Math.Max(0.0, Math.Min(1.0, amount))
+        Dim startR As Integer = startColor.R
+        Dim startG As Integer = startColor.G
+        Dim startB As Integer = startColor.B
+        Dim endR As Integer = endColor.R
+        Dim endG As Integer = endColor.G
+        Dim endB As Integer = endColor.B
+        Dim r As Integer = CInt(Math.Round(startR + (endR - startR) * amount))
+        Dim g As Integer = CInt(Math.Round(startG + (endG - startG) * amount))
+        Dim b As Integer = CInt(Math.Round(startB + (endB - startB) * amount))
+        Return Color.FromArgb(r, g, b)
+    End Function
+
+    Private Sub DrawTail(g As Graphics, tailPoints As List(Of PointF), currentTime As Double)
+        Dim tailWidth As Single = CSng(_legacyRenderer.dotSize * _legacyRenderer.dotTailRatio)
+        If tailPoints Is Nothing OrElse tailPoints.Count <= 1 Then Return
+
+        If Not SpeedColoringEnabled Then
+            Using tailPen As New Pen(Color.FromArgb(Math.Max(0, Math.Min(255, TailAlpha)), _legacyRenderer.tailLineColor), tailWidth)
+                tailPen.StartCap = LineCap.Round
+                tailPen.EndCap = LineCap.Round
+                tailPen.LineJoin = LineJoin.Round
+                g.DrawLines(tailPen, tailPoints.ToArray())
+            End Using
+            Return
+        End If
+
+        Dim clampedTime As Double = ClampTimeCode(currentTime)
+        Dim startTime As Double = Math.Max(0, clampedTime - _legacyRenderer.tailLineDurationSeconds)
+        Dim sampleStep As Double = 0.25
+        Dim previousPoint As PointF? = Nothing
+        Dim sampleTime As Double = startTime
+
+        Do While sampleTime <= clampedTime + sampleStep / 2
+            Dim currentSampleTime As Double = Math.Min(sampleTime, clampedTime)
+            Dim currentPoint As PointF = GetRoutePointAtTime(currentSampleTime)
+            If previousPoint Is Nothing Then
+                previousPoint = currentPoint
+            ElseIf GetDistanceBetweenPoints(previousPoint.Value, currentPoint) >= 1.0 Then
+                Using tailPen As New Pen(GetTailColorForPace(GetInterpolatedPaceAtTime(currentSampleTime)), tailWidth)
+                    tailPen.StartCap = LineCap.Round
+                    tailPen.EndCap = LineCap.Round
+                    tailPen.LineJoin = LineJoin.Round
+                    g.DrawLine(tailPen, previousPoint.Value, currentPoint)
+                End Using
+                previousPoint = currentPoint
+            End If
+            sampleTime += sampleStep
+        Loop
+    End Sub
+
+    Private Sub DrawTailTicks(g As Graphics, currentTime As Double)
+        If Not TailTicksEnabled Then Return
+        If TailTickIntervalSeconds <= 0 Then Return
+
+        Dim clampedTime As Double = ClampTimeCode(currentTime)
+        Dim startTime As Double = Math.Max(0, clampedTime - _legacyRenderer.tailLineDurationSeconds)
+        Dim firstTick As Double = Math.Ceiling(startTime / TailTickIntervalSeconds) * TailTickIntervalSeconds
+        Dim tickLength As Single = CSng(Math.Max(2.0, _legacyRenderer.dotSize * _legacyRenderer.dotTailRatio * 0.9))
+        Dim tickColor As Color = Color.FromArgb(Math.Max(0, Math.Min(255, TailTickAlpha)), TailTickColor)
+
+        Using tickPen As New Pen(tickColor, TailTickWidth)
+            Dim tickTime As Double = firstTick
+            Do While tickTime <= clampedTime + 0.0001
+                Dim center As PointF = GetRoutePointAtTime(tickTime)
+                Dim startPoint, endPoint As PointF
+                GetHeadingSamplePoints(tickTime, startPoint, endPoint)
+                Dim perpendicularRadians As Double = Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X) + (Math.PI / 2.0)
+                Dim dx As Single = CSng(Math.Cos(perpendicularRadians) * tickLength / 2.0)
+                Dim dy As Single = CSng(Math.Sin(perpendicularRadians) * tickLength / 2.0)
+                g.DrawLine(tickPen, center.X - dx, center.Y - dy, center.X + dx, center.Y + dy)
+                tickTime += TailTickIntervalSeconds
+            Loop
+        End Using
+    End Sub
 
     Private Function GetTailLinePointsAtTime(timeCode As Double) As List(Of PointF)
         Dim clampedTime As Double = ClampTimeCode(timeCode)
@@ -694,11 +1380,13 @@ Public Class clsMapRenderEngine
             Dim currentPos As PointF = GetRoutePointAtTime(safeTime)
             Dim tailPoints As List(Of PointF) = GetTailLinePointsAtTime(safeTime)
             Using g As Graphics = Graphics.FromImage(_overlayMap)
+                g.SmoothingMode = SmoothingMode.AntiAlias
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality
+                g.CompositingQuality = CompositingQuality.HighQuality
                 g.Clear(Color.Transparent)
                 If tailPoints.Count > 1 Then
-                    Using tailPen As New Pen(_legacyRenderer.tailLineColor, _legacyRenderer.dotSize * _legacyRenderer.dotTailRatio)
-                        g.DrawLines(tailPen, tailPoints.ToArray())
-                    End Using
+                    DrawTail(g, tailPoints, safeTime)
+                    DrawTailTicks(g, safeTime)
                 End If
 
                 If _legacyRenderer._DotType = "Arrow" Then
@@ -851,6 +1539,17 @@ Public Class clsMapRenderEngine
             offPoints(i) = OffsetPointByLength(points(i), currentPos, points(0))
         Next
 
+        Dim outlineMultiplier As Single = Math.Max(1.0F, CSng(ArrowOutlineScale))
+        Dim outlineScale As Single = Math.Max(1.5F, dotSize * 0.18F * outlineMultiplier)
+        Dim outlinePoints(3) As PointF
+        For i As Integer = 0 To 3
+            outlinePoints(i) = ScalePointFromCenter(offPoints(i), currentPos, 1.0F + outlineScale / Math.Max(1.0F, CSng(dotSize)))
+        Next
+
+        Using outlineBrush As New SolidBrush(Color.FromArgb(210, 45, 45, 45))
+            g.FillPolygon(outlineBrush, outlinePoints)
+        End Using
+
         Using arrowBrush As New SolidBrush(dotColor)
             g.FillPolygon(arrowBrush, offPoints)
         End Using
@@ -865,6 +1564,10 @@ Public Class clsMapRenderEngine
         Dim unitVectorX As Single = dx / vectorLength
         Dim unitVectorY As Single = dy / vectorLength
         Return New PointF(originalPoint.X + unitVectorX * length, originalPoint.Y + unitVectorY * length)
+    End Function
+
+    Private Function ScalePointFromCenter(point As PointF, center As PointF, scale As Single) As PointF
+        Return New PointF(center.X + (point.X - center.X) * scale, center.Y + (point.Y - center.Y) * scale)
     End Function
 
     Private Function FillRoundedRectangle(rect As Rectangle, radius As Integer) As GraphicsPath

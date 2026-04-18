@@ -2633,6 +2633,9 @@ det med nedsat videolængde
   <data name="btnTestWriteVideo.Text" xml:space="preserve">
     <value>TestImgVideo</value>
   </data>
+  <data name="btnTestWriteVideo.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;btnTestWriteVideo.Name" xml:space="preserve">
     <value>btnTestWriteVideo</value>
   </data>
