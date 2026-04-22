@@ -51,7 +51,6 @@ Partial Class frmSettings
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.numSmooth = New System.Windows.Forms.NumericUpDown()
-        Me.chkHDformat = New System.Windows.Forms.CheckBox()
         Me.txtVideoWorkfolder = New System.Windows.Forms.TextBox()
         Me.txtCRF = New System.Windows.Forms.TextBox()
         Me.txtFPS = New System.Windows.Forms.TextBox()
@@ -237,14 +236,6 @@ Partial Class frmSettings
         Me.numSmooth.Name = "numSmooth"
         Me.numSmooth.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         '
-        'chkHDformat
-        '
-        resources.ApplyResources(Me.chkHDformat, "chkHDformat")
-        Me.chkHDformat.Checked = Global.OHeadcamMapApp.My.MySettings.Default.chkHDFormat
-        Me.chkHDformat.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.OHeadcamMapApp.My.MySettings.Default, "chkHDFormat", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.chkHDformat.Name = "chkHDformat"
-        Me.chkHDformat.UseVisualStyleBackColor = True
-        '
         'txtVideoWorkfolder
         '
         Me.txtVideoWorkfolder.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "VideoWorkFolder", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
@@ -280,7 +271,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.cmbOutputFormat)
         Me.Controls.Add(Me.numSmooth)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.chkHDformat)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.GroupBox2)
@@ -330,7 +320,6 @@ Partial Class frmSettings
     Friend WithEvents Label4 As Label
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents chkHDformat As CheckBox
     Friend WithEvents cmbPreset As ComboBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label9 As Label

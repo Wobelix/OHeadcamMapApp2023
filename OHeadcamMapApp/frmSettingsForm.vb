@@ -3,6 +3,7 @@ Imports System.Threading
 Imports OHeadcamMapApp.My.Resources
 Public Class frmSettings
     Private isFormLoading As Boolean = True
+    Private Const DefaultOutputFormat As String = "Auto"
     Public Sub New()
         Dim lang As String
         If My.Settings.Language = "English" Then
@@ -29,6 +30,7 @@ Public Class frmSettings
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         My.Settings.MISmoothFrameStepSeconds = CDbl(numSmooth.Value)
+        My.Settings.OutputFormat = GetSelectedOutputFormat()
         My.Settings.Save()
         Me.Close()
     End Sub
@@ -68,6 +70,27 @@ Public Class frmSettings
     Private Function GetDefault(Para As String) As Object
         Return My.Settings.Properties(Para).DefaultValue
     End Function
+    Private Function GetSelectedOutputFormat() As String
+        If cmbOutputFormat.SelectedItem IsNot Nothing Then
+            Return cmbOutputFormat.SelectedItem.ToString()
+        End If
+
+        If Not String.IsNullOrWhiteSpace(cmbOutputFormat.Text) Then
+            Return cmbOutputFormat.Text.Trim()
+        End If
+
+        Return DefaultOutputFormat
+    End Function
+    Private Sub LoadOutputFormat()
+        Dim savedValue As String = My.Settings.OutputFormat
+        If String.IsNullOrWhiteSpace(savedValue) Then savedValue = DefaultOutputFormat
+
+        If cmbOutputFormat.Items.Contains(savedValue) Then
+            cmbOutputFormat.SelectedItem = savedValue
+        ElseIf cmbOutputFormat.Items.Count > 0 Then
+            cmbOutputFormat.SelectedIndex = 0
+        End If
+    End Sub
     Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
         My.Settings.ffmpegVidstabDetect = GetDefault("ffmpegVidstabDetect")
         My.Settings.ffmpegOutFps = GetDefault("ffmpegOutFps")
@@ -78,10 +101,12 @@ Public Class frmSettings
         ' CLEANUP-CBNEWMAPF-START:My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"
         My.Settings.MISmoothFrameStepSeconds = CDbl(GetDefault("MISmoothFrameStepSeconds"))
+        My.Settings.OutputFormat = CStr(GetDefault("OutputFormat"))
         rbImgMiddle.Checked = False
         rbImgRight.Checked = True
         rbImgLeft.Checked = False
         numSmooth.Value = CDec(My.Settings.MISmoothFrameStepSeconds)
+        LoadOutputFormat()
         My.Settings.Save()
 
 
@@ -89,7 +114,7 @@ Public Class frmSettings
 
 
 
-    Private Sub chkHDformat_CheckedChanged(sender As Object, e As EventArgs) Handles chkHDformat.CheckedChanged
+    Private Sub chkHDformat_CheckedChanged(sender As Object, e As EventArgs)
         If Not isFormLoading Then MsgBox(Texts.HDChanged)
     End Sub
 
@@ -98,6 +123,7 @@ Public Class frmSettings
             My.Settings.MISmoothFrameStepSeconds = 0.25
         End If
         numSmooth.Value = CDec(My.Settings.MISmoothFrameStepSeconds)
+        LoadOutputFormat()
         isFormLoading = False
     End Sub
 

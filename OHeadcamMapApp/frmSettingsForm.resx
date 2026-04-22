@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -178,7 +178,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="btnSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -451,7 +451,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -713,7 +713,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnSelectFolder.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="Label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -743,7 +743,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;rbImgMiddle.Name" xml:space="preserve">
     <value>rbImgMiddle</value>
@@ -803,7 +803,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="rbImgMiddle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -920,7 +920,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnReset.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="Label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -950,7 +950,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="Label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1003,36 +1003,6 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;numSmooth.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="chkHDformat.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkHDformat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkHDformat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 92</value>
-  </data>
-  <data name="chkHDformat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 17</value>
-  </data>
-  <data name="chkHDformat.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="chkHDformat.Text" xml:space="preserve">
-    <value>Umarkeret anvendes input format</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.Name" xml:space="preserve">
-    <value>chkHDformat</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;chkHDformat.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="txtVideoWorkfolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 42</value>
   </data>
@@ -1052,7 +1022,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtVideoWorkfolder.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="txtCRF.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 175</value>
@@ -1076,7 +1046,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtCRF.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="txtFPS.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 175</value>
@@ -1100,7 +1070,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtFPS.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="cmbOutputFormat.Items" xml:space="preserve">
     <value>Auto (=input)</value>
@@ -1115,7 +1085,7 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>Max 4K  3840x2160</value>
   </data>
   <data name="cmbOutputFormat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 116</value>
+    <value>12, 93</value>
   </data>
   <data name="cmbOutputFormat.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 21</value>

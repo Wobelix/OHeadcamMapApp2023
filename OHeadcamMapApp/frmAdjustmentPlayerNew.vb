@@ -25,16 +25,20 @@ Public Class frmAdjustmentPlayer_new
     Private _MapImgHandler As clsMapImages
     Private _ZoomPreviewEngine As clsMapRenderEngine
     Private _LegPreviewEngine As clsMapRenderEngine
+    Private _DynPreviewEngine As clsMapRenderEngine
     Private _MapDeltaTime As Integer 'Timediff to Current Time
     Private _MapReady As Boolean = False
     Private _MapInit As Boolean = False
     Private _UpdateMouse As Boolean = False
     Private _ZoomResized As Boolean = False
     Private _LegResized As Boolean = False
+    Private _DynResized As Boolean = False
     Private _ZoomMouseIsUp As Boolean = True
     Private _LegMouseIsUp As Boolean = True
+    Private _DynMouseIsUp As Boolean = True
     Private _ZoomMapPos As Point
     Private _LegMapPos As Point
+    Private _DynMapPos As Point
     Private _ZoomZoom As Decimal
     Private _LegMargin As Integer
     Private _LoadingForm As Boolean
@@ -44,6 +48,7 @@ Public Class frmAdjustmentPlayer_new
     Private VideoInfo As clsFFMPegProbe
     Private PBZoom_Adjust As New clsPictureBoxMoveResize
     Private PBLeg_Adjust As New clsPictureBoxMoveResize
+    Private PBDyn_Adjust As New clsPictureBoxMoveResize
     Private _VideoPanelScale As Double
     Private Const UseSmoothPreview As Boolean = True
     Private Const TrackBarUnitsPerSecond As Integer = 10
@@ -147,8 +152,8 @@ Public Class frmAdjustmentPlayer_new
             pb.Top = pb.Parent.ClientSize.Height - pb.Height
         End If
     End Sub
-    Private Sub SetPBMapPositions(Z As Boolean, L As Boolean, ZMapP As Point, LMapP As Point) 'Real pos to PB pos
-        Dim zp, lp As Point
+    Private Sub SetPBMapPositions(Z As Boolean, L As Boolean, ZMapP As Point, LMapP As Point, Optional D As Boolean = False, Optional DMapP As Point = Nothing) 'Real pos to PB pos
+        Dim zp, lp, dp As Point
         If Z Then
             zp = New Point(ZMapP.X / _VideoPanelScale, ZMapP.Y / _VideoPanelScale)
             PB_Zoom.Location = zp
@@ -158,6 +163,11 @@ Public Class frmAdjustmentPlayer_new
             lp = New Point(LMapP.X / _VideoPanelScale, LMapP.Y / _VideoPanelScale)
             PBLeg.Location = lp
             CheckPBposition(PBLeg)
+        End If
+        If D Then
+            dp = New Point(DMapP.X / _VideoPanelScale, DMapP.Y / _VideoPanelScale)
+            PBDyn.Location = dp
+            CheckPBposition(PBDyn)
         End If
 
     End Sub
@@ -178,10 +188,12 @@ Public Class frmAdjustmentPlayer_new
         PB_Zoom.Height = ScaleToPanel(_MapImgHandler.ZoomHeight)
         PBLeg.Width = ScaleToPanel(_MapImgHandler.LegWidth)
         PBLeg.Height = ScaleToPanel(_MapImgHandler.LegHeight)
+        PBDyn.Width = ScaleToPanel(Math.Max(1, My.Settings.MIDynamicWidth))
+        PBDyn.Height = ScaleToPanel(Math.Max(1, My.Settings.MIDynamicHeight))
     End Sub
 
-    Private Sub SetMapPositions(Z As Boolean, L As Boolean, PBZMapP As Point, PBLMapP As Point) 'PB to real pos
-        Dim zp, lp As Point
+    Private Sub SetMapPositions(Z As Boolean, L As Boolean, PBZMapP As Point, PBLMapP As Point, Optional D As Boolean = False, Optional PBDMapP As Point = Nothing) 'PB to real pos
+        Dim zp, lp, dp As Point
         If Z Then
             zp = New Point(PBZMapP.X * _VideoPanelScale, PBZMapP.Y * _VideoPanelScale)
             _ZoomMapPos = zp
@@ -189,6 +201,10 @@ Public Class frmAdjustmentPlayer_new
         If L Then
             lp = New Point(PBLMapP.X * _VideoPanelScale, PBLMapP.Y * _VideoPanelScale)
             _LegMapPos = lp
+        End If
+        If D Then
+            dp = New Point(PBDMapP.X * _VideoPanelScale, PBDMapP.Y * _VideoPanelScale)
+            _DynMapPos = dp
         End If
     End Sub
 
@@ -278,13 +294,19 @@ Public Class frmAdjustmentPlayer_new
     Private Sub RebuildPreviewRenderEngines()
         _ZoomPreviewEngine = Nothing
         _LegPreviewEngine = Nothing
-        If Mainform1 Is Nothing OrElse Not Mainform1.IsNewLegLayoutEnabled() Then Return
+        _DynPreviewEngine = Nothing
+        If Mainform1 Is Nothing Then Return
         If MapImg Is Nothing Then Return
 
-        _ZoomPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
-        Mainform1.ApplySavedLegRenderLayout(_ZoomPreviewEngine)
-        _LegPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
-        Mainform1.ApplySavedLegRenderLayout(_LegPreviewEngine)
+        If Mainform1.IsNewLegLayoutEnabled() Then
+            _ZoomPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+            Mainform1.ApplySavedLegRenderLayout(_ZoomPreviewEngine)
+            _LegPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+            Mainform1.ApplySavedLegRenderLayout(_LegPreviewEngine)
+        End If
+
+        _DynPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+        Mainform1.ApplySavedLegRenderLayout(_DynPreviewEngine)
     End Sub
     Private Sub cbNewLegLayout_CheckedChanged(sender As Object, e As EventArgs) Handles cbNewLegLayout.CheckedChanged
         My.Settings.MILegRenderLayout = If(cbNewLegLayout.Checked, "web", "classic")
@@ -499,7 +521,7 @@ Public Class frmAdjustmentPlayer_new
         End If
     End Sub
     Public Sub UpdateMapImgs()
-        Dim w, h, ls, lh As Integer
+        Dim w, h, lw, lh, dw, dh As Integer
         Dim c As Integer
 
         w = PB_Zoom.Width * _VideoPanelScale
@@ -519,10 +541,12 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler.LegRad = My.Settings.MILegRad
         _MapImgHandler.LegWidth = lw
         _MapImgHandler.LegHeight = lh
+        dw = PBDyn.Width * _VideoPanelScale
+        dh = PBDyn.Height * _VideoPanelScale
         _MapImgHandler.ResetAlphaMasks()
         If UseSmoothPreview Then
             If Mainform1 IsNot Nothing AndAlso Mainform1.IsNewLegLayoutEnabled() Then
-                If _ZoomPreviewEngine Is Nothing OrElse _LegPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
+                If _ZoomPreviewEngine Is Nothing OrElse _LegPreviewEngine Is Nothing OrElse _DynPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
                 If _ZoomPreviewEngine IsNot Nothing Then
                     _ZoomPreviewEngine.ZoomWidth = w
                     _ZoomPreviewEngine.ZoomHeight = h
@@ -546,6 +570,17 @@ Public Class frmAdjustmentPlayer_new
                 PBLeg.Image = _MapImgHandler.LapImage2Smooth(_MapTimeSmooth,
                                                              My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
             End If
+            If _DynPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
+            If _DynPreviewEngine IsNot Nothing Then
+                _DynPreviewEngine.DynamicWidth = dw
+                _DynPreviewEngine.DynamicHeight = dh
+                _DynPreviewEngine.DynamicRadius = Math.Max(0, My.Settings.MIDynamicRad)
+                _DynPreviewEngine.DynamicZoomFactor = Math.Max(0.001, My.Settings.MIDynamicZoom)
+                _DynPreviewEngine.DynamicLookBehindSeconds = Math.Max(0, My.Settings.MIDynamicLookBehindSeconds)
+                _DynPreviewEngine.DynamicLookAheadSeconds = Math.Max(0, My.Settings.MIDynamicLookAheadSeconds)
+                _DynPreviewEngine.DynamicMargin = Math.Max(0, My.Settings.MIDynamicMargin)
+                PBDyn.Image = _DynPreviewEngine.RenderDynamicFramePerf8(_MapTimeSmooth)
+            End If
         Else
             PB_Zoom.Image = _MapImgHandler.ZoomImage3(_MapTime, w, h, rad) ' 110725 true true
             PBLeg.Image = _MapImgHandler.LapImage2(_MapTime,
@@ -566,10 +601,11 @@ Public Class frmAdjustmentPlayer_new
                     _MapInit = False
                     UpdatePreviewBaseMap()
                     UpdateMapImgs()
-                ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) Then
+                ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) OrElse (_DynResized And _DynMouseIsUp) Then
                     UpdateMapImgs()
                     _ZoomResized = False
                     _LegResized = False
+                    _DynResized = False
                 ElseIf _ZoomZoom <> My.Settings.MIZoomZoom Then
                     My.Settings.MIZoomZoom = _ZoomZoom
                     _MapImgHandler.ZoomZoom = My.Settings.MIZoomZoom
@@ -606,11 +642,12 @@ Public Class frmAdjustmentPlayer_new
                     UpdateMapImgs()
                 End If
             End If
-        ElseIf _MapReady And ((_ZoomResized And _ZoomMouseIsUp) Or (_LegResized And _LegMouseIsUp)) Then
+        ElseIf _MapReady And ((_ZoomResized And _ZoomMouseIsUp) Or (_LegResized And _LegMouseIsUp) Or (_DynResized And _DynMouseIsUp)) Then
             If HasValidMapPreviewTime() Then
                 UpdateMapImgs()
                 _ZoomResized = False
                 _LegResized = False
+                _DynResized = False
             End If
         ElseIf _MapReady And _ZoomZoom <> My.Settings.MIZoomZoom Then
             If HasValidMapPreviewTime() Then
@@ -671,6 +708,24 @@ Public Class frmAdjustmentPlayer_new
         _LegResized = True
     End Sub
 
+    Private Sub PBDyn_MouseDown(sender As Object, e As MouseEventArgs) Handles PBDyn.MouseDown
+        PBDyn_Adjust.PB_MouseDown(sender, e)
+        _DynMouseIsUp = False
+    End Sub
+
+    Private Sub PBDyn_MouseUp(sender As Object, e As MouseEventArgs) Handles PBDyn.MouseUp
+        PBDyn_Adjust.PB_MouseUp(sender, e)
+        _DynMouseIsUp = True
+    End Sub
+
+    Private Sub PBDyn_MouseMove(sender As Object, e As MouseEventArgs) Handles PBDyn.MouseMove
+        PBDyn_Adjust.PB_MouseMove(sender, e)
+    End Sub
+
+    Private Sub PBDyn_SizeChanged(sender As Object, e As EventArgs) Handles PBDyn.SizeChanged
+        _DynResized = True
+    End Sub
+
     Private Sub TestMap_Click(sender As Object, e As EventArgs)
 
 
@@ -707,8 +762,10 @@ Public Class frmAdjustmentPlayer_new
         If IsLoaded Then
             My.Settings.cbShowLegMAp = cbLeg.Checked
             My.Settings.cbShowRoute = cbZoom.Checked
+            My.Settings.cbShowDynamicMap = cbDyn.Checked
             PBLeg.Visible = cbLeg.Checked
             PB_Zoom.Visible = cbZoom.Checked
+            PBDyn.Visible = cbDyn.Checked
         End If
     End Sub
     Private Sub cbZoom_CheckedChanged(sender As Object, e As EventArgs) Handles cbZoom.CheckedChanged
@@ -716,6 +773,10 @@ Public Class frmAdjustmentPlayer_new
     End Sub
 
     Private Sub cbLeg_CheckedChanged(sender As Object, e As EventArgs) Handles cbLeg.CheckedChanged
+        SetShowMaps()
+    End Sub
+
+    Private Sub cbDyn_CheckedChanged(sender As Object, e As EventArgs) Handles cbDyn.CheckedChanged
         SetShowMaps()
     End Sub
 
@@ -840,9 +901,12 @@ Public Class frmAdjustmentPlayer_new
         'Mainform1.LblGPSDiff.Text = txtGPSDiff.Text
         _MapImgHandler.SaveSettings()
         My.Settings.GPXDiff = CStr(numGPSDelta.Value)
-        SetMapPositions(True, True, PB_Zoom.Location, PBLeg.Location)
+        SetMapPositions(True, True, PB_Zoom.Location, PBLeg.Location, True, PBDyn.Location)
         My.Settings.MIZoomMapPos = _ZoomMapPos
         My.Settings.MILegMapPos = _LegMapPos
+        My.Settings.MIDynamicMapPos = _DynMapPos
+        My.Settings.MIDynamicWidth = Math.Max(1, CInt(Math.Round(PBDyn.Width * _VideoPanelScale)))
+        My.Settings.MIDynamicHeight = Math.Max(1, CInt(Math.Round(PBDyn.Height * _VideoPanelScale)))
         My.Settings.Save()
         Me.Close()
     End Sub
@@ -856,6 +920,7 @@ Public Class frmAdjustmentPlayer_new
     Private Sub frmAdjustmentPlayer_new_Load(sender As Object, e As EventArgs) Handles Me.Load
         cbLeg.Checked = My.Settings.cbShowLegMAp
         cbZoom.Checked = My.Settings.cbShowRoute
+        cbDyn.Checked = My.Settings.cbShowDynamicMap
         IsLoaded = True
         SetShowMaps()
         If Not _DeferredInitStarted Then
@@ -879,7 +944,7 @@ Public Class frmAdjustmentPlayer_new
             ApplyPreviewRenderTuning()
             RebuildPreviewRenderEngines()
             SetPBMapSizes()
-            SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos)
+            SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos, True, My.Settings.MIDynamicMapPos)
             _ZoomZoom = My.Settings.MIZoomZoom
             _LegMargin = My.Settings.MILegMargin
             SetVideo()

@@ -170,39 +170,44 @@ Public Class clsExtra
         End Select
         FFMpeg_Overlay = "overlay=" + OverlayPosStr
     End Function
+    Private Function GetOutputCanvasWidth() As Integer
+        Return Math.Max(2, (CInt(Math.Round(InputWidth)) \ 2) * 2)
+    End Function
+    Private Function GetOutputCanvasHeight() As Integer
+        Return Math.Max(2, (CInt(Math.Round(GetOutputCanvasWidth() / 16.0 * 9.0)) \ 2) * 2)
+    End Function
+    Private Function MatchesOutputCanvasSize(width As Integer, height As Integer) As Boolean
+        Return width = GetOutputCanvasWidth() AndAlso height = GetOutputCanvasHeight()
+    End Function
     Function FFMpeg_ScalePadFHD(Optional Vid_width As Integer = -1, Optional Vid_Height As Integer = -1, Optional PaddingSide As String = "X") As String
         Dim side, scale, sOutW, sOutH As String
-        Dim AR_horis As Boolean
         Dim AR_in, AR_out As Single
+        Dim outWidth, outHeight As Integer
 
-        If Vid_width = 1920 And Vid_Height = 1080 Then Return "" ' no scale/padding
+        outWidth = GetOutputCanvasWidth()
+        outHeight = GetOutputCanvasHeight()
 
+        If Vid_width = outWidth And Vid_Height = outHeight Then Return ""
 
-        AR_out = 1920 / 1080
+        AR_out = CSng(16.0 / 9.0)
         If Vid_width = -1 Then
             AR_in = AR_out
         Else
-            AR_in = Vid_width / Vid_Height
+            AR_in = CSng(Vid_width / CDbl(Vid_Height))
         End If
-        '2.7K and 4K handling 
-        'sOutW = CStr(InputWidth)
-        sOutW = CStr((CInt(Math.Round(InputWidth)) \ 2) * 2) ' lige tal
-        sOutH = CStr((CInt(Math.Round(CInt(sOutW) / 16 * 9)) \ 2) * 2) ' lige tal
-        'sOutH = CStr(Math.Round(InputWidth / 16 * 9))
+        sOutW = outWidth.ToString(CultureInfo.InvariantCulture)
+        sOutH = outHeight.ToString(CultureInfo.InvariantCulture)
 
         If AR_in > AR_out Then
-            scale = "scale=1920:-1" ' vertical padding
-            AR_horis = False
+            scale = $"scale={sOutW}:-1"
         Else ' most used for 4:3 videos
 
             If Vid_width = -1 Then
 
                 scale = $"scale={sOutW}:{sOutH}:force_original_aspect_ratio=decrease" ' should handle 2.7k and 4:3
-                'scale = "scale=1920:1080:force_original_aspect_ratio=decrease" ' should handle 2.7k and 4:3
             Else
-                scale = "scale=-1:1080" ' both up and downscale
+                scale = $"scale=-1:{sOutH}" ' both up and downscale
             End If
-            AR_horis = True
         End If
 
 
@@ -275,7 +280,7 @@ Public Class clsExtra
 
         param = " -loop 1 -i " + """" + ImgProp.Videofilename + """"
         If DoPad Then
-            If Not (ImgProp.Width = 1920 And ImgProp.Height = 1080) Then
+            If Not MatchesOutputCanvasSize(ImgProp.Width, ImgProp.Height) Then
                 param += " -vf " + FFMpeg_ScalePadFHD(ImgProp.Width, ImgProp.Height, "C") ' center padding
             End If
         Else
@@ -351,7 +356,7 @@ Public Class clsExtra
             Else
                 out += fps
             End If
-            If Not (Videofiles_I(i).Width = 1920 And Videofiles_I(i).Height = 1080) Then
+            If Not MatchesOutputCanvasSize(Videofiles_I(i).Width, Videofiles_I(i).Height) Then
                 out += "," + FFMpeg_ScalePadFHD(Videofiles_I(i).Width, Videofiles_I(i).Height, "C") 'centerpadding
             End If
             out += $"[vid{i}];"
@@ -734,7 +739,7 @@ Public Class clsExtra
         'End If
 
     End Function
-    Function FFMPeg_MakeParamSmoothMapVideosOnVideo(outputfile As String, zoomVideoFile As String, legVideoFile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
+    Function FFMPeg_MakeParamSmoothMapVideosOnVideo(outputfile As String, zoomVideoFile As String, legVideoFile As String, dynamicVideoFile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
                                                     Optional Tempo As Decimal = 1, Optional Quick As Boolean = False) As String
         Dim inputArgs As String = ""
         Dim filterParts As New List(Of String)
@@ -781,6 +786,22 @@ Public Class clsExtra
             End If
             filterParts.Add($"{legTag}{legInputFilter}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}[o{nextInputIndex}]")
+            currentTag = $"[o{nextInputIndex}]"
+            nextInputIndex += 1
+        End If
+
+        If My.Settings.cbShowDynamicMap AndAlso File.Exists(dynamicVideoFile) Then
+            If tmpGPXDiff > 0 Then
+                inputArgs += " -ss " + tmpGPXDiff.ToString(CultureInfo.InvariantCulture)
+            End If
+            inputArgs += " -i " + """" + dynamicVideoFile + """"
+            Dim dynamicTag As String = $"[{nextInputIndex}:v]"
+            Dim dynamicInputFilter As String = "format=rgba,colorchannelmixer=aa=" & transparency
+            If String.Equals(Path.GetExtension(dynamicVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
+                dynamicInputFilter = "format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+            End If
+            filterParts.Add($"{dynamicTag}{dynamicInputFilter}[c{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIDynamicMapPos.X)}:{CStr(My.Settings.MIDynamicMapPos.Y)}[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If

@@ -378,6 +378,7 @@ Partial Class MainForm
         MySettings1.cbHeightGraph = True
         MySettings1.cbLoopMusic = True
         MySettings1.cbSetImgM = False
+        MySettings1.cbShowDynamicMap = False
         MySettings1.cbShowLegMAp = True
         MySettings1.cbShowRoute = True
         MySettings1.cbShowSpeedPanel = True
@@ -421,6 +422,14 @@ Partial Class MainForm
         MySettings1.MIDotColor = System.Drawing.Color.Red
         MySettings1.MIDotSize = 15
         MySettings1.MIDotType = "Dot"
+        MySettings1.MIDynamicHeight = 430
+        MySettings1.MIDynamicLookAheadSeconds = 45.0R
+        MySettings1.MIDynamicLookBehindSeconds = 20.0R
+        MySettings1.MIDynamicMapPos = New System.Drawing.Point(80, 800)
+        MySettings1.MIDynamicMargin = 120
+        MySettings1.MIDynamicRad = 80
+        MySettings1.MIDynamicWidth = 430
+        MySettings1.MIDynamicZoom = 1.0R
         MySettings1.MIFLegDim = New System.Drawing.Point(0, 0)
         MySettings1.MIFLegPos = New System.Drawing.Point(0, 0)
         MySettings1.MIFrameColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))

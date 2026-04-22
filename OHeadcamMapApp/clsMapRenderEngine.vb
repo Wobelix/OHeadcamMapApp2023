@@ -64,6 +64,7 @@ Public Class clsMapRenderEngine
         _routePoints = New clsQRRoutePoints(routePoints)
         _mapImage = New Bitmap(mapImage)
         _legacyRenderer = New clsMapImages(_routePoints, _mapImage, loadSettings)
+        If loadSettings Then LoadDynamicSettings()
     End Sub
 
     Public Property FrameStepSeconds As Double = 0.25
@@ -78,6 +79,24 @@ Public Class clsMapRenderEngine
     Public Property TailTickColor As Color = Color.Gray
     Public Property TailTickAlpha As Integer = 140
     Public Property ArrowOutlineScale As Integer = 1
+    Public Property DynamicWidth As Integer = 430
+    Public Property DynamicHeight As Integer = 430
+    Public Property DynamicRadius As Integer = 80
+    Public Property DynamicZoomFactor As Double = 1.0
+    Public Property DynamicLookBehindSeconds As Double = 20.0
+    Public Property DynamicLookAheadSeconds As Double = 45.0
+    Public Property DynamicMargin As Integer = 120
+    Public Property DynamicTransitionSeconds As Double = 10.0
+
+    Private Sub LoadDynamicSettings()
+        DynamicWidth = Math.Max(1, My.Settings.MIDynamicWidth)
+        DynamicHeight = Math.Max(1, My.Settings.MIDynamicHeight)
+        DynamicRadius = Math.Max(0, My.Settings.MIDynamicRad)
+        DynamicZoomFactor = Math.Max(0.001, My.Settings.MIDynamicZoom)
+        DynamicLookBehindSeconds = Math.Max(0, My.Settings.MIDynamicLookBehindSeconds)
+        DynamicLookAheadSeconds = Math.Max(0, My.Settings.MIDynamicLookAheadSeconds)
+        DynamicMargin = Math.Max(0, My.Settings.MIDynamicMargin)
+    End Sub
 
     Public Property TailLineDurationSeconds As Integer
         Get
@@ -337,6 +356,30 @@ Public Class clsMapRenderEngine
         Return result
     End Function
 
+    Public Function RenderDynamicFramePerf8(timeSeconds As Double) As Bitmap
+        Dim safeTime As Double = ClampTimeCode(timeSeconds)
+        Dim info As LegRenderInfo = BuildDynamicRenderInfo(safeTime)
+        Dim background As Bitmap = GetZoomBackground(info.BackgroundKey, info.AngleDegrees, info.SrcRect, info.SrcSize, info.ClipWidth, info.ClipLength, info.OutWidth, info.OutHeight)
+        Dim result As New Bitmap(background)
+        Dim overlayStopwatch As Stopwatch = Stopwatch.StartNew()
+        Using g As Graphics = Graphics.FromImage(result)
+            g.SmoothingMode = SmoothingMode.AntiAlias
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality
+            g.CompositingQuality = CompositingQuality.HighQuality
+            DrawOverlayDirectProjected(g, safeTime, info.MidPoint, info.AngleDegrees, info.ClipWidth, info.ClipLength, info.OutWidth, info.OutHeight, 1.0F)
+        End Using
+        overlayStopwatch.Stop()
+        LastOverlayFrameElapsed += overlayStopwatch.Elapsed
+
+        If _legacyRenderer.FrameFeather Then
+            ApplyFeatherFrame(result, info.RoundRadius, True)
+        Else
+            ApplyHardFrame(result, info.RoundRadius)
+        End If
+
+        Return result
+    End Function
+
     Public Function RenderLegFramePerf(timeSeconds As Double) As Bitmap
         Dim safeTime As Double = ClampTimeCode(timeSeconds)
         Dim info As LegRenderInfo = GetCachedLegRenderInfo(safeTime)
@@ -480,6 +523,15 @@ Public Class clsMapRenderEngine
                                    Optional frameStepSeconds As Double = -1,
                                    Optional outputFps As Double = -1)
         WriteVideoInternal(AddressOf RenderZoomFramePerf8, outputFile, startTime, duration, videoWidth, frameStepSeconds, outputFps)
+    End Sub
+
+    Public Sub WriteDynamicVideoPerf8(outputFile As String,
+                                      Optional startTime As Double = 0,
+                                      Optional duration As Double = -1,
+                                      Optional videoWidth As Integer = 1920,
+                                      Optional frameStepSeconds As Double = -1,
+                                      Optional outputFps As Double = -1)
+        WriteVideoInternal(AddressOf RenderDynamicFramePerf8, outputFile, startTime, duration, videoWidth, frameStepSeconds, outputFps)
     End Sub
 
     Private Sub WriteVideoInternal(renderFrame As Func(Of Double, Bitmap),
@@ -926,6 +978,151 @@ Public Class clsMapRenderEngine
             .BackgroundKey = backgroundKey,
             .LegDistance = distance
         }
+    End Function
+
+    Private Function BuildDynamicRenderInfo(timeCode As Double) As LegRenderInfo
+        Dim safeTime As Double = ClampTimeCode(timeCode)
+        Dim outWidth As Integer = Math.Max(1, DynamicWidth)
+        Dim outHeight As Integer = Math.Max(1, DynamicHeight)
+        Dim currentLeg As Integer = GetLegIndexAtTime(safeTime)
+        Dim currentInfo As LegRenderInfo = BuildDynamicLegRenderInfo(currentLeg, outWidth, outHeight)
+
+        If currentLeg > 0 Then
+            Dim previousInfo As LegRenderInfo = BuildDynamicLegRenderInfo(currentLeg - 1, outWidth, outHeight)
+            Dim transitionSeconds As Double = GetDynamicTransitionSeconds(previousInfo, currentInfo)
+            Dim halfTransitionSeconds As Double = transitionSeconds / 2.0
+            Dim legStartTime As Double = GetLegEndTimeCode(currentLeg - 1)
+            Dim transitionStart As Double = Math.Max(0, legStartTime - halfTransitionSeconds)
+            Dim transitionEnd As Double = Math.Min(_routePoints.RoutePoints.Count - 1, legStartTime + halfTransitionSeconds)
+            If safeTime >= transitionStart AndAlso safeTime < transitionEnd Then
+                Dim blend As Double = SmoothStep((safeTime - transitionStart) / Math.Max(0.001, transitionEnd - transitionStart))
+                Return BlendDynamicLegRenderInfo(previousInfo, currentInfo, blend)
+            End If
+        End If
+
+        Dim nextLeg As Integer = currentLeg + 1
+        If nextLeg <= _routePoints.ImgLapVectors.Count - 1 Then
+            Dim nextInfo As LegRenderInfo = BuildDynamicLegRenderInfo(nextLeg, outWidth, outHeight)
+            Dim transitionSeconds As Double = GetDynamicTransitionSeconds(currentInfo, nextInfo)
+            Dim halfTransitionSeconds As Double = transitionSeconds / 2.0
+            Dim legEndTime As Double = GetLegEndTimeCode(currentLeg)
+            Dim transitionStart As Double = Math.Max(0, legEndTime - halfTransitionSeconds)
+            Dim transitionEnd As Double = Math.Min(_routePoints.RoutePoints.Count - 1, legEndTime + halfTransitionSeconds)
+            If safeTime >= transitionStart AndAlso safeTime < transitionEnd Then
+                Dim blend As Double = SmoothStep((safeTime - transitionStart) / Math.Max(0.001, transitionEnd - transitionStart))
+                Return BlendDynamicLegRenderInfo(currentInfo, nextInfo, blend)
+            End If
+        End If
+
+        Return currentInfo
+    End Function
+
+    Private Function BuildDynamicLegRenderInfo(legIndex As Integer, outWidth As Integer, outHeight As Integer) As LegRenderInfo
+        If legIndex < 0 Then legIndex = 0
+        If legIndex > _routePoints.ImgLapVectors.Count - 1 Then legIndex = _routePoints.ImgLapVectors.Count - 1
+
+        Dim startPoint As PointF = _routePoints.ImgLapVectors(legIndex).StartPoint
+        Dim endPoint As PointF = _routePoints.ImgLapVectors(legIndex).EndPoint
+        Dim marginHeight As Integer = Math.Max(0, DynamicMargin)
+        Dim roundRadius As Integer = Math.Max(0, DynamicRadius)
+        Dim deltaX As Single = endPoint.X - startPoint.X
+        Dim deltaY As Single = endPoint.Y - startPoint.Y
+        Dim rotationAngle As Single = Math.Atan2(deltaY, deltaX)
+        Dim angleDegrees As Double = (90 - rotationAngle * 180 / Math.PI) Mod 360 + 180
+        Dim distance As Single = CSng(Math.Sqrt(deltaX * deltaX + deltaY * deltaY))
+        Dim midPoint As New PointF((startPoint.X + endPoint.X) / 2.0F, (startPoint.Y + endPoint.Y) / 2.0F)
+        Dim clipLength As Single = Math.Max(1.0F, distance + (marginHeight * 2.0F))
+        Dim scale As Single = clipLength / Math.Max(1, outHeight)
+        Dim clipWidth As Single = Math.Max(1.0F, outWidth * scale)
+        Return CreateDynamicRenderInfo(legIndex, angleDegrees, midPoint, clipWidth, clipLength, outWidth, outHeight, marginHeight, roundRadius, distance)
+    End Function
+
+    Private Function BlendDynamicLegRenderInfo(fromInfo As LegRenderInfo, toInfo As LegRenderInfo, blend As Double) As LegRenderInfo
+        Dim safeBlend As Double = Math.Max(0.0, Math.Min(1.0, blend))
+        Dim angleDegrees As Double = LerpAngleDegrees(fromInfo.AngleDegrees, toInfo.AngleDegrees, safeBlend)
+        Dim midPoint As New PointF(CSng(Lerp(fromInfo.MidPoint.X, toInfo.MidPoint.X, safeBlend)),
+                                   CSng(Lerp(fromInfo.MidPoint.Y, toInfo.MidPoint.Y, safeBlend)))
+        Dim clipLength As Single = CSng(Lerp(fromInfo.ClipLength, toInfo.ClipLength, safeBlend))
+        Dim clipWidth As Single = CSng(Lerp(fromInfo.ClipWidth, toInfo.ClipWidth, safeBlend))
+        Dim legDistance As Single = CSng(Lerp(fromInfo.LegDistance, toInfo.LegDistance, safeBlend))
+        Return CreateDynamicRenderInfo(toInfo.Lap, angleDegrees, midPoint, clipWidth, clipLength, fromInfo.OutWidth, fromInfo.OutHeight, fromInfo.MarginHeight, fromInfo.RoundRadius, legDistance)
+    End Function
+
+    Private Function CreateDynamicRenderInfo(legIndex As Integer,
+                                             angleDegrees As Double,
+                                             midPoint As PointF,
+                                             clipWidth As Single,
+                                             clipLength As Single,
+                                             outWidth As Integer,
+                                             outHeight As Integer,
+                                             marginHeight As Integer,
+                                             roundRadius As Integer,
+                                             legDistance As Single) As LegRenderInfo
+        Dim diagonal As Single = CSng(Math.Sqrt(clipWidth * clipWidth + clipLength * clipLength))
+        Dim srcSize As Integer = Math.Max(1, CInt(Math.Ceiling(diagonal)))
+        Dim srcRect As New RectangleF(midPoint.X - srcSize / 2.0F, midPoint.Y - srcSize / 2.0F, srcSize, srcSize)
+        Dim backgroundKey As String = String.Format(CultureInfo.InvariantCulture, "dynleg|{0}|{1}|{2}|{3}|{4:0.###}|{5:0.###}|{6:0.###}|{7:0.###}|{8:0.###}", legIndex, outWidth, outHeight, roundRadius, clipWidth, clipLength, midPoint.X, midPoint.Y, angleDegrees)
+
+        Return New LegRenderInfo With {
+            .Lap = legIndex,
+            .AngleDegrees = angleDegrees,
+            .ClipWidth = clipWidth,
+            .ClipLength = clipLength,
+            .SrcSize = srcSize,
+            .SrcRect = srcRect,
+            .MidPoint = midPoint,
+            .OutWidth = outWidth,
+            .OutHeight = outHeight,
+            .MarginHeight = marginHeight,
+            .RoundRadius = roundRadius,
+            .BackgroundKey = backgroundKey,
+            .LegDistance = legDistance
+        }
+    End Function
+
+    Private Function GetDynamicTransitionSeconds(fromInfo As LegRenderInfo, toInfo As LegRenderInfo) As Double
+        Dim baseSeconds As Double = Math.Max(0.001, DynamicTransitionSeconds)
+        Dim angleDelta As Double = Math.Abs(GetShortestAngleDeltaDegrees(fromInfo.AngleDegrees, toInfo.AngleDegrees))
+        Dim angleSeconds As Double = angleDelta / 12.0
+        Dim zoomRatio As Double = Math.Max(fromInfo.ClipLength, toInfo.ClipLength) / Math.Max(1.0, Math.Min(fromInfo.ClipLength, toInfo.ClipLength))
+        Dim zoomSeconds As Double = Math.Log(Math.Max(1.0, zoomRatio), 2.0) * 8.0
+
+        Return Math.Min(24.0, Math.Max(baseSeconds, Math.Max(angleSeconds, zoomSeconds)))
+    End Function
+
+    Private Function GetLegIndexAtTime(timeCode As Double) As Integer
+        Dim legIndex As Integer = GetLapNumberAtTime(timeCode) - 1
+        If legIndex < 0 Then legIndex = 0
+        If legIndex > _routePoints.ImgLapVectors.Count - 1 Then legIndex = _routePoints.ImgLapVectors.Count - 1
+        Return legIndex
+    End Function
+
+    Private Function GetLegEndTimeCode(legIndex As Integer) As Double
+        Dim nextLapNumber As Integer = legIndex + 2
+        For i As Integer = 0 To _routePoints.RoutePoints.Count - 1
+            If _routePoints.RoutePoints(i).LapNumber >= nextLapNumber Then
+                Return i
+            End If
+        Next
+        Return _routePoints.RoutePoints.Count - 1
+    End Function
+
+    Private Function SmoothStep(value As Double) As Double
+        Dim t As Double = Math.Max(0.0, Math.Min(1.0, value))
+        Return t * t * (3.0 - 2.0 * t)
+    End Function
+
+    Private Function Lerp(startValue As Double, endValue As Double, amount As Double) As Double
+        Return startValue + (endValue - startValue) * amount
+    End Function
+
+    Private Function LerpAngleDegrees(startAngle As Double, endAngle As Double, amount As Double) As Double
+        Dim delta As Double = GetShortestAngleDeltaDegrees(startAngle, endAngle)
+        Return (startAngle + delta * amount + 360.0) Mod 360.0
+    End Function
+
+    Private Function GetShortestAngleDeltaDegrees(startAngle As Double, endAngle As Double) As Double
+        Return ((endAngle - startAngle + 540.0) Mod 360.0) - 180.0
     End Function
 
     Private Function GetCachedLegRenderInfo(timeCode As Double) As LegRenderInfo
