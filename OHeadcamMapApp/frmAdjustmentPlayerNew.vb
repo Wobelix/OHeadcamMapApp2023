@@ -284,7 +284,7 @@ Public Class frmAdjustmentPlayer_new
         cbNewLegLayout.Name = "cbNewLegLayout"
         cbNewLegLayout.AutoSize = True
         cbNewLegLayout.Text = If(IsDanishUi(), "Nyt leg-layout", "New leg layout")
-        cbNewLegLayout.Checked = Mainform1 IsNot Nothing AndAlso Mainform1.IsNewLegLayoutEnabled()
+        cbNewLegLayout.Checked = True
         cbNewLegLayout.UseVisualStyleBackColor = True
         cbNewLegLayout.Visible = False
         cbNewLegLayout.Location = New Point(bMapSettings.Left, bMapSettings.Bottom + 6)
