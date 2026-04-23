@@ -50,7 +50,6 @@ Public Class frmAdjustmentPlayer_new
     Private PBLeg_Adjust As New clsPictureBoxMoveResize
     Private PBDyn_Adjust As New clsPictureBoxMoveResize
     Private _VideoPanelScale As Double
-    Private Const UseSmoothPreview As Boolean = True
     Private Const TrackBarUnitsPerSecond As Integer = 10
     Private Const PreviewTailSampleStepSeconds As Double = 0.5
     Private Const PreviewTailMinimumPointDistance As Double = 1.5
@@ -298,18 +297,20 @@ Public Class frmAdjustmentPlayer_new
         If Mainform1 Is Nothing Then Return
         If MapImg Is Nothing Then Return
 
-        If Mainform1.IsNewLegLayoutEnabled() Then
-            _ZoomPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
-            Mainform1.ApplySavedLegRenderLayout(_ZoomPreviewEngine)
-            _LegPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
-            Mainform1.ApplySavedLegRenderLayout(_LegPreviewEngine)
-        End If
+        _ZoomPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+        Mainform1.ApplySavedLegRenderLayout(_ZoomPreviewEngine)
+        _LegPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
+        Mainform1.ApplySavedLegRenderLayout(_LegPreviewEngine)
 
         _DynPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
         Mainform1.ApplySavedLegRenderLayout(_DynPreviewEngine)
     End Sub
     Private Sub cbNewLegLayout_CheckedChanged(sender As Object, e As EventArgs) Handles cbNewLegLayout.CheckedChanged
-        My.Settings.MILegRenderLayout = If(cbNewLegLayout.Checked, "web", "classic")
+        ' REPLACED-CLASSIC-LAYOUT-20260423:
+        ' The hidden checkbox is retained temporarily for compatibility, but the app
+        ' now always persists the new web layout.
+        cbNewLegLayout.Checked = True
+        My.Settings.MILegRenderLayout = "web"
         My.Settings.Save()
         RebuildPreviewRenderEngines()
         If _MapImgHandler Is Nothing OrElse Not _MapReady Then Return
@@ -477,13 +478,13 @@ Public Class frmAdjustmentPlayer_new
         _MapImgHandler.FrameFeather = My.Settings.MIFrameFeather
         _MapImgHandler.ResetAlphaMasks()
         _MapImgHandler.InvalidateSmoothCaches()
-        ApplyPreviewRenderTuning()
+        '20260423_B_ApplyPreviewRenderTuning()
         RebuildPreviewRenderEngines()
         _ZoomZoom = My.Settings.MIZoomZoom
         _LegMargin = My.Settings.MILegMargin
 
         If HasValidMapPreviewTime() Then
-            UpdatePreviewBaseMap()
+            _LastMapTimeSmooth = _MapTimeSmooth
             UpdateMapImgs()
         End If
     End Sub
@@ -505,21 +506,12 @@ Public Class frmAdjustmentPlayer_new
         Return mapTime
     End Function
     Private Function HasValidMapPreviewTime() As Boolean
-        If UseSmoothPreview Then
-            Return _MapTimeSmooth > -1 AndAlso _MapTimeSmooth < RPs.RoutePoints.Count
-        End If
-
-        Return _MapTime > -1 AndAlso _MapTime < RPs.RoutePoints.Count
+        Return _MapTimeSmooth > -1 AndAlso _MapTimeSmooth < RPs.RoutePoints.Count
     End Function
-    Private Sub UpdatePreviewBaseMap()
-        If UseSmoothPreview Then
-            _MapImgHandler.DrawPositionOnBackgroundImageSmooth(_MapTimeSmooth)
-            _LastMapTimeSmooth = _MapTimeSmooth
-        Else
-            _MapImgHandler.DrawPositionOnBackgroundImage(_MapTime)
-            _LastMaptime = _MapTime
-        End If
-    End Sub
+    'Private Sub UpdatePreviewBaseMap()
+    '20260423_MapImgHandler.DrawPositionOnBackgroundImageSmooth(_MapTimeSmooth)
+    '_LastMapTimeSmooth = _MapTimeSmooth
+    'End Sub
     Public Sub UpdateMapImgs()
         Dim w, h, lw, lh, dw, dh As Integer
         Dim c As Integer
@@ -544,47 +536,29 @@ Public Class frmAdjustmentPlayer_new
         dw = PBDyn.Width * _VideoPanelScale
         dh = PBDyn.Height * _VideoPanelScale
         _MapImgHandler.ResetAlphaMasks()
-        If UseSmoothPreview Then
-            If Mainform1 IsNot Nothing AndAlso Mainform1.IsNewLegLayoutEnabled() Then
-                If _ZoomPreviewEngine Is Nothing OrElse _LegPreviewEngine Is Nothing OrElse _DynPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
-                If _ZoomPreviewEngine IsNot Nothing Then
-                    _ZoomPreviewEngine.ZoomWidth = w
-                    _ZoomPreviewEngine.ZoomHeight = h
-                    _ZoomPreviewEngine.ZoomRadius = rad
-                    _ZoomPreviewEngine.ZoomFactor = My.Settings.MIZoomZoom
-                    PB_Zoom.Image = _ZoomPreviewEngine.RenderZoomFramePerf8(_MapTimeSmooth)
-                Else
-                    PB_Zoom.Image = _MapImgHandler.ZoomImage3Smooth(_MapTimeSmooth, w, h, rad)
-                End If
-                If _LegPreviewEngine IsNot Nothing Then
-                    _LegPreviewEngine.LegWidth = lw
-                    _LegPreviewEngine.LegHeight = lh
-                    _LegPreviewEngine.LegMargin = My.Settings.MILegMargin
-                    PBLeg.Image = _LegPreviewEngine.RenderLegFramePerf8(_MapTimeSmooth)
-                Else
-                    PBLeg.Image = _MapImgHandler.LapImage2Smooth(_MapTimeSmooth,
-                                                                 My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
-                End If
-            Else
-                PB_Zoom.Image = _MapImgHandler.ZoomImage3Smooth(_MapTimeSmooth, w, h, rad)
-                PBLeg.Image = _MapImgHandler.LapImage2Smooth(_MapTimeSmooth,
-                                                             My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
-            End If
-            If _DynPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
-            If _DynPreviewEngine IsNot Nothing Then
-                _DynPreviewEngine.DynamicWidth = dw
-                _DynPreviewEngine.DynamicHeight = dh
-                _DynPreviewEngine.DynamicRadius = Math.Max(0, My.Settings.MIDynamicRad)
-                _DynPreviewEngine.DynamicZoomFactor = Math.Max(0.001, My.Settings.MIDynamicZoom)
-                _DynPreviewEngine.DynamicLookBehindSeconds = Math.Max(0, My.Settings.MIDynamicLookBehindSeconds)
-                _DynPreviewEngine.DynamicLookAheadSeconds = Math.Max(0, My.Settings.MIDynamicLookAheadSeconds)
-                _DynPreviewEngine.DynamicMargin = Math.Max(0, My.Settings.MIDynamicMargin)
-                PBDyn.Image = _DynPreviewEngine.RenderDynamicFramePerf8(_MapTimeSmooth)
-            End If
-        Else
-            PB_Zoom.Image = _MapImgHandler.ZoomImage3(_MapTime, w, h, rad) ' 110725 true true
-            PBLeg.Image = _MapImgHandler.LapImage2(_MapTime,
-                                                  My.Settings.MILegMargin, lw, lh, My.Settings.MILegRad)
+        If _ZoomPreviewEngine Is Nothing OrElse _LegPreviewEngine Is Nothing OrElse _DynPreviewEngine Is Nothing Then RebuildPreviewRenderEngines()
+        If _ZoomPreviewEngine IsNot Nothing Then
+            _ZoomPreviewEngine.ZoomWidth = w
+            _ZoomPreviewEngine.ZoomHeight = h
+            _ZoomPreviewEngine.ZoomRadius = rad
+            _ZoomPreviewEngine.ZoomFactor = My.Settings.MIZoomZoom
+            PB_Zoom.Image = _ZoomPreviewEngine.RenderZoomFramePerf8(_MapTimeSmooth)
+        End If
+        If _LegPreviewEngine IsNot Nothing Then
+            _LegPreviewEngine.LegWidth = lw
+            _LegPreviewEngine.LegHeight = lh
+            _LegPreviewEngine.LegMargin = My.Settings.MILegMargin
+            PBLeg.Image = _LegPreviewEngine.RenderLegFramePerf8(_MapTimeSmooth)
+        End If
+        If _DynPreviewEngine IsNot Nothing Then
+            _DynPreviewEngine.DynamicWidth = dw
+            _DynPreviewEngine.DynamicHeight = dh
+            _DynPreviewEngine.DynamicRadius = Math.Max(0, My.Settings.MIDynamicRad)
+            _DynPreviewEngine.DynamicZoomFactor = Math.Max(0.001, My.Settings.MIDynamicZoom)
+            _DynPreviewEngine.DynamicLookBehindSeconds = Math.Max(0, My.Settings.MIDynamicLookBehindSeconds)
+            _DynPreviewEngine.DynamicLookAheadSeconds = Math.Max(0, My.Settings.MIDynamicLookAheadSeconds)
+            _DynPreviewEngine.DynamicMargin = Math.Max(0, My.Settings.MIDynamicMargin)
+            PBDyn.Image = _DynPreviewEngine.RenderDynamicFramePerf8(_MapTimeSmooth)
         End If
     End Sub
 
@@ -594,62 +568,30 @@ Public Class frmAdjustmentPlayer_new
         CurrentTrackValue = CInt(Math.Round(previewTime))
         tmpCurrentTrackValue = CurrentTrackValue
 
-        If UseSmoothPreview Then
-            If _MapReady AndAlso previewTime > -1 AndAlso previewTime < RPs.RoutePoints.Count Then
-                _MapTimeSmooth = previewTime
-                If Math.Abs(previewTime - _LastMapTimeSmooth) >= 0.02 OrElse _MapInit Then
-                    _MapInit = False
-                    UpdatePreviewBaseMap()
-                    UpdateMapImgs()
-                ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) OrElse (_DynResized And _DynMouseIsUp) Then
-                    UpdateMapImgs()
-                    _ZoomResized = False
-                    _LegResized = False
-                    _DynResized = False
-                ElseIf _ZoomZoom <> My.Settings.MIZoomZoom Then
-                    My.Settings.MIZoomZoom = _ZoomZoom
-                    _MapImgHandler.ZoomZoom = My.Settings.MIZoomZoom
-                    UpdateMapImgs()
-                ElseIf _LegMargin <> My.Settings.MILegMargin Then
-                    My.Settings.MILegMargin = _LegMargin
-                    _MapImgHandler.LegMargin = My.Settings.MILegMargin
-                    UpdateMapImgs()
-                End If
-            End If
-            Return
-        End If
-
-        If My.Settings.MapFlipActive Then
-            tmpCurrentTrackValue = CurrentTrackValue - CInt(My.Settings.MapFlipStartS) ' Offset for map 2
-            CurrentTrackValue += CInt(My.Settings.MapFlipStartS) ' Offset for map 2
-
-            ' Map start without offset
-        End If
-        Dim mapTimeChanged As Boolean = (Not ImageTrackValue = tmpCurrentTrackValue) OrElse _MapInit
-
-        If mapTimeChanged Then ' Map start without offset
-            _MapInit = False
-            ImageTrackValue = tmpCurrentTrackValue
-
-
-            If _MapReady And (tmpCurrentTrackValue < RPs.RoutePoints.Count) Then
-
-
-                _MapTime = tmpCurrentTrackValue + _MapDeltaTime
-                _MapTimeSmooth = previewTime
-                If HasValidMapPreviewTime() Then
-                    UpdatePreviewBaseMap()
-                    UpdateMapImgs()
-                End If
-            End If
-        ElseIf _MapReady And ((_ZoomResized And _ZoomMouseIsUp) Or (_LegResized And _LegMouseIsUp) Or (_DynResized And _DynMouseIsUp)) Then
-            If HasValidMapPreviewTime() Then
+        If _MapReady AndAlso previewTime > -1 AndAlso previewTime < RPs.RoutePoints.Count Then
+            _MapTimeSmooth = previewTime
+            If Math.Abs(previewTime - _LastMapTimeSmooth) >= 0.02 OrElse _MapInit Then
+                _MapInit = False
+                _LastMapTimeSmooth = _MapTimeSmooth
+                UpdateMapImgs()
+            ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) OrElse (_DynResized And _DynMouseIsUp) Then
                 UpdateMapImgs()
                 _ZoomResized = False
                 _LegResized = False
                 _DynResized = False
+            ElseIf _ZoomZoom <> My.Settings.MIZoomZoom Then
+                My.Settings.MIZoomZoom = _ZoomZoom
+                _MapImgHandler.ZoomZoom = My.Settings.MIZoomZoom
+                UpdateMapImgs()
+            ElseIf _LegMargin <> My.Settings.MILegMargin Then
+                My.Settings.MILegMargin = _LegMargin
+                _MapImgHandler.LegMargin = My.Settings.MILegMargin
+                UpdateMapImgs()
             End If
-        ElseIf _MapReady And _ZoomZoom <> My.Settings.MIZoomZoom Then
+            Return
+        End If
+
+        If _MapReady And _ZoomZoom <> My.Settings.MIZoomZoom Then
             If HasValidMapPreviewTime() Then
                 My.Settings.MIZoomZoom = _ZoomZoom
                 _MapImgHandler.ZoomZoom = My.Settings.MIZoomZoom
@@ -752,7 +694,7 @@ Public Class frmAdjustmentPlayer_new
         End If
         fMapSet.ShowDialog()
         _MapImgHandler.LoadSettings()
-        ApplyPreviewRenderTuning()
+        '20260423_B_ApplyPreviewRenderTuning()
     End Sub
     Private Sub bMapSettings_Click(sender As Object, e As EventArgs) Handles bMapSettings.Click
         OpenMapSettingsDialog()
@@ -941,7 +883,7 @@ Public Class frmAdjustmentPlayer_new
             _MapDeltaTime = 0
             _MapReady = True
             _MapImgHandler.LoadSettings()
-            ApplyPreviewRenderTuning()
+            '20260423_B_ApplyPreviewRenderTuning()
             RebuildPreviewRenderEngines()
             SetPBMapSizes()
             SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos, True, My.Settings.MIDynamicMapPos)

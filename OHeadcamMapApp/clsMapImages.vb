@@ -261,114 +261,114 @@ Public Class clMapsImgsToFiles
         Return endIdx - startIdx + 1
     End Function
     ' REPLACED WITH SMOOTH: legacy image-sequence export kept for reference.
-    Public Sub WriteImgsToFiles(SetnumThreads As Integer, Optional StartTime As Integer = 0, Optional Duration As Integer = -1, Optional VideoWidth As Integer = 1920)
-        Dim imagePaths As New List(Of String)
-        Dim multithread As Boolean = True
+    ' 20260423 Public Sub WriteImgsToFiles(SetnumThreads As Integer, Optional StartTime As Integer = 0, Optional Duration As Integer = -1, Optional VideoWidth As Integer = 1920)
+    'Dim imagePaths As New List(Of String)
+    '    Dim multithread As Boolean = True
 
-        ImageFileCounter = 0
-        ' Code to generate the images and add their file paths to the imagePaths list '
-        If My.Settings.cbShowLegMAp Or My.Settings.cbShowRoute Then
-            Dim numThreads As Integer
-            If SetnumThreads = -1 Then numThreads = Environment.ProcessorCount ' Use the number of CPU cores available '
-            If SetnumThreads = 1 Then multithread = False
-            If SetnumThreads > 1 Then numThreads = SetnumThreads
+    '    ImageFileCounter = 0
+    '    ' Code to generate the images and add their file paths to the imagePaths list '
+    '    If My.Settings.cbShowLegMAp Or My.Settings.cbShowRoute Then
+    '        Dim numThreads As Integer
+    '        If SetnumThreads = -1 Then numThreads = Environment.ProcessorCount ' Use the number of CPU cores available '
+    '        If SetnumThreads = 1 Then multithread = False
+    '        If SetnumThreads > 1 Then numThreads = SetnumThreads
 
-            Dim count As Integer = RPs.RoutePoints.Count
-            Dim startIdx As Integer = Math.Max(0, StartTime) ' Ensure start index is within the range '
-            Dim endIdx As Integer = If(Duration < 0, count - 1, Math.Min(startIdx + Duration - 1, count - 1)) ' Calculate end index based on start index and duration '
+    '        Dim count As Integer = RPs.RoutePoints.Count
+    '        Dim startIdx As Integer = Math.Max(0, StartTime) ' Ensure start index is within the range '
+    '        Dim endIdx As Integer = If(Duration < 0, count - 1, Math.Min(startIdx + Duration - 1, count - 1)) ' Calculate end index based on start index and duration '
 
 
-            ' Divide the images into equal-sized chunks for each thread '
-            Dim chunkSize As Integer = (endIdx - startIdx + 1) / numThreads
+    '        ' Divide the images into equal-sized chunks for each thread '
+    '        Dim chunkSize As Integer = (endIdx - startIdx + 1) / numThreads
 
-            Dim threads(numThreads - 1) As Thread
+    '        Dim threads(numThreads - 1) As Thread
 
-            For i = 0 To numThreads - 1
-                MapImgList.Add(New Bitmap(MapImg))
-                MapImgIndexinUse.Add(False)
-                RPList.Add(New clsQRRoutePoints(RPs))
-                Dim mapObj As New clsMapImages(RPList(i), MapImgList(i))
-                mapObj.ScalePixelSettings(VideoWidth)
-                MapObjList.Add(mapObj)
-                'MapObjList.Add(New clsMapImages(RPList(i), MapImgList(i)))
-            Next
+    '        For i = 0 To numThreads - 1
+    '            MapImgList.Add(New Bitmap(MapImg))
+    '            MapImgIndexinUse.Add(False)
+    '            RPList.Add(New clsQRRoutePoints(RPs))
+    '            Dim mapObj As New clsMapImages(RPList(i), MapImgList(i))
+    '            mapObj.ScalePixelSettings(VideoWidth)
+    '            MapObjList.Add(mapObj)
+    '            'MapObjList.Add(New clsMapImages(RPList(i), MapImgList(i)))
+    '        Next
 
-            ' Set the file image dimensions and positions '
-            If My.Settings.cbShowLegMAp Then
-                My.Settings.MIFLegPos = New Point(0, 0)
-                My.Settings.MIFLegDim = New Point(MapObjList(0).LegWidth, MapObjList(0).LegHeight)
-            End If
-            If My.Settings.cbShowRoute Then
+    '        ' Set the file image dimensions and positions '
+    '        If My.Settings.cbShowLegMAp Then
+    '            My.Settings.MIFLegPos = New Point(0, 0)
+    '            My.Settings.MIFLegDim = New Point(MapObjList(0).LegWidth, MapObjList(0).LegHeight)
+    '        End If
+    '        If My.Settings.cbShowRoute Then
 
-                If My.Settings.cbShowLegMAp Then
-                    My.Settings.MIFZoomPos = New Point(MapObjList(0).LegWidth, 0) ' ZoomImage to the right of legimage
-                Else
-                    My.Settings.MIFZoomPos = New Point(0, 0)
-                End If
-                My.Settings.MIFZoomDim = New Point(MapObjList(0).ZoomWidth, MapObjList(0).ZoomHeight)
-            End If
-            My.Settings.Save()
+    '            If My.Settings.cbShowLegMAp Then
+    '                My.Settings.MIFZoomPos = New Point(MapObjList(0).LegWidth, 0) ' ZoomImage to the right of legimage
+    '            Else
+    '                My.Settings.MIFZoomPos = New Point(0, 0)
+    '            End If
+    '            My.Settings.MIFZoomDim = New Point(MapObjList(0).ZoomWidth, MapObjList(0).ZoomHeight)
+    '        End If
+    '        My.Settings.Save()
 
-            If Not multithread Then
-                For i = startIdx To endIdx
-                    SaveImage(i, 0) ' Serial execution
-                Next
-            Else
-                'For i As Integer = 0 To numThreads - 1
-                '    Dim threadStart As New ParameterizedThreadStart(
-                '    Sub(obj As Object)
-                '        Dim startIndex As Integer = DirectCast(obj, Integer)
-                '        For j As Integer = startIndex To startIndex + chunkSize - 1
-                '            If j <= endIdx Then ' Check if index is within the range '
-                '                SaveImage(j) ' Save the image with its corresponding number '
-                '            End If
-                '        Next
-                '    End Sub
-                ')
+    '        If Not multithread Then
+    '            For i = startIdx To endIdx
+    '                SaveImage(i, 0) ' Serial execution
+    '            Next
+    '        Else
+    '            'For i As Integer = 0 To numThreads - 1
+    '            '    Dim threadStart As New ParameterizedThreadStart(
+    '            '    Sub(obj As Object)
+    '            '        Dim startIndex As Integer = DirectCast(obj, Integer)
+    '            '        For j As Integer = startIndex To startIndex + chunkSize - 1
+    '            '            If j <= endIdx Then ' Check if index is within the range '
+    '            '                SaveImage(j) ' Save the image with its corresponding number '
+    '            '            End If
+    '            '        Next
+    '            '    End Sub
+    '            ')
 
-                '    Dim threadStartIndex As Integer = startIdx + i * chunkSize
-                '    threads(i) = New Thread(threadStart)
-                '    threads(i).Start(threadStartIndex)
-                'Next
+    '            '    Dim threadStartIndex As Integer = startIdx + i * chunkSize
+    '            '    threads(i) = New Thread(threadStart)
+    '            '    threads(i).Start(threadStartIndex)
+    '            'Next
 
-                '' Wait for all threads to complete '
-                'For i As Integer = 0 To numThreads - 1
-                '    threads(i).Join()
-                'Next
-                Dim tasks(numThreads - 1) As Task
-                tasksCompleted = False
-                For i As Integer = 0 To numThreads - 1
-                    'Dim threadStart As New ParameterizedThreadStart(
-                    Dim threadStartIndex As Integer = startIdx + i * chunkSize
-                    Dim threadNumber As Integer = i
-                    tasks(i) = Task.Factory.StartNew(
-                    Sub() 'obj As Object)
-                        'Dim startIndex As Integer = DirectCast(obj, Integer)
-                        For j As Integer = threadStartIndex To threadStartIndex + chunkSize - 1
-                            If j <= endIdx And j < count - 1 Then ' Check if index is within the range '
-                                SaveImage(j, threadNumber) ' Save the image with its corresponding number '
-                            End If
-                        Next
-                    End Sub
-                )
+    '            '' Wait for all threads to complete '
+    '            'For i As Integer = 0 To numThreads - 1
+    '            '    threads(i).Join()
+    '            'Next
+    '            Dim tasks(numThreads - 1) As Task
+    '            tasksCompleted = False
+    '            For i As Integer = 0 To numThreads - 1
+    '                'Dim threadStart As New ParameterizedThreadStart(
+    '                Dim threadStartIndex As Integer = startIdx + i * chunkSize
+    '                Dim threadNumber As Integer = i
+    '                tasks(i) = Task.Factory.StartNew(
+    '                Sub() 'obj As Object)
+    '                    'Dim startIndex As Integer = DirectCast(obj, Integer)
+    '                    For j As Integer = threadStartIndex To threadStartIndex + chunkSize - 1
+    '                        If j <= endIdx And j < count - 1 Then ' Check if index is within the range '
+    '                            SaveImage(j, threadNumber) ' Save the image with its corresponding number '
+    '                        End If
+    '                    Next
+    '                End Sub
+    '            )
 
-                    'Dim threadStartIndex As Integer = startIdx + i * chunkSize
-                    'threads(i) = New Thread(threadStart)
-                    'threads(i).Start(threadStartIndex)
-                Next
-                Task.Factory.StartNew(
-            Sub()
-                Task.WaitAll(tasks) ' Wait for all tasks to complete
-                TaskCompleted()
-            End Sub
-        )
-                ' Wait for all threads to complete '
-                'For i As Integer = 0 To numThreads - 1
-                '    threads(i).Join()
-                'Next
-            End If
-        End If
-    End Sub
+    '                'Dim threadStartIndex As Integer = startIdx + i * chunkSize
+    '                'threads(i) = New Thread(threadStart)
+    '                'threads(i).Start(threadStartIndex)
+    '            Next
+    '            Task.Factory.StartNew(
+    '        Sub()
+    '            Task.WaitAll(tasks) ' Wait for all tasks to complete
+    '            TaskCompleted()
+    '        End Sub
+    '    )
+    '            ' Wait for all threads to complete '
+    '            'For i As Integer = 0 To numThreads - 1
+    '            '    threads(i).Join()
+    '            'Next
+    '        End If
+    '    End If
+    'End Sub
 
     Private Sub TaskCompleted()
         ' This method is called when all tasks have completed
@@ -441,72 +441,72 @@ Public Class clMapsImgsToFiles
 
 
     'End Sub
-    Private Sub SaveImage(ByVal imageNumber As Integer, ByVal TNo As Integer)
-        ' Code to load and process the image '
-        Dim index As Integer
-        Dim imgmap, imageleg, imagezoom As Image
+    '20260423 Private Sub SaveImage(ByVal imageNumber As Integer, ByVal TNo As Integer)
+    ' Code to load and process the image '
+    'Dim index As Integer
+    '    Dim imgmap, imageleg, imagezoom As Image
 
 
-        For index = 0 To MapImgIndexinUse.Count
-            If MapImgIndexinUse(TNo) = False Then
-                MapImgIndexinUse(TNo) = True
-                imageMutex.WaitOne()
-                'newImage = New Bitmap(MapImgList(index))
+    '    For index = 0 To MapImgIndexinUse.Count
+    '        If MapImgIndexinUse(TNo) = False Then
+    '            MapImgIndexinUse(TNo) = True
+    '            imageMutex.WaitOne()
+    '            'newImage = New Bitmap(MapImgList(index))
 
-                imageMutex.ReleaseMutex()
-                Exit For
-            End If
-        Next
+    '            imageMutex.ReleaseMutex()
+    '            Exit For
+    '        End If
+    '    Next
 
-        Dim zheight, zwidth, lwidth, lheight As Integer
-        imgmap = MapObjList(TNo).DrawPositionOnBackgroundImage(imageNumber)
-        If My.Settings.cbShowRoute Then
-            imagezoom = MapObjList(TNo).ZoomImage(imageNumber)
-            zheight = imagezoom.Height
-            zwidth = imagezoom.Width
-        End If
-        If My.Settings.cbShowLegMAp Then
-            imageleg = MapObjList(TNo).LapImage(imageNumber)
-            lheight = imageleg.Height
-            lwidth = imageleg.Width
-        End If
+    '    Dim zheight, zwidth, lwidth, lheight As Integer
+    '    imgmap = MapObjList(TNo).DrawPositionOnBackgroundImage(imageNumber)
+    '    If My.Settings.cbShowRoute Then
+    '        imagezoom = MapObjList(TNo).ZoomImage(imageNumber)
+    '        zheight = imagezoom.Height
+    '        zwidth = imagezoom.Width
+    '    End If
+    '    If My.Settings.cbShowLegMAp Then
+    '        imageleg = MapObjList(TNo).LapImage(imageNumber)
+    '        lheight = imageleg.Height
+    '        lwidth = imageleg.Width
+    '    End If
 
-        Dim combinedWidth As Integer = lwidth + zwidth
-        Dim combinedHeight As Integer = Math.Max(lheight, zheight)
-
-
-
-        Dim imageFileName As String = "temp3\" + imageNumber.ToString("D8") + ".png" 'png
-        'imgmap.Save(imageFileName, ImageFormat.Png)
+    '    Dim combinedWidth As Integer = lwidth + zwidth
+    '    Dim combinedHeight As Integer = Math.Max(lheight, zheight)
 
 
 
-        ' Create a new bitmap with the combined size
-        Dim combinedImage As New Bitmap(combinedWidth, combinedHeight) 'PixelFormat.Format24bppRgb
+    '    Dim imageFileName As String = "temp3\" + imageNumber.ToString("D8") + ".png" 'png
+    '    'imgmap.Save(imageFileName, ImageFormat.Png)
 
-        ' Create a graphics object to draw onto the new bitmap
-        Using g As Graphics = Graphics.FromImage(combinedImage)
-            ' Draw the first image onto the left side of the combined image
 
-            If My.Settings.cbShowLegMAp Then g.DrawImage(imageleg, 0, 0)
 
-            ' Draw the second image onto the right side of the combined image
-            If My.Settings.cbShowRoute Then g.DrawImage(imagezoom, lwidth, 0)
-        End Using
+    '    ' Create a new bitmap with the combined size
+    '    Dim combinedImage As New Bitmap(combinedWidth, combinedHeight) 'PixelFormat.Format24bppRgb
 
-        ' Save the combined image to a file
+    '    ' Create a graphics object to draw onto the new bitmap
+    '    Using g As Graphics = Graphics.FromImage(combinedImage)
+    '        ' Draw the first image onto the left side of the combined image
 
-        combinedImage.Save(imageFileName, ImageFormat.Png)  'png
+    '        If My.Settings.cbShowLegMAp Then g.DrawImage(imageleg, 0, 0)
 
-        ' Dispose of the images
-        Threading.Interlocked.Increment(ImageFileCounter)
-        combinedImage.Dispose()
-        'imageleg.Save(limageFileName, ImageFormat.Png)
-        'imagezoom.Save(zimageFileName, ImageFormat.Png)
-        MapImgIndexinUse(TNo) = False
-        If Not IsNothing(imageleg) Then imageleg.Dispose()
-        If Not IsNothing(imagezoom) Then imagezoom.Dispose()
-    End Sub
+    '        ' Draw the second image onto the right side of the combined image
+    '        If My.Settings.cbShowRoute Then g.DrawImage(imagezoom, lwidth, 0)
+    '    End Using
+
+    '    ' Save the combined image to a file
+
+    '    combinedImage.Save(imageFileName, ImageFormat.Png)  'png
+
+    '    ' Dispose of the images
+    '    Threading.Interlocked.Increment(ImageFileCounter)
+    '    combinedImage.Dispose()
+    '    'imageleg.Save(limageFileName, ImageFormat.Png)
+    '    'imagezoom.Save(zimageFileName, ImageFormat.Png)
+    '    MapImgIndexinUse(TNo) = False
+    '    If Not IsNothing(imageleg) Then imageleg.Dispose()
+    '    If Not IsNothing(imagezoom) Then imagezoom.Dispose()
+    'End Sub
 
     Public Function get_ImageFileCounter() As Integer
         Dim currentCount As Integer = Threading.Interlocked.CompareExchange(ImageFileCounter, 0, 0)
@@ -514,6 +514,17 @@ Public Class clMapsImgsToFiles
     End Function
 End Class
 Public Class clsMapImages
+    ' CLEANUP-CLSMAPIMAGES-20260423:
+    ' This class is now both:
+    ' 1) a live support object behind clsMapRenderEngine, and
+    ' 2) a container for older standalone map-render paths kept for reference/fallback.
+    '
+    ' Still actively used:
+    ' - settings/state fields such as dotSize, dotTailRatio, tailLineColor, ArrowWidth, ArrowBarb
+    ' - LoadSettings / SaveSettings / smooth-preview tuning / alpha-mask helpers
+    ' - smooth and non-smooth preview fallback methods still referenced from adjustment flow
+    '
+    ' Review/remove candidates are marked below with the same CLEANUP-CLSMAPIMAGES-20260423 id.
 
     'Public RouteImgPoints As List(Of PointF)
     Public LastTimeCode, counttime As Integer
@@ -954,85 +965,86 @@ Public Class clsMapImages
         Return SmoothLegBackgroundImage
     End Function
 #End Region
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' REPLACED WITH SMOOTH: use DrawPositionOnBackgroundImageSmooth for interpolated map rendering.
-    Public Function DrawPositionOnBackgroundImage(currentTimecode As Integer) As Bitmap
-        ' Get the current position index based on the elapsed time
-        Dim currentPosIndex As Integer = currentTimecode
-        If Not IsNothing(TmpMainMap) Then
-            TmpMainMap.Dispose()
-        End If
-        TmpMainMap = New Bitmap(MainMapImage.Width, MainMapImage.Height)
+    '    Public Function DrawPositionOnBackgroundImage(currentTimecode As Integer) As Bitmap
+    '        ' Get the current position index based on the elapsed time
+    '        Dim currentPosIndex As Integer = currentTimecode
+    '        If Not IsNothing(TmpMainMap) Then
+    '            TmpMainMap.Dispose()
+    '        End If
+    '        TmpMainMap = New Bitmap(MainMapImage.Width, MainMapImage.Height)
 
-        ' Get the current position and previous positions for the tail line
-        Dim currentPos As PointF = RouteImgPoints(currentPosIndex)
-        Dim tailLineStartIndex As Integer = currentPosIndex - tailLineDurationSeconds
-        If tailLineStartIndex < 0 Then tailLineStartIndex = 0
-        Dim tailLineEndIndex As Integer = currentPosIndex
-        Dim tailLinePoints As New List(Of PointF)
-        For i As Integer = tailLineStartIndex To tailLineEndIndex
-            tailLinePoints.Add(RouteImgPoints(i))
-        Next
+    '        ' Get the current position and previous positions for the tail line
+    '        Dim currentPos As PointF = RouteImgPoints(currentPosIndex)
+    '        Dim tailLineStartIndex As Integer = currentPosIndex - tailLineDurationSeconds
+    '        If tailLineStartIndex < 0 Then tailLineStartIndex = 0
+    '        Dim tailLineEndIndex As Integer = currentPosIndex
+    '        Dim tailLinePoints As New List(Of PointF)
+    '        For i As Integer = tailLineStartIndex To tailLineEndIndex
+    '            tailLinePoints.Add(RouteImgPoints(i))
+    '        Next
 
-        ' Draw the dot and tail line on the background image
-        Using g As Graphics = Graphics.FromImage(TmpMainMap)
-            g.DrawImage(MainMapImage, 0, 0)
+    '        ' Draw the dot and tail line on the background image
+    '        Using g As Graphics = Graphics.FromImage(TmpMainMap)
+    '            g.DrawImage(MainMapImage, 0, 0)
 
-            ' Draw the tail line
-            Dim tailLinePen As New Pen(tailLineColor, dotSize * dotTailRatio) '20240229 dotSize / 2
-            If tailLinePoints.Count > 1 Then
-                g.DrawLines(tailLinePen, tailLinePoints.ToArray())
-            End If
+    '            ' Draw the tail line
+    '            Dim tailLinePen As New Pen(tailLineColor, dotSize * dotTailRatio) '20240229 dotSize / 2
+    '            If tailLinePoints.Count > 1 Then
+    '                g.DrawLines(tailLinePen, tailLinePoints.ToArray())
+    '            End If
 
-            ' Draw the dot at the current position
-            Dim dotSizeWithTail As Integer = dotSize '-20240229 CInt(dotSize * (1 + dotTailRatio))
-            '+20240229
-            Dim direction As Double
-            direction = QRRoutePoints.RoutePoints(currentTimecode).Direction
-            If _DotType = "Arrow" Then
-                DrawArrowWithBarbs(g, currentPos, direction, dotSizeWithTail, dotColor)
-            Else
-                Dim dotBrush As New SolidBrush(dotColor)
-                g.FillEllipse(dotBrush, CSng(currentPos.X - dotSizeWithTail / 2), CSng(currentPos.Y - dotSizeWithTail / 2), CSng(dotSizeWithTail), CSng(dotSizeWithTail))
-            End If
-        End Using
+    '            ' Draw the dot at the current position
+    '            Dim dotSizeWithTail As Integer = dotSize '-20240229 CInt(dotSize * (1 + dotTailRatio))
+    '            '+20240229
+    '            Dim direction As Double
+    '            direction = QRRoutePoints.RoutePoints(currentTimecode).Direction
+    '            If _DotType = "Arrow" Then
+    '                DrawArrowWithBarbs(g, currentPos, direction, dotSizeWithTail, dotColor)
+    '            Else
+    '                Dim dotBrush As New SolidBrush(dotColor)
+    '                g.FillEllipse(dotBrush, CSng(currentPos.X - dotSizeWithTail / 2), CSng(currentPos.Y - dotSizeWithTail / 2), CSng(dotSizeWithTail), CSng(dotSizeWithTail))
+    '            End If
+    '        End Using
 
-        Return TmpMainMap
+    '        Return TmpMainMap
 
-    End Function
-#Region "Smooth Map Rendering"
-    Public Function DrawPositionOnBackgroundImageSmooth(currentTimecode As Double) As Bitmap
-        Dim currentTime As Double = ClampTimeCode(currentTimecode)
-        If Not IsNothing(TmpMainMap) Then
-            TmpMainMap.Dispose()
-        End If
-        TmpMainMap = New Bitmap(MainMapImage.Width, MainMapImage.Height)
+    '    End Function
+    '#Region "Smooth Map Rendering"
+    '    Public Function DrawPositionOnBackgroundImageSmooth(currentTimecode As Double) As Bitmap
+    '        Dim currentTime As Double = ClampTimeCode(currentTimecode)
+    '        If Not IsNothing(TmpMainMap) Then
+    '            TmpMainMap.Dispose()
+    '        End If
+    '        TmpMainMap = New Bitmap(MainMapImage.Width, MainMapImage.Height)
 
-        Dim currentPos As PointF = GetRoutePointAtTime(currentTime)
-        Dim tailLinePoints As List(Of PointF) = GetTailLinePointsAtTime(currentTime)
+    '        Dim currentPos As PointF = GetRoutePointAtTime(currentTime)
+    '        Dim tailLinePoints As List(Of PointF) = GetTailLinePointsAtTime(currentTime)
 
-        Using g As Graphics = Graphics.FromImage(TmpMainMap)
-            g.DrawImage(MainMapImage, 0, 0)
+    '        Using g As Graphics = Graphics.FromImage(TmpMainMap)
+    '            g.DrawImage(MainMapImage, 0, 0)
 
-            Using tailLinePen As New Pen(tailLineColor, dotSize * dotTailRatio)
-                If tailLinePoints.Count > 1 Then
-                    g.DrawLines(tailLinePen, tailLinePoints.ToArray())
-                End If
-            End Using
+    '            Using tailLinePen As New Pen(tailLineColor, dotSize * dotTailRatio)
+    '                If tailLinePoints.Count > 1 Then
+    '                    g.DrawLines(tailLinePen, tailLinePoints.ToArray())
+    '                End If
+    '            End Using
 
-            Dim dotSizeWithTail As Integer = dotSize
-            Dim direction As Double = GetArrowDirectionAtTime(currentTime)
-            If _DotType = "Arrow" Then
-                DrawArrowWithBarbs(g, currentPos, CSng(direction), dotSizeWithTail, dotColor)
-            Else
-                Using dotBrush As New SolidBrush(dotColor)
-                    g.FillEllipse(dotBrush, CSng(currentPos.X - dotSizeWithTail / 2), CSng(currentPos.Y - dotSizeWithTail / 2), CSng(dotSizeWithTail), CSng(dotSizeWithTail))
-                End Using
-            End If
-        End Using
+    '            Dim dotSizeWithTail As Integer = dotSize
+    '            Dim direction As Double = GetArrowDirectionAtTime(currentTime)
+    '            If _DotType = "Arrow" Then
+    '                DrawArrowWithBarbs(g, currentPos, CSng(direction), dotSizeWithTail, dotColor)
+    '            Else
+    '                Using dotBrush As New SolidBrush(dotColor)
+    '                    g.FillEllipse(dotBrush, CSng(currentPos.X - dotSizeWithTail / 2), CSng(currentPos.Y - dotSizeWithTail / 2), CSng(dotSizeWithTail), CSng(dotSizeWithTail))
+    '                End Using
+    '            End If
+    '        End Using
 
-        Return TmpMainMap
-    End Function
-#End Region
+    '        Return TmpMainMap
+    '    End Function
+    '#End Region
 
 
     Private Function FillRoundedRectangle(brush As Brush, rect As Rectangle, radius As Integer) As GraphicsPath
@@ -1169,17 +1181,22 @@ Public Class clsMapImages
 
         Return angle
     End Function
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' REPLACED WITH SMOOTH: use ZoomImageSmooth for interpolated zoom rendering.
     Function ZoomImage(timeCode As Integer) As Bitmap
         Return ZoomImage3(timeCode, ZoomWidth, ZoomHeight, ZoomRad)
     End Function
 #Region "Smooth Zoom Entry Point"
+    ' CLEANUP-CLSMAPIMAGES-20260423:
+    ' Still used indirectly by the legacy smooth video writer in this file.
     Function ZoomImageSmooth(timeCode As Double) As Bitmap
         Return ZoomImage3Smooth(timeCode, ZoomWidth, ZoomHeight, ZoomRad)
     End Function
 #End Region
 
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' LEGACY BACKUP COPY: older zoom implementation kept for comparison/reference.
+#If False Then
     Function ZoomImage2(timeCode As Integer, pxwidth As Integer, pxheight As Integer, pxroundrad As Integer) As Bitmap
         Dim height As Double = pxheight
         Dim width As Double = pxwidth
@@ -1238,7 +1255,9 @@ Public Class clsMapImages
         ' Draw the cut image onto the new bitmap
         Return ZoomMapImage
     End Function
+#End If
     ' LEGACY BACKUP COPY: superseded older zoom variant kept for reference.
+#If False Then
     Function ZoomImage3_backup(timeCode As Integer, OutWidth As Integer, OutHeight As Integer, pxroundrad As Integer, Optional fromAdj As Boolean = True) As Bitmap
         Dim startPoint As Point
         Dim pxClipLength As Integer
@@ -1363,7 +1382,9 @@ Public Class clsMapImages
         'Return tmpZLImg
 
     End Function
+#End If
 
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' REPLACED WITH SMOOTH: use ZoomImage3Smooth for interpolated zoom rendering.
     Function ZoomImage3(timeCode As Integer, OutWidth As Integer, OutHeight As Integer, pxroundrad As Integer, Optional fromAdj As Boolean = True) As Bitmap
         Dim startPoint As Point
@@ -1510,6 +1531,8 @@ Public Class clsMapImages
 
     End Function
 #Region "Smooth Zoom Implementation"
+    ' CLEANUP-CLSMAPIMAGES-20260423:
+    ' Still referenced via ZoomImageSmooth() in the legacy smooth video writer path.
     Function ZoomImage3Smooth(timeCode As Double, OutWidth As Integer, OutHeight As Integer, pxroundrad As Integer, Optional fromAdj As Boolean = True) As Bitmap
         Dim pxClipLength As Integer
         Dim pxClipWidth As Single
@@ -1670,16 +1693,21 @@ Public Class clsMapImages
             ' Hvis logning fejler, kan du evt. vise en besked, logge andetsteds eller ignorere det
         End Try
     End Sub
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' REPLACED WITH SMOOTH: use LapImageSmooth for interpolated leg rendering.
     Function LapImage(CurrentTime As Integer) As Bitmap
         Return LapImage2(CurrentTime, LegMargin, LegWidth, LegHeight, LegRad)
     End Function
 #Region "Smooth Leg Entry Point"
+    ' CLEANUP-CLSMAPIMAGES-20260423:
+    ' Still used indirectly by the legacy smooth video writer in this file.
     Function LapImageSmooth(CurrentTime As Double) As Bitmap
         Return LapImage2Smooth(CurrentTime, LegMargin, LegWidth, LegHeight, LegRad)
     End Function
 #End Region
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' LEGACY BACKUP COPY: superseded older leg variant kept for reference.
+#If False Then
     Function LapImage2_backup(CurrentTime As Integer, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
         If CurrentTime < 0 Then CurrentTime = 0
         If CurrentTime > QRRoutePoints.RoutePoints.Count - 1 Then CurrentTime = QRRoutePoints.RoutePoints.Count - 1
@@ -1774,6 +1802,8 @@ Public Class clsMapImages
         Return LegMapImage
 
     End Function
+#End If
+    ' CLEANUP-CLSMAPIMAGES-20260423:
     ' REPLACED WITH SMOOTH: use LapImage2Smooth for interpolated leg rendering.
     Function LapImage2(CurrentTime As Integer, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
         If CurrentTime < 0 Then CurrentTime = 0
@@ -1871,6 +1901,8 @@ Public Class clsMapImages
 
     End Function
 #Region "Smooth Leg Implementation"
+    ' CLEANUP-CLSMAPIMAGES-20260423:
+    ' Still referenced via LapImageSmooth() in the legacy smooth video writer path.
     Function LapImage2Smooth(CurrentTime As Double, pxmarginheight As Integer, outwidth As Integer, outheight As Integer, pxroundrad As Integer, Optional SqFrame As Boolean = False) As Bitmap
         Dim safeTime As Double = ClampTimeCode(CurrentTime)
         Dim lap As Integer = GetLapNumberAtTime(safeTime) - 1

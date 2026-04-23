@@ -192,22 +192,10 @@
     <Compile Include="frmAddAudioform.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAdjustmentPlayerNew - Copy.Designer.vb">
-      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAdjustmentPlayerNew - Copy.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmAdjustmentPlayerNew.Designer.vb">
       <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
     </Compile>
     <Compile Include="frmAdjustmentPlayerNew.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAdjustmentPlayer.Designer.vb">
-      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAdjustmentPlayer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="clsFFMPegProbe.vb" />
@@ -342,15 +330,6 @@
     <EmbeddedResource Include="frmAddAudioform.resx">
       <DependentUpon>frmAddAudioform.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAdjustmentPlayerNew - Copy.en-US.resx">
-      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAdjustmentPlayerNew - Copy.en.resx">
-      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAdjustmentPlayerNew - Copy.resx">
-      <DependentUpon>frmAdjustmentPlayerNew - Copy.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmAdjustmentPlayerNew.en-US.resx">
       <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
     </EmbeddedResource>
@@ -359,15 +338,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAdjustmentPlayerNew.resx">
       <DependentUpon>frmAdjustmentPlayerNew.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAdjustmentPlayer.en-US.resx">
-      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAdjustmentPlayer.en.resx">
-      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAdjustmentPlayer.resx">
-      <DependentUpon>frmAdjustmentPlayer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ffplay.en.resx">
       <DependentUpon>ffplay.vb</DependentUpon>

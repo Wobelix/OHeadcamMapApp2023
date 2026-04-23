@@ -1390,7 +1390,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.4")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.9")>  _
         Public Property MITailRatio() As Decimal
             Get
                 Return CType(Me("MITailRatio"),Decimal)
@@ -1402,7 +1402,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("14")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("15")>  _
         Public Property MIDotSize() As Integer
             Get
                 Return CType(Me("MIDotSize"),Integer)
@@ -1690,7 +1690,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.3")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.5")>  _
         Public Property MIArrowBarb() As Double
             Get
                 Return CType(Me("MIArrowBarb"),Double)
@@ -1702,7 +1702,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.9")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.7")>  _
         Public Property MIArrowWidth() As Double
             Get
                 Return CType(Me("MIArrowWidth"),Double)
@@ -1714,7 +1714,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Arrow")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Dot")>  _
         Public Property MIDotType() As String
             Get
                 Return CType(Me("MIDotType"),String)

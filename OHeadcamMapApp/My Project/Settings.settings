@@ -336,10 +336,10 @@
       <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="MITailRatio" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.4</Value>
+      <Value Profile="(Default)">0.9</Value>
     </Setting>
     <Setting Name="MIDotSize" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">14</Value>
+      <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="MIFLegPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -411,13 +411,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MIArrowBarb" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.3</Value>
+      <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="MIArrowWidth" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.9</Value>
+      <Value Profile="(Default)">0.7</Value>
     </Setting>
     <Setting Name="MIDotType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Arrow</Value>
+      <Value Profile="(Default)">Dot</Value>
     </Setting>
     <Setting Name="QRImage2" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

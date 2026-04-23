@@ -441,7 +441,7 @@ Partial Class MainForm
         MySettings1.MILegMapPos = New System.Drawing.Point(80, 450)
         MySettings1.MILegMargin = 50
         MySettings1.MILegRad = 40
-        MySettings1.MILegRenderLayout = "classic"
+        MySettings1.MILegRenderLayout = "web"
         MySettings1.MILegWidth = 350
         MySettings1.MISmoothFrameStepSeconds = 0.25R
         MySettings1.MISmoothParallelGeneration = True

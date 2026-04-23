@@ -1090,6 +1090,9 @@ Public Class MainForm
     End Sub
 
     Private Sub btnTestWriteVideo_Click(sender As Object, e As EventArgs) Handles btnTestWriteVideo.Click
+        ' CLEANUP-MAINFORM-TESTSTYLE-20260423:
+        ' This test entry point still uses legacy RenderLegOptions style preset wiring.
+        ' The render backend is modern perf8, but the preset path below is a cleanup candidate.
         SaveFileDialogOutput.FileName = "testleg_web_420" & GetSmoothOverlayVideoExtension()
         If SaveFileDialogOutput.ShowDialog() <> DialogResult.OK Then Return
         Dim outputFile As String = SaveFileDialogOutput.FileName
@@ -1353,14 +1356,22 @@ Public Class MainForm
     Private Sub ApplyRenderStylePreset(options As RenderLegOptions)
         If options Is Nothing OrElse String.IsNullOrWhiteSpace(options.StylePreset) Then Return
 
+        ' CLEANUP-MAINFORM-TESTSTYLE-20260423:
+        ' Legacy preset helper kept for test button / CLI compatibility.
+        ' The app runtime now uses ApplySavedLegRenderLayout() as the primary layout path.
         Select Case options.StylePreset.Trim().ToLowerInvariant()
             Case "classic"
+                ' CLEANUP-MAINFORM-TESTSTYLE-20260423:
+                ' Classic preset is retained only for older test/CLI scenarios.
                 If String.IsNullOrWhiteSpace(options.Style.DotType) Then options.Style.DotType = "Arrow"
                 If Not options.Style.DotSize.HasValue Then options.Style.DotSize = 28
                 If Not options.Style.DotTailRatio.HasValue Then options.Style.DotTailRatio = 0.55
                 If Not options.Style.ArrowWidth.HasValue Then options.Style.ArrowWidth = 0.8
                 If Not options.Style.ArrowBarb.HasValue Then options.Style.ArrowBarb = 0.22
             Case "web", "webstyle"
+                ' CLEANUP-MAINFORM-TESTSTYLE-20260423:
+                ' Web preset is also part of the older preset route and can likely be
+                ' collapsed into saved-layout driven setup later.
                 If String.IsNullOrWhiteSpace(options.Style.DotType) Then options.Style.DotType = "Arrow"
                 If Not options.Style.DotSize.HasValue Then options.Style.DotSize = 28
                 If Not options.Style.DotTailRatio.HasValue Then options.Style.DotTailRatio = 0.55
@@ -1403,9 +1414,10 @@ Public Class MainForm
     End Sub
 
     Private Function GetSavedLegRenderLayout() As String
-        Dim layout As String = My.Settings.MILegRenderLayout
-        If String.IsNullOrWhiteSpace(layout) Then Return "classic"
-        Return layout.Trim().ToLowerInvariant()
+        ' REPLACED-CLASSIC-LAYOUT-20260423:
+        ' The classic/new layout toggle has been retired. Keep the user setting for
+        ' compatibility with existing config files, but always use the new web layout.
+        Return "web"
     End Function
 
     Private Function PaceMinutesPerKmToSeconds(minutesPerKm As Double) As Double
@@ -1418,36 +1430,36 @@ Public Class MainForm
     End Function
 
     Public Function IsNewLegLayoutEnabled() As Boolean
-        Select Case GetSavedLegRenderLayout()
-            Case "web", "webstyle", "new"
-                Return True
-            Case Else
-                Return False
-        End Select
+        ' REPLACED-CLASSIC-LAYOUT-20260423:
+        ' The new layout is now the only supported layout path.
+        Return True
     End Function
 
     Public Sub ApplySavedLegRenderLayout(renderEngine As clsMapRenderEngine)
         If renderEngine Is Nothing Then Return
 
         Dim style As New RenderStyleOverrides()
-        If IsNewLegLayoutEnabled() Then
-            style.TailAlpha = TailTransparencyToAlpha(My.Settings.MITailTransparency)
-            style.SpeedColoringEnabled = My.Settings.MITailUseSpeedColors
-            style.PaceFastSecondsPerKm = PaceMinutesPerKmToSeconds(Math.Min(My.Settings.MIPaceFastMinPerKm, My.Settings.MIPaceSlowMinPerKm))
-            style.PaceSlowSecondsPerKm = PaceMinutesPerKmToSeconds(Math.Max(My.Settings.MIPaceFastMinPerKm, My.Settings.MIPaceSlowMinPerKm))
-            style.TailTicksEnabled = True
-            style.TailTickIntervalSeconds = 5
-            style.TailTickAlpha = 110
-            style.TailTickColorArgb = Color.FromArgb(65, 65, 65).ToArgb()
-            renderEngine.ArrowOutlineScale = Math.Max(1, My.Settings.MIArrowOutlineScale)
-            renderEngine.TailTickWidth = Math.Max(1.0F, 1.1F + CSng(My.Settings.MIArrowOutlineScale - 1) * 0.22F)
-        Else
-            style.TailAlpha = 255
-            style.SpeedColoringEnabled = False
-            style.TailTicksEnabled = False
-            renderEngine.ArrowOutlineScale = 1
-            renderEngine.TailTickWidth = 1.0F
-        End If
+        style.TailAlpha = TailTransparencyToAlpha(My.Settings.MITailTransparency)
+        style.SpeedColoringEnabled = My.Settings.MITailUseSpeedColors
+        style.PaceFastSecondsPerKm = PaceMinutesPerKmToSeconds(Math.Min(My.Settings.MIPaceFastMinPerKm, My.Settings.MIPaceSlowMinPerKm))
+        style.PaceSlowSecondsPerKm = PaceMinutesPerKmToSeconds(Math.Max(My.Settings.MIPaceFastMinPerKm, My.Settings.MIPaceSlowMinPerKm))
+        style.TailTicksEnabled = True
+        style.TailTickIntervalSeconds = 5
+        style.TailTickAlpha = 110
+        style.TailTickColorArgb = Color.FromArgb(65, 65, 65).ToArgb()
+        renderEngine.ArrowOutlineScale = Math.Max(1, My.Settings.MIArrowOutlineScale)
+        renderEngine.TailTickWidth = Math.Max(1.0F, 1.1F + CSng(My.Settings.MIArrowOutlineScale - 1) * 0.22F)
+
+        ' REPLACED-CLASSIC-LAYOUT-20260423:
+        ' The old classic layout branch is intentionally left here as comment-only
+        ' reference until the legacy renderer path is deleted for good.
+        'Else
+        '    style.TailAlpha = 255
+        '    style.SpeedColoringEnabled = False
+        '    style.TailTicksEnabled = False
+        '    renderEngine.ArrowOutlineScale = 1
+        '    renderEngine.TailTickWidth = 1.0F
+        'End If
 
         ApplyRenderStyleOverrides(renderEngine, style)
     End Sub
