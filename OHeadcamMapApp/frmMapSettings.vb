@@ -1,7 +1,19 @@
 ﻿Imports OHeadcamMapApp.My.Resources
 Public Class frmMapSettings
+    Private Const DynamicCornerMinValue As Integer = 0
+    Private Const DynamicCornerMaxValue As Integer = 300
+    Private Const DynamicMarginMinValue As Integer = 0
+    Private Const DynamicMarginMaxValue As Integer = 2000
+    Private Const DynamicMarginStepValue As Integer = 10
+    Private Const DynamicMinZoomMinValue As Integer = 20
+    Private Const DynamicMinZoomMaxValue As Integer = 400
+    Private Const DynamicMinZoomStepValue As Integer = 5
+    Private Const DynamicMaxZoomMinValue As Integer = 40
+    Private Const DynamicMaxZoomMaxValue As Integer = 800
+    Private Const DynamicMaxZoomStepValue As Integer = 10
 
     Public ratio, LegCorner, ZoomCorner, LegMargin, ZoomZoom, ArrowBarb, ArrowWidth As Decimal
+    Public DynamicCorner, DynamicMargin, DynamicMinZoom, DynamicMaxZoom As Decimal
     Public tailTransparency, paceFastMinPerKm, paceSlowMinPerKm As Decimal
     Public arrowOutlineScale As Integer
     Public circle, feather, tailSpeedColors As Boolean
@@ -9,6 +21,7 @@ Public Class frmMapSettings
     Public FrmAdj As frmAdjustmentPlayer_new
     Public dotcolor, framecolor, tailcolor As Color
     Public tailduration, dotsize, framewidth As Integer
+    Private _syncingDynamicZoom As Boolean = False
 
     Public Sub New(iFrmAdj As frmAdjustmentPlayer_new)
 
@@ -77,6 +90,16 @@ Public Class frmMapSettings
     End Sub
 
     Private Sub frmMapSettings_Load(sender As Object, e As EventArgs) Handles Me.Load
+        numDynMargin.Minimum = DynamicMarginMinValue
+        numDynMargin.Maximum = DynamicMarginMaxValue
+        numDynMargin.Increment = DynamicMarginStepValue
+        numDynMinZoom.Minimum = DynamicMinZoomMinValue
+        numDynMinZoom.Maximum = DynamicMinZoomMaxValue
+        numDynMinZoom.Increment = DynamicMinZoomStepValue
+        numDynMaxZoom.Minimum = DynamicMaxZoomMinValue
+        numDynMaxZoom.Maximum = DynamicMaxZoomMaxValue
+        numDynMaxZoom.Increment = DynamicMaxZoomStepValue
+
         numTailDuration.Value = My.Settings.MITailDuration
         NumDotSize.Value = My.Settings.MIDotSize
         numTailRatio.DecimalPlaces = 1
@@ -100,6 +123,10 @@ Public Class frmMapSettings
         DotColorDialog.Color = My.Settings.MIDotColor
         TailColorDialog.Color = My.Settings.MITailColor
         numZoomZoom.Value = My.Settings.MIZoomZoom
+        txtDynCorner.Text = CStr(Math.Max(DynamicCornerMinValue, Math.Min(DynamicCornerMaxValue, My.Settings.MIDynamicRad)))
+        numDynMargin.Value = Math.Max(numDynMargin.Minimum, Math.Min(numDynMargin.Maximum, My.Settings.MIDynamicMargin))
+        numDynMinZoom.Value = Math.Max(numDynMinZoom.Minimum, Math.Min(numDynMinZoom.Maximum, My.Settings.MIDynamicMinZoom))
+        numDynMaxZoom.Value = Math.Max(numDynMaxZoom.Minimum, Math.Min(numDynMaxZoom.Maximum, My.Settings.MIDynamicMaxZoom))
         numArrowBarb.Value = My.Settings.MIArrowBarb
         numArrowWidth.Value = My.Settings.MIArrowWidth
         cbTailSpeed.Checked = My.Settings.MITailUseSpeedColors
@@ -112,6 +139,10 @@ Public Class frmMapSettings
         paceSlowMinPerKm = numPaceSlow.Value
         tailTransparency = numTransparent.Value
         arrowOutlineScale = CInt(numOutline.Value)
+        DynamicCorner = Math.Max(DynamicCornerMinValue, Math.Min(DynamicCornerMaxValue, My.Settings.MIDynamicRad))
+        DynamicMargin = numDynMargin.Value
+        DynamicMinZoom = numDynMinZoom.Value
+        DynamicMaxZoom = numDynMaxZoom.Value
         If My.Settings.MIDotType = "Arrow" Then
             cbArrow.Checked = True
         Else
@@ -153,6 +184,8 @@ Public Class frmMapSettings
     Private Sub cbTailSpeed_CheckedChanged(sender As Object, e As EventArgs) Handles cbTailSpeed.CheckedChanged
         tailSpeedColors = cbTailSpeed.Checked
     End Sub
+
+
 
     Private Sub numArrowBarb_ValueChanged(sender As Object, e As EventArgs) Handles numArrowBarb.ValueChanged
         ArrowBarb = numArrowBarb.Value
@@ -224,6 +257,10 @@ Public Class frmMapSettings
         My.Settings.MIFrameWidth = framewidth
         My.Settings.MIFrameColor = framecolor
         My.Settings.MIZoomZoom = ZoomZoom
+        My.Settings.MIDynamicRad = CInt(Math.Max(DynamicCornerMinValue, Math.Min(DynamicCornerMaxValue, DynamicCorner)))
+        My.Settings.MIDynamicMargin = CInt(Math.Max(numDynMargin.Minimum, Math.Min(numDynMargin.Maximum, DynamicMargin)))
+        My.Settings.MIDynamicMinZoom = CInt(Math.Max(numDynMinZoom.Minimum, Math.Min(numDynMinZoom.Maximum, DynamicMinZoom)))
+        My.Settings.MIDynamicMaxZoom = CInt(Math.Max(numDynMaxZoom.Minimum, Math.Min(numDynMaxZoom.Maximum, DynamicMaxZoom)))
         My.Settings.MIArrowWidth = ArrowWidth
         My.Settings.MIArrowBarb = ArrowBarb
         My.Settings.MIDotType = DotType
@@ -233,6 +270,7 @@ Public Class frmMapSettings
         My.Settings.MIPaceSlowMinPerKm = CDbl(paceSlowMinPerKm)
         My.Settings.MITailTransparency = CDbl(tailTransparency)
         My.Settings.MIArrowOutlineScale = Math.Max(1, arrowOutlineScale)
+        My.Settings.MIDynamicZoom = CDbl(My.Settings.MIDynamicMinZoom) / 100.0R
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SetSettings()
@@ -243,5 +281,45 @@ Public Class frmMapSettings
 
     Private Sub NumFrameSize_ValueChanged(sender As Object, e As EventArgs) Handles NumFrameSize.ValueChanged
         framewidth = NumFrameSize.Value
+    End Sub
+
+    Private Sub txtDynCorner_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtDynCorner.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtDynCorner_TextChanged(sender As Object, e As EventArgs) Handles txtDynCorner.TextChanged
+        If IsNumeric(txtDynCorner.Text) Then
+            DynamicCorner = Math.Max(DynamicCornerMinValue, Math.Min(DynamicCornerMaxValue, CInt(txtDynCorner.Text)))
+        Else
+            DynamicCorner = DynamicCornerMinValue
+        End If
+    End Sub
+
+    Private Sub numDynMargin_ValueChanged(sender As Object, e As EventArgs) Handles numDynMargin.ValueChanged
+        DynamicMargin = numDynMargin.Value
+    End Sub
+
+    Private Sub numDynMinZoom_ValueChanged(sender As Object, e As EventArgs) Handles numDynMinZoom.ValueChanged
+        If _syncingDynamicZoom Then Return
+        _syncingDynamicZoom = True
+        If numDynMinZoom.Value > numDynMaxZoom.Value Then
+            numDynMaxZoom.Value = numDynMinZoom.Value
+        End If
+        DynamicMinZoom = numDynMinZoom.Value
+        DynamicMaxZoom = numDynMaxZoom.Value
+        _syncingDynamicZoom = False
+    End Sub
+
+    Private Sub numDynMaxZoom_ValueChanged(sender As Object, e As EventArgs) Handles numDynMaxZoom.ValueChanged
+        If _syncingDynamicZoom Then Return
+        _syncingDynamicZoom = True
+        If numDynMaxZoom.Value < numDynMinZoom.Value Then
+            numDynMinZoom.Value = numDynMaxZoom.Value
+        End If
+        DynamicMinZoom = numDynMinZoom.Value
+        DynamicMaxZoom = numDynMaxZoom.Value
+        _syncingDynamicZoom = False
     End Sub
 End Class

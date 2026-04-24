@@ -76,6 +76,14 @@ Partial Class frmMapSettings
         Me.DotColorDialog = New System.Windows.Forms.ColorDialog()
         Me.TailColorDialog = New System.Windows.Forms.ColorDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.numDynMinZoom = New System.Windows.Forms.NumericUpDown()
+        Me.numDynMaxZoom = New System.Windows.Forms.NumericUpDown()
+        Me.txtDynCorner = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.numDynMargin = New System.Windows.Forms.NumericUpDown()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.numOutline, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numArrowWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -93,6 +101,10 @@ Partial Class frmMapSettings
         CType(Me.numZoomZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         CType(Me.numLegMargin, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6.SuspendLayout()
+        CType(Me.numDynMinZoom, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDynMaxZoom, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDynMargin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -435,10 +447,70 @@ Partial Class frmMapSettings
         '
         Me.TailColorDialog.Color = Global.OHeadcamMapApp.My.MySettings.Default.MITailColor
         '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.numDynMinZoom)
+        Me.GroupBox6.Controls.Add(Me.numDynMaxZoom)
+        Me.GroupBox6.Controls.Add(Me.txtDynCorner)
+        Me.GroupBox6.Controls.Add(Me.Label20)
+        Me.GroupBox6.Controls.Add(Me.numDynMargin)
+        Me.GroupBox6.Controls.Add(Me.Label21)
+        resources.ApplyResources(Me.GroupBox6, "GroupBox6")
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.TabStop = False
+        '
+        'Label22
+        '
+        resources.ApplyResources(Me.Label22, "Label22")
+        Me.Label22.Name = "Label22"
+        '
+        'numDynMinZoom
+        '
+        Me.numDynMinZoom.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        resources.ApplyResources(Me.numDynMinZoom, "numDynMinZoom")
+        Me.numDynMinZoom.Maximum = New Decimal(New Integer() {600, 0, 0, 0})
+        Me.numDynMinZoom.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numDynMinZoom.Name = "numDynMinZoom"
+        Me.numDynMinZoom.Value = New Decimal(New Integer() {40, 0, 0, 0})
+        '
+        'numDynMaxZoom
+        '
+        Me.numDynMaxZoom.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        resources.ApplyResources(Me.numDynMaxZoom, "numDynMaxZoom")
+        Me.numDynMaxZoom.Maximum = New Decimal(New Integer() {600, 0, 0, 0})
+        Me.numDynMaxZoom.Minimum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numDynMaxZoom.Name = "numDynMaxZoom"
+        Me.numDynMaxZoom.Value = New Decimal(New Integer() {300, 0, 0, 0})
+        '
+        'txtDynCorner
+        '
+        resources.ApplyResources(Me.txtDynCorner, "txtDynCorner")
+        Me.txtDynCorner.Name = "txtDynCorner"
+        '
+        'Label20
+        '
+        resources.ApplyResources(Me.Label20, "Label20")
+        Me.Label20.Name = "Label20"
+        '
+        'numDynMargin
+        '
+        resources.ApplyResources(Me.numDynMargin, "numDynMargin")
+        Me.numDynMargin.Maximum = New Decimal(New Integer() {600, 0, 0, 0})
+        Me.numDynMargin.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numDynMargin.Name = "numDynMargin"
+        Me.numDynMargin.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label21
+        '
+        resources.ApplyResources(Me.Label21, "Label21")
+        Me.Label21.Name = "Label21"
+        '
         'frmMapSettings
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
@@ -469,6 +541,11 @@ Partial Class frmMapSettings
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         CType(Me.numLegMargin, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        CType(Me.numDynMinZoom, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDynMaxZoom, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDynMargin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -525,4 +602,12 @@ Partial Class frmMapSettings
     Friend WithEvents Label19 As Label
     Friend WithEvents numTransparent As NumericUpDown
     Friend WithEvents lbltransp As Label
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents txtDynCorner As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents numDynMargin As NumericUpDown
+    Friend WithEvents Label21 As Label
+    Friend WithEvents numDynMaxZoom As NumericUpDown
+    Friend WithEvents Label22 As Label
+    Friend WithEvents numDynMinZoom As NumericUpDown
 End Class

@@ -1303,7 +1303,31 @@ Namespace My
                 Me("MIDynamicZoom") = value
             End Set
         End Property
-        
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("40")>  _
+        Public Property MIDynamicMinZoom() As Integer
+            Get
+                Return CType(Me("MIDynamicMinZoom"),Integer)
+            End Get
+            Set
+                Me("MIDynamicMinZoom") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("300")>  _
+        Public Property MIDynamicMaxZoom() As Integer
+            Get
+                Return CType(Me("MIDynamicMaxZoom"),Integer)
+            End Get
+            Set
+                Me("MIDynamicMaxZoom") = value
+            End Set
+        End Property
+
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("20")>  _

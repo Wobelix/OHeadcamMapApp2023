@@ -1,0 +1,477 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Headcam Orienteering
+</name>
+</assembly>
+<members>
+<member name="T:OHeadcamMapApp.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.Failimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.graphimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.Headcam_Orienteering_Icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.img1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.img2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.img3">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.img4">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.imgNotready">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.legmapimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.loadgif5050">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.noimage">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.novideo">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.OKimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.panelimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.routeimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.vid_img_1920x1080PAD">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.vid_img1920x1080">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Resources.Workimg">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:OHeadcamMapApp.My.Resources.Texts">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.About">
+<summary>
+  Looks up a localized string similar to xxxx.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.AdjLengthToBig">
+<summary>
+  Looks up a localized string similar to Længden kan ikke være længere end klargøring af kort og video som er: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.AdjPlayerTitle">
+<summary>
+  Looks up a localized string similar to Justeringsafspiller.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.AdjVidStatusNoVideo">
+<summary>
+  Looks up a localized string similar to Dan en video for at justere eller tast en GPS forskel.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.btnInterrupt">
+<summary>
+  Looks up a localized string similar to Afbryd.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.btnMakeVideo">
+<summary>
+  Looks up a localized string similar to Generer video.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.btnPrepare">
+<summary>
+  Looks up a localized string similar to Kør klargøringstrin.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Deshake1">
+<summary>
+  Looks up a localized string similar to Deshake Step 1: Analyse....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Deshake2">
+<summary>
+  Looks up a localized string similar to Deshake Step 2: Generer video :.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Deshake3">
+<summary>
+  Looks up a localized string similar to Færdig: Video stabiliseret.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrDeshakemissing">
+<summary>
+  Looks up a localized string similar to Deshake videofil mangler(fra trin 2) : .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrFailRunning">
+<summary>
+  Looks up a localized string similar to FEJL, færdig med alle trin.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrFailVideo1">
+<summary>
+  Looks up a localized string similar to Klargøring af video er fejlet.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrFailVideoOut">
+<summary>
+  Looks up a localized string similar to Outputvideo er fejlet.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrInpVideoSpace">
+<summary>
+  Looks up a localized string similar to Desværre kan der ikke håndteres mellemrum i sti eller filnavn i inputfiler, ret venligst inden du prøver igen: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrJoinedmissing">
+<summary>
+  Looks up a localized string similar to Samlet videofil mangler(trin 1) : .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrNoFile">
+<summary>
+  Looks up a localized string similar to Filen eksisterer ikke: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrNoFolder">
+<summary>
+  Looks up a localized string similar to Mappen findes ikke.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrNoMapfiles">
+<summary>
+  Looks up a localized string similar to Fejl: Ingen kortfiler genereret, måske pga filfejl i QR filer prøv at angive nye filer.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrNoMapfolder">
+<summary>
+  Looks up a localized string similar to Ingen kortmappe (temp2) ved kortgenerering.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrNoOutpFile">
+<summary>
+  Looks up a localized string similar to Mangler output filnavn.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrNotNumeric">
+<summary>
+  Looks up a localized string similar to Værdien i feltet er ikke et tal.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrQRImg">
+<summary>
+  Looks up a localized string similar to Fejl ved QR billede: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrStepsNotReady">
+<summary>
+  Looks up a localized string similar to Både video og kort skal være klargjort(med grøn markering). Fortsæt alligevel?.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrTrackMapImage">
+<summary>
+  Looks up a localized string similar to Fejl ved klargøring af billede fra kortvideo.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.ErrXML">
+<summary>
+  Looks up a localized string similar to Fejl ved XML: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Filter1">
+<summary>
+  Looks up a localized string similar to Generer video med filter.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Filter2">
+<summary>
+  Looks up a localized string similar to Færdig: Video genereret.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.GPXFixed">
+<summary>
+  Looks up a localized string similar to gpx filen er fixet.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.GPXFixInfo">
+<summary>
+  Looks up a localized string similar to Denne funktion fjerne tom kode i .gpx filer fra Apple Watch så den virker i Quickroute.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.HDChanged">
+<summary>
+  Looks up a localized string similar to Kortoverlæggenes størrelse skal justeres igen, når dette ændres.
+Outputvideoen anvender samme format som inputvideoen hvis der ikke markeres, fx 2.7K eller 4K.
+Ved markering er outputvideoen 1920x1080.
+
+.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.InfoFilenameMusic">
+<summary>
+  Looks up a localized string similar to Du har ændret output fil og har tilvalgt musik, husk at ændre musikvideo filnavn.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.LogCopyFile">
+<summary>
+  Looks up a localized string similar to Filen er klargjort.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.LogStartProcess">
+<summary>
+  Looks up a localized string similar to Kører baggrundsjob: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Makeblack1">
+<summary>
+  Looks up a localized string similar to Afvikler sort baggrund....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Makeblack2">
+<summary>
+  Looks up a localized string similar to Færdig: Sort baggrund.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.MapFlipActive">
+<summary>
+  Looks up a localized string similar to Kort 2 er aktivt.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.MapFlipInfo">
+<summary>
+  Looks up a localized string similar to Kortvend-funktionen fungerer ved, at du først justerer slutningen af videoen for kort 1. Derefter kan du i justeringsvinduet fastsætte starttiden for videoen for kort 2, så den følger umiddelbart efter slutningen af kort 1. 
+Det er en forudsætning, at du har den fulde video for hele banen og har oprettet et sæt af Quickroute-filer (både XML og billede) for hver del. 
+Du kan klippe i GPS-sporet i Quickroute-filerne i Quickroute, så de kun indeholder GPS-data for henholdsvis del 1 og del 2. 
+Husk at genere [rest of string was truncated]&quot;;.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.MapFlipSaveWarn">
+<summary>
+  Looks up a localized string similar to Kortvend- kort 2 er aktiv
+Husk at skifte filnavn så du ikke overskriver del 1. 
+Tryk Annuler for at ændre filnavn.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.NoInputFiles">
+<summary>
+  Looks up a localized string similar to Der er ikke valgt videofiler.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.NoPlayerFile">
+<summary>
+  Looks up a localized string similar to Filen kan ikke findes: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.PostStatusImgVideo">
+<summary>
+  Looks up a localized string similar to Genererer billedevideo....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.QDoOutputAgain">
+<summary>
+  Looks up a localized string similar to Det ser ud som om at videoen allerede er dannet, men hvis du har valgt at tilføje musik efterfølgende vil du skulle køre &quot;Generer video&quot; igen, og tryk så Nej herunder. 
+Vil du genkøre både outputvideo og musikvideo(svar: Ja) eller kun Musikvideo(svar: Nej)?.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.QQuitProcess">
+<summary>
+  Looks up a localized string similar to Vil du afbryde kørslen?.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.QReset">
+<summary>
+  Looks up a localized string similar to Vil du nulstille alle felter på nær kortindstillinger?.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.QResetCaption">
+<summary>
+  Looks up a localized string similar to Nulstil felter.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status_copyfile">
+<summary>
+  Looks up a localized string similar to Video klargøres....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status1">
+<summary>
+  Looks up a localized string similar to Skriver i inifil: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status2">
+<summary>
+  Looks up a localized string similar to Afvikler samling af videoer til: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status3">
+<summary>
+  Looks up a localized string similar to Afvikler fjern rystelser.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status4">
+<summary>
+  Looks up a localized string similar to Afvikler kombiner kort og video.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status5">
+<summary>
+  Looks up a localized string similar to Afvikler generer video....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.Status6">
+<summary>
+  Looks up a localized string similar to FÆRDIG.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusAdjVidFinish">
+<summary>
+  Looks up a localized string similar to Justeringsvideo er klar.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusAdjVidStart">
+<summary>
+  Looks up a localized string similar to Justeringsvideo klargøres....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusAudio1">
+<summary>
+  Looks up a localized string similar to Genererer video : .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusAudioReady">
+<summary>
+  Looks up a localized string similar to Lydfil er klar.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusCombine2">
+<summary>
+  Looks up a localized string similar to Færdig: Kort klargjort.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusMakeMapImgs">
+<summary>
+  Looks up a localized string similar to Kort forberedes....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusMakingAudio">
+<summary>
+  Looks up a localized string similar to Lydfil klargøres....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusMakingVideo">
+<summary>
+  Looks up a localized string similar to Video klargøres....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusMusicVidFinish">
+<summary>
+  Looks up a localized string similar to Video med musik klargjort.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusMusicVidStart">
+<summary>
+  Looks up a localized string similar to Video med musik klargøres....
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusOutReady">
+<summary>
+  Looks up a localized string similar to Outputfilen er dannet.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusTimeLeft">
+<summary>
+  Looks up a localized string similar to Tid tilbage: .
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusVideo1Ready">
+<summary>
+  Looks up a localized string similar to Videoen er klargjort.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.StatusVideoReady">
+<summary>
+  Looks up a localized string similar to Video er klar.
+</summary>
+</member>
+</members>
+</doc>
