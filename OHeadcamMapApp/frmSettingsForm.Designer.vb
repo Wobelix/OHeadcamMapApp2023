@@ -228,13 +228,11 @@ Partial Class frmSettings
         '
         'numSmooth
         '
-        Me.numSmooth.DecimalPlaces = 2
-        Me.numSmooth.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
         resources.ApplyResources(Me.numSmooth, "numSmooth")
-        Me.numSmooth.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numSmooth.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numSmooth.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
+        Me.numSmooth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numSmooth.Name = "numSmooth"
-        Me.numSmooth.Value = New Decimal(New Integer() {25, 0, 0, 131072})
+        Me.numSmooth.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
         'txtVideoWorkfolder
         '

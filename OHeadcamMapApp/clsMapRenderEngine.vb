@@ -8,6 +8,15 @@ Imports System.Runtime.InteropServices
 
 Public Class clsMapRenderEngine
     Private Const LegAdaptiveSourceRatioThreshold As Double = 2.0
+    Private Const DynamicRunnerLookAheadSeconds As Double = 2.0
+    Private Const DynamicSafeLeftRatio As Double = 0.12
+    Private Const DynamicSafeRightRatio As Double = 0.88
+    Private Const DynamicSafeTopRatio As Double = 0.12
+    Private Const DynamicSafeBottomRatio As Double = 0.9
+    Private Const DynamicSoftLeftRatio As Double = 0.22
+    Private Const DynamicSoftRightRatio As Double = 0.78
+    Private Const DynamicSoftTopRatio As Double = 0.18
+    Private Const DynamicSoftBottomRatio As Double = 0.78
 
     Private Class LegRenderInfo
         Public Property Lap As Integer
@@ -996,7 +1005,7 @@ Public Class clsMapRenderEngine
             Dim transitionEnd As Double = Math.Min(_routePoints.RoutePoints.Count - 1, legStartTime + halfTransitionSeconds)
             If safeTime >= transitionStart AndAlso safeTime < transitionEnd Then
                 Dim blend As Double = SmoothStep((safeTime - transitionStart) / Math.Max(0.001, transitionEnd - transitionStart))
-                Return BlendDynamicLegRenderInfo(previousInfo, currentInfo, blend)
+                Return AdjustDynamicRenderInfoForRunner(BlendDynamicLegRenderInfo(previousInfo, currentInfo, blend), safeTime)
             End If
         End If
 
@@ -1010,11 +1019,11 @@ Public Class clsMapRenderEngine
             Dim transitionEnd As Double = Math.Min(_routePoints.RoutePoints.Count - 1, legEndTime + halfTransitionSeconds)
             If safeTime >= transitionStart AndAlso safeTime < transitionEnd Then
                 Dim blend As Double = SmoothStep((safeTime - transitionStart) / Math.Max(0.001, transitionEnd - transitionStart))
-                Return BlendDynamicLegRenderInfo(currentInfo, nextInfo, blend)
+                Return AdjustDynamicRenderInfoForRunner(BlendDynamicLegRenderInfo(currentInfo, nextInfo, blend), safeTime)
             End If
         End If
 
-        Return currentInfo
+        Return AdjustDynamicRenderInfoForRunner(currentInfo, safeTime)
     End Function
 
     Private Function BuildDynamicLegRenderInfo(legIndex As Integer, outWidth As Integer, outHeight As Integer) As LegRenderInfo
@@ -1031,10 +1040,67 @@ Public Class clsMapRenderEngine
         Dim angleDegrees As Double = (90 - rotationAngle * 180 / Math.PI) Mod 360 + 180
         Dim distance As Single = CSng(Math.Sqrt(deltaX * deltaX + deltaY * deltaY))
         Dim midPoint As New PointF((startPoint.X + endPoint.X) / 2.0F, (startPoint.Y + endPoint.Y) / 2.0F)
-        Dim clipLength As Single = Math.Max(1.0F, distance + (marginHeight * 2.0F))
-        Dim scale As Single = clipLength / Math.Max(1, outHeight)
-        Dim clipWidth As Single = Math.Max(1.0F, outWidth * scale)
+        Dim desiredClipLength As Double = Math.Max(1.0, distance + (marginHeight * 2.0))
+        Dim desiredZoomFactor As Double = outHeight / desiredClipLength
+        Dim minZoomFactor As Double = Math.Max(0.01, My.Settings.MIDynamicMinZoom / 100.0R)
+        Dim maxZoomFactor As Double = Math.Max(minZoomFactor, My.Settings.MIDynamicMaxZoom / 100.0R)
+        Dim zoomFactor As Double = Math.Max(minZoomFactor, Math.Min(maxZoomFactor, desiredZoomFactor))
+        Dim clipLength As Single = CSng(Math.Max(1.0, outHeight / zoomFactor))
+        Dim clipWidth As Single = CSng(Math.Max(1.0, outWidth / zoomFactor))
         Return CreateDynamicRenderInfo(legIndex, angleDegrees, midPoint, clipWidth, clipLength, outWidth, outHeight, marginHeight, roundRadius, distance)
+    End Function
+
+    Private Function AdjustDynamicRenderInfoForRunner(info As LegRenderInfo, timeCode As Double) As LegRenderInfo
+        Dim currentRunner As PointF = GetRoutePointAtTime(timeCode)
+        Dim lookAheadTime As Double = Math.Min(_routePoints.RoutePoints.Count - 1, ClampTimeCode(timeCode) + DynamicRunnerLookAheadSeconds)
+        Dim futureRunner As PointF = GetRoutePointAtTime(lookAheadTime)
+        Dim legEndPoint As PointF = _routePoints.ImgLapVectors(info.Lap).EndPoint
+        Dim currentProjected As PointF = ProjectLegPoint(info, currentRunner)
+        Dim futureProjected As PointF = ProjectLegPoint(info, futureRunner)
+        Dim endProjected As PointF = ProjectLegPoint(info, legEndPoint)
+        Dim preferredRunnerY As Single = CSng(info.OutHeight * DynamicSoftBottomRatio)
+        Dim preferredEndTop As Single = CSng(info.OutHeight * DynamicSoftTopRatio)
+        Dim desiredFollowShiftY As Single = preferredRunnerY - currentProjected.Y
+        Dim fullLegClipLength As Double = info.LegDistance + (info.MarginHeight * 2.0)
+        Dim legIsZoomConstrained As Boolean = info.ClipLength + 0.5 < fullLegClipLength
+
+        If legIsZoomConstrained Then
+            desiredFollowShiftY = CSng(Math.Min(desiredFollowShiftY, preferredEndTop - endProjected.Y))
+        Else
+            desiredFollowShiftY = 0
+        End If
+
+        Dim currentShift As PointF = GetDynamicRunnerScreenShift(currentProjected,
+                                                                 CSng(info.OutWidth * DynamicSafeLeftRatio),
+                                                                 CSng(info.OutWidth * DynamicSafeRightRatio),
+                                                                 CSng(info.OutHeight * DynamicSafeTopRatio),
+                                                                 CSng(info.OutHeight * DynamicSafeBottomRatio))
+        Dim futureShift As PointF = GetDynamicRunnerScreenShift(futureProjected,
+                                                                CSng(info.OutWidth * DynamicSoftLeftRatio),
+                                                                CSng(info.OutWidth * DynamicSoftRightRatio),
+                                                                CSng(info.OutHeight * DynamicSoftTopRatio),
+                                                                CSng(info.OutHeight * DynamicSoftBottomRatio))
+
+        Dim combinedShiftX As Double = GetLargestMagnitude(currentShift.X, futureShift.X)
+        Dim combinedShiftY As Double = GetLargestMagnitude(desiredFollowShiftY, GetLargestMagnitude(currentShift.Y, futureShift.Y))
+        If Math.Abs(combinedShiftX) < 0.01 AndAlso Math.Abs(combinedShiftY) < 0.01 Then
+            Return info
+        End If
+
+        Dim mapShiftX As Double = combinedShiftX / Math.Max(1.0, info.OutWidth) * info.ClipWidth
+        Dim mapShiftY As Double = combinedShiftY / Math.Max(1.0, info.OutHeight) * info.ClipLength
+        Dim adjustedMidPoint As PointF = OffsetPointByProjectedMapDelta(info.MidPoint, info.AngleDegrees, mapShiftX, mapShiftY)
+
+        Return CreateDynamicRenderInfo(info.Lap,
+                                       info.AngleDegrees,
+                                       adjustedMidPoint,
+                                       info.ClipWidth,
+                                       info.ClipLength,
+                                       info.OutWidth,
+                                       info.OutHeight,
+                                       info.MarginHeight,
+                                       info.RoundRadius,
+                                       info.LegDistance)
     End Function
 
     Private Function BlendDynamicLegRenderInfo(fromInfo As LegRenderInfo, toInfo As LegRenderInfo, blend As Double) As LegRenderInfo
@@ -1123,6 +1189,46 @@ Public Class clsMapRenderEngine
 
     Private Function GetShortestAngleDeltaDegrees(startAngle As Double, endAngle As Double) As Double
         Return ((endAngle - startAngle + 540.0) Mod 360.0) - 180.0
+    End Function
+
+    Private Function GetDynamicRunnerScreenShift(projectedPoint As PointF,
+                                                 minX As Single,
+                                                 maxX As Single,
+                                                 minY As Single,
+                                                 maxY As Single) As PointF
+        Dim shiftX As Single = 0
+        Dim shiftY As Single = 0
+
+        If projectedPoint.X < minX Then
+            shiftX = minX - projectedPoint.X
+        ElseIf projectedPoint.X > maxX Then
+            shiftX = maxX - projectedPoint.X
+        End If
+
+        If projectedPoint.Y < minY Then
+            shiftY = minY - projectedPoint.Y
+        ElseIf projectedPoint.Y > maxY Then
+            shiftY = maxY - projectedPoint.Y
+        End If
+
+        Return New PointF(shiftX, shiftY)
+    End Function
+
+    Private Function GetLargestMagnitude(firstValue As Double, secondValue As Double) As Double
+        If Math.Abs(secondValue) > Math.Abs(firstValue) Then
+            Return secondValue
+        End If
+        Return firstValue
+    End Function
+
+    Private Function OffsetPointByProjectedMapDelta(midPoint As PointF,
+                                                    angleDegrees As Double,
+                                                    projectedMapDeltaX As Double,
+                                                    projectedMapDeltaY As Double) As PointF
+        Dim angleRadians As Double = angleDegrees * Math.PI / 180.0
+        Dim mapDeltaX As Double = projectedMapDeltaX * Math.Cos(angleRadians) + projectedMapDeltaY * Math.Sin(angleRadians)
+        Dim mapDeltaY As Double = -projectedMapDeltaX * Math.Sin(angleRadians) + projectedMapDeltaY * Math.Cos(angleRadians)
+        Return New PointF(CSng(midPoint.X - mapDeltaX), CSng(midPoint.Y - mapDeltaY))
     End Function
 
     Private Function GetCachedLegRenderInfo(timeCode As Double) As LegRenderInfo

@@ -4,6 +4,7 @@ Imports OHeadcamMapApp.My.Resources
 Public Class frmSettings
     Private isFormLoading As Boolean = True
     Private Const DefaultOutputFormat As String = "Auto"
+    Private Const DefaultSmoothOverlayFrameStepSeconds As Double = 0.25
     Public Sub New()
         Dim lang As String
         If My.Settings.Language = "English" Then
@@ -29,7 +30,7 @@ Public Class frmSettings
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        My.Settings.MISmoothFrameStepSeconds = CDbl(numSmooth.Value)
+        My.Settings.MISmoothFrameStepSeconds = ConvertSmoothFpsToFrameStep(CDbl(numSmooth.Value))
         My.Settings.OutputFormat = GetSelectedOutputFormat()
         My.Settings.Save()
         Me.Close()
@@ -70,6 +71,19 @@ Public Class frmSettings
     Private Function GetDefault(Para As String) As Object
         Return My.Settings.Properties(Para).DefaultValue
     End Function
+
+    Private Function ConvertSmoothFrameStepToFps(frameStepSeconds As Double) As Decimal
+        Dim safeFrameStep As Double = frameStepSeconds
+        If safeFrameStep <= 0 Then safeFrameStep = DefaultSmoothOverlayFrameStepSeconds
+        Return CDec(Math.Max(CDbl(numSmooth.Minimum), Math.Min(CDbl(numSmooth.Maximum), Math.Round(1.0 / safeFrameStep))))
+    End Function
+
+    Private Function ConvertSmoothFpsToFrameStep(fps As Double) As Double
+        Dim safeFps As Double = fps
+        If safeFps <= 0 Then safeFps = 1.0 / DefaultSmoothOverlayFrameStepSeconds
+        Return 1.0 / safeFps
+    End Function
+
     Private Function GetSelectedOutputFormat() As String
         If cmbOutputFormat.SelectedItem IsNot Nothing Then
             Return cmbOutputFormat.SelectedItem.ToString()
@@ -105,7 +119,7 @@ Public Class frmSettings
         rbImgMiddle.Checked = False
         rbImgRight.Checked = True
         rbImgLeft.Checked = False
-        numSmooth.Value = CDec(My.Settings.MISmoothFrameStepSeconds)
+        numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
         LoadOutputFormat()
         My.Settings.Save()
 
@@ -120,9 +134,9 @@ Public Class frmSettings
 
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles Me.Load
         If My.Settings.MISmoothFrameStepSeconds <= 0 Then
-            My.Settings.MISmoothFrameStepSeconds = 0.25
+            My.Settings.MISmoothFrameStepSeconds = DefaultSmoothOverlayFrameStepSeconds
         End If
-        numSmooth.Value = CDec(My.Settings.MISmoothFrameStepSeconds)
+        numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
         LoadOutputFormat()
         isFormLoading = False
     End Sub

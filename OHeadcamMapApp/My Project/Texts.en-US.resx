@@ -309,6 +309,9 @@ Do you want to remake both Output video and Music video (answer: Yes) or only Mu
   <data name="StatusVideo1Ready" xml:space="preserve">
     <value>The video is ready</value>
   </data>
+  <data name="StatusVideoReady" xml:space="preserve">
+    <value>The video is ready</value>
+  </data>
   <data name="Status_copyfile" xml:space="preserve">
     <value>Video is being prepared...</value>
   </data>

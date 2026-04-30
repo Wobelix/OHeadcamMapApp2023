@@ -40,6 +40,7 @@ Partial Class frmAdjustmentPlayer_new
         Me.MapImageTimer = New System.Windows.Forms.Timer(Me.components)
         Me.numGPSDelta = New System.Windows.Forms.NumericUpDown()
         Me.VideoPanel = New System.Windows.Forms.Panel()
+        Me.PBDyn = New System.Windows.Forms.PictureBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblMap2Active = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -63,7 +64,6 @@ Partial Class frmAdjustmentPlayer_new
         Me.txtGPSDiff = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cmbJumpControl = New System.Windows.Forms.ComboBox()
-        Me.PBDyn = New System.Windows.Forms.PictureBox()
         Me.cbDyn = New System.Windows.Forms.CheckBox()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -71,9 +71,9 @@ Partial Class frmAdjustmentPlayer_new
         CType(Me.PBLeg, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numGPSDelta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.VideoPanel.SuspendLayout()
+        CType(Me.PBDyn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VideoView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpMapFlip.SuspendLayout()
-        CType(Me.PBDyn, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label26
@@ -120,14 +120,14 @@ Partial Class frmAdjustmentPlayer_new
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel})
         resources.ApplyResources(Me.StatusStrip1, "StatusStrip1")
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel})
         Me.StatusStrip1.Name = "StatusStrip1"
         '
         'StatusLabel
         '
-        Me.StatusLabel.Name = "StatusLabel"
         resources.ApplyResources(Me.StatusLabel, "StatusLabel")
+        Me.StatusLabel.Name = "StatusLabel"
         '
         'btnTransfer
         '
@@ -137,15 +137,15 @@ Partial Class frmAdjustmentPlayer_new
         '
         'PB_Zoom
         '
-        Me.PB_Zoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         resources.ApplyResources(Me.PB_Zoom, "PB_Zoom")
+        Me.PB_Zoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PB_Zoom.Name = "PB_Zoom"
         Me.PB_Zoom.TabStop = False
         '
         'PBLeg
         '
-        Me.PBLeg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         resources.ApplyResources(Me.PBLeg, "PBLeg")
+        Me.PBLeg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PBLeg.Name = "PBLeg"
         Me.PBLeg.TabStop = False
         '
@@ -161,6 +161,7 @@ Partial Class frmAdjustmentPlayer_new
         '
         'VideoPanel
         '
+        resources.ApplyResources(Me.VideoPanel, "VideoPanel")
         Me.VideoPanel.BackColor = System.Drawing.SystemColors.Desktop
         Me.VideoPanel.Controls.Add(Me.PBDyn)
         Me.VideoPanel.Controls.Add(Me.Label6)
@@ -171,8 +172,14 @@ Partial Class frmAdjustmentPlayer_new
         Me.VideoPanel.Controls.Add(Me.PB_Zoom)
         Me.VideoPanel.Controls.Add(Me.PBLeg)
         Me.VideoPanel.Controls.Add(Me.VideoView1)
-        resources.ApplyResources(Me.VideoPanel, "VideoPanel")
         Me.VideoPanel.Name = "VideoPanel"
+        '
+        'PBDyn
+        '
+        resources.ApplyResources(Me.PBDyn, "PBDyn")
+        Me.PBDyn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PBDyn.Name = "PBDyn"
+        Me.PBDyn.TabStop = False
         '
         'Label6
         '
@@ -207,8 +214,8 @@ Partial Class frmAdjustmentPlayer_new
         '
         'VideoView1
         '
-        Me.VideoView1.BackColor = System.Drawing.Color.Black
         resources.ApplyResources(Me.VideoView1, "VideoView1")
+        Me.VideoView1.BackColor = System.Drawing.Color.Black
         Me.VideoView1.MediaPlayer = Nothing
         Me.VideoView1.Name = "VideoView1"
         '
@@ -230,8 +237,8 @@ Partial Class frmAdjustmentPlayer_new
         '
         'bMapSettings
         '
-        Me.bMapSettings.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         resources.ApplyResources(Me.bMapSettings, "bMapSettings")
+        Me.bMapSettings.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.bMapSettings.Name = "bMapSettings"
         Me.bMapSettings.UseVisualStyleBackColor = False
         '
@@ -253,8 +260,8 @@ Partial Class frmAdjustmentPlayer_new
         '
         'btnSetMapFlipTime
         '
-        Me.btnSetMapFlipTime.BackColor = System.Drawing.SystemColors.Info
         resources.ApplyResources(Me.btnSetMapFlipTime, "btnSetMapFlipTime")
+        Me.btnSetMapFlipTime.BackColor = System.Drawing.SystemColors.Info
         Me.btnSetMapFlipTime.Name = "btnSetMapFlipTime"
         Me.btnSetMapFlipTime.UseVisualStyleBackColor = False
         '
@@ -275,6 +282,7 @@ Partial Class frmAdjustmentPlayer_new
         '
         'grpMapFlip
         '
+        resources.ApplyResources(Me.grpMapFlip, "grpMapFlip")
         Me.grpMapFlip.Controls.Add(Me.btnMoveS1)
         Me.grpMapFlip.Controls.Add(Me.btnMoveS2)
         Me.grpMapFlip.Controls.Add(Me.btnSetMapFlipTime)
@@ -282,7 +290,6 @@ Partial Class frmAdjustmentPlayer_new
         Me.grpMapFlip.Controls.Add(Me.Label18)
         Me.grpMapFlip.Controls.Add(Me.Label4)
         Me.grpMapFlip.Controls.Add(Me.lblMapFlipStarttime)
-        resources.ApplyResources(Me.grpMapFlip, "grpMapFlip")
         Me.grpMapFlip.Name = "grpMapFlip"
         Me.grpMapFlip.TabStop = False
         '
@@ -307,8 +314,8 @@ Partial Class frmAdjustmentPlayer_new
         '
         'txtGPSDiff
         '
-        Me.txtGPSDiff.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "GPXDiff", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtGPSDiff, "txtGPSDiff")
+        Me.txtGPSDiff.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "GPXDiff", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtGPSDiff.Name = "txtGPSDiff"
         Me.txtGPSDiff.Text = Global.OHeadcamMapApp.My.MySettings.Default.GPXDiff
         '
@@ -319,16 +326,9 @@ Partial Class frmAdjustmentPlayer_new
         '
         'cmbJumpControl
         '
-        Me.cmbJumpControl.FormattingEnabled = True
         resources.ApplyResources(Me.cmbJumpControl, "cmbJumpControl")
+        Me.cmbJumpControl.FormattingEnabled = True
         Me.cmbJumpControl.Name = "cmbJumpControl"
-        '
-        'PBDyn
-        '
-        Me.PBDyn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        resources.ApplyResources(Me.PBDyn, "PBDyn")
-        Me.PBDyn.Name = "PBDyn"
-        Me.PBDyn.TabStop = False
         '
         'cbDyn
         '
@@ -371,10 +371,10 @@ Partial Class frmAdjustmentPlayer_new
         CType(Me.numGPSDelta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.VideoPanel.ResumeLayout(False)
         Me.VideoPanel.PerformLayout()
+        CType(Me.PBDyn, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VideoView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpMapFlip.ResumeLayout(False)
         Me.grpMapFlip.PerformLayout()
-        CType(Me.PBDyn, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

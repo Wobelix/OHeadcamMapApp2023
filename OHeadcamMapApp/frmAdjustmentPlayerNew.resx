@@ -117,1043 +117,719 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Label26.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Label26.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 11.25pt</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Label26.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label26.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 645</value>
-  </data>
-  <data name="Label26.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 18</value>
-  </data>
-  <data name="Label26.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="Label26.Text" xml:space="preserve">
-    <value>GPS +/-</value>
-  </data>
-  <data name="&gt;&gt;Label26.Name" xml:space="preserve">
-    <value>Label26</value>
-  </data>
-  <data name="&gt;&gt;Label26.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label26.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Label26.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="bPlay.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
-  </data>
-  <data name="bPlay.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 570</value>
-  </data>
-  <data name="bPlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="bPlay.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="bPlay.Text" xml:space="preserve">
-    <value>&gt;</value>
-  </data>
-  <data name="&gt;&gt;bPlay.Name" xml:space="preserve">
-    <value>bPlay</value>
-  </data>
-  <data name="&gt;&gt;bPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bPlay.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;bPlay.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="bFForward.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
-  </data>
-  <data name="bFForward.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bFForward.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 569</value>
-  </data>
-  <data name="bFForward.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="bFForward.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="bFForward.Text" xml:space="preserve">
-    <value>&gt;&gt;</value>
-  </data>
-  <data name="&gt;&gt;bFForward.Name" xml:space="preserve">
-    <value>bFForward</value>
-  </data>
-  <data name="&gt;&gt;bFForward.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;bFForward.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;bFForward.ZOrder" xml:space="preserve">
-    <value>16</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblMap2Active.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
   </data>
-  <data name="bSlow.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  <data name="&gt;&gt;lblMapFlipStarttime.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="bSlow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
+    <value>Label3</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="StatusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1018, 22</value>
+  </data>
+  <data name="&gt;&gt;txtGPSDiff.Name" xml:space="preserve">
+    <value>txtGPSDiff</value>
+  </data>
+  <data name="&gt;&gt;cbLeg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="bFForward.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="bSlow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>211, 569</value>
+  <data name="&gt;&gt;PB_Zoom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="bSlow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+  <data name="&gt;&gt;bF1.Name" xml:space="preserve">
+    <value>bF1</value>
   </data>
-  <data name="bSlow.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
+  <data name="&gt;&gt;btnMoveS2.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
   </data>
-  <data name="bSlow.Text" xml:space="preserve">
-    <value>1/2x &gt;</value>
-  </data>
-  <data name="&gt;&gt;bSlow.Name" xml:space="preserve">
-    <value>bSlow</value>
-  </data>
-  <data name="&gt;&gt;bSlow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bSlow.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;bSlow.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="TrackBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="TrackBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>445, 569</value>
-  </data>
-  <data name="TrackBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>504, 45</value>
-  </data>
-  <data name="TrackBar1.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
+  <data name="&gt;&gt;bMapSettings.Name" xml:space="preserve">
+    <value>bMapSettings</value>
   </data>
   <data name="&gt;&gt;TrackBar1.Name" xml:space="preserve">
     <value>TrackBar1</value>
   </data>
-  <data name="&gt;&gt;TrackBar1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Label26.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11.25pt</value>
   </data>
-  <data name="&gt;&gt;TrackBar1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;bPlay.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TrackBar1.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="lblVideoPos.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblVideoPos.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblVideoPos.Location" type="System.Drawing.Point, System.Drawing">
-    <value>700, 602</value>
-  </data>
-  <data name="lblVideoPos.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 13</value>
   </data>
   <data name="lblVideoPos.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
-  <data name="lblVideoPos.Text" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;PBLeg.Name" xml:space="preserve">
+    <value>PBLeg</value>
   </data>
-  <data name="&gt;&gt;lblVideoPos.Name" xml:space="preserve">
-    <value>lblVideoPos</value>
+  <data name="TrackBar1.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
   </data>
-  <data name="&gt;&gt;lblVideoPos.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblMapFlipStarttime.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
   </data>
-  <data name="&gt;&gt;lblVideoPos.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;lblVideoPos.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>106, 17</value>
-  </metadata>
-  <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>195, 17</value>
-  </metadata>
-  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
-  </data>
-  <data name="StatusLabel.Text" xml:space="preserve">
-    <value>Statuslabel</value>
-  </data>
-  <data name="StatusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 720</value>
-  </data>
-  <data name="StatusStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1018, 22</value>
-  </data>
-  <data name="StatusStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="StatusStrip1.Text" xml:space="preserve">
-    <value>StatusStrip1</value>
-  </data>
-  <data name="&gt;&gt;StatusStrip1.Name" xml:space="preserve">
-    <value>StatusStrip1</value>
-  </data>
-  <data name="&gt;&gt;StatusStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatusStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;StatusStrip1.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="btnTransfer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="Label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="bFForward.Text" xml:space="preserve">
+    <value>&gt;&gt;</value>
+  </data>
+  <data name="txtGPSDiff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 686</value>
+  </data>
+  <data name="Label3.Text" xml:space="preserve">
+    <value>Juster kortstørrelser og placering med musen</value>
+  </data>
+  <data name="&gt;&gt;btnSetMapFlipTime.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
   </data>
   <data name="btnTransfer.Location" type="System.Drawing.Point, System.Drawing">
     <value>152, 661</value>
   </data>
-  <data name="btnTransfer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 47</value>
+  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnTransfer.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
+  <data name="lblMapFlipGPSMap1.Text" xml:space="preserve">
+    <value>0:00:00</value>
   </data>
-  <data name="btnTransfer.Text" xml:space="preserve">
-    <value>Gem og afslut</value>
+  <data name="PBDyn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;btnTransfer.Name" xml:space="preserve">
-    <value>btnTransfer</value>
+  <data name="btnMoveS2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>261, 19</value>
   </data>
-  <data name="&gt;&gt;btnTransfer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;PBLeg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnTransfer.Parent" xml:space="preserve">
+  <data name="&gt;&gt;numGPSDelta.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="Label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  </data>
+  <data name="cbDyn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bMapSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="bB1.Text" xml:space="preserve">
+    <value>&lt;-1</value>
+  </data>
+  <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>246, 12</value>
+  </data>
+  <data name="btnSetMapFlipTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnTransfer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;Label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Label6.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="txtGPSDiff.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Label6.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="&gt;&gt;bSlow.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnTransfer.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="PB_Zoom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;Timer2.Name" xml:space="preserve">
+    <value>Timer2</value>
   </data>
-  <data name="PB_Zoom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 50</value>
+  <data name="btnMoveS1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>261, 51</value>
   </data>
-  <data name="PB_Zoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 140</value>
-  </data>
-  <data name="PB_Zoom.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>StretchImage</value>
-  </data>
-  <data name="PB_Zoom.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="&gt;&gt;PB_Zoom.Name" xml:space="preserve">
-    <value>PB_Zoom</value>
-  </data>
-  <data name="&gt;&gt;PB_Zoom.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PB_Zoom.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;PB_Zoom.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="PBLeg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="PBLeg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 227</value>
-  </data>
-  <data name="PBLeg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 242</value>
-  </data>
-  <data name="PBLeg.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>StretchImage</value>
-  </data>
-  <data name="PBLeg.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="&gt;&gt;PBLeg.Name" xml:space="preserve">
-    <value>PBLeg</value>
-  </data>
-  <data name="&gt;&gt;PBLeg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PBLeg.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;PBLeg.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <metadata name="MapImageTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>312, 17</value>
-  </metadata>
-  <data name="numGPSDelta.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 15.75pt</value>
-  </data>
-  <data name="numGPSDelta.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 667</value>
-  </data>
-  <data name="numGPSDelta.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 31</value>
-  </data>
-  <data name="numGPSDelta.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="&gt;&gt;numGPSDelta.Name" xml:space="preserve">
-    <value>numGPSDelta</value>
-  </data>
-  <data name="&gt;&gt;numGPSDelta.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numGPSDelta.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;numGPSDelta.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="PBDyn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="PBDyn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>774, 249</value>
-  </data>
-  <data name="PBDyn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 242</value>
-  </data>
-  <data name="PBDyn.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>StretchImage</value>
-  </data>
-  <data name="PBDyn.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="&gt;&gt;PBDyn.Name" xml:space="preserve">
-    <value>PBDyn</value>
-  </data>
-  <data name="&gt;&gt;PBDyn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PBDyn.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;PBDyn.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  <data name="&gt;&gt;Label26.Name" xml:space="preserve">
+    <value>Label26</value>
   </data>
   <data name="Label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>246, 95</value>
   </data>
-  <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>561, 20</value>
+  <data name="&gt;&gt;grpMapFlip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Label6.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
+  <data name="PBDyn.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
   </data>
-  <data name="Label6.Text" xml:space="preserve">
-    <value>Brug scroll til stræk-margen og zoom. Dobbeltklik for kortindstillinger.</value>
+  <data name="&gt;&gt;bSlow.ZOrder" xml:space="preserve">
+    <value>15</value>
   </data>
-  <data name="&gt;&gt;Label6.Name" xml:space="preserve">
-    <value>Label6</value>
-  </data>
-  <data name="&gt;&gt;Label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label6.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lblMap2Active.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cbDyn.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblMap2Active.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 24pt, style=Bold</value>
+  <data name="bSlow.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
-  <data name="lblMap2Active.Location" type="System.Drawing.Point, System.Drawing">
-    <value>492, 128</value>
-  </data>
-  <data name="lblMap2Active.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 37</value>
-  </data>
-  <data name="lblMap2Active.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="lblMap2Active.Text" xml:space="preserve">
-    <value>Label6</value>
-  </data>
-  <data name="&gt;&gt;lblMap2Active.Name" xml:space="preserve">
-    <value>lblMap2Active</value>
-  </data>
-  <data name="&gt;&gt;lblMap2Active.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblMap2Active.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;lblMap2Active.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
-  </data>
-  <data name="Label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 75</value>
-  </data>
-  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 20</value>
-  </data>
-  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="Label3.Text" xml:space="preserve">
-    <value>Juster kortstørrelser og placering med musen</value>
-  </data>
-  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
-    <value>Label3</value>
-  </data>
-  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
-  </data>
-  <data name="Label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 44</value>
-  </data>
-  <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 20</value>
-  </data>
-  <data name="Label2.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="Label2.Text" xml:space="preserve">
-    <value>2) Juster kortet med GPS +/-</value>
-  </data>
-  <data name="&gt;&gt;Label2.Name" xml:space="preserve">
-    <value>Label2</value>
-  </data>
-  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
-  </data>
-  <data name="Label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 12</value>
-  </data>
-  <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 20</value>
-  </data>
-  <data name="Label1.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="Label1.Text" xml:space="preserve">
-    <value>1) Find et markant sted i videoen</value>
-  </data>
-  <data name="&gt;&gt;Label1.Name" xml:space="preserve">
-    <value>Label1</value>
-  </data>
-  <data name="&gt;&gt;Label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label1.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="VideoView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 12</value>
-  </data>
-  <data name="VideoView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>921, 504</value>
-  </data>
-  <data name="VideoView1.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="VideoView1.Text" xml:space="preserve">
-    <value>VideoView1</value>
-  </data>
-  <data name="&gt;&gt;VideoView1.Name" xml:space="preserve">
-    <value>VideoView1</value>
-  </data>
-  <data name="&gt;&gt;VideoView1.Type" xml:space="preserve">
-    <value>LibVLCSharp.WinForms.VideoView, LibVLCSharp.WinForms, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;VideoView1.Parent" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;VideoView1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="VideoPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="VideoPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>960, 540</value>
-  </data>
-  <data name="VideoPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
-  <data name="&gt;&gt;VideoPanel.Name" xml:space="preserve">
-    <value>VideoPanel</value>
-  </data>
-  <data name="&gt;&gt;VideoPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;VideoPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Label5.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;VideoPanel.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="bF1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bF1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>955, 569</value>
-  </data>
-  <data name="bF1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 23</value>
-  </data>
-  <data name="bF1.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="bF1.Text" xml:space="preserve">
-    <value>&gt;+1</value>
-  </data>
-  <data name="&gt;&gt;bF1.Name" xml:space="preserve">
-    <value>bF1</value>
-  </data>
-  <data name="&gt;&gt;bF1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bF1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cmbJumpControl.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;bF1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="bB1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bB1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 570</value>
-  </data>
-  <data name="bB1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 23</value>
-  </data>
-  <data name="bB1.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="bB1.Text" xml:space="preserve">
-    <value>&lt;-1</value>
-  </data>
-  <data name="&gt;&gt;bB1.Name" xml:space="preserve">
-    <value>bB1</value>
-  </data>
-  <data name="&gt;&gt;bB1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bB1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;bB1.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <metadata name="ResizeUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>453, 17</value>
-  </metadata>
-  <data name="bMapSettings.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
-  </data>
-  <data name="bMapSettings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bMapSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 672</value>
-  </data>
-  <data name="bMapSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 36</value>
-  </data>
-  <data name="bMapSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="bMapSettings.Text" xml:space="preserve">
-    <value>Kortindstillinger</value>
-  </data>
-  <data name="&gt;&gt;bMapSettings.Name" xml:space="preserve">
-    <value>bMapSettings</value>
-  </data>
-  <data name="&gt;&gt;bMapSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bMapSettings.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;bMapSettings.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="cbZoom.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbZoom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="btnTransfer.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
   </data>
   <data name="cbZoom.Location" type="System.Drawing.Point, System.Drawing">
     <value>498, 689</value>
   </data>
-  <data name="cbZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 17</value>
+  <data name="&gt;&gt;PBLeg.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
   </data>
-  <data name="cbZoom.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
+  <data name="lblMapFlipStarttime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 24</value>
   </data>
-  <data name="cbZoom.Text" xml:space="preserve">
-    <value>Vis zoom kort</value>
+  <data name="StatusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
   </data>
-  <data name="&gt;&gt;cbZoom.Name" xml:space="preserve">
-    <value>cbZoom</value>
-  </data>
-  <data name="&gt;&gt;cbZoom.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbZoom.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cbZoom.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="cbLeg.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbLeg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cbLeg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>593, 689</value>
-  </data>
-  <data name="cbLeg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 17</value>
-  </data>
-  <data name="cbLeg.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="cbLeg.Text" xml:space="preserve">
-    <value>Vis strækkort</value>
-  </data>
-  <data name="&gt;&gt;cbLeg.Name" xml:space="preserve">
-    <value>cbLeg</value>
-  </data>
-  <data name="&gt;&gt;cbLeg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbLeg.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cbLeg.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="btnSetMapFlipTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="btnSetMapFlipTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
-  </data>
-  <data name="btnSetMapFlipTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 43</value>
-  </data>
-  <data name="btnSetMapFlipTime.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="btnSetMapFlipTime.Text" xml:space="preserve">
-    <value>Sæt  starttid for kort 2 </value>
-  </data>
-  <data name="&gt;&gt;btnSetMapFlipTime.Name" xml:space="preserve">
-    <value>btnSetMapFlipTime</value>
-  </data>
-  <data name="&gt;&gt;btnSetMapFlipTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnSetMapFlipTime.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;btnSetMapFlipTime.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Label18.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 24</value>
-  </data>
-  <data name="Label18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
-  </data>
-  <data name="Label18.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="Label18.Text" xml:space="preserve">
-    <value>Starttid kort 2 :</value>
-  </data>
-  <data name="&gt;&gt;Label18.Name" xml:space="preserve">
-    <value>Label18</value>
-  </data>
-  <data name="&gt;&gt;Label18.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label18.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;Label18.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="bPlay.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>127, 53</value>
   </data>
-  <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
-  </data>
-  <data name="Label4.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="Label4.Text" xml:space="preserve">
-    <value>Sluttid kort 1 :  </value>
-  </data>
-  <data name="&gt;&gt;Label4.Name" xml:space="preserve">
-    <value>Label4</value>
-  </data>
-  <data name="&gt;&gt;Label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label4.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="lblMapFlipGPSMap1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblMapFlipGPSMap1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblMapFlipGPSMap1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 54</value>
-  </data>
-  <data name="lblMapFlipGPSMap1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 13</value>
-  </data>
-  <data name="lblMapFlipGPSMap1.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
-  <data name="lblMapFlipGPSMap1.Text" xml:space="preserve">
-    <value>0:00:00</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipGPSMap1.Name" xml:space="preserve">
-    <value>lblMapFlipGPSMap1</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipGPSMap1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipGPSMap1.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipGPSMap1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="btnMoveS1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="btnMoveS1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 51</value>
-  </data>
-  <data name="btnMoveS1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 23</value>
-  </data>
-  <data name="btnMoveS1.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
-  </data>
-  <data name="btnMoveS1.Text" xml:space="preserve">
-    <value>o</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS1.Name" xml:space="preserve">
-    <value>btnMoveS1</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS1.Type" xml:space="preserve">
+  <data name="&gt;&gt;bSlow.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS1.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="btnMoveS2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 19</value>
-  </data>
-  <data name="btnMoveS2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 23</value>
-  </data>
-  <data name="btnMoveS2.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="btnMoveS2.Text" xml:space="preserve">
-    <value>o</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS2.Name" xml:space="preserve">
-    <value>btnMoveS2</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS2.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;btnMoveS2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lblMapFlipStarttime.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblMapFlipStarttime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblMapFlipStarttime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 24</value>
-  </data>
-  <data name="lblMapFlipStarttime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 13</value>
-  </data>
-  <data name="lblMapFlipStarttime.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipStarttime.Name" xml:space="preserve">
-    <value>lblMapFlipStarttime</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipStarttime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipStarttime.Parent" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;lblMapFlipStarttime.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>702, 618</value>
-  </data>
-  <data name="grpMapFlip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 80</value>
-  </data>
-  <data name="grpMapFlip.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="grpMapFlip.Text" xml:space="preserve">
-    <value>Kortvend</value>
-  </data>
-  <data name="&gt;&gt;grpMapFlip.Name" xml:space="preserve">
-    <value>grpMapFlip</value>
-  </data>
-  <data name="&gt;&gt;grpMapFlip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpMapFlip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpMapFlip.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="txtGPSDiff.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 686</value>
-  </data>
-  <data name="txtGPSDiff.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 20</value>
-  </data>
-  <data name="txtGPSDiff.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="txtGPSDiff.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;txtGPSDiff.Name" xml:space="preserve">
-    <value>txtGPSDiff</value>
-  </data>
-  <data name="&gt;&gt;txtGPSDiff.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtGPSDiff.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtGPSDiff.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 617</value>
-  </data>
-  <data name="Label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 13</value>
-  </data>
-  <data name="Label5.TabIndex" type="System.Int32, mscorlib">
-    <value>70</value>
-  </data>
-  <data name="Label5.Text" xml:space="preserve">
-    <value>Hop til post</value>
-  </data>
-  <data name="&gt;&gt;Label5.Name" xml:space="preserve">
-    <value>Label5</value>
-  </data>
-  <data name="&gt;&gt;Label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cmbJumpControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 640</value>
-  </data>
-  <data name="cmbJumpControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
-  </data>
-  <data name="cmbJumpControl.TabIndex" type="System.Int32, mscorlib">
-    <value>71</value>
   </data>
   <data name="&gt;&gt;cmbJumpControl.Name" xml:space="preserve">
     <value>cmbJumpControl</value>
   </data>
-  <data name="&gt;&gt;cmbJumpControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="numGPSDelta.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 31</value>
   </data>
-  <data name="&gt;&gt;cmbJumpControl.Parent" xml:space="preserve">
+  <data name="&gt;&gt;PB_Zoom.Name" xml:space="preserve">
+    <value>PB_Zoom</value>
+  </data>
+  <data name="&gt;&gt;PB_Zoom.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1018, 742</value>
+  </data>
+  <data name="&gt;&gt;lblVideoPos.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PB_Zoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 140</value>
+  </data>
+  <data name="Label26.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;bB1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;cmbJumpControl.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="bPlay.Text" xml:space="preserve">
+    <value>&gt;</value>
   </data>
-  <data name="cbDyn.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="PBDyn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 242</value>
   </data>
-  <data name="cbDyn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="VideoView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 12</value>
+  </data>
+  <data name="&gt;&gt;TrackBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmbJumpControl.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="cmbJumpControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <data name="PBLeg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="cbDyn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>593, 667</value>
+  <data name="grpMapFlip.Text" xml:space="preserve">
+    <value>Kortvend</value>
   </data>
-  <data name="cbDyn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 17</value>
+  <data name="&gt;&gt;bF1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="cbDyn.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
+  <data name="&gt;&gt;lblMapFlipGPSMap1.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
   </data>
-  <data name="cbDyn.Text" xml:space="preserve">
-    <value>Vis dynamisk kort</value>
+  <data name="btnMoveS1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;cbDyn.Name" xml:space="preserve">
-    <value>cbDyn</value>
+  <data name="cbLeg.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;bFForward.Name" xml:space="preserve">
+    <value>bFForward</value>
+  </data>
+  <data name="lblMapFlipGPSMap1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bFForward.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;cbLeg.Name" xml:space="preserve">
+    <value>cbLeg</value>
+  </data>
+  <data name="lblVideoPos.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;ResizeUpdate.Name" xml:space="preserve">
+    <value>ResizeUpdate</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cbZoom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnMoveS1.Text" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="VideoView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>921, 504</value>
+  </data>
+  <data name="lblMapFlipGPSMap1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 54</value>
+  </data>
+  <data name="&gt;&gt;bPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatusLabel.Text" xml:space="preserve">
+    <value>Statuslabel</value>
+  </data>
+  <data name="PB_Zoom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 50</value>
+  </data>
+  <data name="bFForward.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 569</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipStarttime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bF1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 23</value>
+  </data>
+  <data name="&gt;&gt;MapImageTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label26.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;cbZoom.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;btnSetMapFlipTime.Name" xml:space="preserve">
+    <value>btnSetMapFlipTime</value>
+  </data>
+  <data name="lblVideoPos.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 13</value>
+  </data>
+  <data name="&gt;&gt;txtGPSDiff.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="Label18.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="numGPSDelta.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 15.75pt</value>
+  </data>
+  <data name="&gt;&gt;lblVideoPos.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="Label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
+  </data>
+  <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>561, 20</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bB1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnSetMapFlipTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="bFForward.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="Label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipGPSMap1.Name" xml:space="preserve">
+    <value>lblMapFlipGPSMap1</value>
+  </data>
+  <data name="btnTransfer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 47</value>
+  </data>
+  <data name="&gt;&gt;btnSetMapFlipTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label1.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="btnMoveS2.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="btnSetMapFlipTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 43</value>
+  </data>
+  <data name="Label4.Text" xml:space="preserve">
+    <value>Sluttid kort 1 :  </value>
+  </data>
+  <data name="btnMoveS2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 23</value>
+  </data>
+  <data name="bMapSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 36</value>
+  </data>
+  <data name="&gt;&gt;bPlay.Name" xml:space="preserve">
+    <value>bPlay</value>
+  </data>
+  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cbZoom.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TrackBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="txtGPSDiff.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="bFForward.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="lblMap2Active.Location" type="System.Drawing.Point, System.Drawing">
+    <value>492, 128</value>
+  </data>
+  <data name="lblVideoPos.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblMap2Active.Text" xml:space="preserve">
+    <value>Label6</value>
+  </data>
+  <data name="&gt;&gt;Label26.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ResizeUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblMap2Active.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;VideoPanel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;btnTransfer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="bMapSettings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblMapFlipStarttime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 13</value>
   </data>
   <data name="&gt;&gt;cbDyn.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cbDyn.Parent" xml:space="preserve">
+  <data name="numGPSDelta.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="lblVideoPos.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bSlow.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;cbDyn.Name" xml:space="preserve">
+    <value>cbDyn</value>
+  </data>
+  <data name="cbLeg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblMapFlipStarttime.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="PB_Zoom.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS2.Name" xml:space="preserve">
+    <value>btnMoveS2</value>
+  </data>
+  <data name="StatusStrip1.Text" xml:space="preserve">
+    <value>StatusStrip1</value>
+  </data>
+  <data name="cbLeg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>593, 689</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>frmAdjustmentPlayer_new</value>
+  </data>
+  <data name="&gt;&gt;Label4.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMapFlipStarttime.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bF1.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="VideoPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="&gt;&gt;Timer2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Name" xml:space="preserve">
+    <value>StatusStrip1</value>
+  </data>
+  <data name="Label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="bPlay.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="cbDyn.Text" xml:space="preserve">
+    <value>Vis dynamisk kort</value>
+  </data>
+  <data name="&gt;&gt;btnSetMapFlipTime.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="bPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 570</value>
+  </data>
+  <data name="VideoPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="lblMapFlipGPSMap1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;PBDyn.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="&gt;&gt;bF1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS1.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="Label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>246, 44</value>
+  </data>
+  <data name="&gt;&gt;bPlay.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;Label18.Parent" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;lblVideoPos.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;cbDyn.ZOrder" xml:space="preserve">
+  <data name="bF1.Text" xml:space="preserve">
+    <value>&gt;+1</value>
+  </data>
+  <data name="&gt;&gt;btnTransfer.Name" xml:space="preserve">
+    <value>btnTransfer</value>
+  </data>
+  <data name="&gt;&gt;PBDyn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bMapSettings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label5.Name" xml:space="preserve">
+    <value>Label5</value>
+  </data>
+  <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>272, 20</value>
+  </data>
+  <data name="&gt;&gt;PBDyn.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>37</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+  <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 20</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1018, 742</value>
+  <data name="&gt;&gt;Timer1.Name" xml:space="preserve">
+    <value>Timer1</value>
+  </data>
+  <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PBLeg.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="numGPSDelta.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 667</value>
+  </data>
+  <data name="Label4.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="&gt;&gt;bB1.Name" xml:space="preserve">
+    <value>bB1</value>
+  </data>
+  <data name="&gt;&gt;cbZoom.Name" xml:space="preserve">
+    <value>cbZoom</value>
+  </data>
+  <data name="&gt;&gt;MapImageTimer.Name" xml:space="preserve">
+    <value>MapImageTimer</value>
+  </data>
+  <data name="&gt;&gt;VideoView1.Name" xml:space="preserve">
+    <value>VideoView1</value>
+  </data>
+  <data name="bSlow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;lblMap2Active.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="VideoView1.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="cmbJumpControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>409, 640</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;VideoView1.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="&gt;&gt;Label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipGPSMap1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PBLeg.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="&gt;&gt;Label18.Name" xml:space="preserve">
+    <value>Label18</value>
+  </data>
+  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>246, 75</value>
+  </data>
+  <data name="StatusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 720</value>
+  </data>
+  <data name="PBDyn.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="bSlow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>211, 569</value>
+  </data>
+  <data name="Label18.Location" type="System.Drawing.Point, System.Drawing">
+    <value>127, 24</value>
+  </data>
+  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="&gt;&gt;bB1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cbLeg.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label26.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;cbLeg.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="PBLeg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 227</value>
+  </data>
+  <data name="&gt;&gt;lblMapFlipStarttime.Name" xml:space="preserve">
+    <value>lblMapFlipStarttime</value>
+  </data>
+  <data name="Label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;VideoPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbZoom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="VideoPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>960, 540</value>
+  </data>
+  <data name="PBLeg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 242</value>
+  </data>
+  <data name="Label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>409, 617</value>
+  </data>
+  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;btnTransfer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TrackBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>504, 45</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS1.Name" xml:space="preserve">
+    <value>btnMoveS1</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1314,43 +990,367 @@
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Justering af timing</value>
+  <data name="&gt;&gt;cbZoom.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;Timer1.Name" xml:space="preserve">
-    <value>Timer1</value>
+  <data name="&gt;&gt;bFForward.ZOrder" xml:space="preserve">
+    <value>16</value>
   </data>
-  <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;numGPSDelta.Name" xml:space="preserve">
+    <value>numGPSDelta</value>
   </data>
-  <data name="&gt;&gt;Timer2.Name" xml:space="preserve">
-    <value>Timer2</value>
+  <data name="&gt;&gt;txtGPSDiff.ZOrder" xml:space="preserve">
+    <value>18</value>
   </data>
-  <data name="&gt;&gt;Timer2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Label18.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
   </data>
-  <data name="&gt;&gt;StatusLabel.Name" xml:space="preserve">
-    <value>StatusLabel</value>
+  <data name="&gt;&gt;lblMapFlipGPSMap1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="grpMapFlip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 80</value>
   </data>
   <data name="&gt;&gt;StatusLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MapImageTimer.Name" xml:space="preserve">
-    <value>MapImageTimer</value>
+  <data name="lblMapFlipGPSMap1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 13</value>
   </data>
-  <data name="&gt;&gt;MapImageTimer.Type" xml:space="preserve">
+  <data name="bPlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="Label26.Text" xml:space="preserve">
+    <value>GPS +/-</value>
+  </data>
+  <data name="Label26.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 645</value>
+  </data>
+  <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label1.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;lblVideoPos.Name" xml:space="preserve">
+    <value>lblVideoPos</value>
+  </data>
+  <data name="&gt;&gt;TrackBar1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="bSlow.Text" xml:space="preserve">
+    <value>1/2x &gt;</value>
+  </data>
+  <data name="lblMapFlipStarttime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;Label26.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PB_Zoom.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="btnMoveS1.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;VideoView1.Type" xml:space="preserve">
+    <value>LibVLCSharp.WinForms.VideoView, LibVLCSharp.WinForms, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="bF1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>955, 569</value>
+  </data>
+  <data name="Label18.Text" xml:space="preserve">
+    <value>Starttid kort 2 :</value>
+  </data>
+  <data name="&gt;&gt;cbDyn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="bB1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 23</value>
+  </data>
+  <data name="bPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="VideoView1.Text" xml:space="preserve">
+    <value>VideoView1</value>
+  </data>
+  <data name="&gt;&gt;bSlow.Name" xml:space="preserve">
+    <value>bSlow</value>
+  </data>
+  <data name="Label2.Text" xml:space="preserve">
+    <value>2) Juster kortet med GPS +/-</value>
+  </data>
+  <data name="&gt;&gt;bMapSettings.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;Label18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bF1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PBLeg.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.Name" xml:space="preserve">
+    <value>grpMapFlip</value>
+  </data>
+  <data name="&gt;&gt;lblMap2Active.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TrackBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>445, 569</value>
+  </data>
+  <data name="lblVideoPos.Location" type="System.Drawing.Point, System.Drawing">
+    <value>700, 602</value>
+  </data>
+  <data name="bB1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>409, 570</value>
+  </data>
+  <data name="&gt;&gt;Label4.Name" xml:space="preserve">
+    <value>Label4</value>
+  </data>
+  <data name="cbZoom.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="bMapSettings.Text" xml:space="preserve">
+    <value>Kortindstillinger</value>
+  </data>
+  <data name="btnSetMapFlipTime.Text" xml:space="preserve">
+    <value>Sæt  starttid for kort 2 </value>
+  </data>
+  <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>702, 618</value>
+  </data>
+  <data name="&gt;&gt;VideoView1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="bMapSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>359, 672</value>
+  </data>
+  <data name="cbLeg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 17</value>
+  </data>
+  <data name="&gt;&gt;Label18.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;StatusLabel.Name" xml:space="preserve">
+    <value>StatusLabel</value>
+  </data>
+  <data name="txtGPSDiff.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="btnSetMapFlipTime.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="bB1.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="btnMoveS2.Text" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ResizeUpdate.Name" xml:space="preserve">
-    <value>ResizeUpdate</value>
+  <data name="lblMap2Active.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 24pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;ResizeUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;bFForward.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>frmAdjustmentPlayer_new</value>
+  <data name="Label26.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 18</value>
+  </data>
+  <data name="cbDyn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 17</value>
+  </data>
+  <data name="Label5.Text" xml:space="preserve">
+    <value>Hop til post</value>
+  </data>
+  <data name="&gt;&gt;lblMap2Active.Name" xml:space="preserve">
+    <value>lblMap2Active</value>
+  </data>
+  <data name="lblMap2Active.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 37</value>
+  </data>
+  <data name="grpMapFlip.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="PBDyn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>774, 249</value>
+  </data>
+  <data name="Label2.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="Label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 13</value>
+  </data>
+  <data name="btnMoveS1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 23</value>
+  </data>
+  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>371, 20</value>
+  </data>
+  <data name="&gt;&gt;numGPSDelta.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;cbDyn.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label6.Name" xml:space="preserve">
+    <value>Label6</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="&gt;&gt;VideoPanel.Name" xml:space="preserve">
+    <value>VideoPanel</value>
+  </data>
+  <data name="cbLeg.Text" xml:space="preserve">
+    <value>Vis strækkort</value>
+  </data>
+  <data name="Label1.Text" xml:space="preserve">
+    <value>1) Find et markant sted i videoen</value>
+  </data>
+  <data name="lblMapFlipGPSMap1.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;grpMapFlip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Label26.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PB_Zoom.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="cbZoom.Text" xml:space="preserve">
+    <value>Vis zoom kort</value>
+  </data>
+  <data name="bF1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Label5.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;StatusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PB_Zoom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;Label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;cbLeg.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbDyn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>593, 667</value>
+  </data>
+  <data name="Label6.Text" xml:space="preserve">
+    <value>Brug scroll til stræk-margen og zoom. Dobbeltklik for kortindstillinger.</value>
+  </data>
+  <data name="btnTransfer.Text" xml:space="preserve">
+    <value>Gem og afslut</value>
+  </data>
+  <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 13</value>
+  </data>
+  <data name="bSlow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;cmbJumpControl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;txtGPSDiff.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bB1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;Label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bMapSettings.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;Label1.Name" xml:space="preserve">
+    <value>Label1</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Justering af timing</value>
+  </data>
+  <data name="cbDyn.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="&gt;&gt;VideoPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TrackBar1.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="cbZoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 17</value>
+  </data>
+  <data name="&gt;&gt;numGPSDelta.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;bMapSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMoveS2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cmbJumpControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMap2Active.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PBDyn.Name" xml:space="preserve">
+    <value>PBDyn</value>
+  </data>
+  <data name="&gt;&gt;Label2.Name" xml:space="preserve">
+    <value>Label2</value>
+  </data>
+  <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>106, 17</value>
+  </metadata>
+  <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="ResizeUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>453, 17</value>
+  </metadata>
+  <metadata name="MapImageTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>312, 17</value>
+  </metadata>
+  <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>195, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>37</value>
+  </metadata>
 </root>

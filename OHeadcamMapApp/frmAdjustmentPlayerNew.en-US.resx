@@ -212,13 +212,13 @@
     <value>Zoom map</value>
   </data>
   <data name="cbLeg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>616, 681</value>
+    <value>610, 681</value>
   </data>
   <data name="cbLeg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 17</value>
+    <value>68, 17</value>
   </data>
   <data name="cbLeg.Text" xml:space="preserve">
-    <value>Leg map</value>
+    <value>Leg Map</value>
   </data>
   <data name="btnSetMapFlipTime.Text" xml:space="preserve">
     <value>Set start time for map 2 </value>
@@ -261,6 +261,15 @@
   </data>
   <data name="Label5.Text" xml:space="preserve">
     <value>Jump to control</value>
+  </data>
+  <data name="cbDyn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>611, 658</value>
+  </data>
+  <data name="cbDyn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 17</value>
+  </data>
+  <data name="cbDyn.Text" xml:space="preserve">
+    <value>Dynamic Map</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

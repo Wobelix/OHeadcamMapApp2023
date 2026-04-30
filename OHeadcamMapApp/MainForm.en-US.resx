@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="OpenFileDialogVideo.Filter" xml:space="preserve">
+    <value>Video files|*.mp4;*.avi;*.mov</value>
+  </data>
   <data name="OpenFileDialogVideo.Title" xml:space="preserve">
     <value>The chosen files is sorted alphabetical</value>
   </data>
@@ -168,6 +171,9 @@
   </data>
   <data name="Label1.Text" xml:space="preserve">
     <value>Import video files in order</value>
+  </data>
+  <data name="SaveFileDialogOutput.Filter" xml:space="preserve">
+    <value>Video files|*.mp4;*.avi</value>
   </data>
   <data name="numVideoTempo.ToolTip" xml:space="preserve">
     <value>Fast &gt; 1 - Slowmotion &lt; 1</value>
@@ -295,19 +301,19 @@ in a separate file</value>
     <value>Exportet image from Quicroute(remember to make route invisible before export)</value>
   </data>
   <data name="txtXMLfile2.ToolTip" xml:space="preserve">
-    <value />
+    <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
   </data>
   <data name="txtXMLfile2.ToolTip1" xml:space="preserve">
-    <value>Made via Quickroute: Export-&gt;Route data...(tilføj markering af Lap time og  Lap number</value>
+    <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
   </data>
   <data name="txtXMLfile.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 82</value>
   </data>
   <data name="txtXMLfile.ToolTip" xml:space="preserve">
-    <value />
+    <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
   </data>
   <data name="txtXMLfile.ToolTip1" xml:space="preserve">
-    <value>Made via Quickroute: Export-&gt;Route data...(set mark for Lap time og  Lap number</value>
+    <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
   </data>
   <data name="txtQRImage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 36</value>
@@ -416,13 +422,6 @@ in a separate file</value>
   </data>
   <data name="Label6.Text" xml:space="preserve">
     <value>(sec/h:mm:ss)</value>
-  </data>
-  <data name="IconStatusMakeMap.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 102</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IconStatusMakeMap.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="GroupBox1.Text" xml:space="preserve">
     <value>       Prepare video</value>
@@ -711,5 +710,12 @@ in a separate file</value>
         G4UXAON+o/ACYNxvFF4AjPuNwguAcb9ReAEw7jcKNQAAi+5/3rjfKGRCtABRvPgT77kfYd86kAKITLEy
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
+  </data>
+  <data name="IconStatusMakeMap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 102</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="IconStatusMakeMap.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
 </root>
