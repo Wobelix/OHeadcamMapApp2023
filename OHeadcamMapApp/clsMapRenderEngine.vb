@@ -619,38 +619,75 @@ Public Class clsMapRenderEngine
                                                               End Try
                                                           End Function)
 
+                Dim writeFailure As Exception = Nothing
                 Using inputStream As Stream = ffmpegProcess.StandardInput.BaseStream
-                    streamWriteStopwatch.Start()
-                    Using preparedSampleFrame As Bitmap = PrepareFrameForVideo(sampleFrame, outputFrameWidth, outputFrameHeight, useAlphaOutput)
-                        WriteBitmapFrameToStream(preparedSampleFrame, inputStream, useAlphaOutput)
-                    End Using
-                    streamWriteStopwatch.Stop()
-                    LastFrameCount = 1
-                    ReportProgress(1, totalFrames, outputFile)
-
-                    Dim frameNo As Integer = 1
-                    Dim epsilon As Double = effectiveFrameStep / 1000.0
-                    Do
-                        Dim currentTime As Double = clampedStart + frameNo * effectiveFrameStep
-                        If currentTime > endTime + epsilon Then Exit Do
-
+                    Try
                         drawStopwatch.Start()
-                        Using frame As Bitmap = renderFrame(currentTime)
+                        Using preparedSampleFrame As Bitmap = PrepareFrameForVideo(sampleFrame, outputFrameWidth, outputFrameHeight, useAlphaOutput)
                             drawStopwatch.Stop()
                             streamWriteStopwatch.Start()
-                            Using preparedFrame As Bitmap = PrepareFrameForVideo(frame, outputFrameWidth, outputFrameHeight, useAlphaOutput)
-                                WriteBitmapFrameToStream(preparedFrame, inputStream, useAlphaOutput)
-                            End Using
+                            WriteBitmapFrameToStream(preparedSampleFrame, inputStream, useAlphaOutput)
                             streamWriteStopwatch.Stop()
                         End Using
+                        LastFrameCount = 1
+                        ReportProgress(1, totalFrames, outputFile)
 
-                        frameNo += 1
-                        LastFrameCount = frameNo
-                        If frameNo = totalFrames OrElse frameNo Mod 4 = 0 Then
-                            ReportProgress(frameNo, totalFrames, outputFile)
-                        End If
-                    Loop
+                        Dim frameNo As Integer = 1
+                        Dim epsilon As Double = effectiveFrameStep / 1000.0
+                        Do
+                            Dim currentTime As Double = clampedStart + frameNo * effectiveFrameStep
+                            If currentTime > endTime + epsilon Then Exit Do
+
+                            drawStopwatch.Start()
+                            Using frame As Bitmap = renderFrame(currentTime)
+                                drawStopwatch.Stop()
+                                streamWriteStopwatch.Start()
+                                Using preparedFrame As Bitmap = PrepareFrameForVideo(frame, outputFrameWidth, outputFrameHeight, useAlphaOutput)
+                                    WriteBitmapFrameToStream(preparedFrame, inputStream, useAlphaOutput)
+                                End Using
+                                streamWriteStopwatch.Stop()
+                            End Using
+
+                            frameNo += 1
+                            LastFrameCount = frameNo
+                            If frameNo = totalFrames OrElse frameNo Mod 4 = 0 Then
+                                ReportProgress(frameNo, totalFrames, outputFile)
+                            End If
+                        Loop
+                    Catch ex As Exception When TypeOf ex Is IOException OrElse
+                                               TypeOf ex Is ObjectDisposedException OrElse
+                                               TypeOf ex Is InvalidOperationException
+                        writeFailure = ex
+                    End Try
                 End Using
+
+                If writeFailure IsNot Nothing Then
+                    encodeStopwatch.Stop()
+                    Try
+                        ffmpegProcess.WaitForExit(2000)
+                    Catch
+                    End Try
+
+                    Dim ffmpegWriteErrorOutput As String = ""
+                    Try
+                        ffmpegWriteErrorOutput = stderrTask.Result
+                    Catch
+                    End Try
+
+                    Dim detailMessage As String =
+                        "ffmpeg stopped accepting raw frames while writing " &
+                        Path.GetFileName(outputFile) &
+                        "." &
+                        If(ffmpegProcess.HasExited,
+                           " Exit code: " & ffmpegProcess.ExitCode.ToString(CultureInfo.InvariantCulture) & ".",
+                           "")
+
+                    If Not String.IsNullOrWhiteSpace(ffmpegWriteErrorOutput) Then
+                        detailMessage &= Environment.NewLine & ffmpegWriteErrorOutput
+                    End If
+
+                    Throw New InvalidOperationException(detailMessage, writeFailure)
+                End If
 
                 ffmpegProcess.WaitForExit()
                 encodeStopwatch.Stop()

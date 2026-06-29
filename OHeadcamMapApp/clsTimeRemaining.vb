@@ -28,11 +28,23 @@ Public Class clsTimeRemaining
     End Sub
 
     Function SetGetRemainingTime(DonePart As String) As String
+        If String.IsNullOrWhiteSpace(DonePart) Then Return sRemainingTime
+
         Dim t As Decimal
-        If DonePart.IndexOf(":") > 0 Then
-            t = ExtraObj.TimeStrToSec(DonePart)
-        Else
-            t = CDec(DonePart)
+        If DonePart.IndexOf(":"c) >= 0 Then
+            Dim timeParts() As String = DonePart.Trim().Split(":"c)
+            If timeParts.Length <> 3 Then Return sRemainingTime
+
+            Dim hours As Decimal
+            Dim minutes As Decimal
+            Dim seconds As Decimal
+            If Not Decimal.TryParse(timeParts(0), Globalization.NumberStyles.Integer, Globalization.CultureInfo.InvariantCulture, hours) Then Return sRemainingTime
+            If Not Decimal.TryParse(timeParts(1), Globalization.NumberStyles.Integer, Globalization.CultureInfo.InvariantCulture, minutes) Then Return sRemainingTime
+            If Not Decimal.TryParse(timeParts(2), Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, seconds) Then Return sRemainingTime
+            t = hours * 3600D + minutes * 60D + seconds
+        ElseIf Not Decimal.TryParse(DonePart.Trim(), Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, t) AndAlso
+               Not Decimal.TryParse(DonePart.Trim(), t) Then
+            Return sRemainingTime
         End If
         Return SetGetRemainingTime(t)
     End Function

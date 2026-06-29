@@ -15,4 +15,16 @@
   <data name="NoPlayerFile" xml:space="preserve">
     <value>File can't be found</value>
   </data>
+  <data name="WidgetDistance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="WidgetPace" xml:space="preserve">
+    <value>Pace</value>
+  </data>
+  <data name="WidgetPulse" xml:space="preserve">
+    <value>HR</value>
+  </data>
+  <data name="WidgetTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
 </root>

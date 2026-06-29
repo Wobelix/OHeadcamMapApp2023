@@ -673,11 +673,9 @@ Public Class MainForm
 
         If Not ProcessEnd Then
 
-            Dim start As Integer = text.IndexOf("time")
-            Dim [end] As Integer = text.IndexOf("bitrate")
-            If start >= 0 And [end] > 0 Then
-                Dim result As String = text.Substring(start, [end] - start + "bitrate".Length)
-                result = result.Substring(5, 8) 'tidskode uden ms
+            Dim timeMatch As Match = Regex.Match(text, "(?:^|\s)time=\s*(\d{1,3}:\d{2}:\d{2})(?:\.\d+)?", RegexOptions.IgnoreCase)
+            If timeMatch.Success Then
+                Dim result As String = timeMatch.Groups(1).Value
                 'StatusBarProgressText.Text = result
                 MeVar.BeginInvoke(Sub() MeVar.UpdateProgressText(result))
             Else
@@ -1914,6 +1912,11 @@ Public Class MainForm
         Dim zoomVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_z" & smoothOverlayExtension)
         Dim legVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_l" & smoothOverlayExtension)
         Dim dynamicVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_d" & smoothOverlayExtension)
+        Dim widgetTimeVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_widget_time.mov")
+        Dim widgetDistanceVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_widget_distance.mov")
+        Dim widgetPaceVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_widget_pace.mov")
+        Dim widgetPulseVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_widget_pulse.mov")
+        Dim widgetHGraphVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_widget_hgraph.mov")
         Dim zoomRenderElapsed As TimeSpan = TimeSpan.Zero
         Dim zoomEncodeElapsed As TimeSpan = TimeSpan.Zero
         Dim legRenderElapsed As TimeSpan = TimeSpan.Zero
@@ -1942,6 +1945,11 @@ Public Class MainForm
         If My.Settings.cbShowRoute Then totalVideoCount += 1
         If My.Settings.cbShowLegMAp Then totalVideoCount += 1
         If My.Settings.cbShowDynamicMap Then totalVideoCount += 1
+        If My.Settings.MIWidgetTimeEnabled Then totalVideoCount += 1
+        If My.Settings.MIWidgetDistanceEnabled Then totalVideoCount += 1
+        If My.Settings.MIWidgetPaceEnabled Then totalVideoCount += 1
+        If My.Settings.MIWidgetPulseEnabled Then totalVideoCount += 1
+        If My.Settings.MIWidgetHGraphEnabled Then totalVideoCount += 1
         Dim timelineLength As Double = If(duration > 0, duration, Math.Max(0, RPs.RoutePoints.Count - 1))
         Dim framesPerVideo As Integer = CInt(Math.Floor(timelineLength / frameStepSeconds + 0.0001)) + 1
         Dim totalFramesPlanned As Integer = Math.Max(1, framesPerVideo * Math.Max(1, totalVideoCount))
@@ -2081,6 +2089,25 @@ Public Class MainForm
                 End If
             End If
 
+            If AnyDataWidgetsEnabled() Then
+                Dim widgetEngine As New clsDataWidgetRenderEngine(RPs)
+                If My.Settings.MIWidgetTimeEnabled Then
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Time, widgetTimeVideo, My.Settings.MIWidgetTimeWidth, My.Settings.MIWidgetTimeHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                End If
+                If My.Settings.MIWidgetDistanceEnabled Then
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Distance, widgetDistanceVideo, My.Settings.MIWidgetDistanceWidth, My.Settings.MIWidgetDistanceHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                End If
+                If My.Settings.MIWidgetPaceEnabled Then
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Pace, widgetPaceVideo, My.Settings.MIWidgetPaceWidth, My.Settings.MIWidgetPaceHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                End If
+                If My.Settings.MIWidgetPulseEnabled Then
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Pulse, widgetPulseVideo, My.Settings.MIWidgetPulseWidth, My.Settings.MIWidgetPulseHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                End If
+                If My.Settings.MIWidgetHGraphEnabled Then
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.HGraph, widgetHGraphVideo, My.Settings.MIWidgetHGraphWidth, My.Settings.MIWidgetHGraphHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                End If
+            End If
+
             If zoomEngine IsNot Nothing Then
                 zoomBackgroundElapsed = zoomEngine.LastBackgroundElapsed
                 zoomOverlayMapElapsed = zoomEngine.LastOverlayMapElapsed
@@ -2141,7 +2168,19 @@ Public Class MainForm
 
         Return ((Not My.Settings.cbShowRoute OrElse File.Exists(zoomVideo)) AndAlso
                 (Not My.Settings.cbShowLegMAp OrElse File.Exists(legVideo)) AndAlso
-                (Not My.Settings.cbShowDynamicMap OrElse File.Exists(dynamicVideo)))
+                (Not My.Settings.cbShowDynamicMap OrElse File.Exists(dynamicVideo)) AndAlso
+                (Not My.Settings.MIWidgetTimeEnabled OrElse File.Exists(widgetTimeVideo)) AndAlso
+                (Not My.Settings.MIWidgetDistanceEnabled OrElse File.Exists(widgetDistanceVideo)) AndAlso
+                (Not My.Settings.MIWidgetPaceEnabled OrElse File.Exists(widgetPaceVideo)) AndAlso
+                (Not My.Settings.MIWidgetPulseEnabled OrElse File.Exists(widgetPulseVideo)) AndAlso
+                (Not My.Settings.MIWidgetHGraphEnabled OrElse File.Exists(widgetHGraphVideo)))
+    End Function
+    Private Function AnyDataWidgetsEnabled() As Boolean
+        Return My.Settings.MIWidgetTimeEnabled OrElse
+               My.Settings.MIWidgetDistanceEnabled OrElse
+               My.Settings.MIWidgetPaceEnabled OrElse
+               My.Settings.MIWidgetPulseEnabled OrElse
+               My.Settings.MIWidgetHGraphEnabled
     End Function
     Private Function GetSmoothOverlayZoomVideoPath() As String
         Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_z" & GetSmoothOverlayVideoExtension())
@@ -2151,6 +2190,21 @@ Public Class MainForm
     End Function
     Private Function GetSmoothOverlayDynamicVideoPath() As String
         Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_d" & GetSmoothOverlayVideoExtension())
+    End Function
+    Private Function GetSmoothOverlayWidgetTimeVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_widget_time.mov")
+    End Function
+    Private Function GetSmoothOverlayWidgetDistanceVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_widget_distance.mov")
+    End Function
+    Private Function GetSmoothOverlayWidgetPaceVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_widget_pace.mov")
+    End Function
+    Private Function GetSmoothOverlayWidgetPulseVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_widget_pulse.mov")
+    End Function
+    Private Function GetSmoothOverlayWidgetHGraphVideoPath() As String
+        Return Path.Combine(AppFolder, SmoothOverlayFolderName, Path.GetFileNameWithoutExtension(SmoothOverlayBaseName) & "_widget_hgraph.mov")
     End Function
     Private Function FormatElapsed(elapsed As TimeSpan) As String
         Return elapsed.TotalSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s"
@@ -2327,10 +2381,25 @@ Public Class MainForm
                 Dim smoothZoomFile As String = GetSmoothOverlayZoomVideoPath()
                 Dim smoothLegFile As String = GetSmoothOverlayLegVideoPath()
                 Dim smoothDynamicFile As String = GetSmoothOverlayDynamicVideoPath()
+                Dim smoothWidgetTimeFile As String = GetSmoothOverlayWidgetTimeVideoPath()
+                Dim smoothWidgetDistanceFile As String = GetSmoothOverlayWidgetDistanceVideoPath()
+                Dim smoothWidgetPaceFile As String = GetSmoothOverlayWidgetPaceVideoPath()
+                Dim smoothWidgetPulseFile As String = GetSmoothOverlayWidgetPulseVideoPath()
+                Dim smoothWidgetHGraphFile As String = GetSmoothOverlayWidgetHGraphVideoPath()
                 If (Not My.Settings.cbShowRoute OrElse File.Exists(smoothZoomFile)) AndAlso
                        (Not My.Settings.cbShowLegMAp OrElse File.Exists(smoothLegFile)) AndAlso
-                       (Not My.Settings.cbShowDynamicMap OrElse File.Exists(smoothDynamicFile)) Then
-                    arg = ExtraFunc.FFMPeg_MakeParamSmoothMapVideosOnVideo(txtOutFilename.Text, smoothZoomFile, smoothLegFile, smoothDynamicFile, GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
+                       (Not My.Settings.cbShowDynamicMap OrElse File.Exists(smoothDynamicFile)) AndAlso
+                       (Not My.Settings.MIWidgetTimeEnabled OrElse File.Exists(smoothWidgetTimeFile)) AndAlso
+                       (Not My.Settings.MIWidgetDistanceEnabled OrElse File.Exists(smoothWidgetDistanceFile)) AndAlso
+                       (Not My.Settings.MIWidgetPaceEnabled OrElse File.Exists(smoothWidgetPaceFile)) AndAlso
+                       (Not My.Settings.MIWidgetPulseEnabled OrElse File.Exists(smoothWidgetPulseFile)) AndAlso
+                       (Not My.Settings.MIWidgetHGraphEnabled OrElse File.Exists(smoothWidgetHGraphFile)) Then
+                    arg = ExtraFunc.FFMPeg_MakeParamSmoothMapVideosOnVideo(txtOutFilename.Text, smoothZoomFile, smoothLegFile, smoothDynamicFile, GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value,
+                                                                           widgetTimeVideoFile:=smoothWidgetTimeFile,
+                                                                           widgetDistanceVideoFile:=smoothWidgetDistanceFile,
+                                                                           widgetPaceVideoFile:=smoothWidgetPaceFile,
+                                                                           widgetPulseVideoFile:=smoothWidgetPulseFile,
+                                                                           widgetHGraphVideoFile:=smoothWidgetHGraphFile)
                 Else
                     ' Legacy temp3 PNG overlay fallback:
                     'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp3\%08d.png", GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
@@ -2339,6 +2408,9 @@ Public Class MainForm
                 ' CLEANUP-CBNEWMAPF-START:Else
                 'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp2\%08d.jpg", GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value)
                 'End If
+            End If
+            If Not String.IsNullOrWhiteSpace(ExtraFunc.LastVideoEncoderDetectionLog) Then
+                LogMakeVideo += "Video encoder detection:" + vbCrLf + ExtraFunc.LastVideoEncoderDetectionLog + vbCrLf
             End If
             LogMakeVideo += arg + vbCrLf
             StatusBarUpdate(Texts.Status5)
@@ -2361,9 +2433,50 @@ Public Class MainForm
             TimerStatusRemaining.Stop()
             EnsureInvoke(Sub() StatusRemaining.Text = "")
             If Not ProbeVideo.StoreVideoProps(txtOutFilename.Text) Then
-                StatusBarUpdate(Texts.ErrFailVideoOut)
-                bFailed = True
-                SetStatusLabel(IconStatusOutput, "Fail")
+                If UsesHardwareVideoEncoder(arg) Then
+                    LogMakeVideo += "Hardware video encoder failed. Retrying output video with software HEVC encoder." + vbCrLf
+                    If My.Settings.bUseMapTrackingVideo Then
+                        arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor, ForceSoftwareEncode:=True)
+                    Else
+                        If Not IsNumeric(My.Settings.GPXDiff) Then My.Settings.GPXDiff = "0"
+                        tmpGPXDiff = CInt(My.Settings.GPXDiff)
+                        If My.Settings.MapFlipActive Then tmpGPXDiff -= CInt(My.Settings.MapFlipStartS)
+                        arg = ExtraFunc.FFMPeg_MakeParamSmoothMapVideosOnVideo(txtOutFilename.Text,
+                                                                               GetSmoothOverlayZoomVideoPath(),
+                                                                               GetSmoothOverlayLegVideoPath(),
+                                                                               GetSmoothOverlayDynamicVideoPath(),
+                                                                               GetDeshakedFilename(True),
+                                                                               CStr(tmpGPXDiff),
+                                                                               txtOutputLength.Text,
+                                                                               numVideoTempo.Value,
+                                                                               widgetTimeVideoFile:=GetSmoothOverlayWidgetTimeVideoPath(),
+                                                                               widgetDistanceVideoFile:=GetSmoothOverlayWidgetDistanceVideoPath(),
+                                                                               widgetPaceVideoFile:=GetSmoothOverlayWidgetPaceVideoPath(),
+                                                                               widgetPulseVideoFile:=GetSmoothOverlayWidgetPulseVideoPath(),
+                                                                               widgetHGraphVideoFile:=GetSmoothOverlayWidgetHGraphVideoPath(),
+                                                                               ForceSoftwareEncode:=True)
+                    End If
+                    LogMakeVideo += arg + vbCrLf
+                    StatusBarUpdate(Texts.Status5)
+                    EnsureInvoke(Sub() StatusRemaining.Text = "")
+                    TimerStatusRemaining.Start()
+                    overlayStageStopwatch.Start()
+                    Run_CommandX(FFMpegExe, arg, LogMakeVideo)
+                    overlayStageStopwatch.Stop()
+                    LastWholeOverlayStageElapsed = overlayStageStopwatch.Elapsed
+                    TimerStatusRemaining.Stop()
+                    EnsureInvoke(Sub() StatusRemaining.Text = "")
+                End If
+
+                If Not ProbeVideo.StoreVideoProps(txtOutFilename.Text) Then
+                    StatusBarUpdate(Texts.ErrFailVideoOut)
+                    bFailed = True
+                    SetStatusLabel(IconStatusOutput, "Fail")
+                Else
+                    lblOutputVideoLength.Text = ExtraFunc.SecToTimeStr(ProbeVideo.duration_sec)
+                    SetStatusLabel(IconStatusOutput, "OK")
+                    StatusBarUpdate(Texts.StatusOutReady)
+                End If
             Else
 
                 lblOutputVideoLength.Text = ExtraFunc.SecToTimeStr(ProbeVideo.duration_sec)
@@ -2376,6 +2489,14 @@ Public Class MainForm
         totalStopwatch.Stop()
         LastWholeVideoTotalElapsed = totalStopwatch.Elapsed
         AppendWholeVideoTimingLog()
+    End Function
+
+    Private Shared Function UsesHardwareVideoEncoder(arguments As String) As Boolean
+        If String.IsNullOrWhiteSpace(arguments) Then Return False
+        Return arguments.IndexOf("hevc_nvenc", StringComparison.OrdinalIgnoreCase) >= 0 OrElse
+               arguments.IndexOf("hevc_qsv", StringComparison.OrdinalIgnoreCase) >= 0 OrElse
+               arguments.IndexOf("hevc_amf", StringComparison.OrdinalIgnoreCase) >= 0 OrElse
+               arguments.IndexOf("hevc_mf", StringComparison.OrdinalIgnoreCase) >= 0
     End Function
 
     Private Sub btnPrepareInput_Click(sender As Object, e As EventArgs) Handles btnPrepareInput.Click

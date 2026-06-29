@@ -4,7 +4,7 @@ Imports OHeadcamMapApp.My.Resources
 Public Class frmSettings
     Private isFormLoading As Boolean = True
     Private Const DefaultOutputFormat As String = "Auto"
-    Private Const DefaultSmoothOverlayFrameStepSeconds As Double = 0.25
+    Private Const DefaultSmoothOverlayFrameStepSeconds As Double = 0.1
     Public Sub New()
         Dim lang As String
         If My.Settings.Language = "English" Then
@@ -138,8 +138,58 @@ Public Class frmSettings
         End If
         numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
         LoadOutputFormat()
+        LoadVideoEncoderInfoAsync()
         isFormLoading = False
     End Sub
+
+    Private Async Sub LoadVideoEncoderInfoAsync()
+        Dim encoderInfoControl As Control = FindControlRecursive(Me, "txtVideoEncoderInfo")
+        If encoderInfoControl Is Nothing Then Return
+
+        encoderInfoControl.Text = "Finder automatisk videoencoder..."
+        Try
+            Dim encoderResult As VideoEncoderDetectionResult =
+                Await Task.Run(Function() clsVideoEncoderDetector.GetBestHevcEncoder())
+
+            encoderInfoControl.Text = FormatVideoEncoderInfo(encoderResult)
+        Catch ex As Exception
+            encoderInfoControl.Text = "Kunne ikke teste videoencoder: " & ex.Message
+        End Try
+    End Sub
+
+    Private Function FormatVideoEncoderInfo(encoderResult As VideoEncoderDetectionResult) As String
+        If encoderResult Is Nothing Then Return "Videoencoder: ukendt"
+
+        Dim hardwareText As String = If(encoderResult.IsHardware, "hardware", "software fallback")
+        Dim elapsedText As String = ""
+        If encoderResult.TestElapsed.TotalMilliseconds > 0 Then
+            elapsedText = Environment.NewLine &
+                          "Testtid: " &
+                          encoderResult.TestElapsed.TotalSeconds.ToString("0.00", CultureInfo.InvariantCulture) &
+                          " s"
+        End If
+
+        Dim ffmpegText As String = ""
+        If Not String.IsNullOrWhiteSpace(encoderResult.FfmpegVersion) Then
+            ffmpegText = Environment.NewLine & encoderResult.FfmpegVersion
+        End If
+
+        Return "Auto HEVC: " & encoderResult.DisplayName &
+               " (" & encoderResult.EncoderName & ", " & hardwareText & ")" &
+               Environment.NewLine & "Pixel format: " & encoderResult.PixelFormat &
+               elapsedText &
+               ffmpegText
+    End Function
+
+    Private Function FindControlRecursive(parent As Control, controlName As String) As Control
+        If parent Is Nothing Then Return Nothing
+        For Each child As Control In parent.Controls
+            If String.Equals(child.Name, controlName, StringComparison.OrdinalIgnoreCase) Then Return child
+            Dim nested As Control = FindControlRecursive(child, controlName)
+            If nested IsNot Nothing Then Return nested
+        Next
+        Return Nothing
+    End Function
 
 
 End Class

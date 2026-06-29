@@ -676,5 +676,41 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StatusVideoReady", resourceCulture)
             End Get
         End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Distance.
+        '''</summary>
+        Friend Shared ReadOnly Property WidgetDistance() As String
+            Get
+                Return ResourceManager.GetString("WidgetDistance", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tempo.
+        '''</summary>
+        Friend Shared ReadOnly Property WidgetPace() As String
+            Get
+                Return ResourceManager.GetString("WidgetPace", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Puls.
+        '''</summary>
+        Friend Shared ReadOnly Property WidgetPulse() As String
+            Get
+                Return ResourceManager.GetString("WidgetPulse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Tid.
+        '''</summary>
+        Friend Shared ReadOnly Property WidgetTime() As String
+            Get
+                Return ResourceManager.GetString("WidgetTime", resourceCulture)
+            End Get
+        End Property
     End Class
 End Namespace

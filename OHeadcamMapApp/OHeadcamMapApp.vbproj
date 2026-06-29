@@ -162,6 +162,8 @@
   <ItemGroup>
     <Compile Include="clsMapImages.vb" />
     <Compile Include="clsMapRenderEngine.vb" />
+    <Compile Include="clsDataWidgetRenderEngine.vb" />
+    <Compile Include="clsVideoEncoderDetector.vb" />
     <Compile Include="clsPicBKeepAspectResize.vb" />
     <Compile Include="clsPictureBoxMoveResize.vb" />
     <Compile Include="clsQRRoutePoints.vb" />
@@ -267,6 +269,12 @@
       <DependentUpon>frmVLC.vb</DependentUpon>
     </Compile>
     <Compile Include="frmVLC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWidgets.Designer.vb">
+      <DependentUpon>frmWidgets.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmWidgets.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.vb">
@@ -414,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmVLC.resx">
       <DependentUpon>frmVLC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWidgets.resx">
+      <DependentUpon>frmWidgets.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.da-DK.resx">
       <DependentUpon>MainForm.vb</DependentUpon>

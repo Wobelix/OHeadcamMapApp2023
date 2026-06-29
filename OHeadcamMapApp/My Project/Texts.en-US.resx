@@ -315,4 +315,16 @@ Do you want to remake both Output video and Music video (answer: Yes) or only Mu
   <data name="Status_copyfile" xml:space="preserve">
     <value>Video is being prepared...</value>
   </data>
+  <data name="WidgetDistance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="WidgetPace" xml:space="preserve">
+    <value>Pace</value>
+  </data>
+  <data name="WidgetPulse" xml:space="preserve">
+    <value>HR</value>
+  </data>
+  <data name="WidgetTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
 </root>

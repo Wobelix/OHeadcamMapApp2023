@@ -174,10 +174,10 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="ckShowLegMap" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ckShowRouteMap" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="cbShowSpeedPanel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -189,13 +189,28 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="cbShowLegMAp" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="cbShowRoute" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="cbShowDynamicMap" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MIWidgetTimeEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MIWidgetDistanceEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MIWidgetPaceEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MIWidgetPulseEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MIWidgetHGraphEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PrepareLength" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -315,10 +330,10 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="MIDynamicMinZoom" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">40</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="MIDynamicMaxZoom" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">300</Value>
+      <Value Profile="(Default)">250</Value>
     </Setting>
     <Setting Name="MIDynamicLookBehindSeconds" Type="System.Double" Scope="User">
       <Value Profile="(Default)">20</Value>
@@ -327,13 +342,13 @@
       <Value Profile="(Default)">45</Value>
     </Setting>
     <Setting Name="MIDynamicMargin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">120</Value>
+      <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="MIFrameColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">192, 0, 0</Value>
     </Setting>
     <Setting Name="MIFrameWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="MITailDuration" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30</Value>
@@ -342,10 +357,10 @@
       <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="MITailRatio" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.9</Value>
+      <Value Profile="(Default)">0.6</Value>
     </Setting>
     <Setting Name="MIDotSize" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">17</Value>
     </Setting>
     <Setting Name="MIFLegPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -370,6 +385,51 @@
     </Setting>
     <Setting Name="MIDynamicMapPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">80, 800</Value>
+    </Setting>
+    <Setting Name="MIWidgetTimeMapPos" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">1160, 80</Value>
+    </Setting>
+    <Setting Name="MIWidgetDistanceMapPos" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">1160, 175</Value>
+    </Setting>
+    <Setting Name="MIWidgetPaceMapPos" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">1160, 270</Value>
+    </Setting>
+    <Setting Name="MIWidgetPulseMapPos" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">1160, 365</Value>
+    </Setting>
+    <Setting Name="MIWidgetHGraphMapPos" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">880, 870</Value>
+    </Setting>
+    <Setting Name="MIWidgetTimeWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">220</Value>
+    </Setting>
+    <Setting Name="MIWidgetTimeHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">82</Value>
+    </Setting>
+    <Setting Name="MIWidgetDistanceWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">240</Value>
+    </Setting>
+    <Setting Name="MIWidgetDistanceHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">82</Value>
+    </Setting>
+    <Setting Name="MIWidgetPaceWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">240</Value>
+    </Setting>
+    <Setting Name="MIWidgetPaceHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">82</Value>
+    </Setting>
+    <Setting Name="MIWidgetPulseWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">190</Value>
+    </Setting>
+    <Setting Name="MIWidgetPulseHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">82</Value>
+    </Setting>
+    <Setting Name="MIWidgetHGraphWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">720</Value>
+    </Setting>
+    <Setting Name="MIWidgetHGraphHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="VidAdj_Rot" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -417,13 +477,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MIArrowBarb" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
+      <Value Profile="(Default)">0.3</Value>
     </Setting>
     <Setting Name="MIArrowWidth" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.7</Value>
+      <Value Profile="(Default)">0.9</Value>
     </Setting>
     <Setting Name="MIDotType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Dot</Value>
+      <Value Profile="(Default)">Arrow</Value>
     </Setting>
     <Setting Name="QRImage2" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -477,7 +537,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="MISmoothFrameStepSeconds" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.25</Value>
+      <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="MISmoothParallelGeneration" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

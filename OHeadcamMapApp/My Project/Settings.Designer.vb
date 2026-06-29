@@ -742,7 +742,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property ckShowLegMap() As Boolean
             Get
                 Return CType(Me("ckShowLegMap"),Boolean)
@@ -754,7 +754,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property ckShowRouteMap() As Boolean
             Get
                 Return CType(Me("ckShowRouteMap"),Boolean)
@@ -802,7 +802,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property cbShowLegMAp() As Boolean
             Get
                 Return CType(Me("cbShowLegMAp"),Boolean)
@@ -814,7 +814,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property cbShowRoute() As Boolean
             Get
                 Return CType(Me("cbShowRoute"),Boolean)
@@ -826,13 +826,73 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public Property cbShowDynamicMap() As Boolean
             Get
                 Return CType(Me("cbShowDynamicMap"),Boolean)
             End Get
             Set
                 Me("cbShowDynamicMap") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+        Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property MIWidgetTimeEnabled() As Boolean
+            Get
+                Return CType(Me("MIWidgetTimeEnabled"),Boolean)
+            End Get
+            Set
+                Me("MIWidgetTimeEnabled") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+        Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property MIWidgetDistanceEnabled() As Boolean
+            Get
+                Return CType(Me("MIWidgetDistanceEnabled"),Boolean)
+            End Get
+            Set
+                Me("MIWidgetDistanceEnabled") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+        Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property MIWidgetPaceEnabled() As Boolean
+            Get
+                Return CType(Me("MIWidgetPaceEnabled"),Boolean)
+            End Get
+            Set
+                Me("MIWidgetPaceEnabled") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+        Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property MIWidgetPulseEnabled() As Boolean
+            Get
+                Return CType(Me("MIWidgetPulseEnabled"),Boolean)
+            End Get
+            Set
+                Me("MIWidgetPulseEnabled") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+        Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property MIWidgetHGraphEnabled() As Boolean
+            Get
+                Return CType(Me("MIWidgetHGraphEnabled"),Boolean)
+            End Get
+            Set
+                Me("MIWidgetHGraphEnabled") = value
             End Set
         End Property
         
@@ -1306,7 +1366,7 @@ Namespace My
 
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("40")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
         Public Property MIDynamicMinZoom() As Integer
             Get
                 Return CType(Me("MIDynamicMinZoom"),Integer)
@@ -1318,7 +1378,7 @@ Namespace My
 
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("300")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("250")>  _
         Public Property MIDynamicMaxZoom() As Integer
             Get
                 Return CType(Me("MIDynamicMaxZoom"),Integer)
@@ -1354,7 +1414,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("120")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("150")>  _
         Public Property MIDynamicMargin() As Integer
             Get
                 Return CType(Me("MIDynamicMargin"),Integer)
@@ -1378,7 +1438,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("4")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
         Public Property MIFrameWidth() As Integer
             Get
                 Return CType(Me("MIFrameWidth"),Integer)
@@ -1414,7 +1474,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.9")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("0.6")>  _
         Public Property MITailRatio() As Decimal
             Get
                 Return CType(Me("MITailRatio"),Decimal)
@@ -1426,7 +1486,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("15")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("17")>  _
         Public Property MIDotSize() As Integer
             Get
                 Return CType(Me("MIDotSize"),Integer)
@@ -1529,6 +1589,186 @@ Namespace My
             End Get
             Set
                 Me("MIDynamicMapPos") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1160, 80")>  _
+        Public Property MIWidgetTimeMapPos() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("MIWidgetTimeMapPos"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("MIWidgetTimeMapPos") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1160, 175")>  _
+        Public Property MIWidgetDistanceMapPos() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("MIWidgetDistanceMapPos"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("MIWidgetDistanceMapPos") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1160, 270")>  _
+        Public Property MIWidgetPaceMapPos() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("MIWidgetPaceMapPos"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("MIWidgetPaceMapPos") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1160, 365")>  _
+        Public Property MIWidgetPulseMapPos() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("MIWidgetPulseMapPos"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("MIWidgetPulseMapPos") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("880, 870")>  _
+        Public Property MIWidgetHGraphMapPos() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("MIWidgetHGraphMapPos"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("MIWidgetHGraphMapPos") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("220")>  _
+        Public Property MIWidgetTimeWidth() As Integer
+            Get
+                Return CType(Me("MIWidgetTimeWidth"),Integer)
+            End Get
+            Set
+                Me("MIWidgetTimeWidth") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("82")>  _
+        Public Property MIWidgetTimeHeight() As Integer
+            Get
+                Return CType(Me("MIWidgetTimeHeight"),Integer)
+            End Get
+            Set
+                Me("MIWidgetTimeHeight") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("240")>  _
+        Public Property MIWidgetDistanceWidth() As Integer
+            Get
+                Return CType(Me("MIWidgetDistanceWidth"),Integer)
+            End Get
+            Set
+                Me("MIWidgetDistanceWidth") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("82")>  _
+        Public Property MIWidgetDistanceHeight() As Integer
+            Get
+                Return CType(Me("MIWidgetDistanceHeight"),Integer)
+            End Get
+            Set
+                Me("MIWidgetDistanceHeight") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("240")>  _
+        Public Property MIWidgetPaceWidth() As Integer
+            Get
+                Return CType(Me("MIWidgetPaceWidth"),Integer)
+            End Get
+            Set
+                Me("MIWidgetPaceWidth") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("82")>  _
+        Public Property MIWidgetPaceHeight() As Integer
+            Get
+                Return CType(Me("MIWidgetPaceHeight"),Integer)
+            End Get
+            Set
+                Me("MIWidgetPaceHeight") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("190")>  _
+        Public Property MIWidgetPulseWidth() As Integer
+            Get
+                Return CType(Me("MIWidgetPulseWidth"),Integer)
+            End Get
+            Set
+                Me("MIWidgetPulseWidth") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("82")>  _
+        Public Property MIWidgetPulseHeight() As Integer
+            Get
+                Return CType(Me("MIWidgetPulseHeight"),Integer)
+            End Get
+            Set
+                Me("MIWidgetPulseHeight") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("720")>  _
+        Public Property MIWidgetHGraphWidth() As Integer
+            Get
+                Return CType(Me("MIWidgetHGraphWidth"),Integer)
+            End Get
+            Set
+                Me("MIWidgetHGraphWidth") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("150")>  _
+        Public Property MIWidgetHGraphHeight() As Integer
+            Get
+                Return CType(Me("MIWidgetHGraphHeight"),Integer)
+            End Get
+            Set
+                Me("MIWidgetHGraphHeight") = value
             End Set
         End Property
         
@@ -1714,7 +1954,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.5")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("0.3")>  _
         Public Property MIArrowBarb() As Double
             Get
                 Return CType(Me("MIArrowBarb"),Double)
@@ -1726,7 +1966,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.7")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("0.9")>  _
         Public Property MIArrowWidth() As Double
             Get
                 Return CType(Me("MIArrowWidth"),Double)
@@ -1738,7 +1978,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Dot")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("Arrow")>  _
         Public Property MIDotType() As String
             Get
                 Return CType(Me("MIDotType"),String)
@@ -1954,7 +2194,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.25")>  _
+        Global.System.Configuration.DefaultSettingValueAttribute("0.1")>  _
         Public Property MISmoothFrameStepSeconds() As Double
             Get
                 Return CType(Me("MISmoothFrameStepSeconds"),Double)

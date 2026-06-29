@@ -49,6 +49,14 @@ Public Class frmAdjustmentPlayer_new
     Private PBZoom_Adjust As New clsPictureBoxMoveResize
     Private PBLeg_Adjust As New clsPictureBoxMoveResize
     Private PBDyn_Adjust As New clsPictureBoxMoveResize
+    Private PBTime_Adjust As New clsPictureBoxMoveResize
+    Private PBDistance_Adjust As New clsPictureBoxMoveResize
+    Private PBPace_Adjust As New clsPictureBoxMoveResize
+    Private PBPulse_Adjust As New clsPictureBoxMoveResize
+    Private PBHGraph_Adjust As New clsPictureBoxMoveResize
+    Private _WidgetsPreviewEngine As clsDataWidgetRenderEngine
+    Private _WidgetLayoutDirty As Boolean = False
+    Private _WidgetMouseIsUp As Boolean = True
     Private _VideoPanelScale As Double
     Private Const TrackBarUnitsPerSecond As Integer = 10
     Private Const PreviewTailSampleStepSeconds As Double = 0.5
@@ -189,7 +197,42 @@ Public Class frmAdjustmentPlayer_new
         PBLeg.Height = ScaleToPanel(_MapImgHandler.LegHeight)
         PBDyn.Width = ScaleToPanel(Math.Max(1, My.Settings.MIDynamicWidth))
         PBDyn.Height = ScaleToPanel(Math.Max(1, My.Settings.MIDynamicHeight))
+        pbTime.Width = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetTimeWidth))
+        pbTime.Height = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetTimeHeight))
+        pbDistance.Width = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetDistanceWidth))
+        pbDistance.Height = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetDistanceHeight))
+        pbPace.Width = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetPaceWidth))
+        pbPace.Height = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetPaceHeight))
+        pbPulse.Width = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetPulseWidth))
+        pbPulse.Height = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetPulseHeight))
+        pbHGraph.Width = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetHGraphWidth))
+        pbHGraph.Height = ScaleToPanel(Math.Max(1, My.Settings.MIWidgetHGraphHeight))
     End Sub
+
+    Private Sub SetWidgetPictureBoxPositions()
+        SetWidgetPictureBoxPosition(pbTime, My.Settings.MIWidgetTimeMapPos)
+        SetWidgetPictureBoxPosition(pbDistance, My.Settings.MIWidgetDistanceMapPos)
+        SetWidgetPictureBoxPosition(pbPace, My.Settings.MIWidgetPaceMapPos)
+        SetWidgetPictureBoxPosition(pbPulse, My.Settings.MIWidgetPulseMapPos)
+        SetWidgetPictureBoxPosition(pbHGraph, My.Settings.MIWidgetHGraphMapPos)
+    End Sub
+
+    Private Sub SetWidgetPictureBoxPosition(pb As PictureBox, realPosition As Point)
+        pb.Location = New Point(CInt(Math.Round(realPosition.X / _VideoPanelScale)), CInt(Math.Round(realPosition.Y / _VideoPanelScale)))
+        CheckPBposition(pb)
+    End Sub
+
+    Private Function GetRealWidgetPosition(pb As PictureBox) As Point
+        Return New Point(CInt(Math.Round(pb.Left * _VideoPanelScale)), CInt(Math.Round(pb.Top * _VideoPanelScale)))
+    End Function
+
+    Private Function GetRealWidgetWidth(pb As PictureBox) As Integer
+        Return Math.Max(1, CInt(Math.Round(pb.Width * _VideoPanelScale)))
+    End Function
+
+    Private Function GetRealWidgetHeight(pb As PictureBox) As Integer
+        Return Math.Max(1, CInt(Math.Round(pb.Height * _VideoPanelScale)))
+    End Function
 
     Private Sub SetMapPositions(Z As Boolean, L As Boolean, PBZMapP As Point, PBLMapP As Point, Optional D As Boolean = False, Optional PBDMapP As Point = Nothing) 'PB to real pos
         Dim zp, lp, dp As Point
@@ -294,6 +337,7 @@ Public Class frmAdjustmentPlayer_new
         _ZoomPreviewEngine = Nothing
         _LegPreviewEngine = Nothing
         _DynPreviewEngine = Nothing
+        _WidgetsPreviewEngine = Nothing
         If Mainform1 Is Nothing Then Return
         If MapImg Is Nothing Then Return
 
@@ -304,6 +348,8 @@ Public Class frmAdjustmentPlayer_new
 
         _DynPreviewEngine = New clsMapRenderEngine(RPs, MapImg)
         Mainform1.ApplySavedLegRenderLayout(_DynPreviewEngine)
+
+        _WidgetsPreviewEngine = New clsDataWidgetRenderEngine(RPs)
     End Sub
     Private Sub cbNewLegLayout_CheckedChanged(sender As Object, e As EventArgs) Handles cbNewLegLayout.CheckedChanged
         ' REPLACED-CLASSIC-LAYOUT-20260423:
@@ -560,6 +606,31 @@ Public Class frmAdjustmentPlayer_new
             _DynPreviewEngine.DynamicMargin = Math.Max(0, My.Settings.MIDynamicMargin)
             PBDyn.Image = _DynPreviewEngine.RenderDynamicFramePerf8(_MapTimeSmooth)
         End If
+        UpdateWidgetPreviewImages()
+    End Sub
+
+    Private Sub UpdateWidgetPreviewImages()
+        If _WidgetsPreviewEngine Is Nothing Then _WidgetsPreviewEngine = New clsDataWidgetRenderEngine(RPs)
+        RenderWidgetPreview(pbTime, DataWidgetKind.Time, My.Settings.MIWidgetTimeEnabled)
+        RenderWidgetPreview(pbDistance, DataWidgetKind.Distance, My.Settings.MIWidgetDistanceEnabled)
+        RenderWidgetPreview(pbPace, DataWidgetKind.Pace, My.Settings.MIWidgetPaceEnabled)
+        RenderWidgetPreview(pbPulse, DataWidgetKind.Pulse, My.Settings.MIWidgetPulseEnabled)
+        RenderWidgetPreview(pbHGraph, DataWidgetKind.HGraph, My.Settings.MIWidgetHGraphEnabled)
+    End Sub
+
+    Private Sub RenderWidgetPreview(pb As PictureBox, kind As DataWidgetKind, enabled As Boolean)
+        pb.Visible = enabled
+        If Not enabled Then
+            If pb.Image IsNot Nothing Then
+                pb.Image.Dispose()
+                pb.Image = Nothing
+            End If
+            Return
+        End If
+
+        Dim oldImage As Image = pb.Image
+        pb.Image = _WidgetsPreviewEngine.RenderWidget(kind, _MapTimeSmooth, Math.Max(30, pb.Width), Math.Max(30, pb.Height))
+        If oldImage IsNot Nothing Then oldImage.Dispose()
     End Sub
 
     Private Sub MapImageTimer_Tick(sender As Object, e As EventArgs) Handles MapImageTimer.Tick
@@ -574,11 +645,12 @@ Public Class frmAdjustmentPlayer_new
                 _MapInit = False
                 _LastMapTimeSmooth = _MapTimeSmooth
                 UpdateMapImgs()
-            ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) OrElse (_DynResized And _DynMouseIsUp) Then
+            ElseIf (_ZoomResized And _ZoomMouseIsUp) OrElse (_LegResized And _LegMouseIsUp) OrElse (_DynResized And _DynMouseIsUp) OrElse (_WidgetLayoutDirty And _WidgetMouseIsUp) Then
                 UpdateMapImgs()
                 _ZoomResized = False
                 _LegResized = False
                 _DynResized = False
+                _WidgetLayoutDirty = False
             ElseIf _ZoomZoom <> My.Settings.MIZoomZoom Then
                 My.Settings.MIZoomZoom = _ZoomZoom
                 _MapImgHandler.ZoomZoom = My.Settings.MIZoomZoom
@@ -668,6 +740,33 @@ Public Class frmAdjustmentPlayer_new
         _DynResized = True
     End Sub
 
+    Private Sub DataWidget_MouseDown(sender As Object, e As MouseEventArgs) Handles pbTime.MouseDown, pbDistance.MouseDown, pbPace.MouseDown, pbPulse.MouseDown, pbHGraph.MouseDown
+        GetWidgetAdjuster(DirectCast(sender, PictureBox)).PB_MouseDown(sender, e)
+        _WidgetMouseIsUp = False
+    End Sub
+
+    Private Sub DataWidget_MouseUp(sender As Object, e As MouseEventArgs) Handles pbTime.MouseUp, pbDistance.MouseUp, pbPace.MouseUp, pbPulse.MouseUp, pbHGraph.MouseUp
+        GetWidgetAdjuster(DirectCast(sender, PictureBox)).PB_MouseUp(sender, e)
+        _WidgetMouseIsUp = True
+        _WidgetLayoutDirty = True
+    End Sub
+
+    Private Sub DataWidget_MouseMove(sender As Object, e As MouseEventArgs) Handles pbTime.MouseMove, pbDistance.MouseMove, pbPace.MouseMove, pbPulse.MouseMove, pbHGraph.MouseMove
+        GetWidgetAdjuster(DirectCast(sender, PictureBox)).PB_MouseMove(sender, e)
+    End Sub
+
+    Private Sub DataWidget_SizeChanged(sender As Object, e As EventArgs) Handles pbTime.SizeChanged, pbDistance.SizeChanged, pbPace.SizeChanged, pbPulse.SizeChanged, pbHGraph.SizeChanged
+        _WidgetLayoutDirty = True
+    End Sub
+
+    Private Function GetWidgetAdjuster(pb As PictureBox) As clsPictureBoxMoveResize
+        If pb Is pbTime Then Return PBTime_Adjust
+        If pb Is pbDistance Then Return PBDistance_Adjust
+        If pb Is pbPace Then Return PBPace_Adjust
+        If pb Is pbHGraph Then Return PBHGraph_Adjust
+        Return PBPulse_Adjust
+    End Function
+
     Private Sub TestMap_Click(sender As Object, e As EventArgs)
 
 
@@ -698,6 +797,27 @@ Public Class frmAdjustmentPlayer_new
     End Sub
     Private Sub bMapSettings_Click(sender As Object, e As EventArgs) Handles bMapSettings.Click
         OpenMapSettingsDialog()
+    End Sub
+
+    Private Sub btnWidgets_Click(sender As Object, e As EventArgs) Handles btnWidgets.Click
+        If Not PlayMode = PlayMode_stop Then
+            _mp.Pause()
+            PlayMode = PlayMode_stop
+        End If
+
+        Using fWidgets As New frmWidgets()
+            fWidgets.ShowDialog(Me)
+        End Using
+        ApplyWidgetVisibility()
+        If HasValidMapPreviewTime() Then UpdateWidgetPreviewImages()
+    End Sub
+
+    Private Sub ApplyWidgetVisibility()
+        pbTime.Visible = My.Settings.MIWidgetTimeEnabled
+        pbDistance.Visible = My.Settings.MIWidgetDistanceEnabled
+        pbPace.Visible = My.Settings.MIWidgetPaceEnabled
+        pbPulse.Visible = My.Settings.MIWidgetPulseEnabled
+        pbHGraph.Visible = My.Settings.MIWidgetHGraphEnabled
     End Sub
 
     Private Sub SetShowMaps()
@@ -849,8 +969,27 @@ Public Class frmAdjustmentPlayer_new
         My.Settings.MIDynamicMapPos = _DynMapPos
         My.Settings.MIDynamicWidth = Math.Max(1, CInt(Math.Round(PBDyn.Width * _VideoPanelScale)))
         My.Settings.MIDynamicHeight = Math.Max(1, CInt(Math.Round(PBDyn.Height * _VideoPanelScale)))
+        SaveWidgetLayoutSettings()
         My.Settings.Save()
         Me.Close()
+    End Sub
+
+    Private Sub SaveWidgetLayoutSettings()
+        My.Settings.MIWidgetTimeMapPos = GetRealWidgetPosition(pbTime)
+        My.Settings.MIWidgetDistanceMapPos = GetRealWidgetPosition(pbDistance)
+        My.Settings.MIWidgetPaceMapPos = GetRealWidgetPosition(pbPace)
+        My.Settings.MIWidgetPulseMapPos = GetRealWidgetPosition(pbPulse)
+        My.Settings.MIWidgetHGraphMapPos = GetRealWidgetPosition(pbHGraph)
+        My.Settings.MIWidgetTimeWidth = GetRealWidgetWidth(pbTime)
+        My.Settings.MIWidgetTimeHeight = GetRealWidgetHeight(pbTime)
+        My.Settings.MIWidgetDistanceWidth = GetRealWidgetWidth(pbDistance)
+        My.Settings.MIWidgetDistanceHeight = GetRealWidgetHeight(pbDistance)
+        My.Settings.MIWidgetPaceWidth = GetRealWidgetWidth(pbPace)
+        My.Settings.MIWidgetPaceHeight = GetRealWidgetHeight(pbPace)
+        My.Settings.MIWidgetPulseWidth = GetRealWidgetWidth(pbPulse)
+        My.Settings.MIWidgetPulseHeight = GetRealWidgetHeight(pbPulse)
+        My.Settings.MIWidgetHGraphWidth = GetRealWidgetWidth(pbHGraph)
+        My.Settings.MIWidgetHGraphHeight = GetRealWidgetHeight(pbHGraph)
     End Sub
 
     Private Sub MediaPlayer_EncounteredError(sender As Object, e As EventArgs)
@@ -863,11 +1002,19 @@ Public Class frmAdjustmentPlayer_new
         cbLeg.Checked = My.Settings.cbShowLegMAp
         cbZoom.Checked = My.Settings.cbShowRoute
         cbDyn.Checked = My.Settings.cbShowDynamicMap
+        ApplyWidgetVisibility()
         IsLoaded = True
         SetShowMaps()
         If Not _DeferredInitStarted Then
             _DeferredInitStarted = True
             BeginInvoke(New Action(AddressOf InitializePreviewAfterShow))
+        End If
+    End Sub
+
+    Private Sub frmAdjustmentPlayer_new_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If _VideoPanelScale > 0 Then
+            SaveWidgetLayoutSettings()
+            My.Settings.Save()
         End If
     End Sub
 
@@ -887,6 +1034,8 @@ Public Class frmAdjustmentPlayer_new
             RebuildPreviewRenderEngines()
             SetPBMapSizes()
             SetPBMapPositions(True, True, My.Settings.MIZoomMapPos, My.Settings.MILegMapPos, True, My.Settings.MIDynamicMapPos)
+            SetWidgetPictureBoxPositions()
+            ApplyWidgetVisibility()
             _ZoomZoom = My.Settings.MIZoomZoom
             _LegMargin = My.Settings.MILegMargin
             SetVideo()

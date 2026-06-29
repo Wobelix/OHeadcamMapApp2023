@@ -117,61 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Label1.Text" xml:space="preserve">
-    <value>Quality(CRF) 25=good 30=low</value>
-  </data>
   <data name="btnSave.Text" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Label17.Text" xml:space="preserve">
-    <value>Only filter(no deshake)</value>
-  </data>
-  <data name="Label2.Text" xml:space="preserve">
-    <value>Side by Side code</value>
-  </data>
-  <data name="Label3.Text" xml:space="preserve">
-    <value>Preset(speed - faster is larger filel)</value>
-  </data>
-  <data name="Label4.Text" xml:space="preserve">
-    <value>Extra filters copy and paste preceeded by ,(comma)</value>
-  </data>
-  <data name="TextBox4.Text" xml:space="preserve">
-    <value>Colorimprovement: normalize=blackpt=black:whitept=white:smoothing=10:strength=0.5
-Rotate and zoom(fx 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:1080</value>
-  </data>
-  <data name="GroupBox1.Text" xml:space="preserve">
-    <value>Technical settings</value>
-  </data>
-  <data name="btnSelectFolder.Text" xml:space="preserve">
-    <value>Select folder...</value>
-  </data>
-  <data name="Label7.Text" xml:space="preserve">
-    <value>Work folder for temporary video files</value>
-  </data>
-  <data name="rbImgMiddle.Text" xml:space="preserve">
-    <value>Image in the middle</value>
-  </data>
-  <data name="rbImgRight.Text" xml:space="preserve">
-    <value>Image to the right</value>
-  </data>
-  <data name="rbImgLeft.Text" xml:space="preserve">
-    <value>Image to the left</value>
-  </data>
-  <data name="btnReset.Text" xml:space="preserve">
-    <value>Reset settings</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 13</value>
+  </data>
+  <data name="Label10.Text" xml:space="preserve">
+    <value>Video encoding info</value>
+  </data>
+  <data name="Label10.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="txtVideoEncoderInfo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cmbPreset.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Label8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>301, 27</value>
   </data>
   <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 13</value>
+    <value>102, 13</value>
   </data>
   <data name="Label9.Text" xml:space="preserve">
     <value>GPS frequency (fps)</value>
   </data>
+  <data name="Label9.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="numSmooth.Location" type="System.Drawing.Point, System.Drawing">
     <value>304, 43</value>
+  </data>
+  <data name="numSmooth.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cmbOutputFormat.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -332,13 +319,11 @@ Rotate and zoom(fx 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Settings</value>
-  </data>
-  <data name="chkHDformat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 17</value>
-  </data>
-  <data name="chkHDformat.Text" xml:space="preserve">
-    <value>Unchecked keeps input format</value>
   </data>
 </root>

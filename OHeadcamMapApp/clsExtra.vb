@@ -46,6 +46,8 @@ Public Class clsExtra
     Public Language As String = "da-DK"
     Public InputWidth As Integer = 1920
     Public InputHeight As Integer = 1080
+    Public LastVideoEncoderDetectionLog As String = ""
+    Public LastVideoEncoderName As String = ""
     Public Sub New()
         AppFolder = My.Application.Info.DirectoryPath + "\"
 
@@ -718,13 +720,13 @@ Public Class clsExtra
     End Function
     Function FFMPeg_MakeParamMapOnVideo(outputfile As String, mapfile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
                                         Optional Tempo As Decimal = 1, Optional Quick As Boolean = False, Optional UseMapVideo As Boolean = False,
-                                        Optional MapVideoSpeed As String = "1") As String
+                                        Optional MapVideoSpeed As String = "1", Optional ForceSoftwareEncode As Boolean = False) As String
         Dim OutPStr, MapFilters As String
 
         If Quick Then
             OutPStr = FFMPeg_MakeQuickOutputStr(outputfile, Length)
         Else
-            OutPStr = FFMPeg_MakeOutputStr(outputfile, Length)
+            OutPStr = FFMPeg_MakeOutputStr(outputfile, Length, ForceSoftwareEncode:=ForceSoftwareEncode)
         End If
         MapFilters = FFMPeg_MakeFilterParamMapOnVideo(mapfile, videofile, GPXDiff, Length,
                                          Tempo, UseMapVideo,
@@ -740,7 +742,13 @@ Public Class clsExtra
 
     End Function
     Function FFMPeg_MakeParamSmoothMapVideosOnVideo(outputfile As String, zoomVideoFile As String, legVideoFile As String, dynamicVideoFile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
-                                                    Optional Tempo As Decimal = 1, Optional Quick As Boolean = False) As String
+                                                    Optional Tempo As Decimal = 1, Optional Quick As Boolean = False,
+                                                    Optional widgetTimeVideoFile As String = "",
+                                                    Optional widgetDistanceVideoFile As String = "",
+                                                    Optional widgetPaceVideoFile As String = "",
+                                                    Optional widgetPulseVideoFile As String = "",
+                                                    Optional widgetHGraphVideoFile As String = "",
+                                                    Optional ForceSoftwareEncode As Boolean = False) As String
         Dim inputArgs As String = ""
         Dim filterParts As New List(Of String)
         Dim currentTag As String = "[si1]"
@@ -756,7 +764,7 @@ Public Class clsExtra
             inputArgs = " -ss " + Math.Abs(tmpGPXDiff).ToString(CultureInfo.InvariantCulture)
         End If
         inputArgs += " -i " + """" + videofile + """"
-        filterParts.Add("[0:v]" + FFMpeg_ScalePadFHD() + "[si1]")
+        filterParts.Add("[0:v]setpts=PTS-STARTPTS,setsar=1," + FFMpeg_ScalePadFHD() + "[si1]")
 
         If My.Settings.cbShowRoute AndAlso File.Exists(zoomVideoFile) Then
             If tmpGPXDiff > 0 Then
@@ -764,12 +772,12 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + zoomVideoFile + """"
             Dim zoomTag As String = $"[{nextInputIndex}:v]"
-            Dim zoomInputFilter As String = "format=rgba,colorchannelmixer=aa=" & transparency
+            Dim zoomInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & transparency
             If String.Equals(Path.GetExtension(zoomVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
-                zoomInputFilter = "format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+                zoomInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
             End If
             filterParts.Add($"{zoomTag}{zoomInputFilter}[c{nextInputIndex}]")
-            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}[o{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If
@@ -780,12 +788,12 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + legVideoFile + """"
             Dim legTag As String = $"[{nextInputIndex}:v]"
-            Dim legInputFilter As String = "format=rgba,colorchannelmixer=aa=" & transparency
+            Dim legInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & transparency
             If String.Equals(Path.GetExtension(legVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
-                legInputFilter = "format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+                legInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
             End If
             filterParts.Add($"{legTag}{legInputFilter}[c{nextInputIndex}]")
-            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}[o{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If
@@ -796,15 +804,21 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + dynamicVideoFile + """"
             Dim dynamicTag As String = $"[{nextInputIndex}:v]"
-            Dim dynamicInputFilter As String = "format=rgba,colorchannelmixer=aa=" & transparency
+            Dim dynamicInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & transparency
             If String.Equals(Path.GetExtension(dynamicVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
-                dynamicInputFilter = "format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+                dynamicInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
             End If
             filterParts.Add($"{dynamicTag}{dynamicInputFilter}[c{nextInputIndex}]")
-            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIDynamicMapPos.X)}:{CStr(My.Settings.MIDynamicMapPos.Y)}[o{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIDynamicMapPos.X)}:{CStr(My.Settings.MIDynamicMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If
+
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetTimeVideoFile, My.Settings.MIWidgetTimeEnabled, My.Settings.MIWidgetTimeMapPos, tmpGPXDiff)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetDistanceVideoFile, My.Settings.MIWidgetDistanceEnabled, My.Settings.MIWidgetDistanceMapPos, tmpGPXDiff)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetPaceVideoFile, My.Settings.MIWidgetPaceEnabled, My.Settings.MIWidgetPaceMapPos, tmpGPXDiff)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetPulseVideoFile, My.Settings.MIWidgetPulseEnabled, My.Settings.MIWidgetPulseMapPos, tmpGPXDiff)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetHGraphVideoFile, My.Settings.MIWidgetHGraphEnabled, My.Settings.MIWidgetHGraphMapPos, tmpGPXDiff)
 
         filterParts.Add($"{currentTag}null{currentOutputTag}")
 
@@ -812,21 +826,41 @@ Public Class clsExtra
         Dim sngTempo As Single = Decimal.ToSingle(Tempo)
         If sngTempo <> 1 Then
             Dim speed As String = (1 / sngTempo).ToString(CultureInfo.InvariantCulture)
-            tempoFilter = $";{currentOutputTag}setpts={speed}*PTS[out]"
+            tempoFilter = $";{currentOutputTag}setpts={speed}*PTS,format=yuv420p[out]"
         Else
-            tempoFilter = $";{currentOutputTag}null[out]"
+            tempoFilter = $";{currentOutputTag}format=yuv420p[out]"
         End If
 
         Dim outPStr As String
         If Quick Then
             outPStr = FFMPeg_MakeQuickOutputStr(outputfile, Length)
         Else
-            outPStr = FFMPeg_MakeOutputStr(outputfile, Length)
+            outPStr = FFMPeg_MakeOutputStr(outputfile, Length, ForceSoftwareEncode:=ForceSoftwareEncode)
         End If
 
         Return inputArgs + " -filter_complex " + """" + String.Join(";", filterParts) + tempoFilter + """" + FFMPEG_MAP_PARAM + outPStr
     End Function
-    Function FFMPeg_MakeOutputStr(outputfile As String, Optional length As String = "", Optional CodecCopy As Boolean = False, Optional DoAudio As Boolean = True) As String
+
+    Private Sub AddWidgetOverlayInput(ByRef inputArgs As String,
+                                      filterParts As List(Of String),
+                                      ByRef currentTag As String,
+                                      ByRef nextInputIndex As Integer,
+                                      widgetVideoFile As String,
+                                      enabled As Boolean,
+                                      position As Point,
+                                      gpxDiff As Integer)
+        If Not enabled OrElse String.IsNullOrWhiteSpace(widgetVideoFile) OrElse Not File.Exists(widgetVideoFile) Then Return
+        If gpxDiff > 0 Then
+            inputArgs += " -ss " + gpxDiff.ToString(CultureInfo.InvariantCulture)
+        End If
+        inputArgs += " -i " + """" + widgetVideoFile + """"
+        Dim widgetTag As String = $"[{nextInputIndex}:v]"
+        filterParts.Add($"{widgetTag}setpts=PTS-STARTPTS,setsar=1,format=rgba[c{nextInputIndex}]")
+        filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(position.X)}:{CStr(position.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
+        currentTag = $"[o{nextInputIndex}]"
+        nextInputIndex += 1
+    End Sub
+    Function FFMPeg_MakeOutputStr(outputfile As String, Optional length As String = "", Optional CodecCopy As Boolean = False, Optional DoAudio As Boolean = True, Optional ForceSoftwareEncode As Boolean = False) As String
         Dim fps, crf, audio, preset, pix As String
         Dim targetWidth As Integer
         Dim useHardwareEncode As Boolean
@@ -845,32 +879,50 @@ Public Class clsExtra
         Else
             targetWidth = InputWidth
         End If
-        useHardwareEncode = (targetWidth >= 2000)
+        useHardwareEncode = (targetWidth >= 2000 AndAlso Not ForceSoftwareEncode)
         If CodecCopy Then
             FFMPeg_MakeOutputStr = " -c:v copy -c:a aac -ac 2 -ar 48000 -b:a 128k"
             pix = ""
         Else ' HD, 2.7K, 4K
             If targetWidth < 2000 Then
+                LastVideoEncoderName = "libx264"
                 outputStr = " -c:v libx264 -crf " & crf & audio & " -r " & fps & " -preset " & preset
-                pix = " -pix_fmt yuvj420p"
+                pix = " -pix_fmt yuv420p"
                 FFMPeg_MakeOutputStr = outputStr & pix
-            ElseIf targetWidth <= 2800 Then '2.7K
+            Else
+                Dim selectedEncoder As VideoEncoderDetectionResult
                 If useHardwareEncode Then
-                    outputStr = " -c:v hevc_nvenc -cq " & crf & audio & " -r " & fps & " -preset p5"
-                    pix = " -pix_fmt yuv420p"
+                    selectedEncoder = clsVideoEncoderDetector.GetBestHevcEncoder()
+                    LastVideoEncoderDetectionLog = selectedEncoder.DetectionLog
                 Else
-                    outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=50000" & audio & " -r " & fps & " -preset " & preset
-                    pix = " -pix_fmt yuv420p10le"
+                    selectedEncoder = New VideoEncoderDetectionResult With {
+                        .Kind = VideoEncoderKind.SoftwareX265,
+                        .EncoderName = "libx265",
+                        .DisplayName = "Software HEVC (libx265)",
+                        .PixelFormat = "yuv420p",
+                        .IsHardware = False
+                    }
                 End If
-                FFMPeg_MakeOutputStr = outputStr & pix
-            Else '4K
-                If useHardwareEncode Then
-                    outputStr = " -c:v hevc_nvenc -cq " & crf & audio & " -r " & fps & " -preset p5"
-                    pix = " -pix_fmt yuv420p"
-                Else
-                    outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=90000" & audio & " -r " & fps & " -preset " & preset
-                    pix = " -pix_fmt yuv420p10le"
-                End If
+
+                LastVideoEncoderName = selectedEncoder.EncoderName
+                Select Case selectedEncoder.Kind
+                    Case VideoEncoderKind.NvidiaNvenc
+                        outputStr = " -c:v hevc_nvenc -cq " & crf & audio & " -r " & fps & " -preset p5"
+                        pix = " -pix_fmt yuv420p"
+                    Case VideoEncoderKind.IntelQuickSync
+                        outputStr = " -c:v hevc_qsv -global_quality " & crf & audio & " -r " & fps & " -preset medium"
+                        pix = " -pix_fmt nv12"
+                    Case VideoEncoderKind.AmdAmf
+                        outputStr = " -c:v hevc_amf -quality balanced -rc cqp -qp_i " & crf & " -qp_p " & crf & audio & " -r " & fps
+                        pix = " -pix_fmt nv12"
+                    Case VideoEncoderKind.MediaFoundation
+                        outputStr = " -c:v hevc_mf -hw_encoding 1 -quality 75" & audio & " -r " & fps
+                        pix = " -pix_fmt nv12"
+                    Case Else
+                        Dim softwareBitrate As String = If(targetWidth <= 2800, "50000", "90000")
+                        outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=" & softwareBitrate & audio & " -r " & fps & " -preset " & preset
+                        pix = " -pix_fmt yuv420p"
+                End Select
                 FFMPeg_MakeOutputStr = outputStr & pix
             End If
         End If

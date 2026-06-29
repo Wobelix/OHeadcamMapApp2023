@@ -473,5 +473,25 @@ Vil du genkøre både outputvideo og musikvideo(svar: Ja) eller kun Musikvideo(s
   Looks up a localized string similar to Video er klar.
 </summary>
 </member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.WidgetDistance">
+<summary>
+  Looks up a localized string similar to Distance.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.WidgetPace">
+<summary>
+  Looks up a localized string similar to Tempo.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.WidgetPulse">
+<summary>
+  Looks up a localized string similar to Puls.
+</summary>
+</member>
+<member name="P:OHeadcamMapApp.My.Resources.Texts.WidgetTime">
+<summary>
+  Looks up a localized string similar to Tid.
+</summary>
+</member>
 </members>
 </doc>

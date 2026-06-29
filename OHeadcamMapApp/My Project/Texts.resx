@@ -329,4 +329,16 @@ Vil du genkøre både outputvideo og musikvideo(svar: Ja) eller kun Musikvideo(s
   <data name="Status_copyfile" xml:space="preserve">
     <value>Video klargøres...</value>
   </data>
+  <data name="WidgetDistance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="WidgetPace" xml:space="preserve">
+    <value>Tempo</value>
+  </data>
+  <data name="WidgetPulse" xml:space="preserve">
+    <value>Puls</value>
+  </data>
+  <data name="WidgetTime" xml:space="preserve">
+    <value>Tid</value>
+  </data>
 </root>
