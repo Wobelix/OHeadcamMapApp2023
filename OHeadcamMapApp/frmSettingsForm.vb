@@ -4,7 +4,23 @@ Imports OHeadcamMapApp.My.Resources
 Public Class frmSettings
     Private isFormLoading As Boolean = True
     Private Const DefaultOutputFormat As String = "Auto"
+    Private Const DefaultVideoQuality As String = "High"
+    Private Const DefaultVideoSpeed As String = "Balanced"
     Private Const DefaultSmoothOverlayFrameStepSeconds As Double = 0.1
+
+    Private Class ComboOption
+        Public ReadOnly Property Value As String
+        Private ReadOnly DisplayText As String
+
+        Public Sub New(value As String, displayText As String)
+            Me.Value = value
+            Me.DisplayText = displayText
+        End Sub
+
+        Public Overrides Function ToString() As String
+            Return DisplayText
+        End Function
+    End Class
     Public Sub New()
         Dim lang As String
         If My.Settings.Language = "English" Then
@@ -32,6 +48,8 @@ Public Class frmSettings
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         My.Settings.MISmoothFrameStepSeconds = ConvertSmoothFpsToFrameStep(CDbl(numSmooth.Value))
         My.Settings.OutputFormat = GetSelectedOutputFormat()
+        My.Settings.VideoQuality = GetSelectedComboValue(cmbVQuality, DefaultVideoQuality)
+        My.Settings.VideoEncoderSpeed = GetSelectedComboValue(cmbVSpeed, DefaultVideoSpeed)
         My.Settings.Save()
         Me.Close()
     End Sub
@@ -105,22 +123,70 @@ Public Class frmSettings
             cmbOutputFormat.SelectedIndex = 0
         End If
     End Sub
+
+    Private Sub LoadVideoQualityAndSpeed()
+        cmbVQuality.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbVSpeed.DropDownStyle = ComboBoxStyle.DropDownList
+
+        cmbVQuality.Items.Clear()
+        cmbVSpeed.Items.Clear()
+
+        If Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName = "da" Then
+            cmbVQuality.Items.Add(New ComboOption("Normal", "Normal"))
+            cmbVQuality.Items.Add(New ComboOption("High", "Høj"))
+            cmbVQuality.Items.Add(New ComboOption("VeryHigh", "Meget høj"))
+            cmbVSpeed.Items.Add(New ComboOption("Fast", "Hurtig"))
+            cmbVSpeed.Items.Add(New ComboOption("Balanced", "Balanceret"))
+        Else
+            cmbVQuality.Items.Add(New ComboOption("Normal", "Normal"))
+            cmbVQuality.Items.Add(New ComboOption("High", "High"))
+            cmbVQuality.Items.Add(New ComboOption("VeryHigh", "Very high"))
+            cmbVSpeed.Items.Add(New ComboOption("Fast", "Fast"))
+            cmbVSpeed.Items.Add(New ComboOption("Balanced", "Balanced"))
+        End If
+
+        SelectComboValue(cmbVQuality, If(String.IsNullOrWhiteSpace(My.Settings.VideoQuality), DefaultVideoQuality, My.Settings.VideoQuality))
+        SelectComboValue(cmbVSpeed, If(String.IsNullOrWhiteSpace(My.Settings.VideoEncoderSpeed), DefaultVideoSpeed, My.Settings.VideoEncoderSpeed))
+    End Sub
+
+    Private Sub SelectComboValue(combo As ComboBox, value As String)
+        For Each item As Object In combo.Items
+            Dim optionItem As ComboOption = TryCast(item, ComboOption)
+            If optionItem IsNot Nothing AndAlso String.Equals(optionItem.Value, value, StringComparison.OrdinalIgnoreCase) Then
+                combo.SelectedItem = item
+                Return
+            End If
+        Next
+
+        If combo.Items.Count > 0 Then combo.SelectedIndex = 0
+    End Sub
+
+    Private Function GetSelectedComboValue(combo As ComboBox, defaultValue As String) As String
+        Dim selectedOption As ComboOption = TryCast(combo.SelectedItem, ComboOption)
+        If selectedOption IsNot Nothing Then Return selectedOption.Value
+
+        If Not String.IsNullOrWhiteSpace(combo.Text) Then Return combo.Text.Trim()
+
+        Return defaultValue
+    End Function
+
     Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
         My.Settings.ffmpegVidstabDetect = GetDefault("ffmpegVidstabDetect")
         My.Settings.ffmpegOutFps = GetDefault("ffmpegOutFps")
-        'My.Settings.ffmpegPreset = GetDefault("ffmpegPreset")
-        My.Settings.ffmpegCRF = "25"
         My.Settings.VideoPadding = GetDefault("VideoPadding")
         My.Settings.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':input=data.trf:tripod=0,unsharp=5:5:0.8:3:3:0.4"
         ' CLEANUP-CBNEWMAPF-START:My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"
         My.Settings.MISmoothFrameStepSeconds = CDbl(GetDefault("MISmoothFrameStepSeconds"))
         My.Settings.OutputFormat = CStr(GetDefault("OutputFormat"))
+        My.Settings.VideoQuality = CStr(GetDefault("VideoQuality"))
+        My.Settings.VideoEncoderSpeed = CStr(GetDefault("VideoEncoderSpeed"))
         rbImgMiddle.Checked = False
         rbImgRight.Checked = True
         rbImgLeft.Checked = False
         numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
         LoadOutputFormat()
+        LoadVideoQualityAndSpeed()
         My.Settings.Save()
 
 
@@ -138,6 +204,7 @@ Public Class frmSettings
         End If
         numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
         LoadOutputFormat()
+        LoadVideoQualityAndSpeed()
         LoadVideoEncoderInfoAsync()
         isFormLoading = False
     End Sub

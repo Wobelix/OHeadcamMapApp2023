@@ -25,7 +25,6 @@ Partial Class frmSettings
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSettings))
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label17 = New System.Windows.Forms.Label()
@@ -35,8 +34,6 @@ Partial Class frmSettings
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtVideoEncoderInfo = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.cmbPreset = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -54,9 +51,12 @@ Partial Class frmSettings
         Me.Label9 = New System.Windows.Forms.Label()
         Me.numSmooth = New System.Windows.Forms.NumericUpDown()
         Me.txtVideoWorkfolder = New System.Windows.Forms.TextBox()
-        Me.txtCRF = New System.Windows.Forms.TextBox()
         Me.txtFPS = New System.Windows.Forms.TextBox()
         Me.cmbOutputFormat = New System.Windows.Forms.ComboBox()
+        Me.cmbVQuality = New System.Windows.Forms.ComboBox()
+        Me.cmbVSpeed = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.numSmooth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,12 +67,6 @@ Partial Class frmSettings
         resources.ApplyResources(Me.Label12, "Label12")
         Me.Label12.Name = "Label12"
         Me.ToolTip1.SetToolTip(Me.Label12, resources.GetString("Label12.ToolTip"))
-        '
-        'Label1
-        '
-        resources.ApplyResources(Me.Label1, "Label1")
-        Me.Label1.Name = "Label1"
-        Me.ToolTip1.SetToolTip(Me.Label1, resources.GetString("Label1.ToolTip"))
         '
         'btnSave
         '
@@ -111,8 +105,6 @@ Partial Class frmSettings
         Me.GroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.None
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.txtVideoEncoderInfo)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.cmbPreset)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.TextBox4)
         Me.GroupBox1.Controls.Add(Me.Label5)
@@ -139,22 +131,6 @@ Partial Class frmSettings
         Me.txtVideoEncoderInfo.Name = "txtVideoEncoderInfo"
         Me.txtVideoEncoderInfo.ReadOnly = True
         Me.ToolTip1.SetToolTip(Me.txtVideoEncoderInfo, resources.GetString("txtVideoEncoderInfo.ToolTip"))
-        '
-        'Label3
-        '
-        resources.ApplyResources(Me.Label3, "Label3")
-        Me.Label3.Name = "Label3"
-        Me.ToolTip1.SetToolTip(Me.Label3, resources.GetString("Label3.ToolTip"))
-        '
-        'cmbPreset
-        '
-        resources.ApplyResources(Me.cmbPreset, "cmbPreset")
-        Me.cmbPreset.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegPreset", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.cmbPreset.FormattingEnabled = True
-        Me.cmbPreset.Items.AddRange(New Object() {resources.GetString("cmbPreset.Items"), resources.GetString("cmbPreset.Items1"), resources.GetString("cmbPreset.Items2"), resources.GetString("cmbPreset.Items3"), resources.GetString("cmbPreset.Items4"), resources.GetString("cmbPreset.Items5"), resources.GetString("cmbPreset.Items6"), resources.GetString("cmbPreset.Items7"), resources.GetString("cmbPreset.Items8"), resources.GetString("cmbPreset.Items9")})
-        Me.cmbPreset.Name = "cmbPreset"
-        Me.cmbPreset.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegPreset
-        Me.ToolTip1.SetToolTip(Me.cmbPreset, resources.GetString("cmbPreset.ToolTip"))
         '
         'Label4
         '
@@ -284,14 +260,6 @@ Partial Class frmSettings
         Me.txtVideoWorkfolder.Text = Global.OHeadcamMapApp.My.MySettings.Default.VideoWorkFolder
         Me.ToolTip1.SetToolTip(Me.txtVideoWorkfolder, resources.GetString("txtVideoWorkfolder.ToolTip"))
         '
-        'txtCRF
-        '
-        resources.ApplyResources(Me.txtCRF, "txtCRF")
-        Me.txtCRF.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "ffmpegCRF", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.txtCRF.Name = "txtCRF"
-        Me.txtCRF.Text = Global.OHeadcamMapApp.My.MySettings.Default.ffmpegCRF
-        Me.ToolTip1.SetToolTip(Me.txtCRF, resources.GetString("txtCRF.ToolTip"))
-        '
         'txtFPS
         '
         resources.ApplyResources(Me.txtFPS, "txtFPS")
@@ -308,10 +276,40 @@ Partial Class frmSettings
         Me.cmbOutputFormat.Name = "cmbOutputFormat"
         Me.ToolTip1.SetToolTip(Me.cmbOutputFormat, resources.GetString("cmbOutputFormat.ToolTip"))
         '
+        'cmbVQuality
+        '
+        resources.ApplyResources(Me.cmbVQuality, "cmbVQuality")
+        Me.cmbVQuality.FormattingEnabled = True
+        Me.cmbVQuality.Name = "cmbVQuality"
+        Me.ToolTip1.SetToolTip(Me.cmbVQuality, resources.GetString("cmbVQuality.ToolTip"))
+        '
+        'cmbVSpeed
+        '
+        resources.ApplyResources(Me.cmbVSpeed, "cmbVSpeed")
+        Me.cmbVSpeed.FormattingEnabled = True
+        Me.cmbVSpeed.Name = "cmbVSpeed"
+        Me.ToolTip1.SetToolTip(Me.cmbVSpeed, resources.GetString("cmbVSpeed.ToolTip"))
+        '
+        'Label11
+        '
+        resources.ApplyResources(Me.Label11, "Label11")
+        Me.Label11.Name = "Label11"
+        Me.ToolTip1.SetToolTip(Me.Label11, resources.GetString("Label11.ToolTip"))
+        '
+        'Label13
+        '
+        resources.ApplyResources(Me.Label13, "Label13")
+        Me.Label13.Name = "Label13"
+        Me.ToolTip1.SetToolTip(Me.Label13, resources.GetString("Label13.ToolTip"))
+        '
         'frmSettings
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.Label13)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.cmbVSpeed)
+        Me.Controls.Add(Me.cmbVQuality)
         Me.Controls.Add(Me.cmbOutputFormat)
         Me.Controls.Add(Me.numSmooth)
         Me.Controls.Add(Me.Label9)
@@ -323,8 +321,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.txtVideoWorkfolder)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.txtCRF)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtFPS)
         Me.Controls.Add(Me.Label12)
         Me.Name = "frmSettings"
@@ -341,8 +337,6 @@ Partial Class frmSettings
 
     Friend WithEvents txtFPS As TextBox
     Friend WithEvents Label12 As Label
-    Friend WithEvents txtCRF As TextBox
-    Friend WithEvents Label1 As Label
     Friend WithEvents btnSave As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents TextBox2 As TextBox
@@ -365,11 +359,13 @@ Partial Class frmSettings
     Friend WithEvents Label4 As Label
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents cmbPreset As ComboBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents numSmooth As NumericUpDown
     Friend WithEvents cmbOutputFormat As ComboBox
     Friend WithEvents Label10 As Label
     Friend WithEvents txtVideoEncoderInfo As TextBox
+    Friend WithEvents cmbVQuality As ComboBox
+    Friend WithEvents cmbVSpeed As ComboBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label13 As Label
 End Class

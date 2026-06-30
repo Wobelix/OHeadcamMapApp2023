@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cmbOutputFormat.Items" xml:space="preserve">
-    <value>Auto (=input)</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="TextBox4.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Both</value>
@@ -129,14 +126,11 @@
     <value>109, 23</value>
   </data>
   <data name="&gt;&gt;TextBox4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="rbImgRight.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
-    <value>Label3</value>
   </data>
   <data name="rbImgLeft.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -146,6 +140,9 @@
   </data>
   <data name="Label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;Label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="rbImgMiddle.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -162,14 +159,8 @@
   <data name="&gt;&gt;btnReset.Name" xml:space="preserve">
     <value>btnReset</value>
   </data>
-  <data name="Label8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label12.Text" xml:space="preserve">
     <value>Video frame rate</value>
-  </data>
-  <data name="txtFPS.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="&gt;&gt;TextBox1.Name" xml:space="preserve">
     <value>TextBox1</value>
@@ -177,17 +168,23 @@
   <data name="rbImgMiddle.Text" xml:space="preserve">
     <value>Billede i midten</value>
   </data>
+  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 13</value>
+  </data>
   <data name="Label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;txtFPS.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Label17.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
   <data name="&gt;&gt;txtVideoWorkfolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Label3.Text" xml:space="preserve">
-    <value>Videokodning (ultrafast=lavere kvalitet)</value>
   </data>
   <data name="numSmooth.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -195,14 +192,14 @@
   <data name="rbImgLeft.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 59</value>
   </data>
-  <data name="txtCRF.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Horizontal</value>
+  <data name="&gt;&gt;Label13.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="Label10.Text" xml:space="preserve">
     <value>Videokodning info</value>
   </data>
-  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="txtVideoEncoderInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
   </data>
   <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -210,14 +207,11 @@
   <data name="GroupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
   </data>
-  <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="cmbOutputFormat.Items" xml:space="preserve">
+    <value>Auto (=input)</value>
   </data>
-  <data name="GroupBox2.Text" xml:space="preserve">
-    <value>4:3 -&gt; 16:9</value>
-  </data>
-  <data name="txtCRF.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="&gt;&gt;cmbVSpeed.Name" xml:space="preserve">
+    <value>cmbVSpeed</value>
   </data>
   <data name="&gt;&gt;Label7.Parent" xml:space="preserve">
     <value>$this</value>
@@ -226,22 +220,16 @@
     <value>33</value>
   </data>
   <data name="&gt;&gt;txtFPS.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="&gt;&gt;rbImgRight.Name" xml:space="preserve">
     <value>rbImgRight</value>
-  </data>
-  <data name="&gt;&gt;Label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="txtSettingSbSCode.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 158</value>
   </data>
   <data name="&gt;&gt;txtVideoEncoderInfo.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbPreset.Items5" xml:space="preserve">
-    <value>medium</value>
   </data>
   <data name="&gt;&gt;txtVideoWorkfolder.Name" xml:space="preserve">
     <value>txtVideoWorkfolder</value>
@@ -258,14 +246,17 @@
   <data name="&gt;&gt;TextBox2.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;Label11.Name" xml:space="preserve">
+    <value>Label11</value>
+  </data>
   <data name="&gt;&gt;Label9.Name" xml:space="preserve">
     <value>Label9</value>
   </data>
   <data name="Label17.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 197</value>
   </data>
-  <data name="Label5.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+  <data name="&gt;&gt;cmbVQuality.Name" xml:space="preserve">
+    <value>cmbVQuality</value>
   </data>
   <data name="Label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -276,26 +267,20 @@
   <data name="&gt;&gt;Label5.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
-  <data name="btnReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 490</value>
+  <data name="Label9.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="Label1.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="btnSave.Text" xml:space="preserve">
-    <value>Gem</value>
-  </data>
-  <data name="&gt;&gt;txtFPS.Name" xml:space="preserve">
-    <value>txtFPS</value>
+  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
+    <value>13</value>
   </data>
   <data name="&gt;&gt;GroupBox1.Name" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
-  <data name="Label9.ToolTip" xml:space="preserve">
-    <value />
+  <data name="Label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>403, 178</value>
@@ -304,7 +289,10 @@
     <value>12, 93</value>
   </data>
   <data name="&gt;&gt;GroupBox2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
+  </data>
+  <data name="Label11.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
   </data>
   <data name="Label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 13</value>
@@ -312,47 +300,35 @@
   <data name="txtFPS.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;ToolTip1.Name" xml:space="preserve">
-    <value>ToolTip1</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cmbPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>444, 32</value>
+  <data name="&gt;&gt;rbImgRight.Parent" xml:space="preserve">
+    <value>GroupBox2</value>
   </data>
   <data name="btnSelectFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnSelectFolder.Text" xml:space="preserve">
-    <value>Vælg mappe...</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="txtVideoEncoderInfo.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="GroupBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 88</value>
   </data>
+  <data name="Label13.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="cmbOutputFormat.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
   </data>
-  <data name="&gt;&gt;cmbPreset.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
+  <data name="rbImgMiddle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;TextBox1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="txtVideoEncoderInfo.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="btnReset.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
   </data>
   <data name="Label17.Text" xml:space="preserve">
     <value>Filter (uden deshake)</value>
-  </data>
-  <data name="cmbPreset.Items1" xml:space="preserve">
-    <value>superfast</value>
   </data>
   <data name="TextBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>376, 20</value>
@@ -372,10 +348,13 @@
   <data name="&gt;&gt;numSmooth.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;Label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;GroupBox2.Name" xml:space="preserve">
     <value>GroupBox2</value>
   </data>
-  <data name="rbImgLeft.AutoSize" type="System.Boolean, mscorlib">
+  <data name="Label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -402,6 +381,9 @@
   <data name="Label9.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
   </data>
+  <data name="btnSelectFolder.Text" xml:space="preserve">
+    <value>Vælg mappe...</value>
+  </data>
   <data name="&gt;&gt;TextBox1.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
@@ -426,8 +408,8 @@
   <data name="&gt;&gt;GroupBox2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="txtVideoEncoderInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
+  <data name="Label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>441, 65</value>
   </data>
   <data name="cmbOutputFormat.Items3" xml:space="preserve">
     <value>Max 4K  3840x2160</value>
@@ -437,9 +419,6 @@
   </data>
   <data name="txtVideoWorkfolder.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
-  </data>
-  <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 158</value>
   </data>
   <data name="Label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -453,20 +432,14 @@
   <data name="&gt;&gt;btnReset.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 13</value>
-  </data>
-  <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 214</value>
+  <data name="TextBox4.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="rbImgLeft.Text" xml:space="preserve">
     <value>Billede til venstre</value>
-  </data>
-  <data name="&gt;&gt;txtCRF.ZOrder" xml:space="preserve">
-    <value>11</value>
   </data>
   <data name="GroupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 209</value>
@@ -477,32 +450,26 @@
   <data name="Label17.ToolTip" xml:space="preserve">
     <value>ffmpeg -vf 过滤器（用逗号分隔）</value>
   </data>
-  <data name="Label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="&gt;&gt;txtSettingSbSCode.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 13</value>
-  </data>
-  <data name="cmbPreset.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;Label1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 214</value>
   </data>
   <data name="&gt;&gt;Label17.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
-  <data name="cmbPreset.Items2" xml:space="preserve">
-    <value>veryfast</value>
+  <data name="&gt;&gt;cmbVQuality.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="cmbPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
+  <data name="Label9.Text" xml:space="preserve">
+    <value>GPS opdatering (fps)</value>
   </data>
-  <data name="&gt;&gt;Label8.Name" xml:space="preserve">
-    <value>Label8</value>
+  <data name="Label4.Text" xml:space="preserve">
+    <value>Ekstra filtre(brug komma)</value>
+  </data>
+  <data name="numSmooth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>265, 42</value>
   </data>
   <data name="TextBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 58</value>
@@ -510,8 +477,8 @@
   <data name="&gt;&gt;rbImgMiddle.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="rbImgLeft.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="GroupBox1.Text" xml:space="preserve">
     <value>Tekniske videoparametre (ffmpeg)</value>
@@ -522,11 +489,8 @@
   <data name="rbImgLeft.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
   </data>
-  <data name="txtVideoEncoderInfo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="txtCRF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 175</value>
+  <data name="txtFPS.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
   <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
     <value>btnSave</value>
@@ -535,16 +499,13 @@
     <value>283, 61</value>
   </data>
   <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>6</value>
   </data>
   <data name="numSmooth.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
-  <data name="&gt;&gt;Label5.Name" xml:space="preserve">
-    <value>Label5</value>
+  <data name="&gt;&gt;TextBox1.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="&gt;&gt;numSmooth.Name" xml:space="preserve">
     <value>numSmooth</value>
@@ -567,8 +528,11 @@
   <data name="Label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="rbImgMiddle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="Label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 13</value>
+  </data>
+  <data name="&gt;&gt;txtVideoEncoderInfo.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="Label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -576,29 +540,38 @@
   <data name="&gt;&gt;rbImgMiddle.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="&gt;&gt;Label4.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
   <data name="TextBox3.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
   </data>
+  <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="Label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 158</value>
+    <value>159, 74</value>
   </data>
   <data name="&gt;&gt;cmbOutputFormat.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>4</value>
   </data>
-  <data name="cmbPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
+  <data name="&gt;&gt;Label13.Name" xml:space="preserve">
+    <value>Label13</value>
   </data>
   <data name="txtVideoWorkfolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 42</value>
   </data>
+  <data name="&gt;&gt;rbImgMiddle.Name" xml:space="preserve">
+    <value>rbImgMiddle</value>
+  </data>
   <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
+  </data>
+  <data name="Label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 165</value>
+  </data>
+  <data name="cmbVSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 182</value>
   </data>
   <data name="&gt;&gt;Label7.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -615,6 +588,9 @@
   <data name="&gt;&gt;txtVideoWorkfolder.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="Label5.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
   <data name="&gt;&gt;TextBox4.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -627,11 +603,11 @@
   <data name="TextBox3.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="Label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>441, 65</value>
+  <data name="&gt;&gt;Label5.Name" xml:space="preserve">
+    <value>Label5</value>
   </data>
-  <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 13</value>
+  <data name="&gt;&gt;cmbVSpeed.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="Label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -639,35 +615,32 @@
   <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 13</value>
   </data>
-  <data name="&gt;&gt;txtVideoEncoderInfo.Parent" xml:space="preserve">
+  <data name="&gt;&gt;TextBox2.Parent" xml:space="preserve">
     <value>GroupBox1</value>
-  </data>
-  <data name="TextBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 110</value>
   </data>
   <data name="&gt;&gt;rbImgLeft.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="cmbPreset.Items6" xml:space="preserve">
-    <value>slow</value>
+  <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="txtCRF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 20</value>
-  </data>
-  <data name="btnReset.TabIndex" type="System.Int32, mscorlib">
-    <value>42</value>
+  <data name="cmbVSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
   </data>
   <data name="Label4.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
   <data name="&gt;&gt;txtSettingSbSCode.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;TextBox4.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
+  </data>
+  <data name="btnReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>96, 490</value>
   </data>
   <data name="Label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 26</value>
@@ -676,25 +649,25 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="&gt;&gt;Label6.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbVQuality.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;Label7.Name" xml:space="preserve">
     <value>Label7</value>
   </data>
   <data name="txtFPS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 175</value>
+    <value>162, 94</value>
   </data>
   <data name="rbImgRight.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
   </data>
-  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>441, 16</value>
-  </data>
-  <data name="rbImgRight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 38</value>
+  <data name="&gt;&gt;Label8.Name" xml:space="preserve">
+    <value>Label8</value>
   </data>
   <data name="txtFPS.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 20</value>
@@ -703,7 +676,7 @@
     <value>True</value>
   </data>
   <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;Label9.Parent" xml:space="preserve">
     <value>$this</value>
@@ -711,35 +684,29 @@
   <data name="&gt;&gt;rbImgMiddle.Parent" xml:space="preserve">
     <value>GroupBox2</value>
   </data>
-  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 13</value>
   </data>
-  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
+  <data name="&gt;&gt;GroupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;rbImgLeft.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;txtCRF.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
-    <value>46</value>
+  <data name="&gt;&gt;txtFPS.Name" xml:space="preserve">
+    <value>txtFPS</value>
   </data>
   <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;TextBox3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmSettings</value>
@@ -749,9 +716,6 @@
   </data>
   <data name="Label7.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
-  </data>
-  <data name="&gt;&gt;cmbPreset.Name" xml:space="preserve">
-    <value>cmbPreset</value>
   </data>
   <data name="txtSettingSbSCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>376, 20</value>
@@ -768,21 +732,24 @@
   <data name="&gt;&gt;btnReset.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="cmbVSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
   <data name="TextBox4.Text" xml:space="preserve">
     <value>Forveforbedring: normalize=blackpt=black:whitept=white:smoothing=10:strength=0.5
 Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:1080</value>
   </data>
-  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 13</value>
   </data>
   <data name="txtVideoEncoderInfo.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Vertical</value>
   </data>
-  <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="Label13.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
   </data>
-  <data name="&gt;&gt;txtCRF.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;cmbVQuality.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -943,20 +910,20 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="cmbPreset.Items7" xml:space="preserve">
-    <value>slower</value>
+  <data name="&gt;&gt;txtVideoEncoderInfo.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
   </data>
   <data name="btnReset.Text" xml:space="preserve">
     <value>Reset indstillinger</value>
   </data>
-  <data name="&gt;&gt;txtCRF.Name" xml:space="preserve">
-    <value>txtCRF</value>
+  <data name="GroupBox2.Text" xml:space="preserve">
+    <value>4:3 -&gt; 16:9</value>
   </data>
   <data name="Label10.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
   </data>
-  <data name="&gt;&gt;txtVideoEncoderInfo.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;txtVideoWorkfolder.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="&gt;&gt;rbImgRight.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -967,8 +934,17 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;Label10.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
+  <data name="txtVideoEncoderInfo.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="&gt;&gt;rbImgLeft.Parent" xml:space="preserve">
     <value>GroupBox2</value>
+  </data>
+  <data name="&gt;&gt;cmbOutputFormat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnSave.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
   </data>
   <data name="&gt;&gt;TextBox3.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -977,25 +953,25 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>100, 20</value>
   </data>
   <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="TextBox2.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="btnSave.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+  <data name="cmbVSpeed.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;cmbVSpeed.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="TextBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>406, 197</value>
   </data>
-  <data name="&gt;&gt;GroupBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Label13.Text" xml:space="preserve">
+    <value>Kodehastighed</value>
   </data>
-  <data name="&gt;&gt;rbImgRight.Parent" xml:space="preserve">
-    <value>GroupBox2</value>
-  </data>
-  <data name="Label9.Text" xml:space="preserve">
-    <value>GPS opdatering (fps)</value>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>Gem</value>
   </data>
   <data name="Label2.Text" xml:space="preserve">
     <value>Side by Side kode</value>
@@ -1005,6 +981,9 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   </data>
   <data name="TextBox2.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
+  </data>
+  <data name="rbImgMiddle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;txtSettingSbSCode.Parent" xml:space="preserve">
     <value>GroupBox1</value>
@@ -1018,8 +997,8 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;ToolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="numSmooth.Location" type="System.Drawing.Point, System.Drawing">
-    <value>265, 42</value>
+  <data name="cmbVQuality.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
   </data>
   <data name="&gt;&gt;btnSelectFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1039,35 +1018,41 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="$this.Text" xml:space="preserve">
     <value>Indstillinger</value>
   </data>
-  <data name="Label4.Text" xml:space="preserve">
-    <value>Ekstra filtre(brug komma)</value>
+  <data name="cmbVQuality.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 181</value>
   </data>
-  <data name="cmbPreset.Items3" xml:space="preserve">
-    <value>faster</value>
+  <data name="&gt;&gt;Label11.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>12</value>
+  <data name="cmbVQuality.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="Label17.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="Label11.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="txtSettingSbSCode.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="cmbPreset.Items8" xml:space="preserve">
-    <value>veryslow</value>
+  <data name="cmbVQuality.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
   </data>
   <data name="&gt;&gt;Label9.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;TextBox2.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
+  <data name="rbImgRight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 38</value>
+  </data>
+  <data name="&gt;&gt;Label11.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;Label12.Name" xml:space="preserve">
     <value>Label12</value>
   </data>
   <data name="TextBox1.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
+  </data>
+  <data name="Label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 13</value>
   </data>
   <data name="rbImgRight.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 17</value>
@@ -1078,6 +1063,9 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>695, 264</value>
   </data>
+  <data name="Label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="Label5.Text" xml:space="preserve">
     <value>VidstabDetect</value>
   </data>
@@ -1087,8 +1075,8 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="rbImgLeft.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 17</value>
   </data>
-  <data name="&gt;&gt;numSmooth.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;Label13.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;numSmooth.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1096,14 +1084,8 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;Label17.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
-  <data name="rbImgMiddle.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="&gt;&gt;Label8.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbPreset.Items" xml:space="preserve">
-    <value>ultrafast</value>
   </data>
   <data name="&gt;&gt;TextBox3.Parent" xml:space="preserve">
     <value>GroupBox1</value>
@@ -1114,14 +1096,14 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="btnSelectFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>121, 40</value>
   </data>
-  <data name="&gt;&gt;TextBox1.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="Label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 13</value>
+  <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 13</value>
   </data>
-  <data name="TextBox4.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="Label8.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;Label6.Name" xml:space="preserve">
     <value>Label6</value>
@@ -1129,11 +1111,8 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
-  <data name="Label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 13</value>
-  </data>
-  <data name="Label1.Text" xml:space="preserve">
-    <value>Videokvalitet (CRF) 25=god 30=lav</value>
+  <data name="Label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 165</value>
   </data>
   <data name="&gt;&gt;txtSettingSbSCode.Name" xml:space="preserve">
     <value>txtSettingSbSCode</value>
@@ -1145,16 +1124,22 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
     <value>Max HD 1920x1080</value>
   </data>
   <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>14</value>
   </data>
   <data name="&gt;&gt;btnReset.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="Label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="Label17.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbVSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TextBox2.Name" xml:space="preserve">
     <value>TextBox2</value>
@@ -1165,9 +1150,6 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="TextBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>376, 20</value>
   </data>
-  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="&gt;&gt;GroupBox1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
@@ -1176,6 +1158,9 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   </data>
   <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>123, 13</value>
+  </data>
+  <data name="Label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="btnReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1186,29 +1171,20 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="rbImgRight.Text" xml:space="preserve">
     <value>Billede til højre</value>
   </data>
-  <data name="&gt;&gt;rbImgMiddle.Name" xml:space="preserve">
-    <value>rbImgMiddle</value>
+  <data name="&gt;&gt;numSmooth.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;Label4.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="cmbPreset.Items4" xml:space="preserve">
-    <value>fast</value>
-  </data>
-  <data name="&gt;&gt;Label1.Name" xml:space="preserve">
-    <value>Label1</value>
-  </data>
-  <data name="&gt;&gt;cmbOutputFormat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="TextBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 110</value>
   </data>
   <data name="Label6.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
   <data name="&gt;&gt;btnSelectFolder.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="cmbPreset.Items9" xml:space="preserve">
-    <value>placebo</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;rbImgRight.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1216,31 +1192,28 @@ Roter og zoom(evt 1920:1440): rotate=5*PI/180,crop=0.9*in_w:0.9*in_h,scale=1920:
   <data name="&gt;&gt;cmbOutputFormat.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;txtVideoWorkfolder.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;ToolTip1.Name" xml:space="preserve">
+    <value>ToolTip1</value>
   </data>
   <data name="&gt;&gt;TextBox2.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="rbImgMiddle.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 17</value>
   </data>
+  <data name="Label11.Text" xml:space="preserve">
+    <value>Videokvalitet</value>
+  </data>
   <data name="&gt;&gt;Label2.Name" xml:space="preserve">
     <value>Label2</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>41</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en-US</value>
   </metadata>
 </root>

@@ -58,7 +58,10 @@ Public NotInheritable Class clsVideoEncoderDetector
 
         Dim selected As VideoEncoderDetectionResult
         If successful.Count > 0 Then
-            selected = successful.OrderBy(Function(candidate) candidate.TestElapsed).First()
+            selected = successful.
+                OrderBy(Function(candidate) GetEncoderPreferenceRank(candidate.Kind)).
+                ThenBy(Function(candidate) candidate.TestElapsed).
+                First()
         Else
             selected = New VideoEncoderDetectionResult With {
                 .Kind = VideoEncoderKind.SoftwareX265,
@@ -72,9 +75,25 @@ Public NotInheritable Class clsVideoEncoderDetector
         End If
 
         selected.FfmpegVersion = versionLine
+        logLines.Add("Selection policy: prefer NVENC, then Quick Sync, AMD AMF, Media Foundation; use test time only within the same priority.")
         logLines.Add("Selected encoder: " & selected.DisplayName)
         selected.DetectionLog = String.Join(Environment.NewLine, logLines)
         Return selected
+    End Function
+
+    Private Shared Function GetEncoderPreferenceRank(kind As VideoEncoderKind) As Integer
+        Select Case kind
+            Case VideoEncoderKind.NvidiaNvenc
+                Return 0
+            Case VideoEncoderKind.IntelQuickSync
+                Return 1
+            Case VideoEncoderKind.AmdAmf
+                Return 2
+            Case VideoEncoderKind.MediaFoundation
+                Return 3
+            Case Else
+                Return 4
+        End Select
     End Function
 
     Private Shared Sub TestCandidate(ffmpegPath As String,

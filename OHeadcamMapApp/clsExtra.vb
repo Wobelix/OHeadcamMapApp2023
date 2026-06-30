@@ -48,6 +48,7 @@ Public Class clsExtra
     Public InputHeight As Integer = 1080
     Public LastVideoEncoderDetectionLog As String = ""
     Public LastVideoEncoderName As String = ""
+    Public LastVideoEncoderSettingsText As String = ""
     Public Sub New()
         AppFolder = My.Application.Info.DirectoryPath + "\"
 
@@ -62,6 +63,104 @@ Public Class clsExtra
         End If
         Return 1.0F
     End Function
+
+    Private Function GetNormalizedVideoQuality() As String
+        Dim quality As String = My.Settings.VideoQuality
+        If String.IsNullOrWhiteSpace(quality) Then Return "High"
+
+        Select Case quality.Trim().ToLowerInvariant()
+            Case "normal"
+                Return "Normal"
+            Case "veryhigh", "very high", "meget høj", "meget hoej"
+                Return "VeryHigh"
+            Case Else
+                Return "High"
+        End Select
+    End Function
+
+    Private Function GetNormalizedVideoEncoderSpeed() As String
+        Dim speed As String = My.Settings.VideoEncoderSpeed
+        If String.IsNullOrWhiteSpace(speed) Then Return "Balanced"
+
+        Select Case speed.Trim().ToLowerInvariant()
+            Case "fast", "hurtig"
+                Return "Fast"
+            Case Else
+                Return "Balanced"
+        End Select
+    End Function
+
+    Private Function GetHardwareQualityValue() As Integer
+        Select Case GetNormalizedVideoQuality()
+            Case "Normal"
+                Return 26
+            Case "VeryHigh"
+                Return 20
+            Case Else
+                Return 23
+        End Select
+    End Function
+
+    Private Function GetNvencQualityValue() As Integer
+        Select Case GetNormalizedVideoQuality()
+            Case "Normal"
+                Return 25
+            Case "VeryHigh"
+                Return 21
+            Case Else
+                Return 23
+        End Select
+    End Function
+
+    Private Function GetSoftwareQualityValue() As Integer
+        Return GetHardwareQualityValue()
+    End Function
+
+    Private Function GetSoftwarePreset() As String
+        If GetNormalizedVideoEncoderSpeed() = "Fast" Then Return "veryfast"
+        Return "fast"
+    End Function
+
+    Private Function GetNvencPreset() As String
+        If GetNormalizedVideoEncoderSpeed() = "Fast" Then Return "p4"
+        Return "p6"
+    End Function
+
+    Private Function GetQsvPreset() As String
+        If GetNormalizedVideoEncoderSpeed() = "Fast" Then Return "fast"
+        Return "medium"
+    End Function
+
+    Private Function GetAmfQualityMode() As String
+        If GetNormalizedVideoEncoderSpeed() = "Fast" Then Return "speed"
+        Return "balanced"
+    End Function
+
+    Private Function GetHevcTargetBitrateKbps(targetWidth As Integer) As Integer
+        Select Case GetNormalizedVideoQuality()
+            Case "Normal"
+                If targetWidth >= 3800 Then Return 70000
+                If targetWidth >= 2800 Then Return 45000
+                Return 28000
+            Case "VeryHigh"
+                If targetWidth >= 3800 Then Return 140000
+                If targetWidth >= 2800 Then Return 90000
+                Return 60000
+            Case Else
+                If targetWidth >= 3800 Then Return 110000
+                If targetWidth >= 2800 Then Return 70000
+                Return 50000
+        End Select
+    End Function
+
+    Private Function GetHevcMaxRateKbps(targetBitrateKbps As Integer) As Integer
+        Return CInt(Math.Round(targetBitrateKbps * 1.25R))
+    End Function
+
+    Private Function GetHevcBufferSizeKbps(targetBitrateKbps As Integer) As Integer
+        Return CInt(Math.Round(targetBitrateKbps * 2.0R))
+    End Function
+
     Function FFMpeg_VideoFrameToImage(VideoFile As String, ImageFile As String, Seconds As String) As String
         Return "-ss " + Seconds + " -i " + VideoFile + " -frames:v 1 -y " + ImageFile
 
@@ -861,11 +960,10 @@ Public Class clsExtra
         nextInputIndex += 1
     End Sub
     Function FFMPeg_MakeOutputStr(outputfile As String, Optional length As String = "", Optional CodecCopy As Boolean = False, Optional DoAudio As Boolean = True, Optional ForceSoftwareEncode As Boolean = False) As String
-        Dim fps, crf, audio, preset, pix As String
+        Dim fps, audio, pix As String
         Dim targetWidth As Integer
         Dim useHardwareEncode As Boolean
         'presets: ultrafast,superfast,veryfast,faster,fast,medium,slow,slower,veryslow
-        crf = My.Settings.ffmpegCRF
         fps = My.Settings.ffmpegOutFps
         If My.Settings.NoAudio Or Not DoAudio Then
             audio = ""
@@ -873,21 +971,25 @@ Public Class clsExtra
             audio = " -map 0:a -c:a aac -ac 2 -ar 48000 -b:a 128k"
         End If
 
-        preset = My.Settings.ffmpegPreset
         If OutputWidth > 0 Then
             targetWidth = OutputWidth
         Else
             targetWidth = InputWidth
         End If
-        useHardwareEncode = (targetWidth >= 2000 AndAlso Not ForceSoftwareEncode)
+        useHardwareEncode = (targetWidth >= 1280 AndAlso Not ForceSoftwareEncode)
         If CodecCopy Then
             FFMPeg_MakeOutputStr = " -c:v copy -c:a aac -ac 2 -ar 48000 -b:a 128k"
+            LastVideoEncoderName = "copy"
+            LastVideoEncoderSettingsText = "Video copy (-c:v copy)"
             pix = ""
         Else ' HD, 2.7K, 4K
-            If targetWidth < 2000 Then
+            If targetWidth < 1280 Then
+                Dim softwareQuality As String = GetSoftwareQualityValue().ToString(CultureInfo.InvariantCulture)
+                Dim softwarePreset As String = GetSoftwarePreset()
                 LastVideoEncoderName = "libx264"
-                outputStr = " -c:v libx264 -crf " & crf & audio & " -r " & fps & " -preset " & preset
+                outputStr = " -c:v libx264 -crf " & softwareQuality & audio & " -r " & fps & " -preset " & softwarePreset
                 pix = " -pix_fmt yuv420p"
+                LastVideoEncoderSettingsText = "Software H.264 (libx264), CRF " & softwareQuality & ", preset " & softwarePreset & ", pixel format yuv420p"
                 FFMPeg_MakeOutputStr = outputStr & pix
             Else
                 Dim selectedEncoder As VideoEncoderDetectionResult
@@ -905,23 +1007,43 @@ Public Class clsExtra
                 End If
 
                 LastVideoEncoderName = selectedEncoder.EncoderName
+                Dim hardwareQuality As Integer = GetHardwareQualityValue()
                 Select Case selectedEncoder.Kind
                     Case VideoEncoderKind.NvidiaNvenc
-                        outputStr = " -c:v hevc_nvenc -cq " & crf & audio & " -r " & fps & " -preset p5"
+                        Dim nvencQuality As String = GetNvencQualityValue().ToString(CultureInfo.InvariantCulture)
+                        Dim nvencPreset As String = GetNvencPreset()
+                        outputStr = " -c:v hevc_nvenc -rc constqp -qp " & nvencQuality & audio & " -r " & fps & " -preset " & nvencPreset
                         pix = " -pix_fmt yuv420p"
+                        LastVideoEncoderSettingsText = "Nvidia NVENC HEVC, constQP " & nvencQuality & ", preset " & nvencPreset & ", pixel format yuv420p"
                     Case VideoEncoderKind.IntelQuickSync
-                        outputStr = " -c:v hevc_qsv -global_quality " & crf & audio & " -r " & fps & " -preset medium"
+                        Dim qsvQuality As String = hardwareQuality.ToString(CultureInfo.InvariantCulture)
+                        Dim qsvPreset As String = GetQsvPreset()
+                        outputStr = " -c:v hevc_qsv -global_quality " & qsvQuality & audio & " -r " & fps & " -preset " & qsvPreset
                         pix = " -pix_fmt nv12"
+                        LastVideoEncoderSettingsText = "Intel Quick Sync HEVC, global_quality " & qsvQuality & ", preset " & qsvPreset & ", pixel format nv12"
                     Case VideoEncoderKind.AmdAmf
-                        outputStr = " -c:v hevc_amf -quality balanced -rc cqp -qp_i " & crf & " -qp_p " & crf & audio & " -r " & fps
+                        Dim amfQuality As String = hardwareQuality.ToString(CultureInfo.InvariantCulture)
+                        Dim amfQualityMode As String = GetAmfQualityMode()
+                        outputStr = " -c:v hevc_amf -quality " & amfQualityMode & " -rc cqp -qp_i " & amfQuality & " -qp_p " & amfQuality & audio & " -r " & fps
                         pix = " -pix_fmt nv12"
+                        LastVideoEncoderSettingsText = "AMD AMF HEVC, QP " & amfQuality & ", quality " & amfQualityMode & ", pixel format nv12"
                     Case VideoEncoderKind.MediaFoundation
-                        outputStr = " -c:v hevc_mf -hw_encoding 1 -quality 75" & audio & " -r " & fps
+                        Dim mfBitrate As Integer = GetHevcTargetBitrateKbps(targetWidth)
+                        Dim mfMaxrate As Integer = GetHevcMaxRateKbps(mfBitrate)
+                        Dim mfBufsize As Integer = GetHevcBufferSizeKbps(mfBitrate)
+                        outputStr = " -c:v hevc_mf -hw_encoding 1 -rate_control pc_vbr -scenario archive -quality 100" &
+                                    " -b:v " & mfBitrate.ToString(CultureInfo.InvariantCulture) & "k" &
+                                    " -maxrate " & mfMaxrate.ToString(CultureInfo.InvariantCulture) & "k" &
+                                    " -bufsize " & mfBufsize.ToString(CultureInfo.InvariantCulture) & "k" &
+                                    audio & " -r " & fps
                         pix = " -pix_fmt nv12"
+                        LastVideoEncoderSettingsText = "Windows Media Foundation HEVC, pc_vbr, bitrate " & mfBitrate.ToString(CultureInfo.InvariantCulture) & "k, maxrate " & mfMaxrate.ToString(CultureInfo.InvariantCulture) & "k, pixel format nv12"
                     Case Else
-                        Dim softwareBitrate As String = If(targetWidth <= 2800, "50000", "90000")
-                        outputStr = " -c:v libx265 -crf " & crf & " -x265-params bitrate=" & softwareBitrate & audio & " -r " & fps & " -preset " & preset
+                        Dim softwareQuality As String = GetSoftwareQualityValue().ToString(CultureInfo.InvariantCulture)
+                        Dim softwarePreset As String = GetSoftwarePreset()
+                        outputStr = " -c:v libx265 -crf " & softwareQuality & audio & " -r " & fps & " -preset " & softwarePreset
                         pix = " -pix_fmt yuv420p"
+                        LastVideoEncoderSettingsText = "Software HEVC (libx265), CRF " & softwareQuality & ", preset " & softwarePreset & ", pixel format yuv420p"
                 End Select
                 FFMPeg_MakeOutputStr = outputStr & pix
             End If
@@ -936,7 +1058,7 @@ Public Class clsExtra
     Function FFMPeg_MakeQuickOutputStr(outputfile As String, Optional length As String = "", Optional DoAudio As Boolean = True) As String
         Dim fps, crf, audio, preset, pix As String
         'presets: ultrafast,superfast,veryfast,faster,fast,medium,slow,slower,veryslow
-        crf = "30" 'My.Settings.ffmpegCRF
+        crf = "30"
         fps = "20" 'My.Settings.ffmpegOutFps
         If My.Settings.NoAudio Or Not DoAudio Then
             audio = ""
@@ -944,7 +1066,7 @@ Public Class clsExtra
             audio = " -map 0:a -c:a aac -ac 2 -ar 48000 -b:a 128k"
         End If
 
-        preset = "ultrafast" 'My.Settings.ffmpegPreset
+        preset = "ultrafast"
         FFMPeg_MakeQuickOutputStr = " -c:v libx264 -tune fastdecode -crf " + crf + audio + " -r " + fps + " -preset " + preset
         'FFMPeg_MakeQuickOutputStr = " -c:v libx264 -crf " + crf + audio + " -r " + fps + " -preset " + preset
         pix = " -pix_fmt yuvj420p"

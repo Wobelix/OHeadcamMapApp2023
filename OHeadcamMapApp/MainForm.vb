@@ -941,6 +941,13 @@ Public Class MainForm
 
                         VidstabDetect = inpstr + " -vf " + My.Settings.ffmpegVidstabDetect + tstr + My.Settings.ffmpegVidstabDetectOut
                         VidstabTransform = inpstr + " -vf " + My.Settings.ffmpegVidstabTransform + ExtraFunc.FFMPeg_MakeOutputStr(GetDeshakedFilename(True), txtPrepareLength.Text, False, False)
+                        If Not String.IsNullOrWhiteSpace(ExtraFunc.LastVideoEncoderDetectionLog) Then
+                            LogDeshake += "Video encoder detection:" + vbCrLf + ExtraFunc.LastVideoEncoderDetectionLog + vbCrLf
+                        End If
+                        If Not String.IsNullOrWhiteSpace(ExtraFunc.LastVideoEncoderSettingsText) Then
+                            LogDeshake += GetWholeVideoTimingEncoderLabelText() + ExtraFunc.LastVideoEncoderSettingsText + vbCrLf
+                        End If
+                        LogDeshake += VidstabTransform + vbCrLf
                         StatusBarUpdate(Texts.Deshake1)
                         LogDeshake += Texts.Deshake1 + vbCrLf
                         RemainingTimeObj.StartTime(My.Settings.JoinFileLength)
@@ -969,6 +976,9 @@ Public Class MainForm
                     'End If
                     If RB_onlyfilter.Checked Then
                         VidstabTransform = inpstr + " " + My.Settings.No_deshake_filter + ExtraFunc.FFMPeg_MakeOutputStr(GetDeshakedFilename(True), txtPrepareLength.Text, False, False)
+                        If Not String.IsNullOrWhiteSpace(ExtraFunc.LastVideoEncoderSettingsText) Then
+                            LogDeshake += GetWholeVideoTimingEncoderLabelText() + ExtraFunc.LastVideoEncoderSettingsText + vbCrLf
+                        End If
                         StatusBarUpdate(Texts.Filter1)
                         LogDeshake += Texts.Filter1 + vbCrLf
                         RemainingTimeObj.StartTime(My.Settings.JoinFileLength)
@@ -2261,18 +2271,48 @@ Public Class MainForm
         Return "  Map stage: "
     End Function
     Private Function GetWholeVideoTimingOverlayLabelText() As String
-        If IsDanishUi() Then Return "  Videooverlay-del: "
-        Return "  Video overlay stage: "
+        If IsDanishUi() Then Return "  Videoencoding/overlay-del: "
+        Return "  Video encoding/overlay stage: "
     End Function
     Private Function GetWholeVideoTimingTotalLabelText() As String
         If IsDanishUi() Then Return "  Samlet tid: "
         Return "  Total time: "
     End Function
+    Private Function GetWholeVideoTimingEncoderLabelText() As String
+        If IsDanishUi() Then Return "  Videoencoder: "
+        Return "  Video encoder: "
+    End Function
+    Private Function GetWholeVideoTimingOutputLabelText() As String
+        If IsDanishUi() Then Return "  Outputfil: "
+        Return "  Output file: "
+    End Function
+    Private Function FormatOutputFileStats(filename As String, durationSeconds As Single) As String
+        If String.IsNullOrWhiteSpace(filename) OrElse Not File.Exists(filename) Then Return ""
+        Dim info As New FileInfo(filename)
+        Dim sizeMb As Double = info.Length / 1024.0R / 1024.0R
+        Dim result As String = sizeMb.ToString("0.0", CultureInfo.InvariantCulture) & " MB"
+        If durationSeconds > 0 Then
+            Dim bitrateMbps As Double = (info.Length * 8.0R) / durationSeconds / 1000000.0R
+            result &= ", " & bitrateMbps.ToString("0.0", CultureInfo.InvariantCulture) & " Mbps"
+        End If
+        Return result
+    End Function
+    Private Function BuildWholeVideoTimingLog() As String
+        Dim result As String = GetWholeVideoTimingHeaderText() + vbCrLf
+        If Not String.IsNullOrWhiteSpace(ExtraFunc.LastVideoEncoderSettingsText) Then
+            result += GetWholeVideoTimingEncoderLabelText() + ExtraFunc.LastVideoEncoderSettingsText + vbCrLf
+        End If
+        result += GetWholeVideoTimingMapLabelText() + FormatElapsed(LastWholeMapStageElapsed) + vbCrLf
+        result += GetWholeVideoTimingOverlayLabelText() + FormatElapsed(LastWholeOverlayStageElapsed) + vbCrLf
+        Dim outputStats As String = FormatOutputFileStats(txtOutFilename.Text, CSng(If(lblOutputVideoLength.Text <> "", ExtraFunc.TimeStrToSec(lblOutputVideoLength.Text), 0)))
+        If Not String.IsNullOrWhiteSpace(outputStats) Then
+            result += GetWholeVideoTimingOutputLabelText() + outputStats + vbCrLf
+        End If
+        result += GetWholeVideoTimingTotalLabelText() + FormatElapsed(LastWholeVideoTotalElapsed) + vbCrLf
+        Return result
+    End Function
     Private Sub AppendWholeVideoTimingLog()
-        LogMakeVideo += GetWholeVideoTimingHeaderText() + vbCrLf
-        LogMakeVideo += GetWholeVideoTimingMapLabelText() + FormatElapsed(LastWholeMapStageElapsed) + vbCrLf
-        LogMakeVideo += GetWholeVideoTimingOverlayLabelText() + FormatElapsed(LastWholeOverlayStageElapsed) + vbCrLf
-        LogMakeVideo += GetWholeVideoTimingTotalLabelText() + FormatElapsed(LastWholeVideoTotalElapsed) + vbCrLf
+        LogDeshake += BuildWholeVideoTimingLog()
     End Sub
     Private Sub AppendSmoothTimingLog()
         LogMapF += GetMapVideoTimingHeaderText() + vbCrLf
@@ -2705,7 +2745,6 @@ Public Class MainForm
         TrackVideoState()
         My.Settings.txtMapVideoFilename = ""
         My.Settings.txtRealtimeFactor = ""
-        My.Settings.ffmpegCRF = "25"
         My.Settings.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':input=data.trf:tripod=0,unsharp=5:5:0.8:3:3:0.4"
         ' CLEANUP-CBNEWMAPF-START:My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"

@@ -767,6 +767,27 @@ Public Class frmPostProcess
 
 
     End Sub
+
+    Private Function GetPostProcessCrf() As Integer
+        Select Case If(My.Settings.VideoQuality, "").Trim().ToLowerInvariant()
+            Case "normal"
+                Return 25
+            Case "veryhigh", "very high", "meget høj", "meget hoej"
+                Return 21
+            Case Else
+                Return 23
+        End Select
+    End Function
+
+    Private Function GetPostProcessPreset() As String
+        Select Case If(My.Settings.VideoEncoderSpeed, "").Trim().ToLowerInvariant()
+            Case "fast", "hurtig"
+                Return "veryfast"
+            Case Else
+                Return "fast"
+        End Select
+    End Function
+
     Private Async Function MakeOutputs() As Task
         Dim HasAudio As Boolean
         Dim i As Integer
@@ -778,8 +799,7 @@ Public Class frmPostProcess
             ProgressBar1.Visible = True
             PostImgToVideoFunc = "OutputVideo"
             StrArg = MakeFFOutArg("")
-            'StrOut = $" -c:v libx264 -crf {My.Settings.ffmpegCRF} -c:a copy -r 25 -preset {My.Settings.ffmpegPreset} -pix_fmt yuvj420p -y ""{TmpFilename}"""
-            StrOut = $" -c:v libx264 -crf {My.Settings.ffmpegCRF} -c:a aac -ac 2 -ar 48000 -b:a 128k -r 25 -preset {My.Settings.ffmpegPreset} -pix_fmt yuvj420p -y ""{TmpFilename}"""
+            StrOut = $" -c:v libx264 -crf {GetPostProcessCrf()} -c:a aac -ac 2 -ar 48000 -b:a 128k -r 25 -preset {GetPostProcessPreset()} -pix_fmt yuvj420p -y ""{TmpFilename}"""
             StatusTxt.Text = Texts.StatusMakingVideo
             FFImgToVideoArg = "-loglevel " + FFLogLevel + " -filter_complex """ + StrArg + """" + StrOut
             RemainingTimeObj.StartTime(_TotalDuration)
