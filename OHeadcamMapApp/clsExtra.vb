@@ -90,6 +90,12 @@ Public Class clsExtra
         End Select
     End Function
 
+    Private Function AlphaFromTransparencyValue(value As Decimal) As String
+        Dim transparency As Decimal = Math.Max(0D, Math.Min(1D, value))
+        Dim alpha As Decimal = 1D - transparency
+        Return alpha.ToString(CultureInfo.InvariantCulture)
+    End Function
+
     Private Function GetHardwareQualityValue() As Integer
         Select Case GetNormalizedVideoQuality()
             Case "Normal"
@@ -853,7 +859,9 @@ Public Class clsExtra
         Dim currentTag As String = "[si1]"
         Dim nextInputIndex As Integer = 1
         Dim currentOutputTag As String = "[cro]"
-        Dim transparency As String = CStr(My.Settings.Transparency).Replace(",", ".")
+        Dim dynamicAlpha As String = AlphaFromTransparencyValue(My.Settings.MIDynamicTransparency)
+        Dim zoomAlpha As String = AlphaFromTransparencyValue(My.Settings.MIZoomTransparency)
+        Dim legAlpha As String = AlphaFromTransparencyValue(My.Settings.MILegTransparency)
         Dim keyColor As String = "0xFF00FF"
         Dim keyFilter As String = "colorkey=" & keyColor & ":0.01:0.5"
         Dim tmpGPXDiff As Integer = 0
@@ -871,9 +879,9 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + zoomVideoFile + """"
             Dim zoomTag As String = $"[{nextInputIndex}:v]"
-            Dim zoomInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & transparency
+            Dim zoomInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & zoomAlpha
             If String.Equals(Path.GetExtension(zoomVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
-                zoomInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+                zoomInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & zoomAlpha
             End If
             filterParts.Add($"{zoomTag}{zoomInputFilter}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
@@ -887,9 +895,9 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + legVideoFile + """"
             Dim legTag As String = $"[{nextInputIndex}:v]"
-            Dim legInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & transparency
+            Dim legInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & legAlpha
             If String.Equals(Path.GetExtension(legVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
-                legInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+                legInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & legAlpha
             End If
             filterParts.Add($"{legTag}{legInputFilter}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
@@ -903,9 +911,9 @@ Public Class clsExtra
             End If
             inputArgs += " -i " + """" + dynamicVideoFile + """"
             Dim dynamicTag As String = $"[{nextInputIndex}:v]"
-            Dim dynamicInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & transparency
+            Dim dynamicInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba,colorchannelmixer=aa=" & dynamicAlpha
             If String.Equals(Path.GetExtension(dynamicVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
-                dynamicInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & transparency
+                dynamicInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & dynamicAlpha
             End If
             filterParts.Add($"{dynamicTag}{dynamicInputFilter}[c{nextInputIndex}]")
             filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIDynamicMapPos.X)}:{CStr(My.Settings.MIDynamicMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")

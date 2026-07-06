@@ -57,6 +57,7 @@ Public Class frmAdjustmentPlayer_new
     Private _WidgetsPreviewEngine As clsDataWidgetRenderEngine
     Private _WidgetLayoutDirty As Boolean = False
     Private _WidgetMouseIsUp As Boolean = True
+    Private _UpdatingWidgetTimeOffsetText As Boolean = False
     Private _VideoPanelScale As Double
     Private Const TrackBarUnitsPerSecond As Integer = 10
     Private Const PreviewTailSampleStepSeconds As Double = 0.5
@@ -129,6 +130,7 @@ Public Class frmAdjustmentPlayer_new
             End If
             MapImageTimer.Interval = 50
             InitializeLayoutToggle()
+            FormatWidgetTimeOffsetText()
 
             _LoadingForm = False
         Catch ex As Exception
@@ -350,6 +352,7 @@ Public Class frmAdjustmentPlayer_new
         Mainform1.ApplySavedLegRenderLayout(_DynPreviewEngine)
 
         _WidgetsPreviewEngine = New clsDataWidgetRenderEngine(RPs)
+        _WidgetsPreviewEngine.WidgetTimeOffsetSeconds = My.Settings.MIWidgetTimeOffsetSeconds
     End Sub
     Private Sub cbNewLegLayout_CheckedChanged(sender As Object, e As EventArgs) Handles cbNewLegLayout.CheckedChanged
         ' REPLACED-CLASSIC-LAYOUT-20260423:
@@ -551,6 +554,122 @@ Public Class frmAdjustmentPlayer_new
         mapTime += _MapDeltaTime
         Return mapTime
     End Function
+
+    Private Function GetCurrentWidgetReferenceTime() As Double
+        Dim previewTime As Double = GetCurrentMapPreviewTime()
+        If previewTime >= 0 Then Return previewTime
+        If IsNothing(_mp) OrElse IsNothing(_mp.Media) OrElse _mp.Media.Duration <= 0 Then Return 0
+        If _mp.Time >= 0 Then Return _mp.Time / 1000.0
+        Return _mp.Position * _mp.Media.Duration / 1000.0
+    End Function
+
+    Private Shared Function FormatSignedWidgetOffset(seconds As Double) As String
+        Dim roundedSeconds As Integer = CInt(Math.Round(seconds))
+        Dim sign As String = If(roundedSeconds < 0, "-", "+")
+        Dim absSeconds As Integer = Math.Abs(roundedSeconds)
+        Dim ts As TimeSpan = TimeSpan.FromSeconds(absSeconds)
+        Dim timeText As String
+        If ts.TotalHours >= 1 Then
+            timeText = String.Format(Globalization.CultureInfo.InvariantCulture, "{0}:{1:00}:{2:00}", CInt(Math.Floor(ts.TotalHours)), ts.Minutes, ts.Seconds)
+        Else
+            timeText = String.Format(Globalization.CultureInfo.InvariantCulture, "{0}:{1:00}", ts.Minutes, ts.Seconds)
+        End If
+        Return sign & timeText
+    End Function
+
+    Private Shared Function TryParseWidgetOffsetText(text As String, ByRef seconds As Double) As Boolean
+        Dim value As String = If(text, "").Trim()
+        If value = "" Then
+            seconds = 0
+            Return True
+        End If
+
+        Dim sign As Double = 1
+        If value.StartsWith("+", StringComparison.Ordinal) Then
+            value = value.Substring(1).Trim()
+        ElseIf value.StartsWith("-", StringComparison.Ordinal) Then
+            sign = -1
+            value = value.Substring(1).Trim()
+        End If
+
+        If value = "" Then
+            seconds = 0
+            Return True
+        End If
+
+        Dim parts() As String = value.Split(":"c)
+        Dim parsedParts As New List(Of Integer)
+        For Each part As String In parts
+            Dim parsed As Integer
+            If Not Integer.TryParse(part.Trim(), parsed) OrElse parsed < 0 Then Return False
+            parsedParts.Add(parsed)
+        Next
+
+        Select Case parsedParts.Count
+            Case 1
+                seconds = sign * parsedParts(0)
+            Case 2
+                seconds = sign * (parsedParts(0) * 60 + parsedParts(1))
+            Case 3
+                seconds = sign * (parsedParts(0) * 3600 + parsedParts(1) * 60 + parsedParts(2))
+            Case Else
+                Return False
+        End Select
+
+        Return True
+    End Function
+
+    Private Sub FormatWidgetTimeOffsetText()
+        _UpdatingWidgetTimeOffsetText = True
+        Try
+            txtWdgTimeOffset.Text = FormatSignedWidgetOffset(My.Settings.MIWidgetTimeOffsetSeconds)
+        Finally
+            _UpdatingWidgetTimeOffsetText = False
+        End Try
+    End Sub
+
+    Private Sub ApplyWidgetTimeOffset(seconds As Double)
+        My.Settings.MIWidgetTimeOffsetSeconds = seconds
+        My.Settings.Save()
+        If _WidgetsPreviewEngine IsNot Nothing Then _WidgetsPreviewEngine.WidgetTimeOffsetSeconds = seconds
+        FormatWidgetTimeOffsetText()
+        If HasValidMapPreviewTime() Then UpdateWidgetPreviewImages()
+    End Sub
+
+    Private Sub CommitWidgetTimeOffsetText()
+        If _UpdatingWidgetTimeOffsetText Then Return
+        Dim seconds As Double
+        If TryParseWidgetOffsetText(txtWdgTimeOffset.Text, seconds) Then
+            ApplyWidgetTimeOffset(seconds)
+        Else
+            FormatWidgetTimeOffsetText()
+        End If
+    End Sub
+
+    Private Sub txtWdgTimeOffset_Leave(sender As Object, e As EventArgs) Handles txtWdgTimeOffset.Leave
+        CommitWidgetTimeOffsetText()
+    End Sub
+
+    Private Sub txtWdgTimeOffset_KeyDown(sender As Object, e As KeyEventArgs) Handles txtWdgTimeOffset.KeyDown
+        If e.KeyCode <> Keys.Enter Then Return
+        CommitWidgetTimeOffsetText()
+        e.SuppressKeyPress = True
+    End Sub
+
+    Private Sub btnWdgTimeMinus_Click(sender As Object, e As EventArgs) Handles btnWdgTimeMinus.Click
+        CommitWidgetTimeOffsetText()
+        ApplyWidgetTimeOffset(My.Settings.MIWidgetTimeOffsetSeconds - 1)
+    End Sub
+
+    Private Sub btnWdgTimePlus_Click(sender As Object, e As EventArgs) Handles btnWdgTimePlus.Click
+        CommitWidgetTimeOffsetText()
+        ApplyWidgetTimeOffset(My.Settings.MIWidgetTimeOffsetSeconds + 1)
+    End Sub
+
+    Private Sub btnWdgTime0_Click(sender As Object, e As EventArgs) Handles btnWdgTime0.Click
+        ApplyWidgetTimeOffset(-GetCurrentWidgetReferenceTime())
+    End Sub
+
     Private Function HasValidMapPreviewTime() As Boolean
         Return _MapTimeSmooth > -1 AndAlso _MapTimeSmooth < RPs.RoutePoints.Count
     End Function
@@ -611,6 +730,7 @@ Public Class frmAdjustmentPlayer_new
 
     Private Sub UpdateWidgetPreviewImages()
         If _WidgetsPreviewEngine Is Nothing Then _WidgetsPreviewEngine = New clsDataWidgetRenderEngine(RPs)
+        _WidgetsPreviewEngine.WidgetTimeOffsetSeconds = My.Settings.MIWidgetTimeOffsetSeconds
         RenderWidgetPreview(pbTime, DataWidgetKind.Time, My.Settings.MIWidgetTimeEnabled)
         RenderWidgetPreview(pbDistance, DataWidgetKind.Distance, My.Settings.MIWidgetDistanceEnabled)
         RenderWidgetPreview(pbPace, DataWidgetKind.Pace, My.Settings.MIWidgetPaceEnabled)
@@ -925,8 +1045,8 @@ Public Class frmAdjustmentPlayer_new
                     timeinsec -= CInt(numGPSDelta.Value) ' Adding The negative offset to the time (--=+, pos label is set 0 at neg offset)
                 End If
                 setTrackbarValue(timeinsec)
-                End If
             End If
+        End If
     End Sub
 
 
@@ -990,6 +1110,7 @@ Public Class frmAdjustmentPlayer_new
         My.Settings.MIWidgetPulseHeight = GetRealWidgetHeight(pbPulse)
         My.Settings.MIWidgetHGraphWidth = GetRealWidgetWidth(pbHGraph)
         My.Settings.MIWidgetHGraphHeight = GetRealWidgetHeight(pbHGraph)
+        CommitWidgetTimeOffsetText()
     End Sub
 
     Private Sub MediaPlayer_EncounteredError(sender As Object, e As EventArgs)
@@ -1002,6 +1123,7 @@ Public Class frmAdjustmentPlayer_new
         cbLeg.Checked = My.Settings.cbShowLegMAp
         cbZoom.Checked = My.Settings.cbShowRoute
         cbDyn.Checked = My.Settings.cbShowDynamicMap
+        FormatWidgetTimeOffsetText()
         ApplyWidgetVisibility()
         IsLoaded = True
         SetShowMaps()

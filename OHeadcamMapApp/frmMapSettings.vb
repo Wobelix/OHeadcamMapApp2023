@@ -14,7 +14,7 @@ Public Class frmMapSettings
 
     Public ratio, LegCorner, ZoomCorner, LegMargin, ZoomZoom, ArrowBarb, ArrowWidth As Decimal
     Public DynamicCorner, DynamicMargin, DynamicMinZoom, DynamicMaxZoom As Decimal
-    Public tailTransparency, paceFastMinPerKm, paceSlowMinPerKm As Decimal
+    Public tailTransparency, zoomTransparency, legTransparency, dynamicTransparency, paceFastMinPerKm, paceSlowMinPerKm As Decimal
     Public arrowOutlineScale As Integer
     Public circle, feather, tailSpeedColors As Boolean
     Public DotType As String
@@ -22,6 +22,17 @@ Public Class frmMapSettings
     Public dotcolor, framecolor, tailcolor As Color
     Public tailduration, dotsize, framewidth As Integer
     Private _syncingDynamicZoom As Boolean = False
+    Private _dynamicTransparencyControl As NumericUpDown = Nothing
+    Private ReadOnly _dynamicTransparencyControlNames As String() = {
+        "numSmoothTransp",
+        "numSmoothMapTransp",
+        "numSmoothMapTransparency",
+        "numDynamicTransp",
+        "numDynamicTransparency",
+        "numDynamicMapTransp",
+        "numDynamicMapTransparency",
+        "numDynTransp"
+    }
 
     Public Sub New(iFrmAdj As frmAdjustmentPlayer_new)
 
@@ -99,6 +110,15 @@ Public Class frmMapSettings
         numDynMaxZoom.Minimum = DynamicMaxZoomMinValue
         numDynMaxZoom.Maximum = DynamicMaxZoomMaxValue
         numDynMaxZoom.Increment = DynamicMaxZoomStepValue
+        numZoomTransp.Minimum = 0D
+        numZoomTransp.Maximum = 1D
+        numLegTransp.Minimum = 0D
+        numLegTransp.Maximum = 1D
+        Dim smoothTransparencyControl = ResolveDynamicTransparencyControl()
+        If smoothTransparencyControl IsNot Nothing Then
+            smoothTransparencyControl.Minimum = 0D
+            smoothTransparencyControl.Maximum = 1D
+        End If
 
         numTailDuration.Value = My.Settings.MITailDuration
         NumDotSize.Value = My.Settings.MIDotSize
@@ -133,11 +153,22 @@ Public Class frmMapSettings
         numPaceFast.Value = CDec(My.Settings.MIPaceFastMinPerKm)
         numPaceSlow.Value = CDec(My.Settings.MIPaceSlowMinPerKm)
         numTransparent.Value = CDec(My.Settings.MITailTransparency)
+        numZoomTransp.Value = Math.Max(numZoomTransp.Minimum, Math.Min(numZoomTransp.Maximum, My.Settings.MIZoomTransparency))
+        numLegTransp.Value = Math.Max(numLegTransp.Minimum, Math.Min(numLegTransp.Maximum, My.Settings.MILegTransparency))
+        If smoothTransparencyControl IsNot Nothing Then
+            smoothTransparencyControl.Value = Math.Max(smoothTransparencyControl.Minimum, Math.Min(smoothTransparencyControl.Maximum, My.Settings.MIDynamicTransparency))
+        End If
         numOutline.Value = My.Settings.MIArrowOutlineScale
         tailSpeedColors = cbTailSpeed.Checked
         paceFastMinPerKm = numPaceFast.Value
         paceSlowMinPerKm = numPaceSlow.Value
         tailTransparency = numTransparent.Value
+        zoomTransparency = numZoomTransp.Value
+        legTransparency = numLegTransp.Value
+        dynamicTransparency = Math.Max(0D, Math.Min(1D, My.Settings.MIDynamicTransparency))
+        If smoothTransparencyControl IsNot Nothing Then
+            dynamicTransparency = smoothTransparencyControl.Value
+        End If
         arrowOutlineScale = CInt(numOutline.Value)
         DynamicCorner = Math.Max(DynamicCornerMinValue, Math.Min(DynamicCornerMaxValue, My.Settings.MIDynamicRad))
         DynamicMargin = numDynMargin.Value
@@ -211,6 +242,21 @@ Public Class frmMapSettings
         tailTransparency = numTransparent.Value
     End Sub
 
+    Private Sub numZoomTransp_ValueChanged(sender As Object, e As EventArgs) Handles numZoomTransp.ValueChanged
+        zoomTransparency = numZoomTransp.Value
+    End Sub
+
+    Private Sub numLegTransp_ValueChanged(sender As Object, e As EventArgs) Handles numLegTransp.ValueChanged
+        legTransparency = numLegTransp.Value
+    End Sub
+
+    Private Sub DynamicTransparency_ValueChanged(sender As Object, e As EventArgs)
+        Dim numericSender = TryCast(sender, NumericUpDown)
+        If numericSender IsNot Nothing Then
+            dynamicTransparency = numericSender.Value
+        End If
+    End Sub
+
     Private Sub numOutline_ValueChanged(sender As Object, e As EventArgs) Handles numOutline.ValueChanged
         arrowOutlineScale = CInt(numOutline.Value)
     End Sub
@@ -269,9 +315,44 @@ Public Class frmMapSettings
         My.Settings.MIPaceFastMinPerKm = CDbl(paceFastMinPerKm)
         My.Settings.MIPaceSlowMinPerKm = CDbl(paceSlowMinPerKm)
         My.Settings.MITailTransparency = CDbl(tailTransparency)
+        My.Settings.MIZoomTransparency = zoomTransparency
+        My.Settings.MILegTransparency = legTransparency
+        My.Settings.MIDynamicTransparency = dynamicTransparency
         My.Settings.MIArrowOutlineScale = Math.Max(1, arrowOutlineScale)
         My.Settings.MIDynamicZoom = CDbl(My.Settings.MIDynamicMinZoom) / 100.0R
     End Sub
+
+    Private Function ResolveDynamicTransparencyControl() As NumericUpDown
+        If _dynamicTransparencyControl IsNot Nothing Then
+            Return _dynamicTransparencyControl
+        End If
+
+        For Each controlName In _dynamicTransparencyControlNames
+            Dim foundControl = FindControlRecursive(Me, controlName)
+            If TypeOf foundControl Is NumericUpDown Then
+                _dynamicTransparencyControl = DirectCast(foundControl, NumericUpDown)
+                AddHandler _dynamicTransparencyControl.ValueChanged, AddressOf DynamicTransparency_ValueChanged
+                Return _dynamicTransparencyControl
+            End If
+        Next
+
+        Return Nothing
+    End Function
+
+    Private Function FindControlRecursive(parent As Control, controlName As String) As Control
+        For Each child As Control In parent.Controls
+            If String.Equals(child.Name, controlName, StringComparison.OrdinalIgnoreCase) Then
+                Return child
+            End If
+
+            Dim nestedMatch = FindControlRecursive(child, controlName)
+            If nestedMatch IsNot Nothing Then
+                Return nestedMatch
+            End If
+        Next
+
+        Return Nothing
+    End Function
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SetSettings()
         FrmAdj.UpdateWithSettings()

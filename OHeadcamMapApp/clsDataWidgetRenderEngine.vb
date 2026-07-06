@@ -31,6 +31,7 @@ Public Class clsDataWidgetRenderEngine
     Private Const PaceSmoothingWindowSeconds As Double = 12.0
     Private Shared ReadOnly _fontCollection As New PrivateFontCollection()
     Private Shared _fontsLoaded As Boolean = False
+    Public Property WidgetTimeOffsetSeconds As Double = 0
 
     Public Sub New(routePoints As clsQRRoutePoints)
         _routePoints = New clsQRRoutePoints(routePoints)
@@ -243,10 +244,10 @@ Public Class clsDataWidgetRenderEngine
         Return fallback
     End Function
 
-    Private Shared Function GetValue(kind As DataWidgetKind, sample As DataWidgetSample) As String
+    Private Function GetValue(kind As DataWidgetKind, sample As DataWidgetSample) As String
         Select Case kind
             Case DataWidgetKind.Time
-                Return FormatDuration(sample.TimeSeconds)
+                Return FormatDuration(sample.TimeSeconds + WidgetTimeOffsetSeconds)
             Case DataWidgetKind.Distance
                 Return (sample.DistanceMeters / 1000.0).ToString("0.00", CultureInfo.InvariantCulture) & " km"
             Case DataWidgetKind.Pace

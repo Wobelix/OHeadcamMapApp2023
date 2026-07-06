@@ -204,6 +204,26 @@ Public Class MainForm
                 My.Settings.StatusPrepare = Status
         End Select
     End Sub
+    Private Sub UpgradeUserSettingsIfNeeded()
+        If Not My.Settings.SettingsUpgradeRequired Then Return
+
+        Try
+            My.Settings.Upgrade()
+        Catch ex As Exception
+            LogStatus += "Settings upgrade failed: " & ex.Message & vbCrLf
+        End Try
+
+        My.Settings.SettingsUpgradeRequired = False
+        My.Settings.Save()
+    End Sub
+
+    Private Sub NormalizeObsoleteUserSettings()
+        If My.Settings.Transparency = 1D Then Return
+
+        My.Settings.Transparency = 1D
+        My.Settings.Save()
+    End Sub
+
     Public Sub CreateTmpfolders(name As String)
         Dim f As String
         f = AppFolder + name
@@ -215,6 +235,8 @@ Public Class MainForm
     Public Sub New()
         Dim lang As String
         MeVar = Me
+        UpgradeUserSettingsIfNeeded()
+        NormalizeObsoleteUserSettings()
         ' Capture UI synchronization context and thread id for cross-thread marshaling
         uiContext = SynchronizationContext.Current
         uiThreadId = Thread.CurrentThread.ManagedThreadId
@@ -2101,6 +2123,7 @@ Public Class MainForm
 
             If AnyDataWidgetsEnabled() Then
                 Dim widgetEngine As New clsDataWidgetRenderEngine(RPs)
+                widgetEngine.WidgetTimeOffsetSeconds = My.Settings.MIWidgetTimeOffsetSeconds
                 If My.Settings.MIWidgetTimeEnabled Then
                     widgetEngine.WriteWidgetVideo(DataWidgetKind.Time, widgetTimeVideo, My.Settings.MIWidgetTimeWidth, My.Settings.MIWidgetTimeHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
                 End If
@@ -3092,7 +3115,7 @@ Public Class MainForm
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not My.Settings.AppVersion = ProductVersion Then
             My.Settings.AppVersion = ProductVersion
-            ResetData()
+            My.Settings.Save()
         End If
         InitStatusLabels()
         If Not _autorunRenderCompareStarted Then

@@ -63,10 +63,14 @@ Partial Class frmMapSettings
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cbCircle = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.numZoomTransp = New System.Windows.Forms.NumericUpDown()
+        Me.Label24 = New System.Windows.Forms.Label()
         Me.numZoomZoom = New System.Windows.Forms.NumericUpDown()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtZCorner = New System.Windows.Forms.TextBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.numLegTransp = New System.Windows.Forms.NumericUpDown()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.txtLCorner = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.numLegMargin = New System.Windows.Forms.NumericUpDown()
@@ -77,7 +81,9 @@ Partial Class frmMapSettings
         Me.TailColorDialog = New System.Windows.Forms.ColorDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.numDynTransp = New System.Windows.Forms.NumericUpDown()
         Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
         Me.numDynMinZoom = New System.Windows.Forms.NumericUpDown()
         Me.numDynMaxZoom = New System.Windows.Forms.NumericUpDown()
         Me.txtDynCorner = New System.Windows.Forms.TextBox()
@@ -98,10 +104,13 @@ Partial Class frmMapSettings
         Me.GroupBox3.SuspendLayout()
         CType(Me.NumFrameSize, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox4.SuspendLayout()
+        CType(Me.numZoomTransp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numZoomZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
+        CType(Me.numLegTransp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numLegMargin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
+        CType(Me.numDynTransp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDynMinZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDynMaxZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDynMargin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -369,6 +378,8 @@ Partial Class frmMapSettings
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.numZoomTransp)
+        Me.GroupBox4.Controls.Add(Me.Label24)
         Me.GroupBox4.Controls.Add(Me.numZoomZoom)
         Me.GroupBox4.Controls.Add(Me.Label14)
         Me.GroupBox4.Controls.Add(Me.txtZCorner)
@@ -377,6 +388,19 @@ Partial Class frmMapSettings
         resources.ApplyResources(Me.GroupBox4, "GroupBox4")
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.TabStop = False
+        '
+        'numZoomTransp
+        '
+        Me.numZoomTransp.DecimalPlaces = 1
+        Me.numZoomTransp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        resources.ApplyResources(Me.numZoomTransp, "numZoomTransp")
+        Me.numZoomTransp.Name = "numZoomTransp"
+        Me.numZoomTransp.Value = New Decimal(New Integer() {5, 0, 0, 65536})
+        '
+        'Label24
+        '
+        resources.ApplyResources(Me.Label24, "Label24")
+        Me.Label24.Name = "Label24"
         '
         'numZoomZoom
         '
@@ -398,6 +422,8 @@ Partial Class frmMapSettings
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.numLegTransp)
+        Me.GroupBox5.Controls.Add(Me.Label23)
         Me.GroupBox5.Controls.Add(Me.txtLCorner)
         Me.GroupBox5.Controls.Add(Me.Label13)
         Me.GroupBox5.Controls.Add(Me.numLegMargin)
@@ -405,6 +431,19 @@ Partial Class frmMapSettings
         resources.ApplyResources(Me.GroupBox5, "GroupBox5")
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.TabStop = False
+        '
+        'numLegTransp
+        '
+        Me.numLegTransp.DecimalPlaces = 1
+        Me.numLegTransp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        resources.ApplyResources(Me.numLegTransp, "numLegTransp")
+        Me.numLegTransp.Name = "numLegTransp"
+        Me.numLegTransp.Value = New Decimal(New Integer() {5, 0, 0, 65536})
+        '
+        'Label23
+        '
+        resources.ApplyResources(Me.Label23, "Label23")
+        Me.Label23.Name = "Label23"
         '
         'txtLCorner
         '
@@ -449,7 +488,9 @@ Partial Class frmMapSettings
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.numDynTransp)
         Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.Label25)
         Me.GroupBox6.Controls.Add(Me.numDynMinZoom)
         Me.GroupBox6.Controls.Add(Me.numDynMaxZoom)
         Me.GroupBox6.Controls.Add(Me.txtDynCorner)
@@ -460,10 +501,23 @@ Partial Class frmMapSettings
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.TabStop = False
         '
+        'numDynTransp
+        '
+        Me.numDynTransp.DecimalPlaces = 1
+        Me.numDynTransp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        resources.ApplyResources(Me.numDynTransp, "numDynTransp")
+        Me.numDynTransp.Name = "numDynTransp"
+        Me.numDynTransp.Value = New Decimal(New Integer() {5, 0, 0, 65536})
+        '
         'Label22
         '
         resources.ApplyResources(Me.Label22, "Label22")
         Me.Label22.Name = "Label22"
+        '
+        'Label25
+        '
+        resources.ApplyResources(Me.Label25, "Label25")
+        Me.Label25.Name = "Label25"
         '
         'numDynMinZoom
         '
@@ -537,12 +591,15 @@ Partial Class frmMapSettings
         CType(Me.NumFrameSize, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        CType(Me.numZoomTransp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numZoomZoom, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        CType(Me.numLegTransp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numLegMargin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        CType(Me.numDynTransp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDynMinZoom, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDynMaxZoom, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDynMargin, System.ComponentModel.ISupportInitialize).EndInit()
@@ -610,4 +667,10 @@ Partial Class frmMapSettings
     Friend WithEvents numDynMaxZoom As NumericUpDown
     Friend WithEvents Label22 As Label
     Friend WithEvents numDynMinZoom As NumericUpDown
+    Friend WithEvents numLegTransp As NumericUpDown
+    Friend WithEvents Label23 As Label
+    Friend WithEvents numZoomTransp As NumericUpDown
+    Friend WithEvents Label24 As Label
+    Friend WithEvents numDynTransp As NumericUpDown
+    Friend WithEvents Label25 As Label
 End Class

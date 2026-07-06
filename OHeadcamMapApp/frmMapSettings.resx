@@ -1354,7 +1354,7 @@
     <value>NoControl</value>
   </data>
   <data name="Label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 23</value>
+    <value>6, 23</value>
   </data>
   <data name="Label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 13</value>
@@ -1375,7 +1375,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label11.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="cbCircle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1405,7 +1405,31 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;cbCircle.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.Name" xml:space="preserve">
+    <value>numZoomTransp</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label24.Name" xml:space="preserve">
+    <value>Label24</value>
+  </data>
+  <data name="&gt;&gt;Label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label24.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;Label24.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;numZoomZoom.Name" xml:space="preserve">
     <value>numZoomZoom</value>
@@ -1417,7 +1441,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;numZoomZoom.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;Label14.Name" xml:space="preserve">
     <value>Label14</value>
@@ -1429,7 +1453,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label14.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;txtZCorner.Name" xml:space="preserve">
     <value>txtZCorner</value>
@@ -1441,13 +1465,13 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;txtZCorner.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="GroupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 12</value>
   </data>
   <data name="GroupBox4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 100</value>
+    <value>216, 126</value>
   </data>
   <data name="GroupBox4.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -1466,6 +1490,57 @@
   </data>
   <data name="&gt;&gt;GroupBox4.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="numZoomTransp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 99</value>
+  </data>
+  <data name="numZoomTransp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="numZoomTransp.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.Name" xml:space="preserve">
+    <value>numZoomTransp</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;numZoomTransp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label24.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label24.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 101</value>
+  </data>
+  <data name="Label24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 13</value>
+  </data>
+  <data name="Label24.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="Label24.Text" xml:space="preserve">
+    <value>Transparens (kun i output)</value>
+  </data>
+  <data name="&gt;&gt;Label24.Name" xml:space="preserve">
+    <value>Label24</value>
+  </data>
+  <data name="&gt;&gt;Label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label24.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;Label24.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="numZoomZoom.Location" type="System.Drawing.Point, System.Drawing">
     <value>153, 70</value>
@@ -1486,7 +1561,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;numZoomZoom.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="Label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1495,7 +1570,7 @@
     <value>NoControl</value>
   </data>
   <data name="Label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 72</value>
+    <value>5, 72</value>
   </data>
   <data name="Label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 13</value>
@@ -1516,7 +1591,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label14.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="txtZCorner.Location" type="System.Drawing.Point, System.Drawing">
     <value>153, 20</value>
@@ -1537,7 +1612,31 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;txtZCorner.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.Name" xml:space="preserve">
+    <value>numLegTransp</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.Parent" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label23.Name" xml:space="preserve">
+    <value>Label23</value>
+  </data>
+  <data name="&gt;&gt;Label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label23.Parent" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;Label23.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;txtLCorner.Name" xml:space="preserve">
     <value>txtLCorner</value>
@@ -1549,7 +1648,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;txtLCorner.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;Label13.Name" xml:space="preserve">
     <value>Label13</value>
@@ -1561,7 +1660,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;Label13.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;numLegMargin.Name" xml:space="preserve">
     <value>numLegMargin</value>
@@ -1573,7 +1672,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;numLegMargin.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;Label12.Name" xml:space="preserve">
     <value>Label12</value>
@@ -1585,13 +1684,13 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="GroupBox5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 124</value>
+    <value>7, 144</value>
   </data>
   <data name="GroupBox5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 100</value>
+    <value>216, 116</value>
   </data>
   <data name="GroupBox5.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -1611,8 +1710,59 @@
   <data name="&gt;&gt;GroupBox5.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="numLegTransp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 78</value>
+  </data>
+  <data name="numLegTransp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="numLegTransp.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.Name" xml:space="preserve">
+    <value>numLegTransp</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.Parent" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;numLegTransp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label23.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label23.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 80</value>
+  </data>
+  <data name="Label23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 13</value>
+  </data>
+  <data name="Label23.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="Label23.Text" xml:space="preserve">
+    <value>Transparens (kun i output)</value>
+  </data>
+  <data name="&gt;&gt;Label23.Name" xml:space="preserve">
+    <value>Label23</value>
+  </data>
+  <data name="&gt;&gt;Label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label23.Parent" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;Label23.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="txtLCorner.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 21</value>
+    <value>153, 22</value>
   </data>
   <data name="txtLCorner.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 20</value>
@@ -1630,7 +1780,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;txtLCorner.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="Label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1639,7 +1789,7 @@
     <value>NoControl</value>
   </data>
   <data name="Label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 53</value>
+    <value>5, 50</value>
   </data>
   <data name="Label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 13</value>
@@ -1660,10 +1810,10 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;Label13.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="numLegMargin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 53</value>
+    <value>152, 50</value>
   </data>
   <data name="numLegMargin.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 20</value>
@@ -1681,7 +1831,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;numLegMargin.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="Label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1711,7 +1861,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="Button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1752,6 +1902,27 @@
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>438, 17</value>
   </metadata>
+  <data name="numDynTransp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>154, 117</value>
+  </data>
+  <data name="numDynTransp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="numDynTransp.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;numDynTransp.Name" xml:space="preserve">
+    <value>numDynTransp</value>
+  </data>
+  <data name="&gt;&gt;numDynTransp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numDynTransp.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;numDynTransp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="Label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1777,7 +1948,37 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;Label22.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="Label25.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label25.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label25.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 121</value>
+  </data>
+  <data name="Label25.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 13</value>
+  </data>
+  <data name="Label25.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="Label25.Text" xml:space="preserve">
+    <value>Transparens (kun i output)</value>
+  </data>
+  <data name="&gt;&gt;Label25.Name" xml:space="preserve">
+    <value>Label25</value>
+  </data>
+  <data name="&gt;&gt;Label25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label25.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;Label25.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="numDynMinZoom.Location" type="System.Drawing.Point, System.Drawing">
     <value>96, 92</value>
@@ -1798,7 +1999,7 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;numDynMinZoom.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="numDynMaxZoom.Location" type="System.Drawing.Point, System.Drawing">
     <value>154, 92</value>
@@ -1819,7 +2020,7 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;numDynMaxZoom.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="txtDynCorner.Location" type="System.Drawing.Point, System.Drawing">
     <value>154, 16</value>
@@ -1840,7 +2041,7 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;txtDynCorner.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="Label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1870,7 +2071,7 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;Label20.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="numDynMargin.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 51</value>
@@ -1891,7 +2092,7 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;numDynMargin.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="Label21.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1921,13 +2122,13 @@
     <value>GroupBox6</value>
   </data>
   <data name="&gt;&gt;Label21.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="GroupBox6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 237</value>
+    <value>7, 266</value>
   </data>
   <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 163</value>
+    <value>216, 143</value>
   </data>
   <data name="GroupBox6.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>

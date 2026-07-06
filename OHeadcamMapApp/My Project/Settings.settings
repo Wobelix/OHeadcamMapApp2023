@@ -62,6 +62,15 @@
     <Setting Name="Transparency" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="MIZoomTransparency" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MILegTransparency" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MIDynamicTransparency" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
     <Setting Name="NoAudio" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -195,13 +204,13 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="cbShowLegMAp" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="cbShowRoute" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="cbShowDynamicMap" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="MIWidgetTimeEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -348,13 +357,13 @@
       <Value Profile="(Default)">45</Value>
     </Setting>
     <Setting Name="MIDynamicMargin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">120</Value>
+      <Value Profile="(Default)">150</Value>
     </Setting>
     <Setting Name="MIFrameColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">192, 0, 0</Value>
     </Setting>
     <Setting Name="MIFrameWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="MITailDuration" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30</Value>
@@ -363,10 +372,10 @@
       <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="MITailRatio" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.9</Value>
+      <Value Profile="(Default)">0.6</Value>
     </Setting>
     <Setting Name="MIDotSize" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">17</Value>
     </Setting>
     <Setting Name="MIFLegPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -437,6 +446,9 @@
     <Setting Name="MIWidgetHGraphHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">150</Value>
     </Setting>
+    <Setting Name="MIWidgetTimeOffsetSeconds" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
     <Setting Name="VidAdj_Rot" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -483,13 +495,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MIArrowBarb" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
+      <Value Profile="(Default)">0.3</Value>
     </Setting>
     <Setting Name="MIArrowWidth" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.7</Value>
+      <Value Profile="(Default)">0.9</Value>
     </Setting>
     <Setting Name="MIDotType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Dot</Value>
+      <Value Profile="(Default)">Arrow</Value>
     </Setting>
     <Setting Name="QRImage2" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -543,7 +555,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="MISmoothFrameStepSeconds" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.25</Value>
+      <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="MISmoothParallelGeneration" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -565,6 +577,9 @@
     </Setting>
     <Setting Name="MIArrowOutlineScale" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="SettingsUpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="OverlayEstimateHdSeconds" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
