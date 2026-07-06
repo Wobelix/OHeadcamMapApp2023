@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Headcam Orienteering.exe" version="1.1.0.64" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
+  <description asmv2:iconFile="oappicon2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Headcam Orienteering" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="neutral" processorArchitecture="amd64" />
+    <commandLine file="Headcam Orienteering.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="Internet" Description="Default rights given to Internet applications" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC Manifest Options
+             If you want to change the Windows User Account Control level replace the 
+             requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            Specifying requestedExecutionLevel element will disable file and registry virtualization. 
+            Remove this element if your application requires this virtualization for backwards
+            compatibility.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.WMPLib.dll" size="53760">
+      <assemblyIdentity name="AxInterop.WMPLib" version="1.0.0.0" publicKeyToken="1D50931A1828921B" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>WBQaF/FSBjYGaBdpc3XdsnZVQlkZP00gzwmQr1FdkFg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Headcam Orienteering.exe" size="11285984">
+      <assemblyIdentity name="Headcam Orienteering" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="neutral" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>1G7bUFoGOwQO4KV4eCvg4Qgu0udVhdrgrHU/DIC/qhg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="da\Headcam Orienteering.resources.dll" size="238592">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="da" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>vy20wjiyrjZfGWJjC9AV72uznAshoHe+gHcG4xPr7i0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="da-DK\Headcam Orienteering.resources.dll" size="237056">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="da-DK" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>vOqtKzaJXE4tKdOHi6iwu3X4fdbnuNbfArpm9o7YG+g=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="en\Headcam Orienteering.resources.dll" size="10696704">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="en" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>rP1HaXLHBvQ2ALrDgxaEMbW6RtLyDwiBnpr29LAyAVk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="en-US\Headcam Orienteering.resources.dll" size="508416">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="en-US" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>KPKJ4pjV+cLDkqQbr8QUPyXVP+VoqA2+ZBDD8i4sNtI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="lkt\Headcam Orienteering.resources.dll" size="237056">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="lkt" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tIhLnd3yTMsKj9d0KygH04eEJspAZs3AI7JiQWgAmdY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="uk\Headcam Orienteering.resources.dll" size="243200">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="uk" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>rRONNZPPmLXhwAmDo/AZ28OOx3a7W46gYYrCtIs43Cg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh\Headcam Orienteering.resources.dll" size="250880">
+      <assemblyIdentity name="Headcam Orienteering.resources" version="3.4.0.0" publicKeyToken="1D50931A1828921B" language="zh" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ClEHZYgayrUFJWbS01maRUDl4jtrXDDJpZFt+n3VJek=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.WMPLib.dll" size="330752">
+      <assemblyIdentity name="Interop.WMPLib" version="1.0.0.0" publicKeyToken="1D50931A1828921B" language="neutral" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>YG2EL0J4Q/In7WaLnBLiAkI9xDKWp//CzStgeiUMjis=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="ffmpeg.exe" size="129623040">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>SBIcJIFAhfGDlbtNo6aAM51JDxvgTpHlGgCHZ1FVFN4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="ffplay.exe" size="129474560">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AlpZr5Ke513onPlGHJqX9IIcCyJRNlEx18Yh3JbD38Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="ffprobe.exe" size="129515520">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>zClZLNUM5jlsyETbGt61Ub7zxyuZJlfgLwWh3MpdTvs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Headcam Orienteering.exe.config" size="13558">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>NaCvoO8qapSwakYKhpwk8Ry3ga5da0SpXJPHic+ESbg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\dot.png" size="249">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>18Ixsd47pT604l/16u8sgtgIpE9F8b/zFCiZGzIRGac=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\flag.png" size="248">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>EFh4RsLddySwIhz02cTYlwvh65dsG/TYhffNSG0+uvE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\font.gdf" size="39706">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>EIrcDTRqV8G2VPE/a7W13xvA8oeTG7fx0Y/pPf4YCqc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\grandmask_480.png" size="2419">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>q+sw1eGQZyHep2Bl8rVroI9+iIwcBFhYQVegJm67SQs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\grandmask_720.png" size="4435">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>w4197/Qsx30qNm5j3RJocP2B6+YvUOYUiHuINiCXx4o=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\graph_mask_480.png" size="382">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PkjE8n/b0l74sBB345z7M/1S/c8tuVCBb3pFxFErj40=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\graph_mask_720.png" size="559">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>bluhpZo5j5s5A4sjx8l+8Op8J79TGpvGPKVlYwRDhzY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\graphbg.png" size="1372">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ltecv6SK7PvEil27H/SHWBSNqkfDykXe+n9P7J649jQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\graphbg_green.png" size="1336">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>qYtrTI6DsCC9EvPIUdVkf50MG3xpDc8QETWB+v3EBHw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\layout.ini" size="1943">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MaJ3PkTANQo3zvRsba1GqKRnuj6lE5yKLO8xEyDakrM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\legmap_mask_480.png" size="886">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZDRD0bYpEAsRD3ug8nsKcB8gtySRn1X3F5A5iHxfWS0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\legmap_mask_720.png" size="1380">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>JsHZMW/aK9rhakoQTpZnSppjk1QVZKfC+kOQUIjb3MM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\logo.png" size="850">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>59y85JN/n9s4ZqaQzQfyyXitWd1pEzsGXM6Ly+z0jyM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\map_mask_480.png" size="710">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>4z9ClgT0tINKWFL2HYGSrLfacmuf1+oH9mUDHNIYlXM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\map_mask_720.png" size="1078">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>2roF2v3koFDeRP2zDhmkcj8jar/LuAftHsS9YresjTo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\panel.png" size="4378">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1Hu7x72bjH+tOq32f9VLAlL3pS0a4rWvLF7Vf00IZYc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\panel_nohr.png" size="5711">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>8BXvMtuFD4hrO0uEq2cohHNcRoJm5vaRWQCH67LRSZ4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\pink1080x720.jpg" size="15065">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xrri1gYOpvZu11t/YEeNJ8TCAaEqZ95J1pgWoov+AUo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\runner.png" size="269">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>i4BEeoRRTML+JcBSFY2SBEV5/6YyI3QGtyYpjpZz+q0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_default\sort1080x720.jpg" size="15066">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>gG5ZtRIh0AVqO1/xZIAUB7GeVEfojezk9sozOkjjGHg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\coursemap_mask_480.png" size="798">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>rpyBhxSKerfWcsD6M6PKblU2KL8YQkFQZp/BFKKJYa8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\coursemap_mask_720.png" size="1149">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZRtPTRmRgyR6onLeAbruizj1ztaqsj+YMg+qOOUuYZg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\dot.png" size="249">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>RJ5s0FTu2MgNqQnrncOx7EZmqEbRveqPz14UR0OUmKg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\flag.png" size="248">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>EFh4RsLddySwIhz02cTYlwvh65dsG/TYhffNSG0+uvE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\font.gdf" size="158776">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BVqrnDe7KqerTZFK/9JTKeDk2UbrK5N/dRAjfpd8B9w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\grandmask_480.png" size="12118">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>o/VTuUCs2ycpR+lLYqONzjRQDEbqDhiadT9V7InV7Kk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\grandmask_720.png" size="20198">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>aDHIjAdBZeeWQLOLNVjTHbbF9GTS0dATid7X22uYkHk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\graph_mask_480.png" size="390">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>F4YoAEx2R48lofDqNeYos9vYtzlytduv+/43vOjEoFw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\graph_mask_720.png" size="559">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>bluhpZo5j5s5A4sjx8l+8Op8J79TGpvGPKVlYwRDhzY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\graphbg.png" size="1372">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ltecv6SK7PvEil27H/SHWBSNqkfDykXe+n9P7J649jQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\layout.ini" size="1578">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lTSlSVxwMFI/oZQxGwTgczGDMS9DnhITrou5uVo6G4E=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\legmap_mask_720.png" size="1211">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MWWQRR530J6LSgNE6lNoqZaQH9jNOoJV+wD1pdLMAug=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\logo.png" size="850">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>59y85JN/n9s4ZqaQzQfyyXitWd1pEzsGXM6Ly+z0jyM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\map_mask_480.png" size="1349">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pagcemOPpYJfc6wrpmJa3pUM/zxaTiVI6GGKhcc8RLI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\map_mask_720.png" size="2273">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>fSX+BPNw0ZwW5+qXE6PgOzubEkkl3COMVVlcQrb2C8I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\panel.png" size="8963">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>RwikNGpiZBwRFP5qNjwfMgew1LeF50QMOp5OEHkaFsM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_example\runner.png" size="254">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>arSWStbotvOHH+vySgVwq9UlzPdY8eeO9bkuZfjs1Ag=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\dot.png" size="241">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>c5LcycZ4TsH6him9yyclGmIHGRNbsYmVFs/ogPI2iD8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\flag.png" size="248">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>EFh4RsLddySwIhz02cTYlwvh65dsG/TYhffNSG0+uvE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\font.gdf" size="39706">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>EIrcDTRqV8G2VPE/a7W13xvA8oeTG7fx0Y/pPf4YCqc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\grandmask_480.png" size="3847">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xSnlrRRV69PNt29KHofO8QndjLDzEMVSse86RNHju1U=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\grandmask_720.png" size="6468">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>LD3ESEPRoHE7q1Srn3r2Mm9JPSgNyj711e9RXROvWZM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\graphbg.png" size="1372">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ltecv6SK7PvEil27H/SHWBSNqkfDykXe+n9P7J649jQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\layout.ini" size="1886">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>orR4/cks9RiPxtMsv3uyyAl8fpH2ruLOSelREeUnOm8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\logo.png" size="850">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>59y85JN/n9s4ZqaQzQfyyXitWd1pEzsGXM6Ly+z0jyM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\panel.png" size="5553">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>iX0PXhTyar3JWbbWJWNpvjLNRDJ8yxkF1/Cg2vjJYNM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="layout_oldschool\runner.png" size="254">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>arSWStbotvOHH+vySgVwq9UlzPdY8eeO9bkuZfjs1Ag=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="My Project\readme.txt" size="2324">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>V7CuD01ABfK8cTAOufRngQYyw6x8ggacby67M+WVc84=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="My Project\template.vcf" size="1438">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>N2bSlv9poTpql/6q08WciNCXo61AeEsXYh8wCFINd3c=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="oappicon.ico" size="199742">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>wTT7QGodFNng8O362qy9UMIdHPULwl9+HkgDgNHVGcM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="oappicon2.ico" size="233534">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BwkAMQmaG6wOk5S+MKDKjyEtfW/A7jh/w48LLlNd2Qw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="RGmapvideo.exe" size="4713308">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>YecJFnDlixqxG5qBpmCdOUIIuAIs2oOd1c6/Asnod+0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="RGmapvideo.ini" size="4861">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MWg9b9Ide3wkNMRJz8ea8Q7+aQ++GaPey57Wt5xnQ5Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="template.vcf" size="1438">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>N2bSlv9poTpql/6q08WciNCXo61AeEsXYh8wCFINd3c=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- A list of the Windows versions that this application has been tested on
+           and is designed to work with. Uncomment the appropriate elements
+           and Windows will automatically select the most compatible environment. -->
+      <!-- Windows Vista -->
+      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}" />-->
+      <!-- Windows 7 -->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}" />-->
+      <!-- Windows 8 -->
+      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}" />-->
+      <!-- Windows 8.1 -->
+      <!--<supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}" />-->
+      <!-- Windows 10 -->
+      <!--<supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />-->
+    </application>
+  </compatibility>
+</asmv1:assembly>

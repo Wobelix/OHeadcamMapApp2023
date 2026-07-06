@@ -1,0 +1,127 @@
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\font.gdf
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\layout.ini
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\panel.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\font.gdf
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\layout.ini
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\font.gdf
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\layout.ini
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\RGmapvideo.ini
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\dot.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\flag.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\grandmask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\grandmask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\graphbg.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\graphbg_green.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\graph_mask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\graph_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\legmap_mask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\legmap_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\logo.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\map_mask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\map_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\panel_nohr.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\runner.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\coursemap_mask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\coursemap_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\dot.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\flag.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\grandmask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\grandmask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\graphbg.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\graph_mask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\graph_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\legmap_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\logo.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\map_mask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\map_mask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\panel.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_example\runner.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\dot.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\flag.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\grandmask_480.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\grandmask_720.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\graphbg.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\logo.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\panel.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_oldschool\runner.png
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\ffmpeg.exe
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\ffplay.exe
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\ffprobe.exe
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\RGmapvideo.exe
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\template.vcf
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\plugins64\Deshaker_64.vdf
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\pink1080x720.jpg
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\layout_default\sort1080x720.jpg
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\Headcam Orienteering.exe.config
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\Headcam Orienteering.exe.manifest
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\Headcam Orienteering.application
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\Headcam Orienteering.exe
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\en\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\en-US\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\da-DK\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\da\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\lkt\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\uk\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\zh\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\Interop.WMPLib.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\bin\xx\AxInterop.WMPLib.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.vbproj.AssemblyReference.cache
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\Interop.WMPLib.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\AxInterop.WMPLib.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.vbproj.ResolveComReference.cache
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.AddAudioform.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmAdjustmentPlayer_new.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmAdjustmentPlayer.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.ffplay.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.AboutApp.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmMapOverlayForm.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmPlayer.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmSideBySide.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmUseMapVideo.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmVideoImageAdjust.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmShowLogForm.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmSettings.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.Resources.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.Texts.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.AboutApp.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.AddAudioform.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.AddAudioform.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmAdjustmentPlayer_new.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmAdjustmentPlayer_new.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmAdjustmentPlayer.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmAdjustmentPlayer.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.ffplay.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmMapOverlayForm.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmPlayer.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmSideBySide.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmUseMapVideo.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.da-DK.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.da.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.lkt.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.uk.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.Resources.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.Texts.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmSettings.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmShowLogForm.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmShowLogForm.en.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmSettings.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.frmSettings.zh.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.MainForm.zh.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.Texts.en-US.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.Texts.zh.resources
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.vbproj.GenerateResource.cache
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\OHeadcamMapApp.vbproj.CoreCompileInputs.cache
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\en\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\en-US\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\da-DK\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\da\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\lkt\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\uk\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\zh\Headcam Orienteering.resources.dll
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\Headcam Orienteering.TrustInfo.xml
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\Headcam Orienteering.exe.manifest
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\Headcam Orienteering.application
+C:\Users\mmo21\OneDrive\Dokumenter\Studio2017\OHeadcamMapApp2023\OHeadcamMapApp\obj\xx\Headcam Orienteering.exe
