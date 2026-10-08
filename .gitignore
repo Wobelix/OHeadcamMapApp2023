@@ -47,6 +47,34 @@ temp3/
 *.bmp
 *.gif
 
+# Required application images (keep media ignored elsewhere)
+!/OHeadcamMapApp/Resources/*.png
+!/OHeadcamMapApp/Resources/*.jpg
+!/OHeadcamMapApp/Resources/*.jpeg
+!/OHeadcamMapApp/Resources/*.bmp
+!/OHeadcamMapApp/Resources/*.gif
+!/OHeadcamMapApp/layout_default/*.png
+!/OHeadcamMapApp/layout_default/*.jpg
+!/OHeadcamMapApp/layout_default/*.jpeg
+!/OHeadcamMapApp/layout_default/*.bmp
+!/OHeadcamMapApp/layout_default/*.gif
+!/OHeadcamMapApp/layout_example/*.png
+!/OHeadcamMapApp/layout_example/*.jpg
+!/OHeadcamMapApp/layout_example/*.jpeg
+!/OHeadcamMapApp/layout_example/*.bmp
+!/OHeadcamMapApp/layout_example/*.gif
+!/OHeadcamMapApp/layout_oldschool/*.png
+!/OHeadcamMapApp/layout_oldschool/*.jpg
+!/OHeadcamMapApp/layout_oldschool/*.jpeg
+!/OHeadcamMapApp/layout_oldschool/*.bmp
+!/OHeadcamMapApp/layout_oldschool/*.gif
+
+# Required RouteEditor web assets
+!/OHeadcamMapApp/RouteEditor/**
+
+# Required helper executable; FFmpeg executables remain ignored by *.exe
+!/OHeadcamMapApp/RGmapvideo.exe
+
 # Database / local data
 *.sdf
 *.db

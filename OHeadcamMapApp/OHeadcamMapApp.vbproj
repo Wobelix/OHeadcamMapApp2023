@@ -58,7 +58,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\Release2026_V7\</OutputPath>
+    <OutputPath>..\..\..\..\..\Documents\VSBuilds\OHeadcamApp\Release 2026\</OutputPath>
     <DocumentationFile>Headcam Orienteering.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
@@ -781,7 +781,7 @@
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.NetCore.CoreRuntime.7.0.x64">
       <Visible>False</Visible>
-      <ProductName>.NET Runtime 7.0.7 %28x64%29</ProductName>
+      <ProductName>.NET Runtime 7.0.20 %28x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
