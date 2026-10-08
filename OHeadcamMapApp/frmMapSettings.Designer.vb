@@ -56,6 +56,8 @@ Partial Class frmMapSettings
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblMapFrameForm = New System.Windows.Forms.Label()
+        Me.cboMapFrameForm = New System.Windows.Forms.ComboBox()
         Me.cbFeather = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.NumFrameSize = New System.Windows.Forms.NumericUpDown()
@@ -90,6 +92,8 @@ Partial Class frmMapSettings
         Me.Label20 = New System.Windows.Forms.Label()
         Me.numDynMargin = New System.Windows.Forms.NumericUpDown()
         Me.Label21 = New System.Windows.Forms.Label()
+        Me.btnArrowBigger = New System.Windows.Forms.Button()
+        Me.btnArrowsSmaller = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.numOutline, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numArrowWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -151,6 +155,8 @@ Partial Class frmMapSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnArrowsSmaller)
+        Me.GroupBox1.Controls.Add(Me.btnArrowBigger)
         Me.GroupBox1.Controls.Add(Me.numOutline)
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.numArrowWidth)
@@ -330,6 +336,8 @@ Partial Class frmMapSettings
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.lblMapFrameForm)
+        Me.GroupBox3.Controls.Add(Me.cboMapFrameForm)
         Me.GroupBox3.Controls.Add(Me.cbFeather)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Controls.Add(Me.NumFrameSize)
@@ -339,6 +347,18 @@ Partial Class frmMapSettings
         resources.ApplyResources(Me.GroupBox3, "GroupBox3")
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.TabStop = False
+        '
+        'lblMapFrameForm
+        '
+        resources.ApplyResources(Me.lblMapFrameForm, "lblMapFrameForm")
+        Me.lblMapFrameForm.Name = "lblMapFrameForm"
+        '
+        'cboMapFrameForm
+        '
+        Me.cboMapFrameForm.FormattingEnabled = True
+        Me.cboMapFrameForm.Items.AddRange(New Object() {resources.GetString("cboMapFrameForm.Items"), resources.GetString("cboMapFrameForm.Items1"), resources.GetString("cboMapFrameForm.Items2")})
+        resources.ApplyResources(Me.cboMapFrameForm, "cboMapFrameForm")
+        Me.cboMapFrameForm.Name = "cboMapFrameForm"
         '
         'cbFeather
         '
@@ -560,6 +580,24 @@ Partial Class frmMapSettings
         resources.ApplyResources(Me.Label21, "Label21")
         Me.Label21.Name = "Label21"
         '
+        'btnArrowBigger
+        '
+        Me.btnArrowBigger.BackColor = System.Drawing.Color.LightGreen
+        resources.ApplyResources(Me.btnArrowBigger, "btnArrowBigger")
+        Me.btnArrowBigger.Name = "btnArrowBigger"
+        Me.btnArrowBigger.Tag = resources.GetString("btnArrowBigger.Tag")
+        Me.ToolTip1.SetToolTip(Me.btnArrowBigger, resources.GetString("btnArrowBigger.ToolTip"))
+        Me.btnArrowBigger.UseVisualStyleBackColor = False
+        '
+        'btnArrowsSmaller
+        '
+        Me.btnArrowsSmaller.BackColor = System.Drawing.Color.Pink
+        resources.ApplyResources(Me.btnArrowsSmaller, "btnArrowsSmaller")
+        Me.btnArrowsSmaller.Name = "btnArrowsSmaller"
+        Me.btnArrowsSmaller.Tag = resources.GetString("btnArrowsSmaller.Tag")
+        Me.ToolTip1.SetToolTip(Me.btnArrowsSmaller, resources.GetString("btnArrowsSmaller.ToolTip"))
+        Me.btnArrowsSmaller.UseVisualStyleBackColor = False
+        '
         'frmMapSettings
         '
         resources.ApplyResources(Me, "$this")
@@ -673,4 +711,8 @@ Partial Class frmMapSettings
     Friend WithEvents Label24 As Label
     Friend WithEvents numDynTransp As NumericUpDown
     Friend WithEvents Label25 As Label
+    Friend WithEvents lblMapFrameForm As Label
+    Friend WithEvents cboMapFrameForm As ComboBox
+    Friend WithEvents btnArrowsSmaller As Button
+    Friend WithEvents btnArrowBigger As Button
 End Class

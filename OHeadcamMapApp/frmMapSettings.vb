@@ -101,6 +101,9 @@ Public Class frmMapSettings
     End Sub
 
     Private Sub frmMapSettings_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If cboMapFrameForm.Items.Count > 0 Then
+            cboMapFrameForm.SelectedIndex = Math.Max(0, Math.Min(cboMapFrameForm.Items.Count - 1, My.Settings.MIMapFrameFormIndex))
+        End If
         numDynMargin.Minimum = DynamicMarginMinValue
         numDynMargin.Maximum = DynamicMarginMaxValue
         numDynMargin.Increment = DynamicMarginStepValue
@@ -226,6 +229,30 @@ Public Class frmMapSettings
         ArrowWidth = numArrowWidth.Value
     End Sub
 
+    Private Sub btnArrowSmaller_Click(sender As Object, e As EventArgs) Handles btnArrowsSmaller.Click
+        ScaleArrowSymbol(-1)
+    End Sub
+
+    Private Sub btnArrowBigger_Click(sender As Object, e As EventArgs) Handles btnArrowBigger.Click
+        ScaleArrowSymbol(1)
+    End Sub
+
+    Private Sub ScaleArrowSymbol(direction As Integer)
+        Dim oldSize As Decimal = NumDotSize.Value
+        Dim newSize As Decimal = Math.Max(NumDotSize.Minimum,
+                                          Math.Min(NumDotSize.Maximum, oldSize + Math.Sign(direction)))
+        If newSize = oldSize Then Return
+
+        ' ArrowBarb and ArrowWidth are already relative factors multiplied by
+        ' DotSize when the arrow is drawn. Keeping them unchanged preserves the
+        ' arrow proportions while DotSize scales the complete symbol.
+        NumDotSize.Value = newSize
+
+        ' Persist the adjusted base values and redraw all three map previews now.
+        SetSettings()
+        FrmAdj.UpdateWithSettings()
+    End Sub
+
     Private Sub numZoomZoom_ValueChanged(sender As Object, e As EventArgs) Handles numZoomZoom.ValueChanged
         ZoomZoom = numZoomZoom.Value
     End Sub
@@ -291,6 +318,7 @@ Public Class frmMapSettings
     End Sub
 
     Public Sub SetSettings()
+        If cboMapFrameForm.SelectedIndex >= 0 Then My.Settings.MIMapFrameFormIndex = cboMapFrameForm.SelectedIndex
         My.Settings.MITailRatio = ratio
         My.Settings.MILegRad = LegCorner
         My.Settings.MILegMargin = LegMargin
@@ -362,6 +390,10 @@ Public Class frmMapSettings
 
     Private Sub NumFrameSize_ValueChanged(sender As Object, e As EventArgs) Handles NumFrameSize.ValueChanged
         framewidth = NumFrameSize.Value
+    End Sub
+
+    Private Sub cboMapFrameForm_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboMapFrameForm.SelectedIndexChanged
+        If cboMapFrameForm.SelectedIndex >= 0 Then My.Settings.MIMapFrameFormIndex = cboMapFrameForm.SelectedIndex
     End Sub
 
     Private Sub txtDynCorner_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtDynCorner.KeyPress

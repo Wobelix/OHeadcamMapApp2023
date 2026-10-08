@@ -26,7 +26,7 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
-        Dim MySettings1 As OHeadcamMapApp.My.MySettings = New OHeadcamMapApp.My.MySettings()
+        Dim MySettings2 As OHeadcamMapApp.My.MySettings = New OHeadcamMapApp.My.MySettings()
         Me.OpenFileDialogVideo = New System.Windows.Forms.OpenFileDialog()
         Me.AddVideofile = New System.Windows.Forms.Button()
         Me.btnOutputFile = New System.Windows.Forms.Button()
@@ -121,8 +121,12 @@ Partial Class MainForm
         Me.StatusRemaining = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.chkUseQuickRouteFiles = New System.Windows.Forms.CheckBox()
+        Me.btnRouteEditor = New System.Windows.Forms.Button()
         Me.chkMapFlipOnOff = New System.Windows.Forms.CheckBox()
         Me.grpMapFlip = New System.Windows.Forms.GroupBox()
+        Me.chkUseQuickRouteFiles2 = New System.Windows.Forms.CheckBox()
+        Me.btnRouteEditor2 = New System.Windows.Forms.Button()
         Me.btnMapFlipinfo = New System.Windows.Forms.Button()
         Me.lblMapFlipGPXd = New System.Windows.Forms.Label()
         Me.lblMapFlipStarttime = New System.Windows.Forms.Label()
@@ -163,45 +167,61 @@ Partial Class MainForm
         '
         resources.ApplyResources(Me.AddVideofile, "AddVideofile")
         Me.AddVideofile.Name = "AddVideofile"
+        Me.ToolTip1.SetToolTip(Me.AddVideofile, resources.GetString("AddVideofile.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.AddVideofile, resources.GetString("AddVideofile.ToolTip1"))
         Me.AddVideofile.UseVisualStyleBackColor = True
         '
         'btnOutputFile
         '
         resources.ApplyResources(Me.btnOutputFile, "btnOutputFile")
         Me.btnOutputFile.Name = "btnOutputFile"
+        Me.ToolTip1.SetToolTip(Me.btnOutputFile, resources.GetString("btnOutputFile.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.btnOutputFile, resources.GetString("btnOutputFile.ToolTip1"))
         Me.btnOutputFile.UseVisualStyleBackColor = True
         '
         'Label7
         '
         resources.ApplyResources(Me.Label7, "Label7")
         Me.Label7.Name = "Label7"
+        Me.ToolTip1.SetToolTip(Me.Label7, resources.GetString("Label7.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.Label7, resources.GetString("Label7.ToolTip1"))
         '
         'btnQRxml
         '
         resources.ApplyResources(Me.btnQRxml, "btnQRxml")
         Me.btnQRxml.Name = "btnQRxml"
+        Me.ToolTip1.SetToolTip(Me.btnQRxml, resources.GetString("btnQRxml.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.btnQRxml, resources.GetString("btnQRxml.ToolTip1"))
         Me.btnQRxml.UseVisualStyleBackColor = True
         '
         'btnQRimg
         '
         resources.ApplyResources(Me.btnQRimg, "btnQRimg")
         Me.btnQRimg.Name = "btnQRimg"
+        Me.ToolTip1.SetToolTip(Me.btnQRimg, resources.GetString("btnQRimg.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.btnQRimg, resources.GetString("btnQRimg.ToolTip1"))
         Me.btnQRimg.UseVisualStyleBackColor = True
         '
         'Label4
         '
         resources.ApplyResources(Me.Label4, "Label4")
         Me.Label4.Name = "Label4"
+        Me.ToolTip1.SetToolTip(Me.Label4, resources.GetString("Label4.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.Label4, resources.GetString("Label4.ToolTip1"))
         '
         'Label3
         '
         resources.ApplyResources(Me.Label3, "Label3")
         Me.Label3.Name = "Label3"
+        Me.ToolTip1.SetToolTip(Me.Label3, resources.GetString("Label3.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.Label3, resources.GetString("Label3.ToolTip1"))
         '
         'Label1
         '
         resources.ApplyResources(Me.Label1, "Label1")
         Me.Label1.Name = "Label1"
+        Me.ToolTip1.SetToolTip(Me.Label1, resources.GetString("Label1.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me.Label1, resources.GetString("Label1.ToolTip1"))
         '
         'OpenFileDialoggpx
         '
@@ -230,8 +250,8 @@ Partial Class MainForm
         '
         'numVideoTempo
         '
-        Me.numVideoTempo.DecimalPlaces = 1
         resources.ApplyResources(Me.numVideoTempo, "numVideoTempo")
+        Me.numVideoTempo.DecimalPlaces = 1
         Me.numVideoTempo.Increment = New Decimal(New Integer() {5, 0, 0, 65536})
         Me.numVideoTempo.Maximum = New Decimal(New Integer() {4, 0, 0, 0})
         Me.numVideoTempo.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
@@ -290,19 +310,19 @@ Partial Class MainForm
         '
         'btnMakeAdjVideo
         '
-        Me.btnMakeAdjVideo.Cursor = System.Windows.Forms.Cursors.Default
         resources.ApplyResources(Me.btnMakeAdjVideo, "btnMakeAdjVideo")
+        Me.btnMakeAdjVideo.Cursor = System.Windows.Forms.Cursors.Default
         Me.btnMakeAdjVideo.Name = "btnMakeAdjVideo"
         Me.ToolTip1.SetToolTip(Me.btnMakeAdjVideo, resources.GetString("btnMakeAdjVideo.ToolTip"))
         Me.btnMakeAdjVideo.UseVisualStyleBackColor = True
         '
         'GroupBox7
         '
+        resources.ApplyResources(Me.GroupBox7, "GroupBox7")
         Me.GroupBox7.Controls.Add(Me.Button1)
         Me.GroupBox7.Controls.Add(Me.rb_deshake)
         Me.GroupBox7.Controls.Add(Me.RB_onlyfilter)
         Me.GroupBox7.Controls.Add(Me.cbXDeshake)
-        resources.ApplyResources(Me.GroupBox7, "GroupBox7")
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.TabStop = False
         Me.ToolTip1.SetToolTip(Me.GroupBox7, resources.GetString("GroupBox7.ToolTip"))
@@ -318,6 +338,7 @@ Partial Class MainForm
         '
         resources.ApplyResources(Me.rb_deshake, "rb_deshake")
         Me.rb_deshake.Name = "rb_deshake"
+        Me.ToolTip1.SetToolTip(Me.rb_deshake, resources.GetString("rb_deshake.ToolTip"))
         Me.rb_deshake.UseVisualStyleBackColor = True
         '
         'RB_onlyfilter
@@ -326,6 +347,7 @@ Partial Class MainForm
         Me.RB_onlyfilter.Checked = True
         Me.RB_onlyfilter.Name = "RB_onlyfilter"
         Me.RB_onlyfilter.TabStop = True
+        Me.ToolTip1.SetToolTip(Me.RB_onlyfilter, resources.GetString("RB_onlyfilter.ToolTip"))
         Me.RB_onlyfilter.UseVisualStyleBackColor = True
         '
         'btnMapFlip
@@ -337,22 +359,20 @@ Partial Class MainForm
         '
         'txtPrepareLength
         '
-        Me.txtPrepareLength.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "PrepareLength", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtPrepareLength, "txtPrepareLength")
+        Me.txtPrepareLength.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "PrepareLength", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtPrepareLength.Name = "txtPrepareLength"
         Me.txtPrepareLength.Text = Global.OHeadcamMapApp.My.MySettings.Default.PrepareLength
-        Me.ToolTip2.SetToolTip(Me.txtPrepareLength, resources.GetString("txtPrepareLength.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtPrepareLength, resources.GetString("txtPrepareLength.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtPrepareLength, resources.GetString("txtPrepareLength.ToolTip"))
         '
         'txtOutputLength
         '
+        resources.ApplyResources(Me.txtOutputLength, "txtOutputLength")
         Me.txtOutputLength.BackColor = System.Drawing.SystemColors.Window
         Me.txtOutputLength.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "OutputLength", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        resources.ApplyResources(Me.txtOutputLength, "txtOutputLength")
         Me.txtOutputLength.Name = "txtOutputLength"
         Me.txtOutputLength.Text = Global.OHeadcamMapApp.My.MySettings.Default.OutputLength
-        Me.ToolTip2.SetToolTip(Me.txtOutputLength, resources.GetString("txtOutputLength.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtOutputLength, resources.GetString("txtOutputLength.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtOutputLength, resources.GetString("txtOutputLength.ToolTip"))
         '
         'chbNoAudio
         '
@@ -365,177 +385,222 @@ Partial Class MainForm
         '
         'txtInpCutfromStart
         '
-        MySettings1.AdjTestVideoReady = False
-        MySettings1.AdjVideoGPSDiff = "0"
-        MySettings1.AdjVideoLength = "300"
-        MySettings1.AppVersion = ""
-        MySettings1.Audiolevel = ""
-        MySettings1.AudioVideofile = ""
-        MySettings1.bAdjVideoIsReady = False
-        MySettings1.bDoMusic = False
-        MySettings1.bOutputfileReady = False
-        MySettings1.bUseMapTrackingVideo = False
-        MySettings1.cbHeightGraph = True
-        MySettings1.cbLoopMusic = True
-        MySettings1.cbSetImgM = False
-        MySettings1.cbShowDynamicMap = True
-        MySettings1.cbShowLegMAp = False
-        MySettings1.cbShowRoute = False
-        MySettings1.cbShowSpeedPanel = True
-        MySettings1.cbXMakeframes = False
-        MySettings1.chkHDFormat = False
-        MySettings1.ckShowLegMap = True
-        MySettings1.ckShowRouteMap = True
-        MySettings1.dFfmpegScaleMap = New Decimal(New Integer() {1, 0, 0, 0})
-        MySettings1.ffmpegBufsize = "40M"
-        MySettings1.ffmpegCRF = "26"
-        MySettings1.ffmpegJoin = "-f concat -safe 0 -i joinlist.txt"
-        MySettings1.ffmpegLensCorrection = "lenscorrection=cx=0.5:cy=0.5:k1=-0.200:k2=0.000"
-        MySettings1.ffmpegMaxBitr = "20M"
-        MySettings1.ffmpegOutFps = "25"
-        MySettings1.ffmpegPreset = "fast"
-        MySettings1.ffmpegScaleMap = "1.5"
-        MySettings1.ffmpegVidstabDetect = "vidstabdetect=shakiness=10:accuracy=15:mincontrast=0.200:stepsize=6:show=0:result" &
-    "=data.trf:tripod=0:result=data.trf"
-        MySettings1.ffmpegVidstabDetectOut = " -f null -"
-        MySettings1.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':inpu" &
-    "t=data.trf:tripod=0,unsharp=7:7:3:7:7:3"
-        MySettings1.GPXDiff = "0"
-        MySettings1.GPXDiff1 = "0"
-        MySettings1.GPXDiff2 = "0"
-        MySettings1.GPXfile = ""
-        MySettings1.InfoOutVideoFormat = "Format: 1920x1080"
-        MySettings1.JoinFileHeight = 1080
-        MySettings1.JoinFileLength = 0!
-        MySettings1.JoinFileWidth = 1920
-        MySettings1.Language = ""
-        MySettings1.lblMapLength = "0:00:00"
-        MySettings1.MapFlipActive = False
-        MySettings1.MapFlipOnOff = False
-        MySettings1.MapFlipStartS = "0"
-        MySettings1.MapFlipStartT = "0:00:00"
-        MySettings1.MapLength = "0:00:00"
-        MySettings1.MHeightH = "10"
-        MySettings1.MHeightV = "10"
-        MySettings1.MIArrowBarb = 0.3R
-        MySettings1.MIArrowWidth = 0.9R
-        MySettings1.MIDotColor = System.Drawing.Color.Red
-        MySettings1.MIDotSize = 17
-        MySettings1.MIDotType = "Arrow"
-        MySettings1.MIDynamicHeight = 430
-        MySettings1.MIDynamicLookAheadSeconds = 45.0R
-        MySettings1.MIDynamicLookBehindSeconds = 20.0R
-        MySettings1.MIDynamicMapPos = New System.Drawing.Point(80, 800)
-        MySettings1.MIDynamicMargin = 150
-        MySettings1.MIDynamicRad = 80
-        MySettings1.MIDynamicWidth = 430
-        MySettings1.MIDynamicZoom = 1.0R
-        MySettings1.MIFLegDim = New System.Drawing.Point(0, 0)
-        MySettings1.MIFLegPos = New System.Drawing.Point(0, 0)
-        MySettings1.MIFrameColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        MySettings1.MIFrameFeather = False
-        MySettings1.MIFrameWidth = 1
-        MySettings1.MIFZoomDim = New System.Drawing.Point(0, 0)
-        MySettings1.MIFZoomPos = New System.Drawing.Point(0, 0)
-        MySettings1.MILegHeight = 600
-        MySettings1.MILegMapPos = New System.Drawing.Point(80, 450)
-        MySettings1.MILegMargin = 50
-        MySettings1.MILegRad = 40
-        MySettings1.MILegRenderLayout = "web"
-        MySettings1.MILegWidth = 350
-        MySettings1.MISmoothFrameStepSeconds = 0.1R
-        MySettings1.MISmoothParallelGeneration = True
-        MySettings1.MITailColor = System.Drawing.Color.Red
-        MySettings1.MITailDuration = 30
-        MySettings1.MITailRatio = New Decimal(New Integer() {6, 0, 0, 65536})
-        MySettings1.MIZoomCircle = True
-        MySettings1.MIZoomHeight = 350
-        MySettings1.MIZoomMapPos = New System.Drawing.Point(80, 100)
-        MySettings1.MIZoomRad = 80
-        MySettings1.MIZoomWidth = 350
-        MySettings1.MIZoomZoom = 1.0R
-        MySettings1.MIWidgetTimeOffsetSeconds = 0R
-        MySettings1.MLegMapH = "10"
-        MySettings1.MlegMapH2 = "10"
-        MySettings1.MLegMapV = "10"
-        MySettings1.MRouteH = "10"
-        MySettings1.MRouteV = "10"
-        MySettings1.MSpeedH = "10"
-        MySettings1.MSpeedV = "10"
-        MySettings1.MusicAudiofile = ""
-        MySettings1.MusicFFMpegParam = ""
-        MySettings1.Musicfile = ""
-        MySettings1.Musiclevel = ""
-        MySettings1.MusicOutputfile = ""
-        MySettings1.No_deshake_filter = "normalize=blackpt=black:whitept=white:smoothing=10:strength=0.5"
-        MySettings1.NoAudio = False
-        MySettings1.Outputfile = ""
-        MySettings1.OutputLength = ""
-        MySettings1.OutputVideoLength = "0:00:00"
-        MySettings1.OverlayEstimate2KSeconds = 0R
-        MySettings1.OverlayEstimate4KSeconds = 0R
-        MySettings1.OverlayEstimateHdSeconds = 0R
-        MySettings1.PostVideo = ""
-        MySettings1.PostVideoList = ""
-        MySettings1.PrepareLength = ""
-        MySettings1.QRimage = ""
-        MySettings1.QRimage1 = ""
-        MySettings1.QRImage2 = ""
-        MySettings1.QRLength = "0"
-        MySettings1.QRXML = ""
-        MySettings1.QRXML1 = ""
-        MySettings1.QRXML2 = ""
-        MySettings1.QRXMLTimesec = 0
-        MySettings1.QRXMLTimesec2 = 0
-        MySettings1.rbSetImgL = False
-        MySettings1.rbSetImgR = False
-        MySettings1.SbSLength = ""
-        MySettings1.SbSLfile = ""
-        MySettings1.SbSOutfile = "Out.mp4"
-        MySettings1.SbSRfile = ""
-        MySettings1.SettingSbSCode = "-filter_complex ""[0:v]scale=-1:1080[v0];[1:v]scale=-1:1080[v1];[v0][v1]hstack"""
-        MySettings1.SettingsKey = ""
-        MySettings1.StatusInputVideo = ""
-        MySettings1.StatusMakeMap = ""
-        MySettings1.StatusOutputVideo = ""
-        MySettings1.StatusPrepare = ""
-        MySettings1.trackAudiolevel = 0
-        MySettings1.TrackMapHeight = 0
-        MySettings1.TrackMapImageFile = ""
-        MySettings1.TrackMapVideoFilename = ""
-        MySettings1.TrackMapVideoLength = "0:00:00"
-        MySettings1.TrackMapWidth = 0
-        MySettings1.trackMusiclevel = 0
-        MySettings1.Transparency = New Decimal(New Integer() {1, 0, 0, 0})
-        MySettings1.txtGPSPos = ""
-        MySettings1.txtInpCutFromStart = ""
-        MySettings1.txtMapVideoFilename = ""
-        MySettings1.txtMusicOutputfile = ""
-        MySettings1.txtRealtimeFactor = ""
-        MySettings1.txtVideoPos = ""
-        MySettings1.VidAdj_Rot = New Decimal(New Integer() {0, 0, 0, 0})
-        MySettings1.VidAdj_Zoom = New Decimal(New Integer() {100, 0, 0, 0})
-        MySettings1.VidAdjBright = New Decimal(New Integer() {0, 0, 0, 0})
-        MySettings1.VidAdjColImpr = False
-        MySettings1.VidAdjContr = New Decimal(New Integer() {0, 0, 0, 0})
-        MySettings1.VidAdjGamma = New Decimal(New Integer() {1, 0, 0, 0})
-        MySettings1.VidAdjHue = New Decimal(New Integer() {0, 0, 0, 0})
-        MySettings1.VidAdjLensDist = False
-        MySettings1.VidAdjNoise = False
-        MySettings1.VidAdjSatur = New Decimal(New Integer() {0, 0, 0, 0})
-        MySettings1.VidAdjSharp = New Decimal(New Integer() {0, 0, 0, 0})
-        MySettings1.Videofiles = ""
-        MySettings1.videofiles2 = ""
-        MySettings1.Videofilesfull = ""
-        MySettings1.VideoInLength = "0:00:00"
-        MySettings1.VideoPadding = "C"
-        MySettings1.VideoWorkFolder = ""
-        Me.txtInpCutfromStart.DataBindings.Add(New System.Windows.Forms.Binding("Text", MySettings1, "txtInpCutFromStart", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtInpCutfromStart, "txtInpCutfromStart")
+        MySettings2.AdjTestVideoReady = False
+        MySettings2.AdjVideoGPSDiff = "0"
+        MySettings2.AdjVideoLength = "300"
+        MySettings2.AppVersion = ""
+        MySettings2.Audiolevel = ""
+        MySettings2.AudioVideofile = ""
+        MySettings2.bAdjVideoIsReady = False
+        MySettings2.bDoMusic = False
+        MySettings2.bOutputfileReady = False
+        MySettings2.bUseMapTrackingVideo = False
+        MySettings2.cbHeightGraph = True
+        MySettings2.cbLoopMusic = True
+        MySettings2.cbSetImgM = False
+        MySettings2.cbShowDynamicMap = True
+        MySettings2.cbShowLegMAp = False
+        MySettings2.cbShowRoute = False
+        MySettings2.cbShowSpeedPanel = True
+        MySettings2.cbXMakeframes = False
+        MySettings2.chkHDFormat = False
+        MySettings2.ckShowLegMap = True
+        MySettings2.ckShowRouteMap = True
+        MySettings2.dFfmpegScaleMap = New Decimal(New Integer() {1, 0, 0, 0})
+        MySettings2.ffmpegBufsize = "40M"
+        MySettings2.ffmpegCRF = "26"
+        MySettings2.ffmpegJoin = "-f concat -safe 0 -i joinlist.txt"
+        MySettings2.ffmpegLensCorrection = "lenscorrection=cx=0.5:cy=0.5:k1=-0.200:k2=0.000"
+        MySettings2.ffmpegMaxBitr = "20M"
+        MySettings2.ffmpegOutFps = "25"
+        MySettings2.ffmpegPreset = "fast"
+        MySettings2.ffmpegScaleMap = "1.5"
+        MySettings2.ffmpegVidstabDetect = "vidstabdetect=shakiness=10:accuracy=15:mincontrast=0.200:stepsize=6:show=0:result" &
+    "=data.trf:tripod=0:result=data.trf"
+        MySettings2.ffmpegVidstabDetectOut = " -f null -"
+        MySettings2.ffmpegVidstabTransform = "vidstabtransform=smoothing=25:crop=black:zoom=0:optzoom=0:interpol='bicubic':inpu" &
+    "t=data.trf:tripod=0,unsharp=7:7:3:7:7:3"
+        MySettings2.GPXDiff = "0"
+        MySettings2.GPXDiff1 = "0"
+        MySettings2.GPXDiff2 = "0"
+        MySettings2.GPXfile = ""
+        MySettings2.InfoOutVideoFormat = "Format: 1920x1080"
+        MySettings2.JoinFileHeight = 1080
+        MySettings2.JoinFileLength = 0!
+        MySettings2.JoinFileWidth = 1920
+        MySettings2.LandscapeOutputResolutionIndex = 0
+        MySettings2.LandscapeOverlayVisibility = ""
+        MySettings2.Language = ""
+        MySettings2.LayoutPresetIndex = 0
+        MySettings2.lblMapLength = "0:00:00"
+        MySettings2.MapFlipActive = False
+        MySettings2.MapFlipOnOff = False
+        MySettings2.MapFlipStartS = "0"
+        MySettings2.MapFlipStartT = "0:00:00"
+        MySettings2.MapLength = "0:00:00"
+        MySettings2.MHeightH = "10"
+        MySettings2.MHeightV = "10"
+        MySettings2.MIArrowBarb = 0.3R
+        MySettings2.MIArrowOutlineScale = 2
+        MySettings2.MIArrowWidth = 0.9R
+        MySettings2.MIDotColor = System.Drawing.Color.Red
+        MySettings2.MIDotSize = 17
+        MySettings2.MIDotType = "Arrow"
+        MySettings2.MIDynamicHeight = 430
+        MySettings2.MIDynamicLookAheadSeconds = 45.0R
+        MySettings2.MIDynamicLookBehindSeconds = 20.0R
+        MySettings2.MIDynamicMapPos = New System.Drawing.Point(80, 800)
+        MySettings2.MIDynamicMargin = 150
+        MySettings2.MIDynamicMaxZoom = 250
+        MySettings2.MIDynamicMinZoom = 100
+        MySettings2.MIDynamicRad = 80
+        MySettings2.MIDynamicTransparency = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.MIDynamicWidth = 430
+        MySettings2.MIDynamicZoom = 1.0R
+        MySettings2.MIFLegDim = New System.Drawing.Point(0, 0)
+        MySettings2.MIFLegPos = New System.Drawing.Point(0, 0)
+        MySettings2.MIFrameColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        MySettings2.MIFrameFeather = False
+        MySettings2.MIFrameWidth = 1
+        MySettings2.MIFZoomDim = New System.Drawing.Point(0, 0)
+        MySettings2.MIFZoomPos = New System.Drawing.Point(0, 0)
+        MySettings2.MILegHeight = 600
+        MySettings2.MILegMapPos = New System.Drawing.Point(80, 450)
+        MySettings2.MILegMargin = 50
+        MySettings2.MILegRad = 40
+        MySettings2.MILegRenderLayout = "web"
+        MySettings2.MILegTransparency = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.MILegWidth = 350
+        MySettings2.MIMapFrameFormIndex = 0
+        MySettings2.MIPaceFastMinPerKm = 5.0R
+        MySettings2.MIPaceSlowMinPerKm = 14.0R
+        MySettings2.MISmoothFrameStepSeconds = 0.1R
+        MySettings2.MISmoothParallelGeneration = True
+        MySettings2.MITailColor = System.Drawing.Color.Red
+        MySettings2.MITailDuration = 30
+        MySettings2.MITailRatio = New Decimal(New Integer() {6, 0, 0, 65536})
+        MySettings2.MITailTransparency = 0.4R
+        MySettings2.MITailUseSpeedColors = True
+        MySettings2.MIWidgetDistanceEnabled = True
+        MySettings2.MIWidgetDistanceHeight = 82
+        MySettings2.MIWidgetDistanceMapPos = New System.Drawing.Point(1160, 175)
+        MySettings2.MIWidgetDistanceWidth = 240
+        MySettings2.MIWidgetHGraphEnabled = True
+        MySettings2.MIWidgetHGraphHeight = 150
+        MySettings2.MIWidgetHGraphMapPos = New System.Drawing.Point(880, 870)
+        MySettings2.MIWidgetHGraphWidth = 720
+        MySettings2.MIWidgetPaceEnabled = True
+        MySettings2.MIWidgetPaceHeight = 82
+        MySettings2.MIWidgetPaceMapPos = New System.Drawing.Point(1160, 270)
+        MySettings2.MIWidgetPaceWidth = 240
+        MySettings2.MIWidgetPulseEnabled = True
+        MySettings2.MIWidgetPulseHeight = 82
+        MySettings2.MIWidgetPulseMapPos = New System.Drawing.Point(1160, 365)
+        MySettings2.MIWidgetPulseWidth = 190
+        MySettings2.MIWidgetTimeEnabled = True
+        MySettings2.MIWidgetTimeHeight = 82
+        MySettings2.MIWidgetTimeMapPos = New System.Drawing.Point(1160, 80)
+        MySettings2.MIWidgetTimeOffsetSeconds = 0R
+        MySettings2.MIWidgetTimeWidth = 220
+        MySettings2.MIZoomCircle = True
+        MySettings2.MIZoomHeight = 350
+        MySettings2.MIZoomMapPos = New System.Drawing.Point(80, 100)
+        MySettings2.MIZoomRad = 80
+        MySettings2.MIZoomTransparency = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.MIZoomWidth = 350
+        MySettings2.MIZoomZoom = 1.0R
+        MySettings2.MLegMapH = "10"
+        MySettings2.MlegMapH2 = "10"
+        MySettings2.MLegMapV = "10"
+        MySettings2.MRouteH = "10"
+        MySettings2.MRouteV = "10"
+        MySettings2.MSpeedH = "10"
+        MySettings2.MSpeedV = "10"
+        MySettings2.MusicAudiofile = ""
+        MySettings2.MusicFFMpegParam = ""
+        MySettings2.Musicfile = ""
+        MySettings2.Musiclevel = ""
+        MySettings2.MusicOutputfile = ""
+        MySettings2.No_deshake_filter = "normalize=blackpt=black:whitept=white:smoothing=10:strength=0.5"
+        MySettings2.NoAudio = False
+        MySettings2.OutputAspectIndex = 0
+        MySettings2.Outputfile = ""
+        MySettings2.OutputFormat = "Auto"
+        MySettings2.OutputLength = ""
+        MySettings2.OutputResolutionIndex = 0
+        MySettings2.OutputVideoLength = "0:00:00"
+        MySettings2.OverlayEstimate2KSeconds = 0R
+        MySettings2.OverlayEstimate4KSeconds = 0R
+        MySettings2.OverlayEstimateHdSeconds = 0R
+        MySettings2.PortraitFramePosition = 0.5R
+        MySettings2.PortraitModeIndex = 0
+        MySettings2.PortraitOverlayLayout = ""
+        MySettings2.PortraitOverlayVisibility = ""
+        MySettings2.PortraitVideoPosition = 0R
+        MySettings2.PostVideo = ""
+        MySettings2.PostVideoList = ""
+        MySettings2.PrepareLength = ""
+        MySettings2.QRimage = ""
+        MySettings2.QRimage1 = ""
+        MySettings2.QRImage2 = ""
+        MySettings2.QRLength = "0"
+        MySettings2.QRXML = ""
+        MySettings2.QRXML1 = ""
+        MySettings2.QRXML2 = ""
+        MySettings2.QRXMLTimesec = 0
+        MySettings2.QRXMLTimesec2 = 0
+        MySettings2.rbSetImgL = False
+        MySettings2.rbSetImgR = False
+        MySettings2.SbSLength = ""
+        MySettings2.SbSLfile = ""
+        MySettings2.SbSOutfile = "Out.mp4"
+        MySettings2.SbSRfile = ""
+        MySettings2.SettingSbSCode = "-filter_complex ""[0:v]scale=-1:1080[v0];[1:v]scale=-1:1080[v1];[v0][v1]hstack"""
+        MySettings2.SettingsKey = ""
+        MySettings2.SettingsUpgradeRequired = True
+        MySettings2.ShowOutputSafeZone = True
+        MySettings2.StatusInputVideo = ""
+        MySettings2.StatusMakeMap = ""
+        MySettings2.StatusOutputVideo = ""
+        MySettings2.StatusPrepare = ""
+        MySettings2.trackAudiolevel = 0
+        MySettings2.TrackMapHeight = 0
+        MySettings2.TrackMapImageFile = ""
+        MySettings2.TrackMapVideoFilename = ""
+        MySettings2.TrackMapVideoLength = "0:00:00"
+        MySettings2.TrackMapWidth = 0
+        MySettings2.trackMusiclevel = 0
+        MySettings2.Transparency = New Decimal(New Integer() {1, 0, 0, 0})
+        MySettings2.txtGPSPos = ""
+        MySettings2.txtInpCutFromStart = ""
+        MySettings2.txtMapVideoFilename = ""
+        MySettings2.txtMusicOutputfile = ""
+        MySettings2.txtRealtimeFactor = ""
+        MySettings2.txtVideoPos = ""
+        MySettings2.VidAdj_Rot = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.VidAdj_Zoom = New Decimal(New Integer() {100, 0, 0, 0})
+        MySettings2.VidAdjBright = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.VidAdjColImpr = False
+        MySettings2.VidAdjContr = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.VidAdjGamma = New Decimal(New Integer() {1, 0, 0, 0})
+        MySettings2.VidAdjHue = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.VidAdjLensDist = False
+        MySettings2.VidAdjNoise = False
+        MySettings2.VidAdjSatur = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.VidAdjSharp = New Decimal(New Integer() {0, 0, 0, 0})
+        MySettings2.VideoEncoderSpeed = "Balanced"
+        MySettings2.Videofiles = ""
+        MySettings2.videofiles2 = ""
+        MySettings2.Videofilesfull = ""
+        MySettings2.VideoInLength = "0:00:00"
+        MySettings2.VideoPadding = "C"
+        MySettings2.VideoQuality = "High"
+        MySettings2.VideoWorkFolder = ""
+        Me.txtInpCutfromStart.DataBindings.Add(New System.Windows.Forms.Binding("Text", MySettings2, "txtInpCutFromStart", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtInpCutfromStart.Name = "txtInpCutfromStart"
-        Me.txtInpCutfromStart.Text = MySettings1.txtInpCutFromStart
-        Me.ToolTip2.SetToolTip(Me.txtInpCutfromStart, resources.GetString("txtInpCutfromStart.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtInpCutfromStart, resources.GetString("txtInpCutfromStart.ToolTip1"))
+        Me.txtInpCutfromStart.Text = MySettings2.txtInpCutFromStart
+        Me.ToolTip1.SetToolTip(Me.txtInpCutfromStart, resources.GetString("txtInpCutfromStart.ToolTip"))
         '
         'LblGPSDiff
         '
@@ -547,170 +612,171 @@ Partial Class MainForm
         '
         'txtQRImage2
         '
-        Me.txtQRImage2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRImage2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtQRImage2, "txtQRImage2")
+        Me.txtQRImage2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRImage2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtQRImage2.Name = "txtQRImage2"
         Me.txtQRImage2.Text = Global.OHeadcamMapApp.My.MySettings.Default.QRImage2
-        Me.ToolTip2.SetToolTip(Me.txtQRImage2, resources.GetString("txtQRImage2.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtQRImage2, resources.GetString("txtQRImage2.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtQRImage2, resources.GetString("txtQRImage2.ToolTip"))
         '
         'txtXMLfile2
         '
-        Me.txtXMLfile2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRXML2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtXMLfile2, "txtXMLfile2")
+        Me.txtXMLfile2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRXML2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtXMLfile2.Name = "txtXMLfile2"
         Me.txtXMLfile2.Text = Global.OHeadcamMapApp.My.MySettings.Default.QRXML2
-        Me.ToolTip2.SetToolTip(Me.txtXMLfile2, resources.GetString("txtXMLfile2.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtXMLfile2, resources.GetString("txtXMLfile2.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtXMLfile2, resources.GetString("txtXMLfile2.ToolTip"))
         '
         'txtXMLfile
         '
-        Me.txtXMLfile.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRXML1", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtXMLfile, "txtXMLfile")
+        Me.txtXMLfile.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRXML1", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtXMLfile.Name = "txtXMLfile"
         Me.txtXMLfile.Text = Global.OHeadcamMapApp.My.MySettings.Default.QRXML1
-        Me.ToolTip2.SetToolTip(Me.txtXMLfile, resources.GetString("txtXMLfile.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtXMLfile, resources.GetString("txtXMLfile.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtXMLfile, resources.GetString("txtXMLfile.ToolTip"))
         '
         'txtQRImage
         '
-        Me.txtQRImage.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRimage1", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtQRImage, "txtQRImage")
+        Me.txtQRImage.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "QRimage1", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtQRImage.Name = "txtQRImage"
         Me.txtQRImage.Text = Global.OHeadcamMapApp.My.MySettings.Default.QRimage1
-        Me.ToolTip2.SetToolTip(Me.txtQRImage, resources.GetString("txtQRImage.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtQRImage, resources.GetString("txtQRImage.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtQRImage, resources.GetString("txtQRImage.ToolTip"))
         '
         'txtVideolist
         '
-        Me.txtVideolist.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "videofiles2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtVideolist, "txtVideolist")
+        Me.txtVideolist.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "videofiles2", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtVideolist.Name = "txtVideolist"
         Me.txtVideolist.Text = Global.OHeadcamMapApp.My.MySettings.Default.videofiles2
-        Me.ToolTip2.SetToolTip(Me.txtVideolist, resources.GetString("txtVideolist.ToolTip"))
-        Me.ToolTip1.SetToolTip(Me.txtVideolist, resources.GetString("txtVideolist.ToolTip1"))
+        Me.ToolTip1.SetToolTip(Me.txtVideolist, resources.GetString("txtVideolist.ToolTip"))
         '
         'btnReset
         '
         resources.ApplyResources(Me.btnReset, "btnReset")
         Me.btnReset.Name = "btnReset"
+        Me.ToolTip1.SetToolTip(Me.btnReset, resources.GetString("btnReset.ToolTip"))
         Me.btnReset.UseVisualStyleBackColor = True
         '
         'btnClearVideolist
         '
         resources.ApplyResources(Me.btnClearVideolist, "btnClearVideolist")
         Me.btnClearVideolist.Name = "btnClearVideolist"
+        Me.ToolTip1.SetToolTip(Me.btnClearVideolist, resources.GetString("btnClearVideolist.ToolTip"))
         Me.btnClearVideolist.UseVisualStyleBackColor = True
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IndstillingerToolStripMenuItem1, Me.LanguageToolStripMenuItem, Me.ViKørselslogToolStripMenuItem, Me.ToolStripMenuItem1, Me.OmToolStripMenuItem})
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IndstillingerToolStripMenuItem1, Me.LanguageToolStripMenuItem, Me.ViKørselslogToolStripMenuItem, Me.ToolStripMenuItem1, Me.OmToolStripMenuItem})
         Me.MenuStrip1.Name = "MenuStrip1"
+        Me.ToolTip1.SetToolTip(Me.MenuStrip1, resources.GetString("MenuStrip1.ToolTip"))
         '
         'IndstillingerToolStripMenuItem1
         '
-        Me.IndstillingerToolStripMenuItem1.Name = "IndstillingerToolStripMenuItem1"
         resources.ApplyResources(Me.IndstillingerToolStripMenuItem1, "IndstillingerToolStripMenuItem1")
+        Me.IndstillingerToolStripMenuItem1.Name = "IndstillingerToolStripMenuItem1"
         '
         'LanguageToolStripMenuItem
         '
+        resources.ApplyResources(Me.LanguageToolStripMenuItem, "LanguageToolStripMenuItem")
         Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DanskToolStripMenuItem, Me.EnglishToolStripMenuItem, Me.ChineseToolStripMenuItem})
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
-        resources.ApplyResources(Me.LanguageToolStripMenuItem, "LanguageToolStripMenuItem")
         '
         'DanskToolStripMenuItem
         '
-        Me.DanskToolStripMenuItem.Name = "DanskToolStripMenuItem"
         resources.ApplyResources(Me.DanskToolStripMenuItem, "DanskToolStripMenuItem")
+        Me.DanskToolStripMenuItem.Name = "DanskToolStripMenuItem"
         '
         'EnglishToolStripMenuItem
         '
-        Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
         resources.ApplyResources(Me.EnglishToolStripMenuItem, "EnglishToolStripMenuItem")
+        Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
         '
         'ChineseToolStripMenuItem
         '
-        Me.ChineseToolStripMenuItem.Name = "ChineseToolStripMenuItem"
         resources.ApplyResources(Me.ChineseToolStripMenuItem, "ChineseToolStripMenuItem")
+        Me.ChineseToolStripMenuItem.Name = "ChineseToolStripMenuItem"
         '
         'ViKørselslogToolStripMenuItem
         '
-        Me.ViKørselslogToolStripMenuItem.Name = "ViKørselslogToolStripMenuItem"
         resources.ApplyResources(Me.ViKørselslogToolStripMenuItem, "ViKørselslogToolStripMenuItem")
+        Me.ViKørselslogToolStripMenuItem.Name = "ViKørselslogToolStripMenuItem"
         '
         'ToolStripMenuItem1
         '
+        resources.ApplyResources(Me.ToolStripMenuItem1, "ToolStripMenuItem1")
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SideOmSideVideoToolStripMenuItem, Me.VideoafspillerToolStripMenuItem, Me.BrugTrackingvideoToolStripMenuItem, Me.FFPlayTestafspillerToolStripMenuItem, Me.ChangeFPSScriptToolStripMenuItem, Me.FixApplegpxFilToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        resources.ApplyResources(Me.ToolStripMenuItem1, "ToolStripMenuItem1")
         '
         'SideOmSideVideoToolStripMenuItem
         '
-        Me.SideOmSideVideoToolStripMenuItem.Name = "SideOmSideVideoToolStripMenuItem"
         resources.ApplyResources(Me.SideOmSideVideoToolStripMenuItem, "SideOmSideVideoToolStripMenuItem")
+        Me.SideOmSideVideoToolStripMenuItem.Name = "SideOmSideVideoToolStripMenuItem"
         '
         'VideoafspillerToolStripMenuItem
         '
-        Me.VideoafspillerToolStripMenuItem.Name = "VideoafspillerToolStripMenuItem"
         resources.ApplyResources(Me.VideoafspillerToolStripMenuItem, "VideoafspillerToolStripMenuItem")
+        Me.VideoafspillerToolStripMenuItem.Name = "VideoafspillerToolStripMenuItem"
         '
         'BrugTrackingvideoToolStripMenuItem
         '
-        Me.BrugTrackingvideoToolStripMenuItem.Name = "BrugTrackingvideoToolStripMenuItem"
         resources.ApplyResources(Me.BrugTrackingvideoToolStripMenuItem, "BrugTrackingvideoToolStripMenuItem")
+        Me.BrugTrackingvideoToolStripMenuItem.Name = "BrugTrackingvideoToolStripMenuItem"
         '
         'FFPlayTestafspillerToolStripMenuItem
         '
-        Me.FFPlayTestafspillerToolStripMenuItem.Name = "FFPlayTestafspillerToolStripMenuItem"
         resources.ApplyResources(Me.FFPlayTestafspillerToolStripMenuItem, "FFPlayTestafspillerToolStripMenuItem")
+        Me.FFPlayTestafspillerToolStripMenuItem.Name = "FFPlayTestafspillerToolStripMenuItem"
         '
         'ChangeFPSScriptToolStripMenuItem
         '
-        Me.ChangeFPSScriptToolStripMenuItem.Name = "ChangeFPSScriptToolStripMenuItem"
         resources.ApplyResources(Me.ChangeFPSScriptToolStripMenuItem, "ChangeFPSScriptToolStripMenuItem")
+        Me.ChangeFPSScriptToolStripMenuItem.Name = "ChangeFPSScriptToolStripMenuItem"
         '
         'FixApplegpxFilToolStripMenuItem
         '
-        Me.FixApplegpxFilToolStripMenuItem.Name = "FixApplegpxFilToolStripMenuItem"
         resources.ApplyResources(Me.FixApplegpxFilToolStripMenuItem, "FixApplegpxFilToolStripMenuItem")
+        Me.FixApplegpxFilToolStripMenuItem.Name = "FixApplegpxFilToolStripMenuItem"
         '
         'OmToolStripMenuItem
         '
+        resources.ApplyResources(Me.OmToolStripMenuItem, "OmToolStripMenuItem")
         Me.OmToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OmToolStripMenuItem1, Me.HjælpToolStripMenuItem})
         Me.OmToolStripMenuItem.Name = "OmToolStripMenuItem"
-        resources.ApplyResources(Me.OmToolStripMenuItem, "OmToolStripMenuItem")
         '
         'OmToolStripMenuItem1
         '
-        Me.OmToolStripMenuItem1.Name = "OmToolStripMenuItem1"
         resources.ApplyResources(Me.OmToolStripMenuItem1, "OmToolStripMenuItem1")
+        Me.OmToolStripMenuItem1.Name = "OmToolStripMenuItem1"
         '
         'HjælpToolStripMenuItem
         '
-        Me.HjælpToolStripMenuItem.Name = "HjælpToolStripMenuItem"
         resources.ApplyResources(Me.HjælpToolStripMenuItem, "HjælpToolStripMenuItem")
+        Me.HjælpToolStripMenuItem.Name = "HjælpToolStripMenuItem"
         '
         'GroupBox4
         '
+        resources.ApplyResources(Me.GroupBox4, "GroupBox4")
         Me.GroupBox4.Controls.Add(Me.btnPostProcess)
         Me.GroupBox4.Controls.Add(Me.GroupBox1)
         Me.GroupBox4.Controls.Add(Me.GroupBox6)
         Me.GroupBox4.Controls.Add(Me.GroupBox9)
-        resources.ApplyResources(Me.GroupBox4, "GroupBox4")
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.GroupBox4, resources.GetString("GroupBox4.ToolTip"))
         '
         'btnPostProcess
         '
-        Me.btnPostProcess.BackColor = System.Drawing.SystemColors.Highlight
         resources.ApplyResources(Me.btnPostProcess, "btnPostProcess")
+        Me.btnPostProcess.BackColor = System.Drawing.SystemColors.Highlight
         Me.btnPostProcess.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btnPostProcess.Name = "btnPostProcess"
+        Me.ToolTip1.SetToolTip(Me.btnPostProcess, resources.GetString("btnPostProcess.ToolTip"))
         Me.btnPostProcess.UseVisualStyleBackColor = False
         '
         'GroupBox1
         '
+        resources.ApplyResources(Me.GroupBox1, "GroupBox1")
         Me.GroupBox1.BackColor = System.Drawing.Color.MistyRose
         Me.GroupBox1.Controls.Add(Me.lblMapLength)
         Me.GroupBox1.Controls.Add(Me.IconStatusPrepare)
@@ -724,32 +790,36 @@ Partial Class MainForm
         Me.GroupBox1.Controls.Add(Me.GroupBox7)
         Me.GroupBox1.Controls.Add(Me.Label21)
         Me.GroupBox1.Controls.Add(Me.cbXJoin)
-        resources.ApplyResources(Me.GroupBox1, "GroupBox1")
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.GroupBox1, resources.GetString("GroupBox1.ToolTip"))
         '
         'lblMapLength
         '
         resources.ApplyResources(Me.lblMapLength, "lblMapLength")
         Me.lblMapLength.Name = "lblMapLength"
+        Me.ToolTip1.SetToolTip(Me.lblMapLength, resources.GetString("lblMapLength.ToolTip"))
         '
         'IconStatusPrepare
         '
-        Me.IconStatusPrepare.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         resources.ApplyResources(Me.IconStatusPrepare, "IconStatusPrepare")
+        Me.IconStatusPrepare.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         Me.IconStatusPrepare.Name = "IconStatusPrepare"
+        Me.ToolTip1.SetToolTip(Me.IconStatusPrepare, resources.GetString("IconStatusPrepare.ToolTip"))
         '
         'Label6
         '
         resources.ApplyResources(Me.Label6, "Label6")
         Me.Label6.Name = "Label6"
+        Me.ToolTip1.SetToolTip(Me.Label6, resources.GetString("Label6.ToolTip"))
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.OHeadcamMapApp.My.Resources.Resources.img1
         resources.ApplyResources(Me.PictureBox1, "PictureBox1")
+        Me.PictureBox1.Image = Global.OHeadcamMapApp.My.Resources.Resources.img1
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PictureBox1, resources.GetString("PictureBox1.ToolTip"))
         '
         'lblVideoInLength
         '
@@ -757,20 +827,24 @@ Partial Class MainForm
         Me.lblVideoInLength.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "VideoInLength", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.lblVideoInLength.Name = "lblVideoInLength"
         Me.lblVideoInLength.Text = Global.OHeadcamMapApp.My.MySettings.Default.VideoInLength
+        Me.ToolTip1.SetToolTip(Me.lblVideoInLength, resources.GetString("lblVideoInLength.ToolTip"))
         '
         'iconStatusVideoIn
         '
-        Me.iconStatusVideoIn.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         resources.ApplyResources(Me.iconStatusVideoIn, "iconStatusVideoIn")
+        Me.iconStatusVideoIn.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         Me.iconStatusVideoIn.Name = "iconStatusVideoIn"
+        Me.ToolTip1.SetToolTip(Me.iconStatusVideoIn, resources.GetString("iconStatusVideoIn.ToolTip"))
         '
         'Label21
         '
         resources.ApplyResources(Me.Label21, "Label21")
         Me.Label21.Name = "Label21"
+        Me.ToolTip1.SetToolTip(Me.Label21, resources.GetString("Label21.ToolTip"))
         '
         'GroupBox6
         '
+        resources.ApplyResources(Me.GroupBox6, "GroupBox6")
         Me.GroupBox6.BackColor = System.Drawing.Color.Aquamarine
         Me.GroupBox6.Controls.Add(Me.Label20)
         Me.GroupBox6.Controls.Add(Me.Button2)
@@ -783,9 +857,9 @@ Partial Class MainForm
         Me.GroupBox6.Controls.Add(Me.IconStatusOutput)
         Me.GroupBox6.Controls.Add(Me.Label7)
         Me.GroupBox6.Controls.Add(Me.txtOutFilename)
-        resources.ApplyResources(Me.GroupBox6, "GroupBox6")
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.GroupBox6, resources.GetString("GroupBox6.ToolTip"))
         '
         'Label20
         '
@@ -793,36 +867,42 @@ Partial Class MainForm
         Me.Label20.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "InfoOutVideoFormat", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Label20.Name = "Label20"
         Me.Label20.Text = Global.OHeadcamMapApp.My.MySettings.Default.InfoOutVideoFormat
+        Me.ToolTip1.SetToolTip(Me.Label20, resources.GetString("Label20.ToolTip"))
         '
         'Button2
         '
         resources.ApplyResources(Me.Button2, "Button2")
         Me.Button2.Name = "Button2"
+        Me.ToolTip1.SetToolTip(Me.Button2, resources.GetString("Button2.ToolTip"))
         Me.Button2.UseVisualStyleBackColor = True
         '
         'btnMakeMapN
         '
         resources.ApplyResources(Me.btnMakeMapN, "btnMakeMapN")
         Me.btnMakeMapN.Name = "btnMakeMapN"
+        Me.ToolTip1.SetToolTip(Me.btnMakeMapN, resources.GetString("btnMakeMapN.ToolTip"))
         Me.btnMakeMapN.UseVisualStyleBackColor = True
         '
         'cbOnlyVideo
         '
         resources.ApplyResources(Me.cbOnlyVideo, "cbOnlyVideo")
         Me.cbOnlyVideo.Name = "cbOnlyVideo"
+        Me.ToolTip1.SetToolTip(Me.cbOnlyVideo, resources.GetString("cbOnlyVideo.ToolTip"))
         Me.cbOnlyVideo.UseVisualStyleBackColor = True
         '
         'PictureBox3
         '
-        Me.PictureBox3.Image = Global.OHeadcamMapApp.My.Resources.Resources.img3
         resources.ApplyResources(Me.PictureBox3, "PictureBox3")
+        Me.PictureBox3.Image = Global.OHeadcamMapApp.My.Resources.Resources.img3
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PictureBox3, resources.GetString("PictureBox3.ToolTip"))
         '
         'btnRunMakeVideo
         '
         resources.ApplyResources(Me.btnRunMakeVideo, "btnRunMakeVideo")
         Me.btnRunMakeVideo.Name = "btnRunMakeVideo"
+        Me.ToolTip1.SetToolTip(Me.btnRunMakeVideo, resources.GetString("btnRunMakeVideo.ToolTip"))
         Me.btnRunMakeVideo.UseVisualStyleBackColor = True
         '
         'lblOutputVideoLength
@@ -831,22 +911,26 @@ Partial Class MainForm
         Me.lblOutputVideoLength.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "OutputVideoLength", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.lblOutputVideoLength.Name = "lblOutputVideoLength"
         Me.lblOutputVideoLength.Text = Global.OHeadcamMapApp.My.MySettings.Default.OutputVideoLength
+        Me.ToolTip1.SetToolTip(Me.lblOutputVideoLength, resources.GetString("lblOutputVideoLength.ToolTip"))
         '
         'IconStatusOutput
         '
-        Me.IconStatusOutput.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         resources.ApplyResources(Me.IconStatusOutput, "IconStatusOutput")
+        Me.IconStatusOutput.Image = Global.OHeadcamMapApp.My.Resources.Resources.imgNotready
         Me.IconStatusOutput.Name = "IconStatusOutput"
+        Me.ToolTip1.SetToolTip(Me.IconStatusOutput, resources.GetString("IconStatusOutput.ToolTip"))
         '
         'txtOutFilename
         '
-        Me.txtOutFilename.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "Outputfile", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         resources.ApplyResources(Me.txtOutFilename, "txtOutFilename")
+        Me.txtOutFilename.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "Outputfile", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.txtOutFilename.Name = "txtOutFilename"
         Me.txtOutFilename.Text = Global.OHeadcamMapApp.My.MySettings.Default.Outputfile
+        Me.ToolTip1.SetToolTip(Me.txtOutFilename, resources.GetString("txtOutFilename.ToolTip"))
         '
         'GroupBox9
         '
+        resources.ApplyResources(Me.GroupBox9, "GroupBox9")
         Me.GroupBox9.BackColor = System.Drawing.Color.LemonChiffon
         Me.GroupBox9.Controls.Add(Me.Label22)
         Me.GroupBox9.Controls.Add(Me.Label14)
@@ -866,90 +950,103 @@ Partial Class MainForm
         Me.GroupBox9.Controls.Add(Me.LblGPSDiff)
         Me.GroupBox9.Controls.Add(Me.Label13)
         Me.GroupBox9.Controls.Add(Me.Label8)
-        resources.ApplyResources(Me.GroupBox9, "GroupBox9")
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.GroupBox9, resources.GetString("GroupBox9.ToolTip"))
         '
         'Label22
         '
         resources.ApplyResources(Me.Label22, "Label22")
         Me.Label22.Name = "Label22"
+        Me.ToolTip1.SetToolTip(Me.Label22, resources.GetString("Label22.ToolTip"))
         '
         'Label14
         '
         resources.ApplyResources(Me.Label14, "Label14")
         Me.Label14.Name = "Label14"
+        Me.ToolTip1.SetToolTip(Me.Label14, resources.GetString("Label14.ToolTip"))
         '
         'Label12
         '
         resources.ApplyResources(Me.Label12, "Label12")
         Me.Label12.Name = "Label12"
+        Me.ToolTip1.SetToolTip(Me.Label12, resources.GetString("Label12.ToolTip"))
         '
         'Label10
         '
         resources.ApplyResources(Me.Label10, "Label10")
         Me.Label10.Name = "Label10"
+        Me.ToolTip1.SetToolTip(Me.Label10, resources.GetString("Label10.ToolTip"))
         '
         'Label9
         '
         resources.ApplyResources(Me.Label9, "Label9")
         Me.Label9.Name = "Label9"
+        Me.ToolTip1.SetToolTip(Me.Label9, resources.GetString("Label9.ToolTip"))
         '
         'Label5
         '
         resources.ApplyResources(Me.Label5, "Label5")
         Me.Label5.Name = "Label5"
+        Me.ToolTip1.SetToolTip(Me.Label5, resources.GetString("Label5.ToolTip"))
         '
         'Label16
         '
         resources.ApplyResources(Me.Label16, "Label16")
         Me.Label16.Name = "Label16"
+        Me.ToolTip1.SetToolTip(Me.Label16, resources.GetString("Label16.ToolTip"))
         '
         'PictureBox2
         '
-        Me.PictureBox2.Image = Global.OHeadcamMapApp.My.Resources.Resources.img2
         resources.ApplyResources(Me.PictureBox2, "PictureBox2")
+        Me.PictureBox2.Image = Global.OHeadcamMapApp.My.Resources.Resources.img2
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PictureBox2, resources.GetString("PictureBox2.ToolTip"))
         '
         'Label8
         '
         resources.ApplyResources(Me.Label8, "Label8")
         Me.Label8.Name = "Label8"
+        Me.ToolTip1.SetToolTip(Me.Label8, resources.GetString("Label8.ToolTip"))
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Statusbar, Me.StatusProgressBar1, Me.StatusBarProgressText, Me.StatusRemaining, Me.ToolStripStatusLabel1})
         resources.ApplyResources(Me.StatusStrip1, "StatusStrip1")
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Statusbar, Me.StatusProgressBar1, Me.StatusBarProgressText, Me.StatusRemaining, Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Name = "StatusStrip1"
+        Me.ToolTip1.SetToolTip(Me.StatusStrip1, resources.GetString("StatusStrip1.ToolTip"))
         '
         'Statusbar
         '
-        Me.Statusbar.Name = "Statusbar"
         resources.ApplyResources(Me.Statusbar, "Statusbar")
+        Me.Statusbar.Name = "Statusbar"
         '
         'StatusProgressBar1
         '
-        Me.StatusProgressBar1.Name = "StatusProgressBar1"
         resources.ApplyResources(Me.StatusProgressBar1, "StatusProgressBar1")
+        Me.StatusProgressBar1.Name = "StatusProgressBar1"
         '
         'StatusBarProgressText
         '
-        Me.StatusBarProgressText.Name = "StatusBarProgressText"
         resources.ApplyResources(Me.StatusBarProgressText, "StatusBarProgressText")
+        Me.StatusBarProgressText.Name = "StatusBarProgressText"
         '
         'StatusRemaining
         '
-        Me.StatusRemaining.Name = "StatusRemaining"
         resources.ApplyResources(Me.StatusRemaining, "StatusRemaining")
+        Me.StatusRemaining.Name = "StatusRemaining"
         '
         'ToolStripStatusLabel1
         '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         resources.ApplyResources(Me.ToolStripStatusLabel1, "ToolStripStatusLabel1")
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         '
         'GroupBox10
         '
+        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
+        Me.GroupBox10.Controls.Add(Me.chkUseQuickRouteFiles)
+        Me.GroupBox10.Controls.Add(Me.btnRouteEditor)
         Me.GroupBox10.Controls.Add(Me.chkMapFlipOnOff)
         Me.GroupBox10.Controls.Add(Me.grpMapFlip)
         Me.GroupBox10.Controls.Add(Me.Label4)
@@ -958,19 +1055,37 @@ Partial Class MainForm
         Me.GroupBox10.Controls.Add(Me.btnQRxml)
         Me.GroupBox10.Controls.Add(Me.Label3)
         Me.GroupBox10.Controls.Add(Me.txtQRImage)
-        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
         Me.GroupBox10.Name = "GroupBox10"
         Me.GroupBox10.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.GroupBox10, resources.GetString("GroupBox10.ToolTip"))
+        '
+        'chkUseQuickRouteFiles
+        '
+        resources.ApplyResources(Me.chkUseQuickRouteFiles, "chkUseQuickRouteFiles")
+        Me.chkUseQuickRouteFiles.Name = "chkUseQuickRouteFiles"
+        Me.ToolTip1.SetToolTip(Me.chkUseQuickRouteFiles, resources.GetString("chkUseQuickRouteFiles.ToolTip"))
+        Me.chkUseQuickRouteFiles.UseVisualStyleBackColor = True
+        '
+        'btnRouteEditor
+        '
+        resources.ApplyResources(Me.btnRouteEditor, "btnRouteEditor")
+        Me.btnRouteEditor.Name = "btnRouteEditor"
+        Me.ToolTip1.SetToolTip(Me.btnRouteEditor, resources.GetString("btnRouteEditor.ToolTip"))
+        Me.btnRouteEditor.UseVisualStyleBackColor = True
         '
         'chkMapFlipOnOff
         '
         resources.ApplyResources(Me.chkMapFlipOnOff, "chkMapFlipOnOff")
         Me.chkMapFlipOnOff.Name = "chkMapFlipOnOff"
+        Me.ToolTip1.SetToolTip(Me.chkMapFlipOnOff, resources.GetString("chkMapFlipOnOff.ToolTip"))
         Me.chkMapFlipOnOff.UseVisualStyleBackColor = True
         '
         'grpMapFlip
         '
+        resources.ApplyResources(Me.grpMapFlip, "grpMapFlip")
         Me.grpMapFlip.BackColor = System.Drawing.SystemColors.Control
+        Me.grpMapFlip.Controls.Add(Me.chkUseQuickRouteFiles2)
+        Me.grpMapFlip.Controls.Add(Me.btnRouteEditor2)
         Me.grpMapFlip.Controls.Add(Me.btnMapFlipinfo)
         Me.grpMapFlip.Controls.Add(Me.btnMapFlip)
         Me.grpMapFlip.Controls.Add(Me.lblMapFlipGPXd)
@@ -983,22 +1098,38 @@ Partial Class MainForm
         Me.grpMapFlip.Controls.Add(Me.txtQRImage2)
         Me.grpMapFlip.Controls.Add(Me.btnQRXML2)
         Me.grpMapFlip.Controls.Add(Me.txtXMLfile2)
-        resources.ApplyResources(Me.grpMapFlip, "grpMapFlip")
         Me.grpMapFlip.Name = "grpMapFlip"
         Me.grpMapFlip.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.grpMapFlip, resources.GetString("grpMapFlip.ToolTip"))
+        '
+        'chkUseQuickRouteFiles2
+        '
+        resources.ApplyResources(Me.chkUseQuickRouteFiles2, "chkUseQuickRouteFiles2")
+        Me.chkUseQuickRouteFiles2.Name = "chkUseQuickRouteFiles2"
+        Me.ToolTip1.SetToolTip(Me.chkUseQuickRouteFiles2, resources.GetString("chkUseQuickRouteFiles2.ToolTip"))
+        Me.chkUseQuickRouteFiles2.UseVisualStyleBackColor = True
+        '
+        'btnRouteEditor2
+        '
+        resources.ApplyResources(Me.btnRouteEditor2, "btnRouteEditor2")
+        Me.btnRouteEditor2.Name = "btnRouteEditor2"
+        Me.ToolTip1.SetToolTip(Me.btnRouteEditor2, resources.GetString("btnRouteEditor2.ToolTip"))
+        Me.btnRouteEditor2.UseVisualStyleBackColor = True
         '
         'btnMapFlipinfo
         '
-        Me.btnMapFlipinfo.BackColor = System.Drawing.SystemColors.Highlight
         resources.ApplyResources(Me.btnMapFlipinfo, "btnMapFlipinfo")
+        Me.btnMapFlipinfo.BackColor = System.Drawing.SystemColors.Highlight
         Me.btnMapFlipinfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btnMapFlipinfo.Name = "btnMapFlipinfo"
+        Me.ToolTip1.SetToolTip(Me.btnMapFlipinfo, resources.GetString("btnMapFlipinfo.ToolTip"))
         Me.btnMapFlipinfo.UseVisualStyleBackColor = False
         '
         'lblMapFlipGPXd
         '
         resources.ApplyResources(Me.lblMapFlipGPXd, "lblMapFlipGPXd")
         Me.lblMapFlipGPXd.Name = "lblMapFlipGPXd"
+        Me.ToolTip1.SetToolTip(Me.lblMapFlipGPXd, resources.GetString("lblMapFlipGPXd.ToolTip"))
         '
         'lblMapFlipStarttime
         '
@@ -1006,37 +1137,44 @@ Partial Class MainForm
         Me.lblMapFlipStarttime.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.OHeadcamMapApp.My.MySettings.Default, "MapFlipStartT", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.lblMapFlipStarttime.Name = "lblMapFlipStarttime"
         Me.lblMapFlipStarttime.Text = Global.OHeadcamMapApp.My.MySettings.Default.MapFlipStartT
+        Me.ToolTip1.SetToolTip(Me.lblMapFlipStarttime, resources.GetString("lblMapFlipStarttime.ToolTip"))
         '
         'Label19
         '
         resources.ApplyResources(Me.Label19, "Label19")
         Me.Label19.Name = "Label19"
+        Me.ToolTip1.SetToolTip(Me.Label19, resources.GetString("Label19.ToolTip"))
         '
         'Label18
         '
         resources.ApplyResources(Me.Label18, "Label18")
         Me.Label18.Name = "Label18"
+        Me.ToolTip1.SetToolTip(Me.Label18, resources.GetString("Label18.ToolTip"))
         '
         'Label17
         '
         resources.ApplyResources(Me.Label17, "Label17")
         Me.Label17.Name = "Label17"
+        Me.ToolTip1.SetToolTip(Me.Label17, resources.GetString("Label17.ToolTip"))
         '
         'Label11
         '
         resources.ApplyResources(Me.Label11, "Label11")
         Me.Label11.Name = "Label11"
+        Me.ToolTip1.SetToolTip(Me.Label11, resources.GetString("Label11.ToolTip"))
         '
         'btnQRimg2
         '
         resources.ApplyResources(Me.btnQRimg2, "btnQRimg2")
         Me.btnQRimg2.Name = "btnQRimg2"
+        Me.ToolTip1.SetToolTip(Me.btnQRimg2, resources.GetString("btnQRimg2.ToolTip"))
         Me.btnQRimg2.UseVisualStyleBackColor = True
         '
         'btnQRXML2
         '
         resources.ApplyResources(Me.btnQRXML2, "btnQRXML2")
         Me.btnQRXML2.Name = "btnQRXML2"
+        Me.ToolTip1.SetToolTip(Me.btnQRXML2, resources.GetString("btnQRXML2.ToolTip"))
         Me.btnQRXML2.UseVisualStyleBackColor = True
         '
         'lblTrackVideoInUse
@@ -1044,11 +1182,13 @@ Partial Class MainForm
         resources.ApplyResources(Me.lblTrackVideoInUse, "lblTrackVideoInUse")
         Me.lblTrackVideoInUse.ForeColor = System.Drawing.Color.Red
         Me.lblTrackVideoInUse.Name = "lblTrackVideoInUse"
+        Me.ToolTip1.SetToolTip(Me.lblTrackVideoInUse, resources.GetString("lblTrackVideoInUse.ToolTip"))
         '
         'btnTestWriteVideo
         '
         resources.ApplyResources(Me.btnTestWriteVideo, "btnTestWriteVideo")
         Me.btnTestWriteVideo.Name = "btnTestWriteVideo"
+        Me.ToolTip1.SetToolTip(Me.btnTestWriteVideo, resources.GetString("btnTestWriteVideo.ToolTip"))
         Me.btnTestWriteVideo.UseVisualStyleBackColor = True
         '
         'TimerRGCheck
@@ -1084,6 +1224,8 @@ Partial Class MainForm
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "MainForm"
+        Me.ToolTip1.SetToolTip(Me, resources.GetString("$this.ToolTip"))
+        Me.ToolTip2.SetToolTip(Me, resources.GetString("$this.ToolTip1"))
         CType(Me.numVideoTempo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
@@ -1221,4 +1363,8 @@ Partial Class MainForm
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents btnTestWriteVideo As Button
     Friend WithEvents lblMapLength As Label
+    Friend WithEvents chkUseQuickRouteFiles As CheckBox
+    Friend WithEvents btnRouteEditor As Button
+    Friend WithEvents btnRouteEditor2 As Button
+    Friend WithEvents chkUseQuickRouteFiles2 As CheckBox
 End Class

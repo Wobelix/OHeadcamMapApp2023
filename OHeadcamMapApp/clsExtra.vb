@@ -281,6 +281,7 @@ Public Class clsExtra
         Return Math.Max(2, (CInt(Math.Round(InputWidth)) \ 2) * 2)
     End Function
     Private Function GetOutputCanvasHeight() As Integer
+        If clsOutputLayoutResolver.IsPortrait Then Return clsOutputLayoutResolver.PortraitHeight
         Return Math.Max(2, (CInt(Math.Round(GetOutputCanvasWidth() / 16.0 * 9.0)) \ 2) * 2)
     End Function
     Private Function MatchesOutputCanvasSize(width As Integer, height As Integer) As Boolean
@@ -294,6 +295,8 @@ Public Class clsExtra
         outWidth = GetOutputCanvasWidth()
         outHeight = GetOutputCanvasHeight()
 
+        If clsOutputLayoutResolver.IsPortrait Then Return clsOutputLayoutResolver.GetPortraitCropFilter()
+
         If Vid_width = outWidth And Vid_Height = outHeight Then Return ""
 
         AR_out = CSng(16.0 / 9.0)
@@ -305,17 +308,8 @@ Public Class clsExtra
         sOutW = outWidth.ToString(CultureInfo.InvariantCulture)
         sOutH = outHeight.ToString(CultureInfo.InvariantCulture)
 
-        If AR_in > AR_out Then
-            scale = $"scale={sOutW}:-1"
-        Else ' most used for 4:3 videos
-
-            If Vid_width = -1 Then
-
-                scale = $"scale={sOutW}:{sOutH}:force_original_aspect_ratio=decrease" ' should handle 2.7k and 4:3
-            Else
-                scale = $"scale=-1:{sOutH}" ' both up and downscale
-            End If
-        End If
+        ' Fit inside the selected 16:9 canvas without ever enlarging the source.
+        scale = $"scale=w='min(iw,{sOutW})':h='min(ih,{sOutH})':force_original_aspect_ratio=decrease"
 
 
         If Not PaddingSide = "X" Then
@@ -340,7 +334,7 @@ Public Class clsExtra
         strsc = Replace(strsc, ",", ".")
         FFMpeg_Scale = "scale=trunc(iw*" + strsc + "/2)*2" + "trunc(ih*" + strsc + "/2)*2"
     End Function
-    Function FFMpeg_VideoMap_FilterOverlays(videoinput As String, mapinput As String, VideoMapSpeed As String) As String
+    Function FFMpeg_VideoMap_FilterOverlays(videoinput As String, mapinput As String, VideoMapSpeed As String, Optional MapStartDelaySeconds As Double = 0) As String
         Dim inputscale, strscale, omap, fInput, fFilters, transparency, SngSpeed, Speedstr, Speedparam As String
         transparency = My.Settings.Transparency
         transparency = transparency.Replace(",", ".")
@@ -360,7 +354,11 @@ Public Class clsExtra
         omap = FFMpeg_Overlay(CInt(My.Settings.MRouteH), CInt(My.Settings.MRouteV), "Bottom_Right")
         fInput = inputscale + "[si1];"    '[Si1]=inputvideo
         'fnexti = "[si1]"
-        fFilters = fInput + mapinput + "format=rgba,colorchannelmixer=aa=" + transparency + Speedparam + strscale + "[tout];"
+        Dim delayFilter As String = ""
+        If MapStartDelaySeconds > 0 Then
+            delayFilter = ",tpad=start_mode=clone:start_duration=" + MapStartDelaySeconds.ToString(CultureInfo.InvariantCulture)
+        End If
+        fFilters = fInput + mapinput + "format=rgba,colorchannelmixer=aa=" + transparency + Speedparam + delayFilter + strscale + "[tout];"
         fFilters += "[si1][tout]" + omap
         Return fFilters
     End Function
@@ -772,10 +770,11 @@ Public Class clsExtra
     End Function
     Function FFMPeg_MakeFilterParamMapOnVideo(mapfile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
                                         Optional Tempo As Decimal = 1, Optional UseMapVideo As Boolean = False,
-                                        Optional MapVideoSpeed As String = "1") As String
+                                         Optional MapVideoSpeed As String = "1", Optional CutStartSeconds As Integer = 0) As String
         Dim GPXd, InpD, OLength, Tempoparam, tempostr As String
         Dim SngTempo, SngSpeed As Single
         Dim iGPXDiff As Integer
+        Dim mapStartDelaySeconds As Double = 0
         Dim safeMapVideoSpeed As Single = ParseRealtimeFactorOrDefault(MapVideoSpeed)
         GPXd = ""
         InpD = ""
@@ -786,22 +785,23 @@ Public Class clsExtra
             My.Settings.Save()
         ' CLEANUP-CBNEWMAPF-20260407:End If
 
+        CutStartSeconds = Math.Max(0, CutStartSeconds)
         If IsNumeric(GPXDiff) Then
             iGPXDiff = CInt(GPXDiff)
-            If iGPXDiff > 0 Then
-                If UseMapVideo Then
-                    SngSpeed = Math.Abs(iGPXDiff) / safeMapVideoSpeed
-
-                    GPXd = " -ss " + CStr(SngSpeed).Replace(",", ".")
+            If UseMapVideo Then
+                Dim mapTimelineStart As Integer = CutStartSeconds + iGPXDiff
+                If mapTimelineStart >= 0 Then
+                    SngSpeed = mapTimelineStart / safeMapVideoSpeed
+                    If SngSpeed > 0 Then GPXd = " -ss " + SngSpeed.ToString(CultureInfo.InvariantCulture)
                 Else
-                    GPXd = " -start_number " + GPXDiff
+                    mapStartDelaySeconds = Math.Abs(mapTimelineStart)
                 End If
+            ElseIf iGPXDiff > 0 Then
+                GPXd = " -start_number " + GPXDiff
             End If
-            If iGPXDiff < 0 Then
-
-                InpD = " -ss " + CStr(Math.Abs(iGPXDiff))
-
-            End If
+        End If
+        If String.IsNullOrEmpty(InpD) AndAlso CutStartSeconds > 0 Then
+            InpD = " -ss " + CutStartSeconds.ToString(CultureInfo.InvariantCulture)
         End If
         SngTempo = Decimal.ToSingle(Tempo)
         SngSpeed = 1 / SngTempo
@@ -819,13 +819,14 @@ Public Class clsExtra
                 "[1]" + FF_SplitStr() + ";" + FFMpeg_MakefilterCropsOverlays("[0]") + Tempoparam + """"
         Else
             FFMPeg_MakeFilterParamMapOnVideo = InpD + " -i " + videofile + GPXd + " -i " + mapfile + " -filter_complex " + """" +
-                FFMpeg_VideoMap_FilterOverlays("[0]", "[1]", MapVideoSpeed) + Tempoparam + """"
+                FFMpeg_VideoMap_FilterOverlays("[0]", "[1]", MapVideoSpeed, mapStartDelaySeconds) + Tempoparam + """"
         End If
 
     End Function
     Function FFMPeg_MakeParamMapOnVideo(outputfile As String, mapfile As String, videofile As String, GPXDiff As String, Optional Length As String = "",
                                         Optional Tempo As Decimal = 1, Optional Quick As Boolean = False, Optional UseMapVideo As Boolean = False,
-                                        Optional MapVideoSpeed As String = "1", Optional ForceSoftwareEncode As Boolean = False) As String
+                                         Optional MapVideoSpeed As String = "1", Optional ForceSoftwareEncode As Boolean = False,
+                                         Optional CutStartSeconds As Integer = 0) As String
         Dim OutPStr, MapFilters As String
 
         If Quick Then
@@ -835,7 +836,7 @@ Public Class clsExtra
         End If
         MapFilters = FFMPeg_MakeFilterParamMapOnVideo(mapfile, videofile, GPXDiff, Length,
                                          Tempo, UseMapVideo,
-                                         MapVideoSpeed)
+                                         MapVideoSpeed, CutStartSeconds)
 
         FFMPeg_MakeParamMapOnVideo = MapFilters + FFMPEG_MAP_PARAM + OutPStr
         'FFMPeg_MakeParamMapOnVideo = InpD + " -i " + videofile + " -r " + MAP_FPS + GPXd + " -i " + mapfile + " -filter_complex " + """" +
@@ -853,7 +854,8 @@ Public Class clsExtra
                                                     Optional widgetPaceVideoFile As String = "",
                                                     Optional widgetPulseVideoFile As String = "",
                                                     Optional widgetHGraphVideoFile As String = "",
-                                                    Optional ForceSoftwareEncode As Boolean = False) As String
+                                                     Optional ForceSoftwareEncode As Boolean = False,
+                                                     Optional CutStartSeconds As Integer = 0) As String
         Dim inputArgs As String = ""
         Dim filterParts As New List(Of String)
         Dim currentTag As String = "[si1]"
@@ -865,10 +867,16 @@ Public Class clsExtra
         Dim keyColor As String = "0xFF00FF"
         Dim keyFilter As String = "colorkey=" & keyColor & ":0.01:0.5"
         Dim tmpGPXDiff As Integer = 0
+        Dim zoomBounds As Rectangle = clsOutputLayoutResolver.GetBounds("Z", My.Settings.MIZoomMapPos, My.Settings.MIZoomWidth, My.Settings.MIZoomHeight)
+        Dim legBounds As Rectangle = clsOutputLayoutResolver.GetBounds("L", My.Settings.MILegMapPos, My.Settings.MILegWidth, My.Settings.MILegHeight)
+        Dim dynamicBounds As Rectangle = clsOutputLayoutResolver.GetBounds("D", My.Settings.MIDynamicMapPos, My.Settings.MIDynamicWidth, My.Settings.MIDynamicHeight)
 
         If IsNumeric(GPXDiff) Then tmpGPXDiff = CInt(GPXDiff)
-        If tmpGPXDiff < 0 Then
-            inputArgs = " -ss " + Math.Abs(tmpGPXDiff).ToString(CultureInfo.InvariantCulture)
+        CutStartSeconds = Math.Max(0, CutStartSeconds)
+        Dim videoSeekSeconds As Integer = CutStartSeconds
+        Dim mapStartDelaySeconds As Integer = Math.Max(0, -(CutStartSeconds + tmpGPXDiff))
+        If videoSeekSeconds > 0 Then
+            inputArgs = " -ss " + videoSeekSeconds.ToString(CultureInfo.InvariantCulture)
         End If
         inputArgs += " -i " + """" + videofile + """"
         filterParts.Add("[0:v]setpts=PTS-STARTPTS,setsar=1," + FFMpeg_ScalePadFHD() + "[si1]")
@@ -883,8 +891,9 @@ Public Class clsExtra
             If String.Equals(Path.GetExtension(zoomVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
                 zoomInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & zoomAlpha
             End If
+            If mapStartDelaySeconds > 0 Then zoomInputFilter &= ",tpad=start_mode=clone:start_duration=" & mapStartDelaySeconds.ToString(CultureInfo.InvariantCulture)
             filterParts.Add($"{zoomTag}{zoomInputFilter}[c{nextInputIndex}]")
-            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIZoomMapPos.X)}:{CStr(My.Settings.MIZoomMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={zoomBounds.X}:{zoomBounds.Y}:eof_action=pass:shortest=0[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If
@@ -899,8 +908,9 @@ Public Class clsExtra
             If String.Equals(Path.GetExtension(legVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
                 legInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & legAlpha
             End If
+            If mapStartDelaySeconds > 0 Then legInputFilter &= ",tpad=start_mode=clone:start_duration=" & mapStartDelaySeconds.ToString(CultureInfo.InvariantCulture)
             filterParts.Add($"{legTag}{legInputFilter}[c{nextInputIndex}]")
-            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MILegMapPos.X)}:{CStr(My.Settings.MILegMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={legBounds.X}:{legBounds.Y}:eof_action=pass:shortest=0[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If
@@ -915,17 +925,18 @@ Public Class clsExtra
             If String.Equals(Path.GetExtension(dynamicVideoFile), ".mp4", StringComparison.OrdinalIgnoreCase) Then
                 dynamicInputFilter = "setpts=PTS-STARTPTS,setsar=1,format=rgba," & keyFilter & ",colorchannelmixer=aa=" & dynamicAlpha
             End If
+            If mapStartDelaySeconds > 0 Then dynamicInputFilter &= ",tpad=start_mode=clone:start_duration=" & mapStartDelaySeconds.ToString(CultureInfo.InvariantCulture)
             filterParts.Add($"{dynamicTag}{dynamicInputFilter}[c{nextInputIndex}]")
-            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(My.Settings.MIDynamicMapPos.X)}:{CStr(My.Settings.MIDynamicMapPos.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
+            filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={dynamicBounds.X}:{dynamicBounds.Y}:eof_action=pass:shortest=0[o{nextInputIndex}]")
             currentTag = $"[o{nextInputIndex}]"
             nextInputIndex += 1
         End If
 
-        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetTimeVideoFile, My.Settings.MIWidgetTimeEnabled, My.Settings.MIWidgetTimeMapPos, tmpGPXDiff)
-        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetDistanceVideoFile, My.Settings.MIWidgetDistanceEnabled, My.Settings.MIWidgetDistanceMapPos, tmpGPXDiff)
-        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetPaceVideoFile, My.Settings.MIWidgetPaceEnabled, My.Settings.MIWidgetPaceMapPos, tmpGPXDiff)
-        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetPulseVideoFile, My.Settings.MIWidgetPulseEnabled, My.Settings.MIWidgetPulseMapPos, tmpGPXDiff)
-        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetHGraphVideoFile, My.Settings.MIWidgetHGraphEnabled, My.Settings.MIWidgetHGraphMapPos, tmpGPXDiff)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetTimeVideoFile, My.Settings.MIWidgetTimeEnabled, clsOutputLayoutResolver.GetBounds("T", My.Settings.MIWidgetTimeMapPos, My.Settings.MIWidgetTimeWidth, My.Settings.MIWidgetTimeHeight).Location, tmpGPXDiff, mapStartDelaySeconds)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetDistanceVideoFile, My.Settings.MIWidgetDistanceEnabled, clsOutputLayoutResolver.GetBounds("DI", My.Settings.MIWidgetDistanceMapPos, My.Settings.MIWidgetDistanceWidth, My.Settings.MIWidgetDistanceHeight).Location, tmpGPXDiff, mapStartDelaySeconds)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetPaceVideoFile, My.Settings.MIWidgetPaceEnabled, clsOutputLayoutResolver.GetBounds("P", My.Settings.MIWidgetPaceMapPos, My.Settings.MIWidgetPaceWidth, My.Settings.MIWidgetPaceHeight).Location, tmpGPXDiff, mapStartDelaySeconds)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetPulseVideoFile, My.Settings.MIWidgetPulseEnabled, clsOutputLayoutResolver.GetBounds("PU", My.Settings.MIWidgetPulseMapPos, My.Settings.MIWidgetPulseWidth, My.Settings.MIWidgetPulseHeight).Location, tmpGPXDiff, mapStartDelaySeconds)
+        AddWidgetOverlayInput(inputArgs, filterParts, currentTag, nextInputIndex, widgetHGraphVideoFile, My.Settings.MIWidgetHGraphEnabled, clsOutputLayoutResolver.GetBounds("H", My.Settings.MIWidgetHGraphMapPos, My.Settings.MIWidgetHGraphWidth, My.Settings.MIWidgetHGraphHeight).Location, tmpGPXDiff, mapStartDelaySeconds)
 
         filterParts.Add($"{currentTag}null{currentOutputTag}")
 
@@ -955,14 +966,17 @@ Public Class clsExtra
                                       widgetVideoFile As String,
                                       enabled As Boolean,
                                       position As Point,
-                                      gpxDiff As Integer)
+                                      gpxDiff As Integer,
+                                      mapStartDelaySeconds As Integer)
         If Not enabled OrElse String.IsNullOrWhiteSpace(widgetVideoFile) OrElse Not File.Exists(widgetVideoFile) Then Return
         If gpxDiff > 0 Then
             inputArgs += " -ss " + gpxDiff.ToString(CultureInfo.InvariantCulture)
         End If
         inputArgs += " -i " + """" + widgetVideoFile + """"
         Dim widgetTag As String = $"[{nextInputIndex}:v]"
-        filterParts.Add($"{widgetTag}setpts=PTS-STARTPTS,setsar=1,format=rgba[c{nextInputIndex}]")
+        Dim widgetInputFilter As String = "setpts=PTS-STARTPTS,setsar=1,format=rgba"
+        If mapStartDelaySeconds > 0 Then widgetInputFilter &= ",tpad=start_mode=clone:start_duration=" & mapStartDelaySeconds.ToString(CultureInfo.InvariantCulture)
+        filterParts.Add($"{widgetTag}{widgetInputFilter}[c{nextInputIndex}]")
         filterParts.Add($"{currentTag}[c{nextInputIndex}]overlay={CStr(position.X)}:{CStr(position.Y)}:eof_action=pass:shortest=0[o{nextInputIndex}]")
         currentTag = $"[o{nextInputIndex}]"
         nextInputIndex += 1

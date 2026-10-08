@@ -137,19 +137,19 @@
     <value>Output video (MP4)</value>
   </data>
   <data name="btnQRxml.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 82</value>
+    <value>236, 104</value>
   </data>
   <data name="btnQRxml.Text" xml:space="preserve">
     <value>Choose...</value>
   </data>
   <data name="btnQRimg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 36</value>
+    <value>236, 66</value>
   </data>
   <data name="btnQRimg.Text" xml:space="preserve">
     <value>Choose...</value>
   </data>
   <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 66</value>
+    <value>13, 88</value>
   </data>
   <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 13</value>
@@ -158,7 +158,7 @@
     <value>Quickroute route file(.xml)</value>
   </data>
   <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 20</value>
+    <value>10, 50</value>
   </data>
   <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 13</value>
@@ -237,6 +237,12 @@ in a separate file</value>
   <data name="btnMakeAdjVideo.ToolTip" xml:space="preserve">
     <value>synchronize video and gps tracking so they match in the video</value>
   </data>
+  <data name="GroupBox7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 131</value>
+  </data>
+  <data name="GroupBox7.Text" xml:space="preserve">
+    <value>Enhance video</value>
+  </data>
   <data name="Button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 90</value>
   </data>
@@ -258,12 +264,6 @@ in a separate file</value>
   <data name="RB_onlyfilter.Text" xml:space="preserve">
     <value>Adjust video</value>
   </data>
-  <data name="GroupBox7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 131</value>
-  </data>
-  <data name="GroupBox7.Text" xml:space="preserve">
-    <value>Enhance video</value>
-  </data>
   <data name="btnMapFlip.Text" xml:space="preserve">
     <value>Flip map</value>
   </data>
@@ -272,9 +272,6 @@ in a separate file</value>
   </data>
   <data name="txtOutputLength.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="txtOutputLength.ToolTip1" xml:space="preserve">
-    <value>The videopart after the specified time will be cut off (use fx for shorten the video for side #1 with map turnover)</value>
   </data>
   <data name="chbNoAudio.Location" type="System.Drawing.Point, System.Drawing">
     <value>617, 30</value>
@@ -291,44 +288,26 @@ in a separate file</value>
   <data name="txtInpCutfromStart.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="txtInpCutfromStart.ToolTip1" xml:space="preserve">
-    <value>Cuts from start of video</value>
-  </data>
   <data name="txtQRImage2.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="txtQRImage2.ToolTip1" xml:space="preserve">
-    <value>Exportet image from Quicroute(remember to make route invisible before export)</value>
   </data>
   <data name="txtXMLfile2.ToolTip" xml:space="preserve">
     <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
   </data>
-  <data name="txtXMLfile2.ToolTip1" xml:space="preserve">
-    <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
-  </data>
   <data name="txtXMLfile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 82</value>
+    <value>9, 104</value>
   </data>
   <data name="txtXMLfile.ToolTip" xml:space="preserve">
     <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
   </data>
-  <data name="txtXMLfile.ToolTip1" xml:space="preserve">
-    <value>Made via Quickroute: Export-&gt;Route data...(add marking of Lap time and  Lap number</value>
-  </data>
   <data name="txtQRImage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 36</value>
+    <value>10, 66</value>
   </data>
   <data name="txtQRImage.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="txtQRImage.ToolTip1" xml:space="preserve">
-    <value>Exported image from Quicroute(remember to make route invisible before export)</value>
-  </data>
   <data name="txtVideolist.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="txtVideolist.ToolTip1" xml:space="preserve">
-    <value>Videos from the camera, compiled into one video in the displayed sequence</value>
   </data>
   <data name="btnReset.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 557</value>
@@ -350,6 +329,12 @@ in a separate file</value>
   </data>
   <data name="ViKørselslogToolStripMenuItem.Text" xml:space="preserve">
     <value>Logs</value>
+  </data>
+  <data name="ToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="ToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Tools</value>
   </data>
   <data name="SideOmSideVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 22</value>
@@ -384,11 +369,11 @@ in a separate file</value>
   <data name="FixApplegpxFilToolStripMenuItem.Text" xml:space="preserve">
     <value>Fix Apple .gpx file</value>
   </data>
-  <data name="ToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 20</value>
+  <data name="OmToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 20</value>
   </data>
-  <data name="ToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Tools</value>
+  <data name="OmToolStripMenuItem.Text" xml:space="preserve">
+    <value>About</value>
   </data>
   <data name="OmToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 22</value>
@@ -402,17 +387,20 @@ in a separate file</value>
   <data name="HjælpToolStripMenuItem.Text" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="OmToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
-  </data>
-  <data name="OmToolStripMenuItem.Text" xml:space="preserve">
-    <value>About</value>
+  <data name="GroupBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>894, 578</value>
   </data>
   <data name="btnPostProcess.Location" type="System.Drawing.Point, System.Drawing">
     <value>661, 521</value>
   </data>
   <data name="btnPostProcess.Text" xml:space="preserve">
     <value>Video editor...</value>
+  </data>
+  <data name="GroupBox1.Text" xml:space="preserve">
+    <value>       Prepare video</value>
+  </data>
+  <data name="lblMapLength.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 16</value>
   </data>
   <data name="IconStatusPrepare.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 50</value>
@@ -423,8 +411,11 @@ in a separate file</value>
   <data name="Label6.Text" xml:space="preserve">
     <value>(sec/h:mm:ss)</value>
   </data>
-  <data name="GroupBox1.Text" xml:space="preserve">
-    <value>       Prepare video</value>
+  <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>837, 128</value>
+  </data>
+  <data name="GroupBox6.Text" xml:space="preserve">
+    <value>        Generate Output video</value>
   </data>
   <data name="Label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>164, 22</value>
@@ -450,11 +441,8 @@ in a separate file</value>
   <data name="btnRunMakeVideo.Text" xml:space="preserve">
     <value>Make Video</value>
   </data>
-  <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>837, 128</value>
-  </data>
-  <data name="GroupBox6.Text" xml:space="preserve">
-    <value>        Generate Output video</value>
+  <data name="GroupBox9.Text" xml:space="preserve">
+    <value>       Settings</value>
   </data>
   <data name="Label22.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 16</value>
@@ -492,17 +480,53 @@ in a separate file</value>
   <data name="Label8.Text" xml:space="preserve">
     <value>Cut from video beginning</value>
   </data>
-  <data name="GroupBox9.Text" xml:space="preserve">
-    <value>       Settings</value>
+  <data name="GroupBox10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 333</value>
   </data>
-  <data name="GroupBox4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>894, 578</value>
+  <data name="GroupBox10.Text" xml:space="preserve">
+    <value>Import map and tracking data</value>
+  </data>
+  <data name="chkUseQuickRouteFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>190, 41</value>
+  </data>
+  <data name="chkUseQuickRouteFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 17</value>
+  </data>
+  <data name="chkUseQuickRouteFiles.Text" xml:space="preserve">
+    <value>Use Quickroute (old)</value>
+  </data>
+  <data name="btnRouteEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 19</value>
+  </data>
+  <data name="btnRouteEditor.Text" xml:space="preserve">
+    <value>Import/Edit Route Map</value>
+  </data>
+  <data name="chkMapFlipOnOff.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 136</value>
   </data>
   <data name="chkMapFlipOnOff.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 17</value>
   </data>
   <data name="chkMapFlipOnOff.Text" xml:space="preserve">
     <value>Map Flip</value>
+  </data>
+  <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 157</value>
+  </data>
+  <data name="grpMapFlip.Text" xml:space="preserve">
+    <value>Map 2</value>
+  </data>
+  <data name="chkUseQuickRouteFiles2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 153</value>
+  </data>
+  <data name="chkUseQuickRouteFiles2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 17</value>
+  </data>
+  <data name="chkUseQuickRouteFiles2.Text" xml:space="preserve">
+    <value>Use Quickroute (old)</value>
+  </data>
+  <data name="btnRouteEditor2.Text" xml:space="preserve">
+    <value>Import/Edit Route Map</value>
   </data>
   <data name="lblMapFlipGPXd.Location" type="System.Drawing.Point, System.Drawing">
     <value>164, 113</value>
@@ -536,18 +560,6 @@ in a separate file</value>
   </data>
   <data name="btnQRXML2.Text" xml:space="preserve">
     <value>Choose...</value>
-  </data>
-  <data name="grpMapFlip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 138</value>
-  </data>
-  <data name="grpMapFlip.Text" xml:space="preserve">
-    <value>Map 2</value>
-  </data>
-  <data name="GroupBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 333</value>
-  </data>
-  <data name="GroupBox10.Text" xml:space="preserve">
-    <value>Import map and tracking data</value>
   </data>
   <data name="lblTrackVideoInUse.Text" xml:space="preserve">
     <value>Trackingvideo is active</value>
@@ -710,12 +722,5 @@ in a separate file</value>
         G4UXAON+o/ACYNxvFF4AjPuNwguAcb9ReAEw7jcKNQAAi+5/3rjfKGRCtABRvPgT77kfYd86kAKITLEy
         o1CIAJRC7/c/855/BHtWg1Km7TcKlxj//zXS2DJeYFqZAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="IconStatusMakeMap.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 102</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IconStatusMakeMap.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
 </root>

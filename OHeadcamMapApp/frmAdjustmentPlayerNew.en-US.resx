@@ -127,26 +127,44 @@
   <data name="btnTransfer.Text" xml:space="preserve">
     <value>Save and close</value>
   </data>
+  <data name="Label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="Label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>978, 457</value>
+  </data>
   <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>619, 20</value>
+    <value>232, 13</value>
   </data>
   <data name="Label6.Text" xml:space="preserve">
-    <value>Use Scroll Btn on maps for leg-margin and zoom, Dbl. Click for Map Settings</value>
+    <value>Use Scroll Btn on maps for leg-margin and zoom</value>
+  </data>
+  <data name="Label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1023, 487</value>
   </data>
   <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 20</value>
+    <value>106, 13</value>
   </data>
   <data name="Label3.Text" xml:space="preserve">
-    <value>Adjust map sizes and placement with the mouse</value>
+    <value>Adjust map size and</value>
+  </data>
+  <data name="Label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 20</value>
+    <value>153, 13</value>
   </data>
   <data name="Label2.Text" xml:space="preserve">
     <value>2) Adjust the map with GPS +/-</value>
   </data>
+  <data name="Label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
   <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 20</value>
+    <value>185, 13</value>
   </data>
   <data name="Label1.Text" xml:space="preserve">
     <value>1) Find a significant place in the video</value>
@@ -160,11 +178,17 @@
   <data name="cbZoom.Text" xml:space="preserve">
     <value>Zoom map</value>
   </data>
+  <data name="cbZoom.ToolTip" xml:space="preserve">
+    <value>A map that keeps the runner centered and rotates with the runner.</value>
+  </data>
   <data name="cbLeg.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 17</value>
   </data>
   <data name="cbLeg.Text" xml:space="preserve">
     <value>Leg Map</value>
+  </data>
+  <data name="cbLeg.ToolTip" xml:space="preserve">
+    <value>A locked leg map that displays the leg vertically.</value>
   </data>
   <data name="btnSetMapFlipTime.Text" xml:space="preserve">
     <value>Set start time for map 2 </value>
@@ -190,11 +214,26 @@
   <data name="Label5.Text" xml:space="preserve">
     <value>Jump to control</value>
   </data>
+  <data name="Label5.ToolTip" xml:space="preserve">
+    <value>Select a control to move the video to its corresponding position</value>
+  </data>
+  <data name="cmbJumpControl.ToolTip" xml:space="preserve">
+    <value>Select a control to move the video to its corresponding position</value>
+  </data>
   <data name="cbDyn.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 17</value>
   </data>
   <data name="cbDyn.Text" xml:space="preserve">
     <value>Dynamic Map</value>
+  </data>
+  <data name="cbDyn.ToolTip" xml:space="preserve">
+    <value>A leg map that can zoom in and out and follow the runner outside the leg area</value>
+  </data>
+  <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 78</value>
+  </data>
+  <data name="GroupBox1.Text" xml:space="preserve">
+    <value>Time widget</value>
   </data>
   <data name="btnWdgTime0.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 23</value>
@@ -208,11 +247,80 @@
   <data name="Label7.Text" xml:space="preserve">
     <value>Offset (sec, mm:ss, h:mm:ss)</value>
   </data>
-  <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 78</value>
+  <data name="Label10.Text" xml:space="preserve">
+    <value>Map Animation (FPS)</value>
   </data>
-  <data name="GroupBox1.Text" xml:space="preserve">
-    <value>Time widget</value>
+  <data name="Label10.ToolTip" xml:space="preserve">
+    <value>Higher values produce smoother map animation but increase processing time.</value>
+  </data>
+  <data name="chkShowSafeZone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 17</value>
+  </data>
+  <data name="chkShowSafeZone.Text" xml:space="preserve">
+    <value>Show Safe Zone</value>
+  </data>
+  <data name="chkShowSafeZone.ToolTip" xml:space="preserve">
+    <value>Displays a dashed safe-area frame for social media</value>
+  </data>
+  <data name="cboPortraitMode.Items1" xml:space="preserve">
+    <value>Full video width</value>
+  </data>
+  <data name="lblPortraitMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 13</value>
+  </data>
+  <data name="lblPortraitMode.Text" xml:space="preserve">
+    <value>Portrait Settings</value>
+  </data>
+  <data name="lblOutputResolution.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 13</value>
+  </data>
+  <data name="lblOutputResolution.Text" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="cboOutputAspect.Items" xml:space="preserve">
+    <value>16:9 Landscape</value>
+  </data>
+  <data name="cboOutputAspect.Items1" xml:space="preserve">
+    <value>9:16 Portrait</value>
+  </data>
+  <data name="btnManageLayoutPresets.Text" xml:space="preserve">
+    <value>Manage Presets</value>
+  </data>
+  <data name="btnSaveLayoutPreset.Text" xml:space="preserve">
+    <value>Save Preset</value>
+  </data>
+  <data name="btnApplyLayoutPreset.Text" xml:space="preserve">
+    <value>Use Preset</value>
+  </data>
+  <data name="lblLayoutPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 13</value>
+  </data>
+  <data name="lblLayoutPreset.Text" xml:space="preserve">
+    <value>Choose Preset</value>
+  </data>
+  <data name="Label8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="Label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1004, 500</value>
+  </data>
+  <data name="Label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 13</value>
+  </data>
+  <data name="Label8.Text" xml:space="preserve">
+    <value>placement with the mouse</value>
+  </data>
+  <data name="Label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1010, 468</value>
+  </data>
+  <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 13</value>
+  </data>
+  <data name="Label9.Text" xml:space="preserve">
+    <value>Dbl. click for Map Settings</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -375,5 +483,8 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Adjust timing</value>
+  </data>
+  <data name="numMapAnimationFps.ToolTip" xml:space="preserve">
+    <value>Higher values produce smoother map animation but increase processing time.</value>
   </data>
 </root>

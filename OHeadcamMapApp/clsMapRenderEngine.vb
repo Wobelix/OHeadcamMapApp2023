@@ -55,6 +55,8 @@ Public Class clsMapRenderEngine
     Private _legRenderInfoCache As New Dictionary(Of String, LegRenderInfo)
     Private _hasExplicitLegWidth As Boolean = False
     Private _hasExplicitLegHeight As Boolean = False
+    Private _hasExplicitZoomWidth As Boolean = False
+    Private _hasExplicitZoomHeight As Boolean = False
     Private ReadOnly _routePointCache As New Dictionary(Of Integer, PointF)
     Private ReadOnly _headingAngleCache As New Dictionary(Of Integer, Double)
     Private ReadOnly _paceCache As New Dictionary(Of Integer, Double)
@@ -96,6 +98,7 @@ Public Class clsMapRenderEngine
     Public Property DynamicLookAheadSeconds As Double = 45.0
     Public Property DynamicMargin As Integer = 120
     Public Property DynamicTransitionSeconds As Double = 10.0
+    Public Property FrameAttachedEdge As MapFrameAttachedEdge = MapFrameAttachedEdge.None
 
     Private Sub LoadDynamicSettings()
         DynamicWidth = Math.Max(1, My.Settings.MIDynamicWidth)
@@ -169,6 +172,7 @@ Public Class clsMapRenderEngine
         End Get
         Set(value As Integer)
             _legacyRenderer.ZoomWidth = Math.Max(1, value)
+            _hasExplicitZoomWidth = True
         End Set
     End Property
 
@@ -178,6 +182,7 @@ Public Class clsMapRenderEngine
         End Get
         Set(value As Integer)
             _legacyRenderer.ZoomHeight = Math.Max(1, value)
+            _hasExplicitZoomHeight = True
         End Set
     End Property
 
@@ -262,9 +267,13 @@ Public Class clsMapRenderEngine
     Public Sub ScalePixelSettings(videoWidth As Integer)
         Dim preservedLegWidth As Integer = _legacyRenderer.LegWidth
         Dim preservedLegHeight As Integer = _legacyRenderer.LegHeight
+        Dim preservedZoomWidth As Integer = _legacyRenderer.ZoomWidth
+        Dim preservedZoomHeight As Integer = _legacyRenderer.ZoomHeight
         _legacyRenderer.ScalePixelSettings(videoWidth)
         If _hasExplicitLegWidth Then _legacyRenderer.LegWidth = Math.Max(1, preservedLegWidth)
         If _hasExplicitLegHeight Then _legacyRenderer.LegHeight = Math.Max(1, preservedLegHeight)
+        If _hasExplicitZoomWidth Then _legacyRenderer.ZoomWidth = Math.Max(1, preservedZoomWidth)
+        If _hasExplicitZoomHeight Then _legacyRenderer.ZoomHeight = Math.Max(1, preservedZoomHeight)
     End Sub
 
     Public Function RenderLegFrame(timeSeconds As Double) As Bitmap
@@ -989,7 +998,7 @@ Public Class clsMapRenderEngine
         Dim endPoint As PointF = _routePoints.ImgLapVectors(lap).EndPoint
         Dim outWidth As Integer = Math.Max(1, _legacyRenderer.LegWidth)
         Dim outHeight As Integer = Math.Max(1, _legacyRenderer.LegHeight)
-        Dim marginHeight As Integer = Math.Max(100, _legacyRenderer.LegMargin)
+        Dim marginHeight As Integer = Math.Max(1, _legacyRenderer.LegMargin)
         Dim roundRadius As Integer = _legacyRenderer.LegRad
 
         Dim deltaX As Single = endPoint.X - startPoint.X
@@ -1031,10 +1040,10 @@ Public Class clsMapRenderEngine
         Dim outWidth As Integer = Math.Max(1, DynamicWidth)
         Dim outHeight As Integer = Math.Max(1, DynamicHeight)
         Dim currentLeg As Integer = GetLegIndexAtTime(safeTime)
-        Dim currentInfo As LegRenderInfo = BuildDynamicLegRenderInfo(currentLeg, outWidth, outHeight)
+        Dim currentInfo As LegRenderInfo = ApplyDynamicZoomForTime(BuildDynamicLegRenderInfo(currentLeg, outWidth, outHeight), currentLeg, safeTime)
 
         If currentLeg > 0 Then
-            Dim previousInfo As LegRenderInfo = BuildDynamicLegRenderInfo(currentLeg - 1, outWidth, outHeight)
+            Dim previousInfo As LegRenderInfo = ApplyDynamicZoomForTime(BuildDynamicLegRenderInfo(currentLeg - 1, outWidth, outHeight), currentLeg - 1, safeTime)
             Dim transitionSeconds As Double = GetDynamicTransitionSeconds(previousInfo, currentInfo)
             Dim halfTransitionSeconds As Double = transitionSeconds / 2.0
             Dim legStartTime As Double = GetLegEndTimeCode(currentLeg - 1)
@@ -1048,7 +1057,7 @@ Public Class clsMapRenderEngine
 
         Dim nextLeg As Integer = currentLeg + 1
         If nextLeg <= _routePoints.ImgLapVectors.Count - 1 Then
-            Dim nextInfo As LegRenderInfo = BuildDynamicLegRenderInfo(nextLeg, outWidth, outHeight)
+            Dim nextInfo As LegRenderInfo = ApplyDynamicZoomForTime(BuildDynamicLegRenderInfo(nextLeg, outWidth, outHeight), nextLeg, safeTime)
             Dim transitionSeconds As Double = GetDynamicTransitionSeconds(currentInfo, nextInfo)
             Dim halfTransitionSeconds As Double = transitionSeconds / 2.0
             Dim legEndTime As Double = GetLegEndTimeCode(currentLeg)
@@ -1078,13 +1087,37 @@ Public Class clsMapRenderEngine
         Dim distance As Single = CSng(Math.Sqrt(deltaX * deltaX + deltaY * deltaY))
         Dim midPoint As New PointF((startPoint.X + endPoint.X) / 2.0F, (startPoint.Y + endPoint.Y) / 2.0F)
         Dim desiredClipLength As Double = Math.Max(1.0, distance + (marginHeight * 2.0))
-        Dim desiredZoomFactor As Double = outHeight / desiredClipLength
-        Dim minZoomFactor As Double = Math.Max(0.01, My.Settings.MIDynamicMinZoom / 100.0R)
-        Dim maxZoomFactor As Double = Math.Max(minZoomFactor, My.Settings.MIDynamicMaxZoom / 100.0R)
-        Dim zoomFactor As Double = Math.Max(minZoomFactor, Math.Min(maxZoomFactor, desiredZoomFactor))
-        Dim clipLength As Single = CSng(Math.Max(1.0, outHeight / zoomFactor))
-        Dim clipWidth As Single = CSng(Math.Max(1.0, outWidth / zoomFactor))
+        ' This is the 100% base view: complete leg plus margin at both ends.
+        Dim clipLength As Single = CSng(desiredClipLength)
+        Dim scale As Double = desiredClipLength / Math.Max(1.0, outHeight)
+        Dim clipWidth As Single = CSng(Math.Max(1.0, outWidth * scale))
         Return CreateDynamicRenderInfo(legIndex, angleDegrees, midPoint, clipWidth, clipLength, outWidth, outHeight, marginHeight, roundRadius, distance)
+    End Function
+
+    Private Function ApplyDynamicZoomForTime(info As LegRenderInfo, legIndex As Integer, timeCode As Double) As LegRenderInfo
+        Dim legStartTime As Double = If(legIndex > 0, GetLegEndTimeCode(legIndex - 1), 0.0R)
+        Dim legEndTime As Double = Math.Max(legStartTime + 0.001R, GetLegEndTimeCode(legIndex))
+        Dim progress As Double = Math.Max(0.0R, Math.Min(1.0R, (timeCode - legStartTime) / (legEndTime - legStartTime)))
+
+        ' Zero at each control and one halfway through the leg. SmoothStep keeps
+        ' zoom speed gentle close to the controls.
+        Dim middleWeight As Double = Math.Sin(Math.PI * progress)
+        middleWeight = SmoothStep(middleWeight * middleWeight)
+        Dim minPercent As Double = Math.Max(1.0R, My.Settings.MIDynamicMinZoom)
+        Dim maxPercent As Double = Math.Max(minPercent, My.Settings.MIDynamicMaxZoom)
+        Dim zoomPercent As Double = Lerp(minPercent, maxPercent, middleWeight)
+        Dim zoomScale As Double = Math.Max(0.01R, zoomPercent / 100.0R)
+
+        Return CreateDynamicRenderInfo(info.Lap,
+                                       info.AngleDegrees,
+                                       info.MidPoint,
+                                       CSng(Math.Max(1.0R, info.ClipWidth / zoomScale)),
+                                       CSng(Math.Max(1.0R, info.ClipLength / zoomScale)),
+                                       info.OutWidth,
+                                       info.OutHeight,
+                                       info.MarginHeight,
+                                       info.RoundRadius,
+                                       info.LegDistance)
     End Function
 
     Private Function AdjustDynamicRenderInfoForRunner(info As LegRenderInfo, timeCode As Double) As LegRenderInfo
@@ -1911,6 +1944,17 @@ Public Class clsMapRenderEngine
     End Function
 
     Private Function FillRoundedRectangle(rect As Rectangle, radius As Integer) As GraphicsPath
+        Return FillRoundedRectangle(rect, radius, FrameAttachedEdge)
+    End Function
+
+    Private Function FillRoundedRectangle(rect As Rectangle, radius As Integer, flatEdge As MapFrameAttachedEdge) As GraphicsPath
+        If My.Settings.MIMapFrameFormIndex = 2 Then
+            If flatEdge <> MapFrameAttachedEdge.None Then Return FillHalfEllipse(rect, flatEdge)
+            Dim ellipsePath As New GraphicsPath()
+            ellipsePath.AddEllipse(rect)
+            ellipsePath.CloseFigure()
+            Return ellipsePath
+        End If
         Dim path As New GraphicsPath()
         Dim safeWidth As Integer = Math.Max(1, rect.Width)
         Dim safeHeight As Integer = Math.Max(1, rect.Height)
@@ -1923,14 +1967,99 @@ Public Class clsMapRenderEngine
         End If
 
         Dim diameter As Integer = safeRadius * 2
-        path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90)
+        Dim flatLeft As Boolean = (flatEdge And MapFrameAttachedEdge.Left) <> 0
+        Dim flatRight As Boolean = (flatEdge And MapFrameAttachedEdge.Right) <> 0
+        Dim flatTop As Boolean = (flatEdge And MapFrameAttachedEdge.Top) <> 0
+        Dim flatBottom As Boolean = (flatEdge And MapFrameAttachedEdge.Bottom) <> 0
+        If flatLeft OrElse flatTop Then
+            path.AddLine(rect.Left, rect.Top, rect.Left, rect.Top)
+        Else
+            path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90)
+        End If
         path.AddLine(rect.X + safeRadius, rect.Y, rect.X + safeWidth - safeRadius, rect.Y)
-        path.AddArc(rect.X + safeWidth - diameter, rect.Y, diameter, diameter, 270, 90)
+        If flatRight OrElse flatTop Then
+            path.AddLine(rect.Right, rect.Top, rect.Right, rect.Top)
+        Else
+            path.AddArc(rect.X + safeWidth - diameter, rect.Y, diameter, diameter, 270, 90)
+        End If
         path.AddLine(rect.X + safeWidth, rect.Y + safeRadius, rect.X + safeWidth, rect.Y + safeHeight - safeRadius)
-        path.AddArc(rect.X + safeWidth - diameter, rect.Y + safeHeight - diameter, diameter, diameter, 0, 90)
+        If flatRight OrElse flatBottom Then
+            path.AddLine(rect.Right, rect.Bottom, rect.Right, rect.Bottom)
+        Else
+            path.AddArc(rect.X + safeWidth - diameter, rect.Y + safeHeight - diameter, diameter, diameter, 0, 90)
+        End If
         path.AddLine(rect.X + safeWidth - safeRadius, rect.Y + safeHeight, rect.X + safeRadius, rect.Y + safeHeight)
-        path.AddArc(rect.X, rect.Y + safeHeight - diameter, diameter, diameter, 90, 90)
+        If flatLeft OrElse flatBottom Then
+            path.AddLine(rect.Left, rect.Bottom, rect.Left, rect.Bottom)
+        Else
+            path.AddArc(rect.X, rect.Y + safeHeight - diameter, diameter, diameter, 90, 90)
+        End If
         path.AddLine(rect.X, rect.Y + safeHeight - safeRadius, rect.X, rect.Y + safeRadius)
+        path.CloseFigure()
+        Return path
+    End Function
+
+    Private Function FillHalfEllipse(rect As Rectangle, flatEdge As MapFrameAttachedEdge) As GraphicsPath
+        Dim path As New GraphicsPath()
+        Dim left As Single = rect.Left
+        Dim top As Single = rect.Top
+        Dim right As Single = rect.Right
+        Dim bottom As Single = rect.Bottom
+        Dim midX As Single = (left + right) / 2.0F
+        Dim midY As Single = (top + bottom) / 2.0F
+        Const k As Single = 0.55228475F
+        Dim rx As Single = Math.Max(0.5F, rect.Width / 2.0F)
+        Dim ry As Single = Math.Max(0.5F, rect.Height / 2.0F)
+        Dim flatLeft As Boolean = (flatEdge And MapFrameAttachedEdge.Left) <> 0
+        Dim flatRight As Boolean = (flatEdge And MapFrameAttachedEdge.Right) <> 0
+        Dim flatTop As Boolean = (flatEdge And MapFrameAttachedEdge.Top) <> 0
+        Dim flatBottom As Boolean = (flatEdge And MapFrameAttachedEdge.Bottom) <> 0
+
+        If (flatLeft OrElse flatRight) AndAlso (flatTop OrElse flatBottom) Then
+            path.StartFigure()
+            If flatLeft AndAlso flatTop Then
+                path.AddLine(left, top, left, bottom)
+                path.AddArc(left - rect.Width, top - rect.Height, rect.Width * 2.0F, rect.Height * 2.0F, 90, -90)
+                path.AddLine(right, top, left, top)
+            ElseIf flatRight AndAlso flatTop Then
+                path.AddLine(right, top, left, top)
+                path.AddArc(right - rect.Width, top - rect.Height, rect.Width * 2.0F, rect.Height * 2.0F, 180, -90)
+                path.AddLine(right, bottom, right, top)
+            ElseIf flatLeft AndAlso flatBottom Then
+                path.AddLine(left, bottom, right, bottom)
+                path.AddArc(left - rect.Width, bottom - rect.Height, rect.Width * 2.0F, rect.Height * 2.0F, 0, -90)
+                path.AddLine(left, top, left, bottom)
+            Else
+                path.AddLine(right, bottom, right, top)
+                path.AddArc(right - rect.Width, bottom - rect.Height, rect.Width * 2.0F, rect.Height * 2.0F, 270, -90)
+                path.AddLine(left, bottom, right, bottom)
+            End If
+            path.CloseFigure()
+            Return path
+        End If
+
+        Select Case flatEdge
+            Case MapFrameAttachedEdge.Left
+                path.StartFigure()
+                path.AddLine(left, top, left, bottom)
+                path.AddBezier(left, bottom, left + k * rect.Width, bottom, right, midY + k * ry, right, midY)
+                path.AddBezier(right, midY, right, midY - k * ry, left + k * rect.Width, top, left, top)
+            Case MapFrameAttachedEdge.Right
+                path.StartFigure()
+                path.AddLine(right, bottom, right, top)
+                path.AddBezier(right, top, right - k * rect.Width, top, left, midY - k * ry, left, midY)
+                path.AddBezier(left, midY, left, midY + k * ry, right - k * rect.Width, bottom, right, bottom)
+            Case MapFrameAttachedEdge.Top
+                path.StartFigure()
+                path.AddLine(right, top, left, top)
+                path.AddBezier(left, top, left, top + k * rect.Height, midX - k * rx, bottom, midX, bottom)
+                path.AddBezier(midX, bottom, midX + k * rx, bottom, right, top + k * rect.Height, right, top)
+            Case MapFrameAttachedEdge.Bottom
+                path.StartFigure()
+                path.AddLine(left, bottom, right, bottom)
+                path.AddBezier(right, bottom, right, bottom - k * rect.Height, midX + k * rx, top, midX, top)
+                path.AddBezier(midX, top, midX - k * rx, top, left, bottom - k * rect.Height, left, bottom)
+        End Select
         path.CloseFigure()
         Return path
     End Function
@@ -1959,7 +2088,7 @@ Public Class clsMapRenderEngine
         featherWidth = Math.Min(featherWidth, Math.Max(1, maxFeatherWidth))
         If featherWidth < 1 Then featherWidth = 1
 
-        Dim cacheKey As String = $"{size.Width}|{size.Height}|{radius}|{featherWidth}"
+        Dim cacheKey As String = $"{size.Width}|{size.Height}|{radius}|{featherWidth}|{CInt(FrameAttachedEdge)}|{My.Settings.MIMapFrameFormIndex}"
         Dim cachedMask As Bitmap = If(isZoom, _zoomFeatherMask, _legFeatherMask)
         Dim cachedKey As String = If(isZoom, _zoomFeatherMaskKey, _legFeatherMaskKey)
 
@@ -1981,6 +2110,12 @@ Public Class clsMapRenderEngine
     End Function
 
     Private Function CreateFeatherMask(size As Size, radius As Integer, featherWidth As Integer) As Bitmap
+        If FrameAttachedEdge <> MapFrameAttachedEdge.None Then
+            Return CreateSelectiveFeatherMask(size, radius, featherWidth, FrameAttachedEdge)
+        End If
+        If My.Settings.MIMapFrameFormIndex = 2 Then
+            Return CreateEllipseFeatherMask(size, featherWidth)
+        End If
         Dim mask As New Bitmap(size.Width, size.Height, PixelFormat.Format32bppArgb)
         Dim rect As New Rectangle(0, 0, size.Width, size.Height)
         Dim bmpData As BitmapData = mask.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb)
@@ -2003,8 +2138,9 @@ Public Class clsMapRenderEngine
                         alpha = 255
                     Else
                         Dim blend As Double = Math.Max(0.0, Math.Min(1.0, (-outerDistance) / Math.Max(1.0, featherWidth)))
-                        ' Smoothstep gives a softer edge without a visible inner border.
-                        blend = blend * blend * (3.0 - 2.0 * blend)
+                        ' Use a linear alpha ramp.  The inner feather boundary is
+                        ' exactly as opaque as the map and the outer edge is fully
+                        ' transparent, without a separately-looking faint border.
                         alpha = CInt(Math.Round(blend * 255.0))
                     End If
 
@@ -2022,6 +2158,142 @@ Public Class clsMapRenderEngine
         End Try
 
         Return mask
+    End Function
+
+    Private Function CreateEllipseFeatherMask(size As Size, featherWidth As Integer) As Bitmap
+        Dim mask As New Bitmap(size.Width, size.Height, PixelFormat.Format32bppArgb)
+        Dim rect As New Rectangle(0, 0, size.Width, size.Height)
+        Dim bmpData As BitmapData = mask.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb)
+        Try
+            Dim stride As Integer = bmpData.Stride
+            Dim buffer(Math.Abs(stride) * size.Height - 1) As Byte
+            Dim a As Double = Math.Max(0.5R, size.Width / 2.0R)
+            Dim b As Double = Math.Max(0.5R, size.Height / 2.0R)
+            Dim safeFeather As Double = Math.Max(1.0R, featherWidth)
+            For y As Integer = 0 To size.Height - 1
+                Dim rowStart As Integer = y * stride
+                For x As Integer = 0 To size.Width - 1
+                    Dim dx As Double = x + 0.5R - a
+                    Dim dy As Double = y + 0.5R - b
+                    Dim distance As Double = DistanceInsideEllipse(dx, dy, a, b)
+                    Dim alpha As Integer = CInt(Math.Round(Math.Max(0.0R, Math.Min(1.0R, distance / safeFeather)) * 255.0R))
+                    Dim pixelIndex As Integer = rowStart + x * 4
+                    buffer(pixelIndex) = 255
+                    buffer(pixelIndex + 1) = 255
+                    buffer(pixelIndex + 2) = 255
+                    buffer(pixelIndex + 3) = CByte(alpha)
+                Next
+            Next
+            Marshal.Copy(buffer, 0, bmpData.Scan0, buffer.Length)
+        Finally
+            mask.UnlockBits(bmpData)
+        End Try
+        Return mask
+    End Function
+
+    Private Function DistanceInsideEllipse(dx As Double, dy As Double, a As Double, b As Double) As Double
+        Dim rho As Double = Math.Sqrt((dx * dx) / (a * a) + (dy * dy) / (b * b))
+        If rho < 0.000001R Then Return Math.Min(a, b)
+        Dim gradient As Double = Math.Sqrt((dx * dx) / (a ^ 4) + (dy * dy) / (b ^ 4)) / rho
+        If gradient <= 0 Then Return Math.Min(a, b)
+        Return (1.0R - rho) / gradient
+    End Function
+
+    Private Function CreateSelectiveFeatherMask(size As Size, radius As Integer, featherWidth As Integer, flatEdge As MapFrameAttachedEdge) As Bitmap
+        Dim mask As New Bitmap(size.Width, size.Height, PixelFormat.Format32bppArgb)
+        Dim rect As New Rectangle(0, 0, size.Width, size.Height)
+        Dim bmpData As BitmapData = mask.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb)
+        Try
+            Dim stride As Integer = bmpData.Stride
+            Dim buffer(Math.Abs(stride) * size.Height - 1) As Byte
+            Dim safeRadius As Double = Math.Max(0.0R, Math.Min(radius, Math.Min(size.Width, size.Height) / 2.0R))
+            Dim safeFeather As Double = Math.Max(1.0R, featherWidth)
+
+            For y As Integer = 0 To size.Height - 1
+                Dim rowStart As Integer = y * stride
+                For x As Integer = 0 To size.Width - 1
+                    Dim distance As Double
+                    If My.Settings.MIMapFrameFormIndex = 2 Then
+                        distance = DistanceInsideHalfEllipse(x + 0.5R, y + 0.5R, size.Width, size.Height, flatEdge)
+                    Else
+                        distance = DistanceInsideHalfFrame(x + 0.5R, y + 0.5R, size.Width, size.Height, safeRadius, flatEdge)
+                    End If
+                    Dim alpha As Integer = CInt(Math.Round(Math.Max(0.0R, Math.Min(1.0R, distance / safeFeather)) * 255.0R))
+                    Dim pixelIndex As Integer = rowStart + x * 4
+                    buffer(pixelIndex) = 255
+                    buffer(pixelIndex + 1) = 255
+                    buffer(pixelIndex + 2) = 255
+                    buffer(pixelIndex + 3) = CByte(alpha)
+                Next
+            Next
+            Marshal.Copy(buffer, 0, bmpData.Scan0, buffer.Length)
+        Finally
+            mask.UnlockBits(bmpData)
+        End Try
+        Return mask
+    End Function
+
+    Private Function DistanceInsideHalfEllipse(x As Double, y As Double, width As Integer, height As Integer,
+                                               flatEdge As MapFrameAttachedEdge) As Double
+        Dim a As Double
+        Dim b As Double
+        Dim dx As Double
+        Dim dy As Double
+
+        Dim flatLeft As Boolean = (flatEdge And MapFrameAttachedEdge.Left) <> 0
+        Dim flatRight As Boolean = (flatEdge And MapFrameAttachedEdge.Right) <> 0
+        Dim flatTop As Boolean = (flatEdge And MapFrameAttachedEdge.Top) <> 0
+        Dim flatBottom As Boolean = (flatEdge And MapFrameAttachedEdge.Bottom) <> 0
+        If (flatLeft OrElse flatRight) AndAlso (flatTop OrElse flatBottom) Then
+            a = Math.Max(0.5R, width)
+            b = Math.Max(0.5R, height)
+            dx = If(flatLeft, x, width - x)
+            dy = If(flatTop, y, height - y)
+            Return DistanceInsideEllipse(dx, dy, a, b)
+        End If
+
+        If flatLeft OrElse flatRight Then
+            a = Math.Max(0.5R, width)
+            b = Math.Max(0.5R, height / 2.0R)
+            dx = If(flatLeft, x, width - x)
+            dy = y - height / 2.0R
+            If dx < 0 Then Return -1
+        Else
+            a = Math.Max(0.5R, width / 2.0R)
+            b = Math.Max(0.5R, height)
+            dx = x - width / 2.0R
+            dy = If(flatTop, y, height - y)
+        End If
+
+        ' Unlike a corner radius this curve uses the complete map dimensions.
+        Return DistanceInsideEllipse(dx, dy, a, b)
+    End Function
+
+    Private Function DistanceInsideHalfFrame(x As Double, y As Double, width As Integer, height As Integer,
+                                             radius As Double, flatEdge As MapFrameAttachedEdge) As Double
+        Dim leftDistance As Double = x
+        Dim rightDistance As Double = width - x
+        Dim topDistance As Double = y
+        Dim bottomDistance As Double = height - y
+        Dim flatLeft As Boolean = (flatEdge And MapFrameAttachedEdge.Left) <> 0
+        Dim flatRight As Boolean = (flatEdge And MapFrameAttachedEdge.Right) <> 0
+        Dim flatTop As Boolean = (flatEdge And MapFrameAttachedEdge.Top) <> 0
+        Dim flatBottom As Boolean = (flatEdge And MapFrameAttachedEdge.Bottom) <> 0
+        Dim distance As Double = Double.MaxValue
+        If Not flatLeft Then distance = Math.Min(distance, leftDistance)
+        If Not flatRight Then distance = Math.Min(distance, rightDistance)
+        If Not flatTop Then distance = Math.Min(distance, topDistance)
+        If Not flatBottom Then distance = Math.Min(distance, bottomDistance)
+
+        If radius > 0 Then
+            If Not flatLeft AndAlso Not flatTop AndAlso x < radius AndAlso y < radius Then distance = Math.Min(distance, radius - Math.Sqrt((x - radius) ^ 2 + (y - radius) ^ 2))
+            If Not flatRight AndAlso Not flatTop AndAlso x > width - radius AndAlso y < radius Then distance = Math.Min(distance, radius - Math.Sqrt((x - (width - radius)) ^ 2 + (y - radius) ^ 2))
+            If Not flatRight AndAlso Not flatBottom AndAlso x > width - radius AndAlso y > height - radius Then distance = Math.Min(distance, radius - Math.Sqrt((x - (width - radius)) ^ 2 + (y - (height - radius)) ^ 2))
+            If Not flatLeft AndAlso Not flatBottom AndAlso x < radius AndAlso y > height - radius Then distance = Math.Min(distance, radius - Math.Sqrt((x - radius) ^ 2 + (y - (height - radius)) ^ 2))
+        End If
+        If distance = Double.MaxValue Then distance = Math.Min(Math.Min(leftDistance, rightDistance), Math.Min(topDistance, bottomDistance))
+
+        Return distance
     End Function
 
     Private Function SignedDistanceToRoundedRect(x As Double, y As Double, width As Integer, height As Integer, radius As Integer) As Double
@@ -2056,7 +2328,12 @@ Public Class clsMapRenderEngine
                 For x As Integer = 0 To target.Width - 1
                     Dim targetIdx As Integer = targetRow + x * bytesPerPixel
                     Dim maskIdx As Integer = maskRow + x * bytesPerPixel
-                    targetBuffer(targetIdx + 3) = maskBuffer(maskIdx + 3)
+                    ' Feathering must preserve the alpha already applied to the
+                    ' map (zoom/leg/dynamic transparency).  The mask only fades
+                    ' that existing alpha towards zero at the visible edges.
+                    Dim targetAlpha As Integer = targetBuffer(targetIdx + 3)
+                    Dim maskAlpha As Integer = maskBuffer(maskIdx + 3)
+                    targetBuffer(targetIdx + 3) = CByte((targetAlpha * maskAlpha + 127) \ 255)
                 Next
             Next
 
@@ -2077,7 +2354,24 @@ Public Class clsMapRenderEngine
                 g.Clear(Color.Transparent)
 
                 Dim outerRect As New Rectangle(0, 0, target.Width, target.Height)
-                Dim innerRect As New Rectangle(_legacyRenderer.FrameWidth, _legacyRenderer.FrameWidth, target.Width - _legacyRenderer.FrameWidth * 2, target.Height - _legacyRenderer.FrameWidth * 2)
+                Dim frameWidth As Integer = Math.Max(0, _legacyRenderer.FrameWidth)
+                Dim innerLeft As Integer = frameWidth
+                Dim innerTop As Integer = frameWidth
+                Dim innerRight As Integer = target.Width - frameWidth
+                Dim innerBottom As Integer = target.Height - frameWidth
+
+                ' A half form is open where it is attached to the output edge.
+                ' Let the map content reach that edge, so no frame strip is drawn
+                ' between the map and the edge of the finished video.
+                If (FrameAttachedEdge And MapFrameAttachedEdge.Left) <> 0 Then innerLeft = 0
+                If (FrameAttachedEdge And MapFrameAttachedEdge.Right) <> 0 Then innerRight = target.Width
+                If (FrameAttachedEdge And MapFrameAttachedEdge.Top) <> 0 Then innerTop = 0
+                If (FrameAttachedEdge And MapFrameAttachedEdge.Bottom) <> 0 Then innerBottom = target.Height
+
+                Dim innerRect As New Rectangle(innerLeft,
+                                               innerTop,
+                                               Math.Max(1, innerRight - innerLeft),
+                                               Math.Max(1, innerBottom - innerTop))
                 Dim outerPath As GraphicsPath = FillRoundedRectangle(outerRect, radius)
                 Dim innerPath As GraphicsPath = FillRoundedRectangle(innerRect, radius)
 

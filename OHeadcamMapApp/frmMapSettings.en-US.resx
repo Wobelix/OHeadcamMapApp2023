@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -154,9 +154,6 @@
   <data name="Label6.Text" xml:space="preserve">
     <value>Tail color</value>
   </data>
-  <data name="GroupBox1.Text" xml:space="preserve">
-    <value>Dot/arrow</value>
-  </data>
   <data name="Label19.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 13</value>
   </data>
@@ -187,6 +184,9 @@
   <data name="Label8.Text" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="GroupBox1.Text" xml:space="preserve">
+    <value>Dot/arrow</value>
+  </data>
   <data name="Label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 13</value>
   </data>
@@ -201,9 +201,6 @@
   </data>
   <data name="Button1.Text" xml:space="preserve">
     <value>Save settings</value>
-  </data>
-  <data name="GroupBox2.Text" xml:space="preserve">
-    <value>Tail</value>
   </data>
   <data name="lbltransp.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 13</value>
@@ -229,8 +226,23 @@
   <data name="Label17.Text" xml:space="preserve">
     <value>Min/km - Green</value>
   </data>
-  <data name="GroupBox3.Text" xml:space="preserve">
-    <value>Map frames</value>
+  <data name="GroupBox2.Text" xml:space="preserve">
+    <value>Tail</value>
+  </data>
+  <data name="lblMapFrameForm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="lblMapFrameForm.Text" xml:space="preserve">
+    <value>Form</value>
+  </data>
+  <data name="cboMapFrameForm.Items" xml:space="preserve">
+    <value>Full form</value>
+  </data>
+  <data name="cboMapFrameForm.Items1" xml:space="preserve">
+    <value>Half form</value>
+  </data>
+  <data name="cboMapFrameForm.Items2" xml:space="preserve">
+    <value>Half Ellipse</value>
   </data>
   <data name="cbFeather.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 17</value>
@@ -247,6 +259,9 @@
   <data name="Label10.Text" xml:space="preserve">
     <value>Frame size</value>
   </data>
+  <data name="GroupBox3.Text" xml:space="preserve">
+    <value>Map frames</value>
+  </data>
   <data name="Label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 13</value>
   </data>
@@ -255,9 +270,6 @@
   </data>
   <data name="cbCircle.Text" xml:space="preserve">
     <value>Circle</value>
-  </data>
-  <data name="GroupBox4.Text" xml:space="preserve">
-    <value>Zoom map</value>
   </data>
   <data name="Label24.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 13</value>
@@ -268,8 +280,8 @@
   <data name="Label14.Text" xml:space="preserve">
     <value>Zoom factor</value>
   </data>
-  <data name="GroupBox5.Text" xml:space="preserve">
-    <value>Leg map</value>
+  <data name="GroupBox4.Text" xml:space="preserve">
+    <value>Zoom map</value>
   </data>
   <data name="Label23.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 13</value>
@@ -289,17 +301,17 @@
   <data name="Label12.Text" xml:space="preserve">
     <value>Corner radius</value>
   </data>
+  <data name="GroupBox5.Text" xml:space="preserve">
+    <value>Leg map</value>
+  </data>
   <data name="Button2.Text" xml:space="preserve">
     <value>Update</value>
-  </data>
-  <data name="GroupBox6.Text" xml:space="preserve">
-    <value>Dynamic map</value>
   </data>
   <data name="Label25.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 13</value>
   </data>
   <data name="Label25.Text" xml:space="preserve">
-    <value> (only in output)</value>
+    <value> Transparency (only in output)</value>
   </data>
   <data name="Label20.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 13</value>
@@ -312,6 +324,9 @@
   </data>
   <data name="Label21.Text" xml:space="preserve">
     <value>Corner Radius</value>
+  </data>
+  <data name="GroupBox6.Text" xml:space="preserve">
+    <value>Dynamic map</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -474,5 +489,11 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Map settings</value>
+  </data>
+  <data name="btnArrowsSmaller.ToolTip" xml:space="preserve">
+    <value>Make the GPS arrow smaller while preserving its proportions</value>
+  </data>
+  <data name="btnArrowBigger.ToolTip" xml:space="preserve">
+    <value>Make the GPS arrow larger while preserving its proportions</value>
   </data>
 </root>

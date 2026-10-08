@@ -2407,6 +2407,150 @@ Namespace My
                 Me("OverlayEstimate4KSeconds") = value
             End Set
         End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property OutputAspectIndex() As Integer
+            Get
+                Return CType(Me("OutputAspectIndex"),Integer)
+            End Get
+            Set
+                Me("OutputAspectIndex") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property OutputResolutionIndex() As Integer
+            Get
+                Return CType(Me("OutputResolutionIndex"),Integer)
+            End Get
+            Set
+                Me("OutputResolutionIndex") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PortraitModeIndex() As Integer
+            Get
+                Return CType(Me("PortraitModeIndex"),Integer)
+            End Get
+            Set
+                Me("PortraitModeIndex") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property ShowOutputSafeZone() As Boolean
+            Get
+                Return CType(Me("ShowOutputSafeZone"),Boolean)
+            End Get
+            Set
+                Me("ShowOutputSafeZone") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property LayoutPresetIndex() As Integer
+            Get
+                Return CType(Me("LayoutPresetIndex"),Integer)
+            End Get
+            Set
+                Me("LayoutPresetIndex") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property MIMapFrameFormIndex() As Integer
+            Get
+                Return CType(Me("MIMapFrameFormIndex"),Integer)
+            End Get
+            Set
+                Me("MIMapFrameFormIndex") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.5")>  _
+        Public Property PortraitFramePosition() As Double
+            Get
+                Return CType(Me("PortraitFramePosition"),Double)
+            End Get
+            Set
+                Me("PortraitFramePosition") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PortraitOverlayLayout() As String
+            Get
+                Return CType(Me("PortraitOverlayLayout"),String)
+            End Get
+            Set
+                Me("PortraitOverlayLayout") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PortraitVideoPosition() As Double
+            Get
+                Return CType(Me("PortraitVideoPosition"),Double)
+            End Get
+            Set
+                Me("PortraitVideoPosition") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LandscapeOverlayVisibility() As String
+            Get
+                Return CType(Me("LandscapeOverlayVisibility"),String)
+            End Get
+            Set
+                Me("LandscapeOverlayVisibility") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PortraitOverlayVisibility() As String
+            Get
+                Return CType(Me("PortraitOverlayVisibility"),String)
+            End Get
+            Set
+                Me("PortraitOverlayVisibility") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property LandscapeOutputResolutionIndex() As Integer
+            Get
+                Return CType(Me("LandscapeOutputResolutionIndex"),Integer)
+            End Get
+            Set
+                Me("LandscapeOutputResolutionIndex") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

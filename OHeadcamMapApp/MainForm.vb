@@ -18,6 +18,8 @@ Public Class MainForm
     Private Shared MeVar As MainForm
     Private uiContext As SynchronizationContext
     Private uiThreadId As Integer
+    Private RouteEditorServer As clsRouteEditorServer
+    Private RouteEditorTarget As Integer = 1
     'OLD MAP 20260407:
     'Public cmd1Join As String = "VIDEOJOIN"
     'Public cmd2Deshake As String = "DESHAKE"
@@ -284,6 +286,7 @@ Public Class MainForm
         'lblMapLength.Text = ExtraFunc.SecToTimeStr(My.Settings.QRXMLTimesec)
         ExtraFunc.Language = lang
         ChangeLanguage(lang)
+        ApplyQuickRouteFileMode()
         ' Texts.Culture = New CultureInfo(lang)
 
         TrackVideoState()
@@ -307,6 +310,105 @@ Public Class MainForm
         ExtraFunc.InputHeight = resolvedSize.Height
         My.Settings.InfoOutVideoFormat = "Format: " & resolvedSize.Width.ToString(CultureInfo.InvariantCulture) & "x" & resolvedSize.Height.ToString(CultureInfo.InvariantCulture)
     End Sub
+
+    Private Sub UseQuickRouteFilesChanged(sender As Object, e As EventArgs) Handles chkUseQuickRouteFiles.CheckedChanged, chkUseQuickRouteFiles2.CheckedChanged
+        ApplyQuickRouteFileMode()
+    End Sub
+
+    Private Sub ApplyQuickRouteFileMode()
+        Dim enabled As Boolean = chkUseQuickRouteFiles.Checked
+        Label3.Enabled = enabled
+        txtQRImage.Enabled = enabled
+        btnQRimg.Enabled = enabled
+        Label4.Enabled = enabled
+        txtXMLfile.Enabled = enabled
+        btnQRxml.Enabled = enabled
+        Dim enabled2 As Boolean = chkUseQuickRouteFiles2.Checked
+        Label17.Enabled = enabled2
+        txtQRImage2.Enabled = enabled2
+        btnQRimg2.Enabled = enabled2
+        Label11.Enabled = enabled2
+        txtXMLfile2.Enabled = enabled2
+        btnQRXML2.Enabled = enabled2
+    End Sub
+
+    Private Sub OpenRouteEditor(sender As Object, e As EventArgs) Handles btnRouteEditor.Click, btnRouteEditor2.Click
+        RouteEditorTarget = If(sender Is btnRouteEditor2, 2, 1)
+        Dim editorFolder As String = Path.Combine(My.Application.Info.DirectoryPath, "RouteEditor")
+        Dim editorPath As String = Path.Combine(editorFolder, "index.html")
+        If Not File.Exists(editorPath) Then
+            MsgBox(If(IsDanishUi(), "Ruteeditoren blev ikke fundet: ", "Route editor was not found: ") & editorPath)
+            Return
+        End If
+        Try
+            If RouteEditorServer IsNot Nothing Then RouteEditorServer.Dispose()
+            Dim exportFolder As String = If(String.IsNullOrWhiteSpace(My.Settings.VideoWorkFolder), AppFolder, My.Settings.VideoWorkFolder)
+            Dim currentXml As String = If(RouteEditorTarget = 2, My.Settings.QRXML2, My.Settings.QRXML)
+            Dim projectPath As String = Nothing
+            If Not String.IsNullOrWhiteSpace(currentXml) Then
+                Dim candidate As String = Path.Combine(exportFolder, Path.GetFileNameWithoutExtension(currentXml) & ".routeproject")
+                If File.Exists(candidate) Then projectPath = candidate
+            End If
+            Dim projectLinkPath As String = Path.Combine(exportFolder, If(RouteEditorTarget = 2, ".headcam-route-map2.link", ".headcam-route-map1.link"))
+            RouteEditorServer = New clsRouteEditorServer(editorFolder, exportFolder, projectPath, projectLinkPath, AddressOf RouteEditorExported)
+            RouteEditorServer.Start()
+            Dim startInfo As New ProcessStartInfo(RouteEditorServer.Url)
+            startInfo.UseShellExecute = True
+            Process.Start(startInfo)
+        Catch ex As Exception
+            MsgBox(If(IsDanishUi(), "Ruteeditoren kunne ikke startes: ", "The route editor could not be started: ") & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub RouteEditorExported(xmlPath As String, imagePath As String)
+        Dim exportTarget As Integer = RouteEditorTarget
+        EnsureInvoke(Sub()
+                         Try
+                             Dim xmlName As String = Path.GetFileName(xmlPath)
+                             Dim imageName As String = Path.GetFileName(imagePath)
+                             Dim localXml As String = Path.Combine(AppFolder, xmlName)
+                             Dim localImage As String = Path.Combine(AppFolder, imageName)
+                             If Not String.Equals(Path.GetFullPath(xmlPath), Path.GetFullPath(localXml), StringComparison.OrdinalIgnoreCase) Then File.Copy(xmlPath, localXml, True)
+                             If Not String.Equals(Path.GetFullPath(imagePath), Path.GetFullPath(localImage), StringComparison.OrdinalIgnoreCase) Then File.Copy(imagePath, localImage, True)
+                             Dim files As New clsTxtFiles()
+                             Dim routeSeconds As String = files.FindTimeSpanQRXML(localXml)
+                             Dim parsedSeconds As Decimal
+                             Decimal.TryParse(routeSeconds, parsedSeconds)
+                             If exportTarget = 2 Then
+                                 My.Settings.QRXML2 = xmlName
+                                 My.Settings.QRImage2 = imageName
+                                 My.Settings.QRXMLTimesec2 = CInt(parsedSeconds)
+                                 txtXMLfile2.Text = xmlName
+                                 txtQRImage2.Text = imageName
+                             Else
+                                 My.Settings.QRXML = xmlName
+                                 My.Settings.QRXML1 = xmlName
+                                 My.Settings.QRimage = imageName
+                                 My.Settings.QRimage1 = imageName
+                                 txtXMLfile.Text = xmlName
+                                 txtQRImage.Text = imageName
+                                 If parsedSeconds > 0 Then
+                                     My.Settings.QRXMLTimesec = CInt(parsedSeconds)
+                                     lblMapLength.Text = ExtraFunc.SecToTimeStr(CInt(parsedSeconds))
+                                 End If
+                             End If
+                             My.Settings.Save()
+                             bMakeMapDirty = True
+                             CheckDirtyStatus()
+                             If Me.WindowState = FormWindowState.Minimized Then Me.WindowState = FormWindowState.Normal
+                             Me.Show()
+                             Me.Activate()
+                             Me.BringToFront()
+                         Catch ex As Exception
+                             MsgBox(If(IsDanishUi(), "Eksporten blev gemt, men kunne ikke aktiveres automatisk: ", "The export was saved but could not be activated automatically: ") & ex.Message)
+                         End Try
+                     End Sub)
+    End Sub
+
+    Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
+        If RouteEditorServer IsNot Nothing Then RouteEditorServer.Dispose()
+        MyBase.OnFormClosed(e)
+    End Sub
     Private Function ResolveOutputVideoSize() As Size
         Const referenceWidth As Integer = 1920
         Const referenceHeight As Integer = 1080
@@ -314,8 +416,24 @@ Public Class MainForm
         Dim sourceWidth As Integer = Math.Max(2, MakeEven(If(My.Settings.JoinFileWidth > 0, My.Settings.JoinFileWidth, referenceWidth)))
         Dim sourceHeight As Integer = Math.Max(2, MakeEven(If(My.Settings.JoinFileHeight > 0, My.Settings.JoinFileHeight, referenceHeight)))
 
-        Dim maxWidth As Integer = GetConfiguredMaxOutputWidth()
-        Dim targetWidth As Integer = ResolveStandardOutputWidth(sourceWidth, maxWidth)
+        If clsOutputLayoutResolver.IsPortrait Then Return New Size(clsOutputLayoutResolver.PortraitWidth, clsOutputLayoutResolver.PortraitHeight)
+
+        ' A 4:3 source is classified by the 16:9 canvas its height fits into.
+        ' This allows e.g. 1440x1080 to remain unscaled in a 1920x1080 canvas.
+        Dim equivalentWideWidth As Integer = Math.Max(sourceWidth, CInt(Math.Round(sourceHeight * 16.0R / 9.0R)))
+        Dim sourceTierWidth As Integer = ResolveStandardOutputWidth(equivalentWideWidth, 3840)
+        Dim requestedWidth As Integer
+        Select Case My.Settings.OutputResolutionIndex
+            Case 1
+                requestedWidth = 1920
+            Case 2
+                requestedWidth = 2560
+            Case 3
+                requestedWidth = 3840
+            Case Else
+                requestedWidth = sourceTierWidth
+        End Select
+        Dim targetWidth As Integer = Math.Min(sourceTierWidth, requestedWidth)
         Dim targetHeight As Integer = Math.Max(2, MakeEven(CInt(Math.Round(targetWidth * 9.0 / 16.0))))
         Return New Size(targetWidth, targetHeight)
     End Function
@@ -333,20 +451,9 @@ Public Class MainForm
             End If
         Next
 
-        If sourceWidth < standardWidths(0) Then
-            chosenWidth = standardWidths(0)
-        End If
+        If sourceWidth < standardWidths(0) Then chosenWidth = Math.Max(2, MakeEven(sourceWidth))
 
         Return Math.Max(2, MakeEven(chosenWidth))
-    End Function
-    Private Function GetConfiguredMaxOutputWidth() As Integer
-        Dim outputFormat As String = If(My.Settings.OutputFormat, "")
-        outputFormat = outputFormat.Trim()
-
-        If outputFormat.IndexOf("3840x2160", StringComparison.OrdinalIgnoreCase) >= 0 OrElse outputFormat.IndexOf("4K", StringComparison.OrdinalIgnoreCase) >= 0 Then Return 3840
-        If outputFormat.IndexOf("2560x1440", StringComparison.OrdinalIgnoreCase) >= 0 OrElse outputFormat.IndexOf("2K", StringComparison.OrdinalIgnoreCase) >= 0 Then Return 2560
-        If outputFormat.IndexOf("1920x1080", StringComparison.OrdinalIgnoreCase) >= 0 OrElse outputFormat.IndexOf("HD", StringComparison.OrdinalIgnoreCase) >= 0 Then Return 1920
-        Return 0
     End Function
     Private Shared Function MakeEven(value As Integer) As Integer
         Dim safeValue As Integer = Math.Max(2, value)
@@ -613,6 +720,7 @@ Public Class MainForm
 
     Private Sub AddVideofile_Click(sender As Object, e As EventArgs) Handles AddVideofile.Click
 
+        cbXJoin.Checked = True
         Dim folder, fn As String, pos As Integer
         If OpenFileDialogVideo.ShowDialog() = DialogResult.OK Then
             Dim fileNamesArray() As String = OpenFileDialogVideo.FileNames
@@ -1144,6 +1252,10 @@ Public Class MainForm
         options.Style.LegHeight = 2140
         options.Style.DotSize = 16
         StartLegRender(options)
+    End Sub
+
+    Private Sub txtPrepareLength_TextChanged(sender As Object, e As EventArgs) Handles txtPrepareLength.TextChanged
+        cbXJoin.Checked = True
     End Sub
 
     Private Function ParseRenderCompareArgs() As RenderCompareOptions
@@ -1832,6 +1944,17 @@ Public Class MainForm
         End If
         Return duration
     End Function
+    Private Function GetOutputCutStartSeconds() As Integer
+        If String.IsNullOrWhiteSpace(txtInpCutfromStart.Text) Then Return 0
+        Return Math.Max(0, ExtraFunc.TimeStrToSec(txtInpCutfromStart.Text.Trim()))
+    End Function
+    Private Function GetMapOverlayStartSeconds() As Integer
+        Dim cutStart As Integer = GetOutputCutStartSeconds()
+        Dim gpxDiff As Integer = 0
+        If IsNumeric(My.Settings.GPXDiff) Then gpxDiff = CInt(My.Settings.GPXDiff)
+        If gpxDiff < 0 Then Return Math.Max(0, cutStart + gpxDiff)
+        Return cutStart
+    End Function
     Private Function GetSmoothOverlayFrameStepSeconds() As Double
         Dim frameStep As Double = My.Settings.MISmoothFrameStepSeconds
         If frameStep <= 0 Then
@@ -1939,6 +2062,7 @@ Public Class MainForm
         Directory.CreateDirectory(smoothFolder)
 
         Dim duration As Integer = GetMapOverlayDurationSeconds()
+        Dim cutStartSeconds As Integer = GetMapOverlayStartSeconds()
         Dim smoothBaseName As String = Path.GetFileNameWithoutExtension(SmoothOverlayBaseName)
         Dim smoothOverlayExtension As String = GetSmoothOverlayVideoExtension()
         Dim zoomVideo As String = Path.Combine(smoothFolder, smoothBaseName & "_z" & smoothOverlayExtension)
@@ -1995,16 +2119,28 @@ Public Class MainForm
                 zoomEngine = New clsMapRenderEngine(RPs, mapImg)
                 zoomEngine.FrameStepSeconds = frameStepSeconds
                 ApplySavedLegRenderLayout(zoomEngine)
+                Dim zoomBounds = clsOutputLayoutResolver.GetBounds("Z", My.Settings.MIZoomMapPos, My.Settings.MIZoomWidth, My.Settings.MIZoomHeight)
+                zoomEngine.ZoomWidth = zoomBounds.Width
+                zoomEngine.ZoomHeight = zoomBounds.Height
+                zoomEngine.FrameAttachedEdge = clsOutputLayoutResolver.GetFrameAttachedEdge(zoomBounds, New Size(ExtraFunc.InputWidth, ExtraFunc.InputHeight))
             End If
             If My.Settings.cbShowLegMAp Then
                 legEngine = New clsMapRenderEngine(RPs, mapImg)
                 legEngine.FrameStepSeconds = frameStepSeconds
                 ApplySavedLegRenderLayout(legEngine)
+                Dim legBounds = clsOutputLayoutResolver.GetBounds("L", My.Settings.MILegMapPos, My.Settings.MILegWidth, My.Settings.MILegHeight)
+                legEngine.LegWidth = legBounds.Width
+                legEngine.LegHeight = legBounds.Height
+                legEngine.FrameAttachedEdge = clsOutputLayoutResolver.GetFrameAttachedEdge(legBounds, New Size(ExtraFunc.InputWidth, ExtraFunc.InputHeight))
             End If
             If My.Settings.cbShowDynamicMap Then
                 dynamicEngine = New clsMapRenderEngine(RPs, mapImg)
                 dynamicEngine.FrameStepSeconds = frameStepSeconds
                 ApplySavedLegRenderLayout(dynamicEngine)
+                Dim dynamicBounds = clsOutputLayoutResolver.GetBounds("D", My.Settings.MIDynamicMapPos, My.Settings.MIDynamicWidth, My.Settings.MIDynamicHeight)
+                dynamicEngine.DynamicWidth = dynamicBounds.Width
+                dynamicEngine.DynamicHeight = dynamicBounds.Height
+                dynamicEngine.FrameAttachedEdge = clsOutputLayoutResolver.GetFrameAttachedEdge(dynamicBounds, New Size(ExtraFunc.InputWidth, ExtraFunc.InputHeight))
             End If
             ClearProgressBar(True)
             EnsureInvoke(Sub()
@@ -2064,7 +2200,7 @@ Public Class MainForm
                     zoomTask = Threading.Tasks.Task.Run(
                         Sub()
                             zoomEngine.WriteZoomVideoPerf8(zoomVideo,
-                                                           startTime:=0,
+                                                            startTime:=cutStartSeconds,
                                                            duration:=duration,
                                                            videoWidth:=ExtraFunc.InputWidth)
                         End Sub)
@@ -2074,7 +2210,7 @@ Public Class MainForm
                     legTask = Threading.Tasks.Task.Run(
                         Sub()
                             legEngine.WriteLegVideoPerf8(legVideo,
-                                                        startTime:=0,
+                                                         startTime:=cutStartSeconds,
                                                         duration:=duration,
                                                         videoWidth:=ExtraFunc.InputWidth)
                         End Sub)
@@ -2083,7 +2219,7 @@ Public Class MainForm
                     dynamicTask = Threading.Tasks.Task.Run(
                         Sub()
                             dynamicEngine.WriteDynamicVideoPerf8(dynamicVideo,
-                                                                 startTime:=0,
+                                                                  startTime:=cutStartSeconds,
                                                                  duration:=duration,
                                                                  videoWidth:=ExtraFunc.InputWidth)
                         End Sub)
@@ -2103,19 +2239,19 @@ Public Class MainForm
             Else
                 If zoomEngine IsNot Nothing Then
                     zoomEngine.WriteZoomVideoPerf8(zoomVideo,
-                                                   startTime:=0,
+                                                    startTime:=cutStartSeconds,
                                                    duration:=duration,
                                                    videoWidth:=ExtraFunc.InputWidth)
                 End If
                 If legEngine IsNot Nothing Then
                     legEngine.WriteLegVideoPerf8(legVideo,
-                                                startTime:=0,
+                                                 startTime:=cutStartSeconds,
                                                 duration:=duration,
                                                 videoWidth:=ExtraFunc.InputWidth)
                 End If
                 If dynamicEngine IsNot Nothing Then
                     dynamicEngine.WriteDynamicVideoPerf8(dynamicVideo,
-                                                        startTime:=0,
+                                                         startTime:=cutStartSeconds,
                                                         duration:=duration,
                                                         videoWidth:=ExtraFunc.InputWidth)
                 End If
@@ -2125,19 +2261,24 @@ Public Class MainForm
                 Dim widgetEngine As New clsDataWidgetRenderEngine(RPs)
                 widgetEngine.WidgetTimeOffsetSeconds = My.Settings.MIWidgetTimeOffsetSeconds
                 If My.Settings.MIWidgetTimeEnabled Then
-                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Time, widgetTimeVideo, My.Settings.MIWidgetTimeWidth, My.Settings.MIWidgetTimeHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                    Dim bounds = clsOutputLayoutResolver.GetBounds("T", My.Settings.MIWidgetTimeMapPos, My.Settings.MIWidgetTimeWidth, My.Settings.MIWidgetTimeHeight)
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Time, widgetTimeVideo, bounds.Width, bounds.Height, duration:=duration, frameStepSeconds:=frameStepSeconds, startTime:=cutStartSeconds)
                 End If
                 If My.Settings.MIWidgetDistanceEnabled Then
-                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Distance, widgetDistanceVideo, My.Settings.MIWidgetDistanceWidth, My.Settings.MIWidgetDistanceHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                    Dim bounds = clsOutputLayoutResolver.GetBounds("DI", My.Settings.MIWidgetDistanceMapPos, My.Settings.MIWidgetDistanceWidth, My.Settings.MIWidgetDistanceHeight)
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Distance, widgetDistanceVideo, bounds.Width, bounds.Height, duration:=duration, frameStepSeconds:=frameStepSeconds, startTime:=cutStartSeconds)
                 End If
                 If My.Settings.MIWidgetPaceEnabled Then
-                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Pace, widgetPaceVideo, My.Settings.MIWidgetPaceWidth, My.Settings.MIWidgetPaceHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                    Dim bounds = clsOutputLayoutResolver.GetBounds("P", My.Settings.MIWidgetPaceMapPos, My.Settings.MIWidgetPaceWidth, My.Settings.MIWidgetPaceHeight)
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Pace, widgetPaceVideo, bounds.Width, bounds.Height, duration:=duration, frameStepSeconds:=frameStepSeconds, startTime:=cutStartSeconds)
                 End If
                 If My.Settings.MIWidgetPulseEnabled Then
-                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Pulse, widgetPulseVideo, My.Settings.MIWidgetPulseWidth, My.Settings.MIWidgetPulseHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                    Dim bounds = clsOutputLayoutResolver.GetBounds("PU", My.Settings.MIWidgetPulseMapPos, My.Settings.MIWidgetPulseWidth, My.Settings.MIWidgetPulseHeight)
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.Pulse, widgetPulseVideo, bounds.Width, bounds.Height, duration:=duration, frameStepSeconds:=frameStepSeconds, startTime:=cutStartSeconds)
                 End If
                 If My.Settings.MIWidgetHGraphEnabled Then
-                    widgetEngine.WriteWidgetVideo(DataWidgetKind.HGraph, widgetHGraphVideo, My.Settings.MIWidgetHGraphWidth, My.Settings.MIWidgetHGraphHeight, duration:=duration, frameStepSeconds:=frameStepSeconds)
+                    Dim bounds = clsOutputLayoutResolver.GetBounds("H", My.Settings.MIWidgetHGraphMapPos, My.Settings.MIWidgetHGraphWidth, My.Settings.MIWidgetHGraphHeight)
+                    widgetEngine.WriteWidgetVideo(DataWidgetKind.HGraph, widgetHGraphVideo, bounds.Width, bounds.Height, duration:=duration, frameStepSeconds:=frameStepSeconds, startTime:=cutStartSeconds)
                 End If
             End If
 
@@ -2435,7 +2576,7 @@ Public Class MainForm
 
             If My.Settings.bUseMapTrackingVideo Then
 
-                arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor)
+                arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor, CutStartSeconds:=GetOutputCutStartSeconds())
             Else
                 ' CLEANUP-CBNEWMAPF-START:If My.Settings.cbNewMapF Then
                 If Not IsNumeric(My.Settings.GPXDiff) Then My.Settings.GPXDiff = "0"
@@ -2462,7 +2603,8 @@ Public Class MainForm
                                                                            widgetDistanceVideoFile:=smoothWidgetDistanceFile,
                                                                            widgetPaceVideoFile:=smoothWidgetPaceFile,
                                                                            widgetPulseVideoFile:=smoothWidgetPulseFile,
-                                                                           widgetHGraphVideoFile:=smoothWidgetHGraphFile)
+                                                                           widgetHGraphVideoFile:=smoothWidgetHGraphFile,
+                                                                           CutStartSeconds:=GetOutputCutStartSeconds())
                 Else
                     ' Legacy temp3 PNG overlay fallback:
                     'arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, "temp3\%08d.png", GetDeshakedFilename(True), CStr(tmpGPXDiff), txtOutputLength.Text, numVideoTempo.Value)
@@ -2499,7 +2641,7 @@ Public Class MainForm
                 If UsesHardwareVideoEncoder(arg) Then
                     LogMakeVideo += "Hardware video encoder failed. Retrying output video with software HEVC encoder." + vbCrLf
                     If My.Settings.bUseMapTrackingVideo Then
-                        arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor, ForceSoftwareEncode:=True)
+                        arg = ExtraFunc.FFMPeg_MakeParamMapOnVideo(txtOutFilename.Text, My.Settings.TrackMapVideoFilename, GetDeshakedFilename(True), LblGPSDiff.Text, txtOutputLength.Text, numVideoTempo.Value, False, True, My.Settings.txtRealtimeFactor, ForceSoftwareEncode:=True, CutStartSeconds:=GetOutputCutStartSeconds())
                     Else
                         If Not IsNumeric(My.Settings.GPXDiff) Then My.Settings.GPXDiff = "0"
                         tmpGPXDiff = CInt(My.Settings.GPXDiff)
@@ -2517,7 +2659,8 @@ Public Class MainForm
                                                                                widgetPaceVideoFile:=GetSmoothOverlayWidgetPaceVideoPath(),
                                                                                widgetPulseVideoFile:=GetSmoothOverlayWidgetPulseVideoPath(),
                                                                                widgetHGraphVideoFile:=GetSmoothOverlayWidgetHGraphVideoPath(),
-                                                                               ForceSoftwareEncode:=True)
+                                                                               ForceSoftwareEncode:=True,
+                                                                               CutStartSeconds:=GetOutputCutStartSeconds())
                     End If
                     LogMakeVideo += arg + vbCrLf
                     StatusBarUpdate(Texts.Status5)
@@ -2917,10 +3060,7 @@ Public Class MainForm
     Private Function MapFlip(Flip As Boolean, Optional filecheck As Boolean = True)
         If Not Flip Then
             My.Settings.MapFlipActive = False
-            btnQRimg.Enabled = True
-            btnQRxml.Enabled = True
-            txtQRImage.Enabled = True
-            txtXMLfile.Enabled = True
+            ApplyQuickRouteFileMode()
             grpMapFlip.BackColor = SystemColors.Control
             My.Settings.GPXDiff2 = My.Settings.GPXDiff ' save diff
             My.Settings.GPXDiff = My.Settings.GPXDiff1 ' restore 1

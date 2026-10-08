@@ -3,7 +3,6 @@ Imports System.Threading
 Imports OHeadcamMapApp.My.Resources
 Public Class frmSettings
     Private isFormLoading As Boolean = True
-    Private Const DefaultOutputFormat As String = "Auto"
     Private Const DefaultVideoQuality As String = "High"
     Private Const DefaultVideoSpeed As String = "Balanced"
     Private Const DefaultSmoothOverlayFrameStepSeconds As Double = 0.1
@@ -46,8 +45,6 @@ Public Class frmSettings
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        My.Settings.MISmoothFrameStepSeconds = ConvertSmoothFpsToFrameStep(CDbl(numSmooth.Value))
-        My.Settings.OutputFormat = GetSelectedOutputFormat()
         My.Settings.VideoQuality = GetSelectedComboValue(cmbVQuality, DefaultVideoQuality)
         My.Settings.VideoEncoderSpeed = GetSelectedComboValue(cmbVSpeed, DefaultVideoSpeed)
         My.Settings.Save()
@@ -101,28 +98,6 @@ Public Class frmSettings
         If safeFps <= 0 Then safeFps = 1.0 / DefaultSmoothOverlayFrameStepSeconds
         Return 1.0 / safeFps
     End Function
-
-    Private Function GetSelectedOutputFormat() As String
-        If cmbOutputFormat.SelectedItem IsNot Nothing Then
-            Return cmbOutputFormat.SelectedItem.ToString()
-        End If
-
-        If Not String.IsNullOrWhiteSpace(cmbOutputFormat.Text) Then
-            Return cmbOutputFormat.Text.Trim()
-        End If
-
-        Return DefaultOutputFormat
-    End Function
-    Private Sub LoadOutputFormat()
-        Dim savedValue As String = My.Settings.OutputFormat
-        If String.IsNullOrWhiteSpace(savedValue) Then savedValue = DefaultOutputFormat
-
-        If cmbOutputFormat.Items.Contains(savedValue) Then
-            cmbOutputFormat.SelectedItem = savedValue
-        ElseIf cmbOutputFormat.Items.Count > 0 Then
-            cmbOutputFormat.SelectedIndex = 0
-        End If
-    End Sub
 
     Private Sub LoadVideoQualityAndSpeed()
         cmbVQuality.DropDownStyle = ComboBoxStyle.DropDownList
@@ -178,14 +153,12 @@ Public Class frmSettings
         ' CLEANUP-CBNEWMAPF-START:My.Settings.cbNewMapF = True
         My.Settings.VideoPadding = "L"
         My.Settings.MISmoothFrameStepSeconds = CDbl(GetDefault("MISmoothFrameStepSeconds"))
-        My.Settings.OutputFormat = CStr(GetDefault("OutputFormat"))
         My.Settings.VideoQuality = CStr(GetDefault("VideoQuality"))
         My.Settings.VideoEncoderSpeed = CStr(GetDefault("VideoEncoderSpeed"))
         rbImgMiddle.Checked = False
         rbImgRight.Checked = True
         rbImgLeft.Checked = False
         numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
-        LoadOutputFormat()
         LoadVideoQualityAndSpeed()
         My.Settings.Save()
 
@@ -203,7 +176,10 @@ Public Class frmSettings
             My.Settings.MISmoothFrameStepSeconds = DefaultSmoothOverlayFrameStepSeconds
         End If
         numSmooth.Value = ConvertSmoothFrameStepToFps(My.Settings.MISmoothFrameStepSeconds)
-        LoadOutputFormat()
+        cmbOutputFormat.Visible = False
+        Label8.Visible = False
+        numSmooth.Visible = False
+        Label9.Visible = False
         LoadVideoQualityAndSpeed()
         LoadVideoEncoderInfoAsync()
         isFormLoading = False
