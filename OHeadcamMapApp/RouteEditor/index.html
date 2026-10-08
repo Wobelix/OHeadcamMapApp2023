@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Headcam Route Editor</title>
+  <link rel="icon" href="route-editor-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="toolbar" aria-label="Route Editor toolbar">
+    <div class="brand" title="Headcam Route Editor"><span class="brand-mark">⚡</span><span>Route Editor</span></div>
+    <span class="divider"></span>
+    <div class="tool-group"><span class="group-label">Import</span><div class="group-actions">
+      <label class="tool file-tool" title="Import map image"><input id="imageInput" type="file" accept="image/*"><span>▧</span><small>Map</small></label>
+      <label class="tool file-tool" title="Import GPX, TCX or FIT activity"><input id="gpxInput" type="file" accept=".gpx,.tcx,.fit,application/gpx+xml,application/xml,text/xml,application/octet-stream"><span>↗</span><small>Activity</small></label>
+    </div></div>
+    <span class="divider"></span>
+    <div class="tool-group"><span class="group-label">Edit</span><div class="group-actions">
+      <button class="tool mode active" data-mode="view" title="View and pan map (V)"><span>✋</span><small>View</small></button>
+      <button class="tool mode" data-mode="align" title="Place or move anchors (T)"><span>⌖</span><small>Transform</small></button>
+      <button class="tool mode" data-mode="checkpoint" title="Place control (C)"><span>◆</span><small>Control</small></button>
+      <button class="tool mode" data-mode="trimBefore" title="Mark and trim before point"><span>✂◀</span><small>Trim before</small></button>
+      <button class="tool mode" data-mode="trimAfter" title="Mark and trim after point"><span>✂▶</span><small>Trim after</small></button>
+    </div></div>
+    <span class="divider"></span>
+    <button id="undoBtn" class="icon-btn" title="Undo (Ctrl+Z)" disabled>↶</button>
+    <button id="redoBtn" class="icon-btn" title="Redo (Ctrl+Y)" disabled>↷</button>
+    <button id="fitBtn" class="icon-btn" title="Fit map to window">⛶</button>
+    <button id="actualBtn" class="icon-btn" title="Show map at 100%">1:1</button>
+    <div class="spacer"></div>
+    <span id="status" class="status">Choose map and activity</span>
+    <details id="projectMenu" class="menu"><summary>Project <span class="chevron">▾</span></summary><div class="menu-panel">
+      <label class="menu-item file-tool"><input id="projectInput" type="file" accept=".routeproject,application/json"><span>□</span> Open project…</label>
+      <button id="saveProjectBtn" class="menu-item"><span>▤</span> Save project</button>
+    </div></details>
+    <label class="project-name" title="Project and export name"><span>Project name</span><input id="exportName" value="headcam-route"></label>
+    <button id="settingsBtn" class="icon-btn" title="Export settings">⚙</button>
+    <button id="exportBtn" class="export-btn" title="Export QuickRoute-compatible files">✓ <span>Export files</span></button>
+  </header>
+
+  <main class="workspace">
+    <section class="map-pane" id="mapPane">
+      <canvas id="mapCanvas" tabindex="0" aria-label="Map with activity track"></canvas>
+      <div id="emptyState" class="empty-state"><div class="empty-icon">⌁</div><strong>Import a map and an activity</strong><span>GPX, TCX and FIT are supported</span><span>Files are processed locally</span></div>
+      <div class="map-hud"><span id="zoomLabel">100 %</span><span id="pointLabel">—</span></div>
+    </section>
+
+    <aside class="splits-pane">
+      <div class="pane-title"><span>Controls</span><div class="spacer"></div><button id="toggleAnchorsBtn" class="icon-btn subtle" title="Show adjustment anchors">◇</button><button id="deletePointBtn" class="icon-btn subtle" title="Delete selected control/anchor">⌫</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Control</th><th>Split</th><th>Total</th><th></th></tr></thead><tbody id="splitsBody"></tbody></table></div>
+      <div class="help-card" id="modeHelp"></div>
+    </aside>
+
+    <section class="graph-pane">
+      <div class="graph-toolbar"><strong id="graphTitle">Pace</strong><button class="metric active" data-metric="pace">Pace</button><button class="metric" data-metric="speed">Speed</button><button class="metric" data-metric="altitude">Altitude</button><button class="metric" data-metric="heartRate">Heart rate</button><span id="activitySummary" class="activity-summary">—</span><span class="spacer"></span><strong id="metricReadout">—</strong><span id="timeReadout">00:00 / 00:00</span></div>
+      <canvas id="graphCanvas" tabindex="0" aria-label="Activity graph"></canvas>
+      <div id="trimConfirm" class="trim-confirm" hidden><span id="trimConfirmText">Trim at marker?</span><button id="cancelTrimBtn">Cancel</button><button id="acceptTrimBtn" class="accept">✓ Apply</button></div>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog"><form method="dialog">
+    <div class="dialog-title"><h2>Export settings</h2><button value="cancel" class="icon-btn">×</button></div>
+    <div class="settings-grid">
+      <label>Image format<select id="imageFormat"><option value="jpeg">JPG</option><option value="png">PNG</option></select></label>
+      <label>Size<select id="exportScale"><option value="0.25">25 %</option><option value="0.5">50 %</option><option value="0.75">75 %</option><option value="1" selected>100 %</option><option value="1.5">150 %</option><option value="2">200 %</option></select></label>
+      <label>JPG quality<input id="jpegQuality" type="range" min="40" max="100" value="90"><output id="qualityOutput">90</output></label>
+    </div>
+    <label class="check"><input id="compatHeader" type="checkbox" checked> Keep 65-pixel QuickRoute header</label>
+    <label class="check"><input id="drawRouteOnExport" type="checkbox"> Draw the complete route on exported map</label>
+    <fieldset><legend>Data fields</legend><div id="fieldChoices" class="field-choices"></div></fieldset>
+    <p class="note">All activity data remains available. These choices only affect the exported XML.</p>
+    <div class="dialog-actions"><button value="cancel">Cancel</button><button id="saveSettingsBtn" value="default" class="primary">Save</button></div>
+  </form></dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
